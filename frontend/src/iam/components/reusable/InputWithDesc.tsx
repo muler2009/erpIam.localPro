@@ -2,11 +2,13 @@ import React, { useState, useRef } from "react";
 import { InputInterface } from "../interface/Input-select.interface";
 
 
-const InputWithDesc = ({id, type, name, placeholder, onChange, value, label, className, label_description= "", desc="Optional", disabled }: InputInterface) => {
+const InputWithDesc = ({id, type, name, placeholder, onChange, value, label, className, label_description= "", desc="Optional", icon, disabled }: InputInterface) => {
   return (
     <div className="flex flex-col gap-2 text-sm w-full">
       <div className="flex flex-col gap-0">
-        <label htmlFor={name} className="text-[15px] whitespace-nowrap font-Rubik">{label}</label>
+        <label htmlFor={name} className="flex items-center text-[15px] whitespace-nowrap font-Rubik text-[#333] text-opacity-80">
+          <span className="pr-1">{icon}</span>{label}
+        </label>
         <p className="text-[12px] text-[#333] text-opacity-50">{label_description}</p>
 
       </div>

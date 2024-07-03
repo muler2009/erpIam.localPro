@@ -49,11 +49,11 @@ const useGroupColumn = () => {
                     return(
                         <div className='flex relative'>
                             <FaIcons.FaUserCircle size={20}/>
-                            <div className=' flex justify-center items-center'>
+                            {/* <div className=' flex justify-center items-center'>
                                 <span className='absolute -top-2 left-[10%] w-4 h-4 rounded-full border flex items-center justify-center bg-red-700 text-white text-[10px]'>
                                     {row.original.members.length}
                                 </span>
-                            </div>
+                            </div> */}
                         </div>
                     )
                 },

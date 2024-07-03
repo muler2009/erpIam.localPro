@@ -51,6 +51,21 @@ export interface UserAccountColumnsInterface {
     action?: unknown
 }
 
+export interface ContextType {
+  userData: UserAccountInterfacee;
+  setUserData: React.Dispatch<React.SetStateAction<UserAccountInterfacee>>
+  handleUserIdentityCreationInputChanges: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
+  canSave: boolean;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  userCreationStep: { [key: number]: string };
+  disableNext: boolean;
+  disablePrev: boolean;
+  prevHide?: string; // Make it nullable
+  nextHide: string;
+  submitHide: string;
+  canSubmit: boolean;
+}
 
 export interface UserAccountDataInterface {
     firstName: string;
@@ -64,21 +79,7 @@ export interface UserAccountDataInterface {
     isStaff?: boolean;
 }
 
-export interface ContextType {
-  newUserAccount: UserAccountInterface;
-  setUserNewAccount: React.Dispatch<React.SetStateAction<UserAccountInterface>>
-  handleUserCreateInputChanges: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
-  canSave: boolean;
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  userCreationStep: { [key: number]: string };
-  disableNext: boolean;
-  disablePrev: boolean;
-  prevHide?: string; // Make it nullable
-  nextHide: string;
-  submitHide: string;
-  canSubmit: boolean;
-}
+
 
 /** After the document management system  */
 export interface UserAccountInterfacee {
@@ -87,6 +88,7 @@ export interface UserAccountInterfacee {
   username: string;
   email:string;
   userId?: number; 
+  password?: string,
   group?: string; 
   home_directory?: string;
   account_created_at?: string | undefined; 
@@ -94,6 +96,13 @@ export interface UserAccountInterfacee {
   is_staff?: boolean;
   is_active?: boolean; 
   is_superuser?: boolean;
+}
+
+export interface UserAccoountWithRestriction extends UserAccountInterfacee {
+  system_username?: boolean;
+  system_password?: boolean;
+  passwordType?: string;
+  autoPassword?: string;
 }
 
 export interface UserCoulumn extends UserAccountInterfacee {
@@ -106,8 +115,33 @@ export interface UserAPIResponse extends UserAccountInterfacee{
   // data: UserAccountInterfacee[]
 }
 
-
 export interface TableHeaderProps {
   headerColElement: Header<UserAccountInterfacee, unknown>;
   index?: number;
 }
+
+export interface IdentityContextType {
+  userData: UserAccountInterfacee;
+  setUserData: React.Dispatch<React.SetStateAction<UserAccountInterfacee>>
+  handleUserIdentityCreationInputChanges: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
+  canSave: boolean;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  userCreationStep: { [key: number]: string };
+  disableNext: boolean;
+  disablePrev: boolean;
+  prevHide?: string; // Make it nullable
+  nextHide: string;
+  submitHide: string;
+  canSubmit: boolean;
+}
+
+
+
+
+
+
+
+
+
+

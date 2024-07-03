@@ -4,7 +4,7 @@ import { Input, ModalBody, ModalContainer, ModalFooter, ModalHeader, ModalWrappe
 import { ModalProps } from '../../../models/user.model';
 import { useGetRolesQuery } from '../../../features/roleAPI';
 import UserDetail from '../user/views/UserDetail';
-import { CreateUserAccountContextProvider } from '../user/context/CreateUserAccountContext';
+// import { CreateUserAccountContextProvider } from '../user/context/CreateUserAccountContext';
 import * as GrIcons from 'react-icons/gr'
 import useCreateUserAccount from '../user/context/useCreateUserAccount';
 import { LiaStackExchange } from "react-icons/lia";
@@ -40,7 +40,7 @@ const CreateNewAccount = ({setIsOpen, isOpen, title} : ModalProps) => {
 
     console.log(Object.values(userCreationStep))
     return isOpen ? (
-        <CreateUserAccountContextProvider>
+        // <CreateUserAccountContextProvider>
             <SelectedRowContextProvider>
                 <form onSubmit={(event) => event.preventDefault()}>
                     <ModalWrapper>
@@ -103,7 +103,7 @@ const CreateNewAccount = ({setIsOpen, isOpen, title} : ModalProps) => {
                 </form>
 
             </SelectedRowContextProvider>
-        </CreateUserAccountContextProvider>
+        // </CreateUserAccountContextProvider>
       ) : null;
 }
 

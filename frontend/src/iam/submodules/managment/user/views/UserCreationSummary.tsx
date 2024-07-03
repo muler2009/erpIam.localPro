@@ -1,9 +1,9 @@
 import React from 'react'
 import GroupList from '../../groups/groupviews/GroupList'
-import useUserContext from '../context/useUserContext'
+// import useUserContext from '../context/useUserContext'
 import { useSelectedRowContext } from '../../../../components/Table/CustomTable'
 const UserCreationSummary = () => {
-  const {newUserAccount} = useUserContext()
+  // const {newUserAccount} = useUserContext()
   const { selectedRows, setSelectedRows } = useSelectedRowContext()
 
   
@@ -18,7 +18,7 @@ const UserCreationSummary = () => {
       <div className='flex flex-col gap-2'>
         <h1 className='font-Rubik text-[#000] text-opacity-50 pt-6'>User Detaiil</h1>
         <div className='summary w-2/3'>
-           <table className='table'>
+           {/* <table className='table'>
               <tbody>
                 <tr>
                   <td>Username</td>
@@ -41,7 +41,7 @@ const UserCreationSummary = () => {
                   <td className={`whitespace-nowrap ${newUserAccount?.group === '' && 'text-red-700 text-opacity-80'}`}>{newUserAccount?.group || 'Not Available'}</td>
                 </tr>
               </tbody>
-            </table>
+            </table> */}
          
           {/* <div className='flex flex-col gap-2 text-sm text-right font-bold'>
               <h1>Username</h1>

@@ -6,7 +6,7 @@ import GroupTable from '../../../../components/Table/GroupTableUI'
 import useCreateUserAccount from '../context/useCreateUserAccount'
 import * as AiIcons from 'react-icons/ai'
 import { group } from 'console'
-import useUserContext from '../context/useUserContext'
+// import useUserContext from '../context/useUserContext'
 import CustomTable, { SelectedRowContextProvider } from '../../../../components/Table/CustomTable'
 
 interface Group {
@@ -26,12 +26,9 @@ const AssignUserToGroup = () => {
 
     const handleIsOpenCloseMenu = useCallback(() => {setIsOpen(prevOpen => !prevOpen)}, [isOpen])
     const {data, isSuccess, isLoading} = useGetGroupsQuery()
-    const { newUserAccount } = useUserContext()
+    // const { newUserAccount } = useUserContext()
 
-    const handleClicke = () => {
-      console.log(newUserAccount)
-
-    }
+    
 
   return (
     <>
@@ -66,7 +63,7 @@ const AssignUserToGroup = () => {
       </div>
      
       
-        <button className='bg-green-500 text-white' onClick={handleClicke}>Click</button> 
+        {/* <button className='bg-green-500 text-white' onClick={handleClicke}>Click</button>  */}
       
 
       <CreateGroups isOpen={isOpen} handleIsOpenCloseMenu={handleIsOpenCloseMenu} title="New Group" />

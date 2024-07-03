@@ -7,6 +7,7 @@ import * as IoIcons  from "react-icons/io5";
 import {CreateNewAccount, CreateUserAccount1} from '../../modals'
 import { AiFillAccountBook } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import CreateUserIdentity from '../views/user-modals/CreateUserIdentity'
 
 const UserLayout = () => {
  
@@ -80,7 +81,7 @@ const UserLayout = () => {
       {/* { isOpen && identityProps[activeTabIndex].abbrevation === 'SingleNewID' && ( <CreateNewAccount isOpen={isOpen} setIsOpen={setIsOpen} title="New identity" /> ) }
       { isOpen && identityProps[activeTabIndex].abbrevation === 'MultiNewID' && ( <CreateUserAccount1 isOpen={isOpen} setIsOpen={setIsOpen} title="For the notofivation" /> ) } */}
       {
-        isOpen && ( <CreateNewAccount isOpen={isOpen} setIsOpen={setIsOpen} title="New identity" /> )
+        isOpen && ( <CreateUserIdentity isOpen={isOpen} setIsOpen={setIsOpen} title="New identity" /> )
       }
     </>
   )

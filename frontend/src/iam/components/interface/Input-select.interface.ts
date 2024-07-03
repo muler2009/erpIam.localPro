@@ -7,6 +7,7 @@ export interface InputInterface {
     type: string,
     name: string,
     placeholder: string,
+    icon?: React.ReactElement;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
     value?: valueProps,
     label?: string,

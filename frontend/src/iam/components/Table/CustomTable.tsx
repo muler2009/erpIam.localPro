@@ -1,7 +1,7 @@
 import React, {useState, useContext, createContext} from 'react'
 import { GroupAPIResponse, GroupInterface } from '../../models/group.model'
 import { useGetGroupsQuery } from '../../features/groupsAPI'
-import useUserContext from '../../submodules/managment/user/context/useUserContext'
+// import useUserContext from '../../submodules/managment/user/context/useUserContext'
 
 type TData = {
     data: string
@@ -42,7 +42,7 @@ export const SelectedRowContextProvider = ({ children }: ChildenType) => {
 const CustomTable = () => {
     const {data} = useGetGroupsQuery()
     const [selectedRows, setSelectedRows] = useState<number[]>([]);
-    const {newUserAccount, setUserNewAccount, handleUserCreateInputChanges} = useUserContext()
+    // const {newUserAccount, setUserNewAccount, handleUserCreateInputChanges} = useUserContext()
 
      
     const getAttachedGroup = (id: number): string => {
@@ -50,19 +50,19 @@ const CustomTable = () => {
       return selectedRow?.group_abbreviation || '';
     };
 
-    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
-      setSelectedRows([id]);
-      setUserNewAccount?.((prevUserAccount) => ({
-        ...prevUserAccount,
-        group: getAttachedGroup(id),
-      }));
-    };
+    // const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
+    //   setSelectedRows([id]);
+    //   setUserNewAccount?.((prevUserAccount) => ({
+    //     ...prevUserAccount,
+    //     group: getAttachedGroup(id),
+    //   }));
+    // };
   
   
     return (
         <>
           <div className='border py-2 my-2'>
-            <p> User Attached to group:  {newUserAccount?.group}</p>
+            {/* <p> User Attached to group:  {newUserAccount?.group}</p> */}
           </div>
           <div className='group'>
             <table className='table table-striped'>
@@ -85,8 +85,8 @@ const CustomTable = () => {
                           <input
                             type='radio'
                             name='gChecked'
-                            checked={isChecked || newUserAccount?.gChecked}
-                            onChange={(event) => handleRadioChange(event, rowId)}
+                            // checked={isChecked || newUserAccount?.gChecked}
+                            // onChange={(event) => handleRadioChange(event, rowId)}
                           />
                         </td>
                         <td>{group.group_abbreviation}</td>

@@ -2,13 +2,13 @@ import React, { useState, useContext } from 'react'
 import { Input, InputWithDesc } from '../../../../components/reusable'
 import { Link } from 'react-router-dom'
 import useCreateUserAccount from '../context/useCreateUserAccount'
-import useUserContext from '../context/useUserContext'
-import CreateUserAccountContext from '../context/CreateUserAccountContext'
+// import useUserContext from '../context/useUserContext'
+// import CreateUserAccountContext from '../context/CreateUserAccountContext'
 
 
 const UserDetail = () => {
 
-  const { newUserAccount, handleUserCreateInputChanges } = useUserContext()
+//   const { newUserAccount, handleUserCreateInputChanges } = useUserContext()
 
   return (
     <div className='flex flex-col gap-2 px-16'>
@@ -20,7 +20,6 @@ const UserDetail = () => {
                 </div>
             </div>
             <div className='mt-4 flex space-x-10'>
-               
                 <Input 
                     label='Email *'
                     id= 'email_input'
@@ -28,8 +27,8 @@ const UserDetail = () => {
                     placeholder='Email'
                     name='email'
                     className='input-md font-Poppins text-[13px]'
-                    value={newUserAccount?.email}
-                    onChange={handleUserCreateInputChanges}
+                    // value={newUserAccount?.email}
+                    // onChange={handleUserCreateInputChanges}
                 />
                 <Input 
                     label='Username *'
@@ -38,8 +37,8 @@ const UserDetail = () => {
                     placeholder='Username'
                     name='username'
                     className='input-md font-Poppins text-[13px]'
-                    value={newUserAccount?.username}
-                    onChange={handleUserCreateInputChanges}
+                    // value={newUserAccount?.username}
+                    // onChange={handleUserCreateInputChanges}
                 />
 
           
@@ -66,8 +65,8 @@ const UserDetail = () => {
                             id="accessType_input" 
                             className="w-4 h-4 rounded-[2px] appearance-auto checked:appearance-none checked:bg-gray-500 before:checked:text-white "
                             name='accessType'
-                            checked={newUserAccount?.accessType || false}
-                            onChange={handleUserCreateInputChanges} 
+                            // checked={newUserAccount?.accessType || false}
+                            // onChange={handleUserCreateInputChanges} 
                         />
                         <h1 className='text-[12px] whitespace-nowrap font-Poppins text-red-600 text-opacity-80'>Programatic Access ??</h1>
                     </label>
@@ -77,8 +76,8 @@ const UserDetail = () => {
                             id="authentication_input" 
                             className="w-4 h-4 rounded-[2px] appearance-auto checked:appearance-none checked:bg-gray-500 before:checked:text-white " 
                             name='authentication'
-                            checked={newUserAccount?.authentication}
-                            onChange={handleUserCreateInputChanges}
+                            // checked={newUserAccount?.authentication}
+                            // onChange={handleUserCreateInputChanges}
                         />
                         <h1 className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>Authentication Mechanism</h1>
                     </label>
@@ -87,7 +86,7 @@ const UserDetail = () => {
                 </div>
             </div>
             {/* Access password setting section */}
-            <div className='flex-grow pl-2 '>
+            {/* <div className='flex-grow pl-2 '>
                 {
                     newUserAccount?.authentication ? (
                         <div className={`flex flex-col gap-3 pt-5 bg-gray-50 px-5 pb-10 border-l ${!newUserAccount.authentication && 'transition duration-800 ease-in-out'}`}>
@@ -167,7 +166,7 @@ const UserDetail = () => {
                         </div>
                     ): null
                 }
-            </div>
+            </div> */}
         </div>
     </div>
   )
