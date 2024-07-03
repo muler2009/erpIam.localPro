@@ -1,0 +1,53 @@
+/*Custom Cascading sheet*/
+
+.custom-arrow { @apply absolute top-0 right-0 block bg-gray-200 h-full w-[30px] pointer-events-none}
+.custom-arrow::before,
+.custom-arrow::after {
+  --size: 0.5em;
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.custom-arrow::before{
+  border-left: var(--size) solid transparent ;
+  border-right: var(--size) solid transparent;
+  border-bottom: var(--size) solid rgba(46, 41, 41, 0.5);  
+  top: 35%;
+}
+
+.custom-arrow::after{
+  border-left: var(--size) solid transparent ;
+  border-right: var(--size) solid transparent;
+  border-top: var(--size) solid rgba(46, 41, 41, 0.5);  
+  top:65%;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "\2714";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+}
+
+select[multiple] option:checked {
+  background-color: blue !important;
+  color: white !important;
+}
+
+/* input[type="checkbox"] {
+  background-color: white;
+  appearance: auto;
+  
+}
+
+input[type="checkbox"]:checked {
+  appearance: none;
+  border: 2px solid green;
+  background-color: lightgreen;
+} */

@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+/* defining the base css here  */
+
+::-webkit-scrollbar {
+  width: 0px;
+  cursor: pointer;
+  background: transparent;
+}
+
+
+@layer base {
+    /* body{ @apply flex flex-col min-h-screen w-full overflow-scroll } */
+    body {
+      @apply sm:w-full md:w-full lg:w-full xl:w-full;
+    }
+  
+    footer {
+      @apply fixed bottom-0 bg-slate-200 sm:w-full md:w-full lg:w-full;
+    }
+    button {
+      @apply h-[40px] leading-5 align-middle cursor-pointer rounded-[3px];
+    }
+    input {
+      @apply block w-full;
+    }
+    textarea {
+      @apply block w-full;
+    }
+  }
+
+
+  @layer components {
+    
+    .crelative:hover .cabsolute {
+      display: block;
+    }
+    .cabsolute:after {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: -10px;
+      left: 50%; 
+    }
+    .btn { @apply flex items-center justify-center p-4 }
+    .btn-sm { @apply h-[30px] text-sm font-Poppins font-normal }
+    .btn-text { @apply text-center font-Quicksand text-[16px] font-normal text-black }
+
+    /*Input tag css*/
+    .input-sm { @apply px-2 py-1 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition
+                    ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none }
+    .input-md { @apply px-2 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-[3px] transition
+        ease-in-out m-0 focus:text-gray-700 focus:outline-none focus:bg-gray-50}
+    input[type="text"]:focus ~ .input-text,
+    input[type="password"]:focus ~ .input-password,
+    input[type="text"]:not(:placeholder-shown) ~ .input-text,
+    input[type="password"]:not(:placeholder-shown) ~ .input-password{
+        @apply text-[17px] font-Poppins transform -translate-y-5 -translate-x-2 scale-75 border-l-[1px] border-r-[1px] px-4 border-inherit border-green-600 ;
+      }
+     /*select tag css*/  
+    .select-sm {
+      @apply w-full block px-4 py-1 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none;
+    }
+    .select-md { @apply w-full px-2 py-2 pb-[0.4rem] text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition
+      ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:outline-none duration-500}
+ 
+    /* table css */
+    .table { @apply w-full font-Poppins text-[14px] bg-[#ffffff] m-0 cursor-pointer text-sm } 
+    .table-border { @apply w-full border-zinc-500 font-Poppins text-[14px] cursor-pointer text-sm text-left }    
+    .table-border > thead { @apply border-t-[1px] border-b-[1px]; }
+   
+    /* custom css for the table thead  */
+    .table > thead > tr > th { @apply font-normal py-2 px-4 border-[1px] border-b-2 border-gray-300 text-left; }
+    .table > thead { @apply border-t-[1px] border-b-[1px] py-2; }
+    
+     /* end of the custom css for the table tbody  */
+     .table > :not(caption) > * > * {
+      padding: 0.5rem 0.5rem;
+      background-color: var(--bs-table-bg);
+      border-bottom-width: 1px;
+      box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+    }
+    .table > tbody > th,
+    .table > tbody td {
+      @apply font-normal;
+    }
+   
+    .table-striped > tbody > tr:nth-of-type(odd) { @apply bg-[#eee] }
+    .table-striped > tbody > tr:nth-of-type(even) { @apply bg-white }
+   
+    /* Admin styling*/
+    
+    .user {@apply h-full border-2 border-black } 
+    .user > .table > thead { @apply  border-b-[1px] bg-black}
+    .user > .table > thead > tr > th { @apply border-none py-4 px-5 font-Poppins font-semibold tracking-wide leading-[1.2] text-[#0b2239] text-opacity-70 bg-gray-50 text-[13px]}
+    .user > .table > thead > tr > th:first-child {@apply w-[40px] whitespace-nowrap}
+    .user > .table > tbody > tr > td { @apply py-3 text-[#333] text-opacity-80 text-[13px] px-5}
+    .user > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
+    .user > .table > tbody  { @apply border-b-[1px] px-5}
+    .user > .table > tbody  { @apply border-b-[1px] px-5}
+    .user > .table > tbody > tr > td:first-child {@apply border-r pr-4 py-2}
+    th .menu { @apply invisible; }
+    th:hover .menu { @apply visible; }
+
+
+    /* .user > .table > thead > tr > th:last-child { @apply w-[3%]} */
+
+    .role > .table > thead { @apply  border-b-[1px] bg-opacity-40}
+
+    .role > .table > thead > tr > th { @apply border-none py-3 px-5 font-Rubik leading-[1.2] text-[#0b2239] bg-gray-50 text-[13.5px]}
+    .role > .table > tbody > tr > td { @apply py-3 text-[#333] text-opacity-40 text-[13px]}
+    .role > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
+    .role > .table > thead > tr > th:last-child { @apply w-[3%]}
+    .role .table-striped > tbody > tr:nth-of-type(odd), 
+    .role > .table-striped > tbody > tr:nth-of-type(even) { @apply bg-white }
+
+    .group > .table > thead > tr > th { @apply border-none py-3 font-Rubik leading-[1.2] text-[#0b2239] bg-gray-50 text-[13.5px]}
+    .group > .table > tbody > tr { @apply cursor-pointer}
+    .group > .table > tbody > tr > td { @apply py-3 text-[#333] text-opacity-80 text-[13px] }
+    .group > .table > thead > tr > th:first-child{@apply w-[5%] whitespace-nowrap}
+  
+
+    .nested-group > .table { @apply w-full font-Poppins text-[14px] bg-[#ffffff] m-0 cursor-pointer text-sm h-[10px] overflow-y-scroll } 
+    .nested-group > .table-border { @apply w-full border-zinc-500 font-Poppins text-[14px] cursor-pointer text-sm text-left }    
+    .nested-group > .table-border > thead { @apply border-none; }
+    .nested-group > .table-border > tbody { @apply border-none; }
+    .nested-group > .table > thead > tr > th { @apply border-none font-Rubik leading-[1.2] text-[#0b2239] bg-gray-50 bg-opacity-25 text-[12px]}
+    .nested-group > .table > tbody > tr > td { @apply pl-5 py-2 text-[#333] text-opacity-80 text-[13px] border-none}
+    .nested-group > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
+    .nested-group > .table > thead > tr > th:first-child{@apply w-[4%] whitespace-nowrap}
+    .nested-group > .table > tbody > tr > td:first-child {@apply pr-4 pl-10}
+
+    .nested-group > .table-striped > tbody > tr:nth-of-type(odd) { @apply bg-white}
+    .nested-group > .table-striped > tbody > tr:nth-of-type(even) { @apply bg-[#eee] bg-opacity-20}
+
+
+    .custom-td {
+      padding: 0 !important;
+      margin: 0 !important;
+      /* You can also add other styles as needed */
+    }
+
+
+
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    @apply hover:opacity-100 transform -translate-x-10;
+    z-index: 10;
+  }
+   
+  .remove-button {
+    display: none;
+  }
+  
+  .border-none {
+    border: none;
+  }
+}

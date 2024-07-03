@@ -1,0 +1,106 @@
+from rest_framework import serializers
+from users.models import UserAccountsModel
+from utils.custom_exception_handler import AlreadyExists
+from rest_framework.validators import UniqueValidator
+from rest_framework.exceptions import ValidationError 
+from rest_framework.response import Response
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+# from .posixGroupSerializer import GetGroupSerializer
+
+
+class UsernameAndEmailUniqueValidator(UniqueValidator):
+    def __init__(self, queryset, message=None, lookup='exact'):
+        super().__init__(queryset, message, lookup)  
+        
+    def __call__(self, value, serializer_field):
+        
+        queryset = self.queryset.filter(**{serializer_field.field_name: value})      
+        if queryset.exists():
+            raise ValidationError(str(self.message))
+        
+        return super().__call__(value, serializer_field)        
+        
+
+class CreateLDAPUserSerializer(serializers.ModelSerializer):  
+    is_staff = serializers.BooleanField(default=False)
+    username = serializers.CharField(validators=[UsernameAndEmailUniqueValidator(queryset=UserAccountsModel.objects.all(), message="Username exists")])
+    email = serializers.CharField(validators=[UsernameAndEmailUniqueValidator(queryset=UserAccountsModel.objects.all(), message="Email already taken exists")])  
+  
+
+    class Meta:
+        model = UserAccountsModel
+        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'is_staff', 'group']
+        extra_kwargs = {
+            'user_account_id': {'read_only': True}, # exculde on deserialization
+            'password': {'write_only': True} # exculde on serialization
+        }
+                  
+    def validate_empty_values(self, data):
+        """
+            validation for empty values and raise the validation error for serilizer 
+        """
+        error_dict = {}
+        
+        for key, value in self.fields.items():
+            validate_data = data.get(key, "")
+            if not validate_data:
+                model_field = self.Meta.model._meta.get_field(key)
+                if not model_field.blank:
+                    error_dict[key] = f"{key} is Required Field"
+                    break
+            # elif key == 'groups':
+            #     # Check if value is a valid primary key
+            #     if not isinstance(value, int):
+            #         error_dict[key] = f"{key} must be of type int"
+            elif not isinstance(validate_data, str):
+                error_dict[key] = f"{key} must be type {value.__class__.__name__}"
+                break
+                
+        if error_dict:
+            raise serializers.ValidationError(error_dict)       
+        return super().validate_empty_values(data)
+    
+    
+    def validate_password(self, password):
+        """
+            Password validation against AUTH_PASSWORD_VALIDATOR rule defined in django
+        """
+        try:
+            validate_password(password=password)
+        except ValidationError as exc:
+            raise serializers.ValidationError(str(exc))
+
+        return password   
+        
+    # def create(self, validated_data):
+    #     password = validated_data.pop('password', None)
+    #     useraccount = UserAccountsModel.objects.create(**validated_data)
+        
+    #     if password:
+    #         validate_password(password=password)
+    #         useraccount.set_password(password)
+        
+    #     useraccount.save()
+    #     return useraccount
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        user = UserAccountsModel(**validated_data)
+        user.set_password(password)  # This will set the plain password and hash it
+        print(f"Plain password in serializer: {user._plain_password}")
+        user.save()
+        return user
+
+
+    def update(self, instance, validated_data):
+        for key, value in validated_data.items():
+            if key == 'password':
+                password = validated_data.pop('password')
+                if password:
+                    validate_password(password=password)
+                    instance.set_password(password)
+            else:
+                setattr(instance, key, value)
+
+        instance.save()    
+        return instance
