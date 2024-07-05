@@ -1,18 +1,14 @@
 import React, { useState } from 'react'
-import { UserAccoountWithRestriction } from '../../../../models/user.model'
+import { UserAccountInterfacee } from '../../../../models/user.model'
 
-const useUserIdentityProps = () => {
-
+const useAccountProps = () => {
+    const userCreationStep = {
+        0: "Account Detail",
+        1: "Assign Group"    
+    }     
     const [page, setPage] = useState(0)
 
-    const userCreationStep = {
-        "0": "UserDetail",
-        "1": "Permission",
-        "2": "Preview",
-        // 3: "Complete"    
-    }
-
-    const [userData, setUserData] = useState<UserAccoountWithRestriction>({
+    const [userData, setUserData] = useState<UserAccountInterfacee>({
         first_name: "",
         last_name: "",
         username: "",
@@ -22,12 +18,13 @@ const useUserIdentityProps = () => {
         home_directory: "",
         account_created_at: "",
         account_modified_at: "", 
-        is_staff: true,
+        is_staff: false,
         is_active: true, 
-        is_superuser:  false
+        is_superuser: false
     })
 
-    const canSave = [...Object.values(setUserData)].every(Boolean)
+    // const canSave = [...Object.values(setUserData)].every(Boolean)
+    const canSave = Object.values(userData).every(value => Boolean(value));
 
     const disablePrev = page === 0;
 
@@ -35,20 +32,24 @@ const useUserIdentityProps = () => {
 
     const prevHide = page === 0 && "remove-button"
 
-    const nextHide = page === Object.keys(userCreationStep).length - 1 && "remove-button"
+    const nextHide = page === Object.keys(userCreationStep).length - 1 && "remove-button" 
 
     const submitHide = page !== Object.keys(userCreationStep).length - 1 && "remove-button"
 
-    const canSubmit = [...Object.values(userData)].every(Boolean) && page === Object.keys(userCreationStep).length - 1
+    const handlePrev = () => setPage(prev => prev - 1)
+   
+    const handleNext = () => setPage(prev => prev + 1)
 
+    // const canSubmit = [...Object.values(userData)].every(Boolean) && page === Object.keys(userCreationStep).length - 1
+    const canSubmit = Object.values(userData).every(value => Boolean(value)) && page === Object.keys(userCreationStep).length - 1;
 
     const handleUserIdentityCreationInputChanges = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         const { type, name } = event.target
         const value = type === 'checkbox' ? (event.target as HTMLInputElement).checked  : event.target.value
-        setUserData((prev => ({
-            ...prev,
+        setUserData({
+            ...userData,
             [name]: value
-        })))
+        })
     }
  
     return{
@@ -64,8 +65,10 @@ const useUserIdentityProps = () => {
         submitHide,
         setUserData,
         userCreationStep,
+        handlePrev,
+        handleNext,
         handleUserIdentityCreationInputChanges
     }
 }
 
-export default useUserIdentityProps
+export default useAccountProps

@@ -2,13 +2,13 @@ import React from 'react'
 import { ModalProps } from '../../../../../models/user.model'
 import { ModalBody, ModalContainer, ModalHeader, ModalWrapper, Input, ModalFooter } from '../../../../../components/reusable'
 import * as Vsc from 'react-icons/vsc'
-import { UserIdentityContextProvider } from '../../context/UserIdentityContext'
-import useUserIdentityProps from '../../context/useUserIdentityProps'
 import UserDetail from '../UserDetail'
 import Permission from '../Permission'
 import IdentityRegistrationForm from './IdentityRegistrationForm'
 import IdentityAssignment from './IdentityAssignment'
 import * as GrIcons from 'react-icons/gr'
+import useAccountProps from '../../context/useAccountProps'
+import { UserAccountContextProvider, useUserAccount } from '../../context/UserAccountContext'
 
 interface UserContainerInterface {
     [key: number]: React.ReactNode;
@@ -16,24 +16,18 @@ interface UserContainerInterface {
 
 const CreateUserIdentity = ({setIsOpen, isOpen, title} : ModalProps) => {
 
-const {prevHide, submitHide, nextHide, disableNext, disablePrev, setPage, page, userCreationStep, userData, handleUserIdentityCreationInputChanges} = useUserIdentityProps()
-
-const handlePrev = () => setPage(prev => prev - 1)
-   
-const handleNext = () => setPage(prev => prev + 1)
-     
+const {prevHide, submitHide, nextHide, disableNext, disablePrev, setPage, page=0, userCreationStep, userData, handleNext, handlePrev} = useUserAccount() || {}
+ 
 const display: UserContainerInterface = {
     0: <IdentityRegistrationForm />,
     1: <IdentityAssignment />,
-    // 2: <UserCreationSummary />,
-    // 3: <CompleteUserCreation />  
+ 
 }
 
   return isOpen ? (
-    <UserIdentityContextProvider>
-
+    <UserAccountContextProvider>
         <ModalWrapper>
-            <ModalContainer className={`w-[40%] h-60vh mx-auto bg-[#fff] flex flex-col gap-4 relative top-[6%] shadow-2xl`} >
+            <ModalContainer className={`w-[40%] mx-auto bg-[#fff] flex flex-col gap-4 relative top-[6%] shadow-2xl`} >
                 <ModalHeader className='flex justify-between items-center px-5 py-3 border-b-[1px]'>
                     <h1 className='font-Rubik text-black font-semibold text-[15px] text-opacity-50 text-center px-5'>
                         {title}
@@ -43,8 +37,8 @@ const display: UserContainerInterface = {
                         <Vsc.VscClose size={15} />
                     </div>
                 </ModalHeader>
-                <ModalBody className='bg-white relative'>
-                    <div className='after:absolute after:bg-gray-100 after:h-[1px] after:w-full after:top-[6%] after:px-1'>
+                <ModalBody className='bg-white relative h-[70vh] '>
+                    {/* <div className='after:absolute after:bg-gray-100 after:h-[1px] after:w-full after:top-[6%] after:px-1'>
                         <div className='flex justify-between pl-5 pb-1 border-opacity-80 border-gray-100 sticky top-0 bg-white'>
                             {
                                 Object.keys(userCreationStep)?.map((title, index) => {
@@ -52,14 +46,14 @@ const display: UserContainerInterface = {
                                     return(
                                         <div key={index} className={`${isActive && 'relative'}`}>
                                             <p className={`font-Poppins px-2 text-sm text-[#333] text-opacity-60 ${isActive && 'text-green-600 after:border-b after:border-green-900 after:absolute after:bg-green-100 after:h-[1px] after:w-full after:top-[100%] after:left-0'} pb-4`}>
-                                                {userCreationStep[title as keyof typeof userCreationStep]}
+                                                {userCreationStep["0"]}
                                             </p>             
                                         </div>        
                                     )
                                 })
                             }   
                         </div>                        
-                    </div>
+                    </div> */}
                 <div className='flex flex-col'>
                     {display[page]}
                 </div>
@@ -81,13 +75,20 @@ const display: UserContainerInterface = {
                             </div>
                         </button>
 
-                        <button className={`btn-sm stext-[12px] px-4 rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${submitHide}`}>Cretae user</button>
+                        <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${submitHide}`}>
+                        <div className='flex justify-start items-center '>
+                                <p className='font-Poppins text-[14px]'>Create</p>
+                                <GrIcons.GrFormNext size={15} />
+                            </div>
+                        </button>
+
+
                     </div>
                 </ModalFooter>
     
             </ModalContainer>
         </ModalWrapper>
-    </UserIdentityContextProvider>
+    </UserAccountContextProvider>
     
       ): null
 }

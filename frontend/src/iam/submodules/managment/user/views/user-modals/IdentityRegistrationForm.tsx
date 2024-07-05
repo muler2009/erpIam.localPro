@@ -1,14 +1,14 @@
 import React from 'react'
 import { FlexInnerContainer, FlexOuterContainer, Text } from '../../../../../components/reusable/StyledComponent'
 import { Input , InputWithDesc} from '../../../../../components/reusable'
-import useUserIdentityProps from '../../context/useUserIdentityProps'
 import  * as RiIcons from "react-icons/ri";
 import * as BiIcons from 'react-icons/bi'
+import useAccountProps from '../../context/useAccountProps';
 
 
 const IdentityRegistrationForm = () => {
 
-  const { userData, handleUserIdentityCreationInputChanges } = useUserIdentityProps()
+  const { userData, handleUserIdentityCreationInputChanges } = useAccountProps()
 
   return (
    <FlexOuterContainer className='flex flex-col px-5 mt-10'>
@@ -44,35 +44,35 @@ const IdentityRegistrationForm = () => {
           <span className='pr-1'><RiIcons.RiAccountCircleFill /></span>Username
         </Text>
         <FlexInnerContainer className='flex w-full'>
-          <div className='flex flex-col w-1/4'>
+          <div className='flex flex-col'>
             <label className='flex items-center justify-start space-x-2 cursor-pointer'>
               <input 
                   type="radio" 
                   name='passwordType'
                   value="autoPassword"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                  checked={userData?.passwordType === 'autoPassword'} 
+                  checked={userData?.password === 'autoPassword'} 
                   onChange={handleUserIdentityCreationInputChanges}  
               />
                 <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>Generate Username Automatically</Text>
             </label>  
             <p className='text-[11px] px-6 text-[#333] text-opacity-60'>Click the radio box to generate username automatically for the user</p>
           </div>
-          <div className='flex flex-col w-2/3'>
+          <div className='flex flex-col'>
             <label className='flex items-center justify-start space-x-1 cursor-pointer'>
                 <input 
                     type="radio" 
                     name='passwordType' 
                     value='customPassword'
                     className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    checked={userData?.passwordType === 'customPassword'} 
+                    checked={userData?.password === 'customPassword'} 
                     onChange={handleUserIdentityCreationInputChanges}
                 />
                 <h1 className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>Manually set the username</h1>
             </label>
             <div className=''>
                 {
-                    userData?.passwordType === 'customPassword' ? (
+                    userData?.password === 'customPassword' ? (
                         <InputWithDesc 
                             id= 'password_input'
                             type='password'
@@ -112,7 +112,7 @@ const IdentityRegistrationForm = () => {
                   name='passwordType'
                   value="autoPassword"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                  checked={userData?.passwordType === 'autoPassword'} 
+                  checked={userData?.password === 'autoPassword'} 
                   onChange={handleUserIdentityCreationInputChanges}  
               />
                 <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>Generate Password Automatically</Text>
@@ -126,14 +126,14 @@ const IdentityRegistrationForm = () => {
                     name='passwordType' 
                     value='customPassword'
                     className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    checked={userData?.passwordType === 'customPassword'} 
+                    checked={userData?.password === 'customPassword'} 
                     onChange={handleUserIdentityCreationInputChanges}
                 />
                 <h1 className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>Custom Password</h1>
             </label>
             <>
                 {
-                    userData?.passwordType === 'customPassword' ? (
+                    userData?.password === 'customPassword' ? (
                         <InputWithDesc 
                             id= 'password_input'
                             type='password'

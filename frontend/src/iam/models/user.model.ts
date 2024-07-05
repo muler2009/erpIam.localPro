@@ -96,6 +96,7 @@ export interface UserAccountInterfacee {
   is_staff?: boolean;
   is_active?: boolean; 
   is_superuser?: boolean;
+  gChecked?: boolean;
 }
 
 export interface UserAccoountWithRestriction extends UserAccountInterfacee {
@@ -134,6 +135,8 @@ export interface IdentityContextType {
   nextHide: string;
   submitHide: string;
   canSubmit: boolean;
+  handlePrev: () => void; // New addition
+  handleNext: () => void; // New addition
 }
 
 

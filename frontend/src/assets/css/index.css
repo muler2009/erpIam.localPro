@@ -129,7 +129,7 @@
     .nested-group > .table-border { @apply w-full border-zinc-500 font-Poppins text-[14px] cursor-pointer text-sm text-left }    
     .nested-group > .table-border > thead { @apply border-none; }
     .nested-group > .table-border > tbody { @apply border-none; }
-    .nested-group > .table > thead > tr > th { @apply border-none font-Rubik leading-[1.2] text-[#0b2239] bg-gray-50 bg-opacity-25 text-[12px]}
+    .nested-group > .table > thead > tr > th { @apply border-none font-Rubik leading-[1.2] text-[#0b2239] bg-gray-50 py-4 text-[13px]}
     .nested-group > .table > tbody > tr > td { @apply pl-5 py-2 text-[#333] text-opacity-80 text-[13px] border-none}
     .nested-group > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
     .nested-group > .table > thead > tr > th:first-child{@apply w-[4%] whitespace-nowrap}

@@ -47,7 +47,7 @@ const CustomTable = () => {
      
     const getAttachedGroup = (id: number): string => {
       const selectedRow = data?.find((group, index) => index === id - 1);
-      return selectedRow?.group_abbreviation || '';
+      return selectedRow?.group_name || '';
     };
 
     // const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
@@ -61,17 +61,15 @@ const CustomTable = () => {
   
     return (
         <>
-          <div className='border py-2 my-2'>
-            {/* <p> User Attached to group:  {newUserAccount?.group}</p> */}
-          </div>
-          <div className='group'>
+          <div className='nested-group h-[200px] overflow-y-scroll relative'>
             <table className='table table-striped'>
-              <thead>
+              <thead className='sticky top-0 z-10'>
                 <tr>
                   <th className='whitespace-nowrap'>Group Select</th>
-                  <th>Group Abbreviation</th>
                   <th>Group Name</th>
-                  <th>Date Created</th>
+                  <th>Group Abbreviation</th>
+                  <th>Description</th>
+          
                 </tr>
               </thead>
               <tbody>
@@ -81,16 +79,19 @@ const CustomTable = () => {
                     const isChecked = selectedRows.includes(rowId);
                     return (
                       <tr key={index}>
-                        <td className='flex justify-center items-center'>
+                        <td className=''>
                           <input
                             type='radio'
                             name='gChecked'
+                            className='w-4 h-4'
                             // checked={isChecked || newUserAccount?.gChecked}
                             // onChange={(event) => handleRadioChange(event, rowId)}
                           />
                         </td>
-                        <td>{group.group_abbreviation}</td>
                         <td>{group.group_name}</td>
+                        <td>{group.group_abbreviation}</td>
+                        <td className='text-inherit text-opacity-50 text-[12px]'>{group.group_description}</td>
+
                         {/* <td>{group.group_created_at}</td> */}
                       </tr>
                     );
