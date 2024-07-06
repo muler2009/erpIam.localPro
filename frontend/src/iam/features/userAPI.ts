@@ -1,6 +1,6 @@
 import { erpAPISlice } from "../../api/apiSlice";
 import { API_TAGS } from "../../config/config";
-import { UserAccountInterfacee } from "../models/user.model"; 
+import { UserAPIResponse, UserAccountInterfacee } from "../models/user.model"; 
 
 const userAPI = erpAPISlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -10,10 +10,19 @@ const userAPI = erpAPISlice.injectEndpoints({
                 method: `GET`
             }),
             providesTags: [API_TAGS.USER]
+        }),
+        createUserAccount: builder.mutation<UserAPIResponse, UserAccountInterfacee>({
+            query: (userData) => ({
+                url: `account/create_account/`,
+                method: `POST`,
+                body: userData
+            }),
+            invalidatesTags: [API_TAGS.USER]
         })
     })
 })
 
 export const { 
-    useGetAllUsersQuery
+    useGetAllUsersQuery,
+    useCreateUserAccountMutation
 } = userAPI

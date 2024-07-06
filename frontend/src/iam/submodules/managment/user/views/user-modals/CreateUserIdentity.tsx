@@ -11,12 +11,15 @@ import { UserAccountContextProvider } from '../../context/UserAccountContext'
 import { useUserAccountContext } from '../../context/useUserAccountContext'
 import { AssignGroupToIdentityContextProvider } from '../../context/AssignGroupIdentityContext'
 import { Text } from '../../../../../components/reusable/StyledComponent'
+import { useCreateUserAccountMutation } from '../../../../../features/userAPI'
 
 interface UserContainerInterface {
     [key: number]: React.ReactNode;
 }
 
 const CreateUserIdentity = ({setIsOpen, isOpen, title} : ModalProps) => {
+    
+    const [createUserAccount] = useCreateUserAccountMutation()
 
     const {
         prevHide,
@@ -39,9 +42,19 @@ const CreateUserIdentity = ({setIsOpen, isOpen, title} : ModalProps) => {
     const handlePrev = () => setPage(prev => prev - 1);
     const handleNext = () => setPage(prev => prev + 1);
 
-    const onSave = () => {
-        console.log(userData)
-    }
+    const onSaveClicked = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        try {
+            const response = await createUserAccount(userData).unwrap();
+            if(response?.status === 201){
+                setIsOpen(prev => !prev)
+        }
+        console.log(`response: ${response?.status}`)
+        //  setIsOpen(false)
+        } catch (error) {
+        console.log(error);
+        }
+  }
 
   return isOpen ? (
    
@@ -99,7 +112,7 @@ const CreateUserIdentity = ({setIsOpen, isOpen, title} : ModalProps) => {
                                 </div>
                             </button>
 
-                            <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${submitHide}`} onClick={onSave}>
+                            <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${submitHide}`} onClick={onSaveClicked}>
                                 <div className='flex justify-start items-center '>
                                     <p className='font-Poppins text-[14px]'>Create</p>
                                     <GrIcons.GrFormNext size={15} />

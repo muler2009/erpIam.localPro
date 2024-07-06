@@ -27,7 +27,8 @@ class CreateLDAPUserSerializer(serializers.ModelSerializer):
     is_staff = serializers.BooleanField(default=False)
     username = serializers.CharField(validators=[UsernameAndEmailUniqueValidator(queryset=UserAccountsModel.objects.all(), message="Username exists")])
     email = serializers.CharField(validators=[UsernameAndEmailUniqueValidator(queryset=UserAccountsModel.objects.all(), message="Email already taken exists")])  
-  
+
+    group = serializers.SerializerMethodField()  
 
     class Meta:
         model = UserAccountsModel
@@ -36,6 +37,9 @@ class CreateLDAPUserSerializer(serializers.ModelSerializer):
             'user_account_id': {'read_only': True}, # exculde on deserialization
             'password': {'write_only': True} # exculde on serialization
         }
+
+    def get_group(self, obj):
+        return obj.group.group_name
                   
     def validate_empty_values(self, data):
         """
