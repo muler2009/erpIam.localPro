@@ -5,6 +5,7 @@ import ldap
 from utils.connection import LDAPConnection
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from utils.set_default_password import set_default_password
 
 # UserAccountsModel = get_user_model()
 class UserAccountsManager(BaseUserManager):
@@ -44,11 +45,14 @@ class UserAccountsManager(BaseUserManager):
             username=username, 
             first_name=first_name, 
             last_name=last_name, 
-            # password=password,
             **extra_fields
         )
         # Setting the user password
-        user_instance.set_password(password)
+        if password:
+            user_instance.set_password(password)
+        else:
+            user_instance.set_password(set_default_password())
+            
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_active', True)
         extra_fields.setdefault('is_superuser', False)

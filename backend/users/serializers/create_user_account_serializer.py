@@ -6,6 +6,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from utils.set_default_password import set_default_password
 # from .posixGroupSerializer import GetGroupSerializer
 
 
@@ -49,10 +50,13 @@ class CreateLDAPUserSerializer(serializers.ModelSerializer):
                 if not model_field.blank:
                     error_dict[key] = f"{key} is Required Field"
                     break
-            # elif key == 'groups':
+            # elif key == 'password':
             #     # Check if value is a valid primary key
             #     if not isinstance(value, int):
             #         error_dict[key] = f"{key} must be of type int"
+            elif key == 'password':
+                if validate_data == "":
+                    data[key] = set_default_password()
             elif not isinstance(validate_data, str):
                 error_dict[key] = f"{key} must be type {value.__class__.__name__}"
                 break
@@ -67,40 +71,37 @@ class CreateLDAPUserSerializer(serializers.ModelSerializer):
             Password validation against AUTH_PASSWORD_VALIDATOR rule defined in django
         """
         try:
-            validate_password(password=password)
+            if not password:
+                password = set_default_password()
+            else:
+                validate_password(password=password)
         except ValidationError as exc:
             raise serializers.ValidationError(str(exc))
 
         return password   
-        
-    # def create(self, validated_data):
-    #     password = validated_data.pop('password', None)
-    #     useraccount = UserAccountsModel.objects.create(**validated_data)
-        
-    #     if password:
-    #         validate_password(password=password)
-    #         useraccount.set_password(password)
-        
-    #     useraccount.save()
-    #     return useraccount
+    
     def create(self, validated_data):
         password = validated_data.pop('password')
         user = UserAccountsModel(**validated_data)
-        user.set_password(password)  # This will set the plain password and hash it
+        if password:
+            user.set_password(password)
+        else:
+            user.set_password(set_default_password())
+        # user.set_password(password)  # This will set the plain password and hash it
         print(f"Plain password in serializer: {user._plain_password}")
         user.save()
         return user
 
 
-    def update(self, instance, validated_data):
-        for key, value in validated_data.items():
-            if key == 'password':
-                password = validated_data.pop('password')
-                if password:
-                    validate_password(password=password)
-                    instance.set_password(password)
-            else:
-                setattr(instance, key, value)
+    # def update(self, instance, validated_data):
+    #     for key, value in validated_data.items():
+    #         if key == 'password':
+    #             password = validated_data.pop('password')
+    #             if password:
+    #                 validate_password(password=password)
+    #                 instance.set_password(password)
+    #         else:
+    #             setattr(instance, key, value)
 
-        instance.save()    
-        return instance
+    #     instance.save()    
+    #     return instance

@@ -9,7 +9,7 @@ const InputWithDesc = ({id, type, name, placeholder, onChange, value, label, cla
         <label htmlFor={name} className="flex items-center text-[15px] whitespace-nowrap font-Rubik text-[#333] text-opacity-80">
           <span className="pr-1">{icon}</span>{label}
         </label>
-        <p className="text-[12px] text-[#333] text-opacity-50">{label_description}</p>
+        <p className="text-[11px] text-[#333] text-opacity-50">{label_description}</p>
 
       </div>
       <div className="flex flex-col gap-1">

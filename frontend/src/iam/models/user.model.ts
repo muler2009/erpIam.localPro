@@ -99,13 +99,6 @@ export interface UserAccountInterfacee {
   gChecked?: boolean;
 }
 
-export interface UserAccoountWithRestriction extends UserAccountInterfacee {
-  system_username?: boolean;
-  system_password?: boolean;
-  passwordType?: string;
-  autoPassword?: string;
-}
-
 export interface UserCoulumn extends UserAccountInterfacee {
   action?: unknown
 }
@@ -123,20 +116,26 @@ export interface TableHeaderProps {
 
 export interface IdentityContextType {
   userData: UserAccountInterfacee;
-  setUserData: React.Dispatch<React.SetStateAction<UserAccountInterfacee>>
+  usernameType: string;
+  passwordType: string;
+  setUserData: React.Dispatch<React.SetStateAction<UserAccountInterfacee>>;
+  setUsernameType: React.Dispatch<React.SetStateAction<string>>;
+  setPasswordType: React.Dispatch<React.SetStateAction<string>>;
   handleUserIdentityCreationInputChanges: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
+  handleUsernameTypeChange: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
+  handleUsernameChange: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
+  handlePasswordTypeChange: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
+  handlePasswordChange: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
   canSave: boolean;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   userCreationStep: { [key: number]: string };
   disableNext: boolean;
   disablePrev: boolean;
-  prevHide?: string; // Make it nullable
-  nextHide: string;
-  submitHide: string;
+  prevHide?: string | boolean;
+  nextHide: string | boolean;
+  submitHide: string | boolean;
   canSubmit: boolean;
-  handlePrev: () => void; // New addition
-  handleNext: () => void; // New addition
 }
 
 

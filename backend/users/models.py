@@ -3,6 +3,7 @@ import uuid, ldap
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Group, Permission
 from .manager import UserAccountsManager
 from django.conf import settings
+from utils.set_default_password import set_default_password
 
 """
     a user account model for storing user in the database and the ldap directory for authenthication 
@@ -13,6 +14,7 @@ class UserAccountsModel(AbstractBaseUser):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255, blank=True, null=True)
     username = models.CharField(verbose_name="Username", max_length=255, unique=True)
+    password = models.CharField(max_length=255, blank=True)
     email = models.EmailField(max_length=254, unique=True)
     userId = models.IntegerField(blank=True, null=True)
     group = models.ForeignKey('groups.PosixGroupUserModel', null=True, blank=True, on_delete=models.SET_NULL)
@@ -37,19 +39,7 @@ class UserAccountsModel(AbstractBaseUser):
        
     def __str__(self):
         return f"{self.username}"
-    
-    # @property  # getter method to return the is_active
-    # def is_user_staff(self):
-    #     return self.staff
-    
-    # @property  # getter method to return the is_active
-    # def is_user_active(self):
-    #     return self.active
-    
-    # @property  # getter method to return the is_superuser
-    # def is_user_superuser(self):
-    #     return self.superuser
-    
+        
     def set_password(self, raw_password):
         self._plain_password = raw_password  # Store plain password temporarily
         super().set_password(raw_password)  # Hash and set the password
@@ -67,6 +57,11 @@ class UserAccountsModel(AbstractBaseUser):
             # Retrieve the maximum existing userId and increment it by one
             max_id = UserAccountsModel.objects.aggregate(models.Max('userId'))['userId__max']
             self.userId = 1001 if max_id is None else max_id + 1
+
+        if not self.password:
+            password = set_default_password()
+            self.password = password
+
         super().save(*args, **kwargs)
 
     

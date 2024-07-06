@@ -10,7 +10,6 @@ import {
 import { useState } from 'react';
 import Search from '../common/Search';
 import useUserAccount from '../../hooks/useUserAccount';
-import useCreateUserAccount from '../../submodules/managment/user/context/useCreateUserAccount';
 import GroupTableHeader from './GroupTableHeader';
 import useGroupColumn from '../../submodules/managment/constants/columns/useGroupColumn';
 import RowDetailedView from './RowDetailedView';

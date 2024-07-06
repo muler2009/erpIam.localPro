@@ -1,7 +1,7 @@
 import React, {useState, useContext, createContext} from 'react'
 import { GroupAPIResponse, GroupInterface } from '../../models/group.model'
 import { useGetGroupsQuery } from '../../features/groupsAPI'
-// import useUserContext from '../../submodules/managment/user/context/useUserContext'
+import { useUserAccountContext } from '../../submodules/managment/user/context/useUserAccountContext'
 
 type TData = {
     data: string
@@ -42,7 +42,8 @@ export const SelectedRowContextProvider = ({ children }: ChildenType) => {
 const CustomTable = () => {
     const {data} = useGetGroupsQuery()
     const [selectedRows, setSelectedRows] = useState<number[]>([]);
-    // const {newUserAccount, setUserNewAccount, handleUserCreateInputChanges} = useUserContext()
+    const { userData, setUserData, handleUserIdentityCreationInputChanges } = useUserAccountContext()
+    
 
      
     const getAttachedGroup = (id: number): string => {
@@ -50,13 +51,13 @@ const CustomTable = () => {
       return selectedRow?.group_name || '';
     };
 
-    // const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
-    //   setSelectedRows([id]);
-    //   setUserNewAccount?.((prevUserAccount) => ({
-    //     ...prevUserAccount,
-    //     group: getAttachedGroup(id),
-    //   }));
-    // };
+    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
+      setSelectedRows([id]);
+      setUserData?.((prevUserAccount) => ({
+        ...prevUserAccount,
+        group: getAttachedGroup(id),
+      }));
+    };
   
   
     return (
@@ -84,8 +85,8 @@ const CustomTable = () => {
                             type='radio'
                             name='gChecked'
                             className='w-4 h-4'
-                            // checked={isChecked || newUserAccount?.gChecked}
-                            // onChange={(event) => handleRadioChange(event, rowId)}
+                            checked={isChecked || userData?.gChecked}
+                            onChange={(event) => handleRadioChange(event, rowId)}
                           />
                         </td>
                         <td>{group.group_name}</td>

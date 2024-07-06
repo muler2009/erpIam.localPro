@@ -4,10 +4,11 @@ import CreateUserAccount from '../../modals/CreateUserAccount1'
 import * as LuIcons from 'react-icons/lu'
 import { identityProps, userDropDown, userManagemenu } from '../../constants/nav-links/usertabLink'
 import * as IoIcons  from "react-icons/io5";
-import {CreateNewAccount, CreateUserAccount1} from '../../modals'
+
 import { AiFillAccountBook } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import CreateUserIdentity from '../views/user-modals/CreateUserIdentity'
+import { UserAccountContextProvider } from '../context/UserAccountContext'
 
 const UserLayout = () => {
  
@@ -81,7 +82,11 @@ const UserLayout = () => {
       {/* { isOpen && identityProps[activeTabIndex].abbrevation === 'SingleNewID' && ( <CreateNewAccount isOpen={isOpen} setIsOpen={setIsOpen} title="New identity" /> ) }
       { isOpen && identityProps[activeTabIndex].abbrevation === 'MultiNewID' && ( <CreateUserAccount1 isOpen={isOpen} setIsOpen={setIsOpen} title="For the notofivation" /> ) } */}
       {
-        isOpen && ( <CreateUserIdentity isOpen={isOpen} setIsOpen={setIsOpen} title="New identity" /> )
+        isOpen && ( 
+          <UserAccountContextProvider>
+            <CreateUserIdentity isOpen={isOpen} setIsOpen={setIsOpen} title="New identity" /> 
+          </UserAccountContextProvider>
+      )
       }
     </>
   )
