@@ -5,12 +5,12 @@ import { UserDashboardProps } from '../../../models/user.model';
 
 export const groupsDropdown: UserDashboardProps[] = [
     {
-        label: "New group",
+        label: "Create group",
         icon: <IoIcons.IoIosAdd size={18}/>,
         abbrevation: "NEW_GROUP"
     },
     {
-        label: "Edit Group",
+        label: "Edit group",
         icon: <IoIcons.IoIosAdd size={18}/>,
         abbrevation: "EDIT_GROUP"
     },

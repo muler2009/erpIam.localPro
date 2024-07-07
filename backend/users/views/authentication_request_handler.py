@@ -25,10 +25,12 @@ class AuthenticationRequestHandler(TokenObtainPairView):
                 # Extract the access and refresh data from the RefreshToken object
                 access_token = str(token_data.access_token)
                 refresh_token = str(token_data)
+                user = user
                 
                 response_data = {
                     'access': access_token,
                     'refresh': refresh_token,     
+                    "user": username
                 }
     
                 return Response(response_data, status=status.HTTP_200_OK)

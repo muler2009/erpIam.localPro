@@ -17,7 +17,7 @@ interface UserContainerInterface {
     [key: number]: React.ReactNode;
 }
 
-const CreateUserIdentity = ({setIsOpen, isOpen, title} : ModalProps) => {
+const CreateUserIdentity = ({openCreateIdentity, isOpen, title} : ModalProps) => {
     
     const [createUserAccount] = useCreateUserAccountMutation()
 
@@ -46,10 +46,10 @@ const CreateUserIdentity = ({setIsOpen, isOpen, title} : ModalProps) => {
         event.preventDefault();
         try {
             const response = await createUserAccount(userData).unwrap();
-            if(response?.status === 201){
-                setIsOpen(prev => !prev)
+            if(response?.status_code === 201){
+                openCreateIdentity()
         }
-        console.log(`response: ${response?.status}`)
+        console.log(`response: ${response?.status_code}`)
         //  setIsOpen(false)
         } catch (error) {
         console.log(error);
@@ -66,11 +66,11 @@ const CreateUserIdentity = ({setIsOpen, isOpen, title} : ModalProps) => {
                             {title}
                         </h1>
                         <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-gray-400 hover:text-white" 
-                        onClick={(event) => setIsOpen(prevState => !prevState)}>
+                        onClick={openCreateIdentity}>
                             <Vsc.VscClose size={15} />
                         </div>
                     </ModalHeader>
-                    <ModalBody className='bg-white relative h-[70vh] '>
+                    <ModalBody className='bg-white relative h-[70vh]'>
                         <div className='after:absolute after:bg-gray-100 after:h-[1px] after:w-full after:top-[6%] after:px-1'>
                             <div className='flex justify-between pl-5 pb-1 border-opacity-80 border-gray-100 sticky top-0 bg-white'>
                                 {
@@ -122,8 +122,7 @@ const CreateUserIdentity = ({setIsOpen, isOpen, title} : ModalProps) => {
                     </ModalFooter>
                 </ModalContainer>
             </ModalWrapper>
-        </AssignGroupToIdentityContextProvider>
-   
+        </AssignGroupToIdentityContextProvider>  
     
       ): null
 }

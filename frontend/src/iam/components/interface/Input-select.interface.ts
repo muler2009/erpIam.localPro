@@ -1,4 +1,5 @@
 import { RoleInterface } from "../../models/role.models";
+import { UserAccountInterfacee } from "../../models/user.model";
 
 type valueProps = string | number;
 
@@ -32,7 +33,7 @@ export interface TextInputWithDescWithout {
 }
 
 type Option = {
-    role_name: string | number
+    username: string | number
 }
 
 export interface SelectInterface {

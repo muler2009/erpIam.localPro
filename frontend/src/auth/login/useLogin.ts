@@ -36,10 +36,10 @@ const useLogin = () => {
     try {
       const response = await userLogin(loginData).unwrap()
       // destructure the access and refresh token
-      const { access, refresh } = response
+      const { access, refresh, user } = response
       // Store the access and refresh token on localstorage
-      localStorage.setItem("token", access)
-      localStorage.setItem("refresh", refresh)
+      // localStorage.setItem("token", access)
+      // localStorage.setItem("refresh", refresh)
 
       // const decodeRole = jwt_decode(access)
       // const role = decodeRole.role?.role_name
@@ -50,14 +50,14 @@ const useLogin = () => {
         {
           isAuthenticated: false,
           access, 
-          refresh
+          refresh, user
         }
       ));
       dispatch(setAuthData(
           {
             isAuthenticated: true,
             access, 
-            refresh
+            refresh, user
           }
       ));
 

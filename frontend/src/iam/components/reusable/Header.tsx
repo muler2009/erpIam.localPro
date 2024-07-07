@@ -7,6 +7,7 @@ import { iconNotify, dropdownItems } from '../../constants/dropdown'
 import Tooltip from './Tooltip'
 import { Input } from '../../../components/common'
 import useLogout from '../../../auth/logout/useLogout'
+import { Text } from './StyledComponent'
 
 
 const Header = () => {
@@ -16,7 +17,7 @@ const Header = () => {
 
 
   return (
-    <header className='bg-green-400 border-b border-[#333] border-opacity-20 sticky text-white z-50'>
+    <header className='bg-gray-100 border-b border-[#333] border-opacity-20 sticky text-[#333] z-50'>
         <nav className='flex justify-between items-center text-[#000] py-2'>
             <div className=''>
                 <h1 className='font-Poppins text-sm pl-5'>Dashboard</h1>
@@ -33,15 +34,13 @@ const Header = () => {
                     {
                         iconNotify?.map((icon_notify, index) => {
                             return(
-                                <div className='w-10 h-10 rounded-full shadow-md flex justify-center items-center text-[16px] ' key={index}>
+                                <div className='w-10 h-10 rounded-full shadow-md flex justify-center items-center text-[16px]' key={index}>
                                     <Tooltip content={icon_notify.content}>
                                         {
                                             icon_notify?.bool ? (
                                                 <Link to={icon_notify.path || ""}>{icon_notify.icons}</Link>
                                             ): (
-                                                <div className=''>
-                                                    {icon_notify.icons}
-                                                </div>
+                                                <div className=''>{icon_notify.icons}</div>
                                             )
                                         }  
                                     </Tooltip>
@@ -50,17 +49,14 @@ const Header = () => {
                         })
                     }
                 </div>
-                <div className='flex flex-col gap-0 cursor-pointer pr-4' onClick={() => setDrop(prev => !prev)}>
-                    <span className='text-white font-Poppins text-[13px] flex flex-col items-start justify-center'>User</span>
-                    <div className={`text-white flex space-x-1`}>
-                        <h6 className='font-Rubik text-sm leading-4 font-bold flex items-center space-x-5'>Account</h6>
-                        <span>
-                            { drop ? <MdIcons.MdArrowDropUp size={20} /> : <MdIcons.MdArrowDropDown size={20} /> } 
 
-                        </span>
+                <div className='flex gap-0 cursor-pointer pr-4' onClick={() => setDrop(prev => !prev)}>
+                    <div className={`text-[#333] flex space-x-1`}>
+                        <Text className='font-Poppins text-[13px] leading-4 flex items-center space-x-6'>User account
+                            <span>{ drop ? <MdIcons.MdArrowDropUp size={20} /> : <MdIcons.MdArrowDropDown size={20} /> }</span>
+                        </Text>
                     </div>
 
-                    
                     <div className='absolute  bg-white top-full mt-1 right-2 whitespace-nowrap w-[15%] z-50'>
                         {
                             drop && (

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FlexInnerContainer, FlexOuterContainer, Text } from '../../../../../components/reusable/StyledComponent'
+import { FlexBox, FlexBoxInner, FlexInnerContainer, FlexOuterContainer, Text } from '../../../../../components/reusable/StyledComponent'
 import { Input , InputWithDesc} from '../../../../../components/reusable'
 import  * as RiIcons from "react-icons/ri";
 import * as BiIcons from 'react-icons/bi'
@@ -51,14 +51,13 @@ const IdentityRegistrationForm = () => {
 
       <FlexInnerContainer className='flex flex-col border-t-[1px] mt-5 bg-gray-50'>
         <Text className='font-Rubik text-[#333] text-opacity-50 text-[15px] py-3 px-4'>Authentication Information</Text> 
-        <FlexInnerContainer className='flex flex-col'>
+        <FlexInnerContainer className='flex flex-col gap-3'>
           <Text className='flex items-center text-[#333] text-opacity-80 text-sm'>
             <span className='pr-1'><RiIcons.RiAccountCircleFill /></span>Username
           </Text>
     
-          <div className='flex gap-4'>
-
-            <div className='flex flex-col flex-grow'>
+          <FlexBox className='flex gap-4 px-4'>
+            <FlexBoxInner className='flex flex-col'>
               <label className='flex items-center justify-start space-x-2 cursor-pointer'>
                 <input 
                   type="radio" 
@@ -71,9 +70,9 @@ const IdentityRegistrationForm = () => {
                 <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>Generate username Automatically</Text>
               </label>  
               <p className='text-[11px] px-6 text-[#333] text-opacity-60'>Click the radio box to generate username automatically for the user</p> 
-            </div>
+            </FlexBoxInner>
 
-            <div className='flex flex-col'>
+            <FlexBoxInner className='flex flex-col'>
               <label className='flex items-center justify-start space-x-1 cursor-pointer'>
                 <input 
                   type="radio" 
@@ -98,16 +97,16 @@ const IdentityRegistrationForm = () => {
                   desc='Enter custom username or let system generate one'
                 />
               </div>  
-            </div>
+            </FlexBoxInner>
 
-          </div>
+          </FlexBox>
         </FlexInnerContainer>
 
-        <FlexInnerContainer className='flex flex-col'>
+        <FlexInnerContainer className='flex flex-col gap-4'>
           <Text className='flex items-center text-[#333] text-opacity-80 text-sm'>
             <span className='pr-1'><RiIcons.RiLockPasswordFill /></span>Password
           </Text>
-          <FlexInnerContainer className='flex'>
+          <FlexBox className='flex px-4'>
             <div className='flex flex-col'>
               <label className='flex items-center justify-start space-x-2 cursor-pointer'>
                 <input 
@@ -149,7 +148,7 @@ const IdentityRegistrationForm = () => {
                 />
               </div>  
             </div>
-          </FlexInnerContainer>        
+          </FlexBox>        
         </FlexInnerContainer>
         <FlexInnerContainer>
         <InputWithDesc 

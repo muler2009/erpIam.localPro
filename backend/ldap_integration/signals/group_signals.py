@@ -46,6 +46,8 @@ def create_group_in_ldap_server(sender, instance, created, *args, **kwargs):
 
         return group_dn
         
+
+# a signal for adding a user to the ldap user organizational unit        
 @receiver(post_save, sender=UserAccountsModel)
 def add_user_to_ldap_group(sender, instance, created, **kwargs):
     if created:

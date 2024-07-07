@@ -13,6 +13,14 @@ const useGroup = () => {
         group_description: "",
     })
 
+    // A method to automatically generate the group_abbreviation 
+    // it generate random number between 0 and 999 and convert to string with radix 10
+    const gernerate_group_abbreviation = () => {
+      const randomGroupNumber = Math.floor((Math.random() * 1000)).toString(10)
+      return 'GRP' + randomGroupNumber ;
+    }
+
+
     const { has_sub_group, ...requiredValues } = groupData
 
     const handleGroupInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,6 +41,7 @@ const useGroup = () => {
     groupData,
     canSave,
     handleGroupInputChange,
+    gernerate_group_abbreviation
   }
 }
 

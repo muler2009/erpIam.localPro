@@ -3,7 +3,8 @@ import { GroupInterface } from "./group.model";
 import { Header } from "@tanstack/react-table";
 
 export interface ModalProps {
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    // openCreateIdentity: React.Dispatch<React.SetStateAction<boolean>>;
+    openCreateIdentity: () => void
     isOpen: boolean;
     title: string;
    
@@ -104,7 +105,7 @@ export interface UserCoulumn extends UserAccountInterfacee {
 }
 /** API Response for User API */
 export interface UserAPIResponse extends UserAccountInterfacee{
-  status?: number,
+  status_code?: number,
   statusText?: string,
   // data: UserAccountInterfacee[]
 }

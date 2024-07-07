@@ -1,5 +1,11 @@
 import { UserAccountInterfacee } from "./user.model"
 
+export interface GroupModalPropsInterface {
+    isOpen: boolean;
+    title: string;
+    handleIsOpenCloseMenu: () => void;
+}
+
 export interface GroupInterface {
     group_id?: number,
     group_name: string,

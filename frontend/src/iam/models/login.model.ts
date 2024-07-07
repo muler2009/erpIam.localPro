@@ -2,6 +2,7 @@ export interface AuthResponse {
     access: string;
     refresh: string;
     status: string;
+    user: string;
 }
 
 export interface LoginRequiredData {

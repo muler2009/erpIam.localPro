@@ -3,18 +3,18 @@ import * as AiIcons from 'react-icons/ai'
 import { SelectInterface } from '../interface/Input-select.interface'
 
 
-const Select = ({title, options}: SelectInterface) => {
+const Select = ({title, options = []}: SelectInterface) => {
   return (
-    <div className="flex flex-col gap-2 text-sm w-full ">
+    <div className="flex flex-col gap-2 text-sm">
         <label className="text-[15px] whitespace-nowrap font-Rubik">{title}</label>
-        <div className='relative border '>
-            <select className="input-md w-full py-[8px] border-none border-l font-Poppins text-xs rounded-none bg-white">
+        <div className='relative border'>
+            <select className="input-md w-full py-[8px] border-none border-l font-Poppins text-xs rounded-none bg-white" multiple>
                 <option>Select {title} </option>
                 {
                     options?.map((option, index) => {
                         return(
-                            <option className='flex flex-col' key={index}>
-                                {option.role_name}
+                            <option className='flex flex-col gap-2' key={index}>
+                                {option.username}
                             </option>
                         )
                     })

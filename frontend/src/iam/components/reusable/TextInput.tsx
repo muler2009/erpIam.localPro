@@ -5,7 +5,7 @@ import { TextInputWithDescWithout } from '../interface/Input-select.interface';
 const TextInput = ({id, type, name, placeholder, onChange, value, label, className, rows, desc="" }: TextInputWithDescWithout) => {
     return (
       <div className="flex flex-col gap-2 text-sm w-full">
-        <label htmlFor={name} className="text-[15px] whitespace-nowrap font-Rubik">{label}</label>
+        <label htmlFor={id} className="text-[15px] whitespace-nowrap font-Rubik">{label}</label>
         <div className="flex flex-col gap-1">
           <textarea
               id={id}
@@ -14,10 +14,9 @@ const TextInput = ({id, type, name, placeholder, onChange, value, label, classNa
               placeholder={placeholder}
               value={value}
               onChange={onChange}
-              rows={rows}
-          
+              rows={rows}         
           />
-          <p className="text-[13px] text-[#333] text-opacity-50">{desc}</p>
+          <p className="text-[12px] text-[#333] text-opacity-50">{desc}</p>
   
         </div>
       </div>
