@@ -33,10 +33,12 @@ export interface TextInputWithDescWithout {
 }
 
 type Option = {
-    username: string | number
+    username: string | number;
 }
 
 export interface SelectInterface {
    title: string;
-   options: Option[] 
+   options: Option[],
+   value?: string | number;
+   onChange?: (selected: Option) => void;
 }

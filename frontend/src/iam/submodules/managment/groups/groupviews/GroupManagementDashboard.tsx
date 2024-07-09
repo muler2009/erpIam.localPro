@@ -7,6 +7,7 @@ import GroupList from './GroupList';
 import { FlexBox, FlexBoxInner, FlexInnerContainer, FlexOuterContainer, P, Text } from '../../../../components/reusable/StyledComponent';
 import CreateGroup from '../group-modal/CreateGroup';
 import { MdGroups } from "react-icons/md";
+import { GroupCreateContextProvider } from '../context/GroupCreateContext';
 
 const GroupManagementDashboard = () => {
  
@@ -81,8 +82,12 @@ const GroupManagementDashboard = () => {
           </FlexBox>
         </FlexInnerContainer>
       </FlexOuterContainer>
+
+      <GroupCreateContextProvider>
+        { isOpen && groupsDropdown[activeTabIndex].abbrevation === 'NEW_GROUP' && ( <CreateGroup isOpen={isOpen} handleIsOpenCloseMenu={handleIsOpenCloseMenu} title="Creating New group" /> ) }
+
+      </GroupCreateContextProvider>
     
-      { isOpen && groupsDropdown[activeTabIndex].abbrevation === 'NEW_GROUP' && ( <CreateGroup isOpen={isOpen} handleIsOpenCloseMenu={handleIsOpenCloseMenu} title="Creating New group" /> ) }
       {/* { isOpen && groupsDropdown[activeTabIndex].abbrevation === 'EDIT_GROUP' && ( <CreateUserAccount1 isOpen={isOpen} setIsOpen={setIsOpen} title="For the notofivation" /> ) } */}
     </>
   )

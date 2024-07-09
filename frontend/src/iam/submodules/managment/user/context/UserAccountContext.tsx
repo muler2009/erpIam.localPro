@@ -51,9 +51,9 @@ export const UserAccountContextProvider = ({ children }: ChildrenContext) => {
 
     const canSubmit = Object.values(userData).every(value => Boolean(value)) && page === Object.keys(userCreationStep).length - 1;
 
-    const handleUserIdentityCreationInputChanges = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-        const { type, name } = event.target
-        const value = type === 'checkbox' ? (event.target as HTMLInputElement).checked  : event.target.value
+    const handleUserIdentityCreationInputChanges = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { type, name, checked } = event.target
+        const value = type === 'checkbox' ? event.target.checked  : event.target.value
         setUserData({
             ...userData,
             [name]: value
@@ -62,7 +62,7 @@ export const UserAccountContextProvider = ({ children }: ChildrenContext) => {
 
     const generateUsername = () => {
         // Implement your username generation logic here
-        return 'user_' + Math.random().toString(36).substr(2, 9);
+        return 'user_' + Math.floor( Math.random() * 10000).toString(10);
       };
     
       const handleUsernameTypeChange =  (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {

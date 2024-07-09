@@ -3,12 +3,22 @@ import * as AiIcons from 'react-icons/ai'
 import { SelectInterface } from '../interface/Input-select.interface'
 
 
-const Select = ({title, options = []}: SelectInterface) => {
+const Select = ({title, options = [], onChange, value}: SelectInterface) => {
   return (
     <div className="flex flex-col gap-2 text-sm">
         <label className="text-[15px] whitespace-nowrap font-Rubik">{title}</label>
         <div className='relative border'>
-            <select className="input-md w-full py-[8px] border-none border-l font-Poppins text-xs rounded-none bg-white" multiple>
+            <select 
+                className="input-md w-full py-[8px] h-[20vh] border-none border-l font-Poppins text-xs rounded-none bg-white" 
+                multiple
+               
+                onChange={(event) => {
+                    const selectedOption = options.find(option => option.username.toString() === event.target.value); 
+                    if (selectedOption && onChange) {
+                      onChange(selectedOption);
+                    }
+                  }} 
+            >
                 <option>Select {title} </option>
                 {
                     options?.map((option, index) => {

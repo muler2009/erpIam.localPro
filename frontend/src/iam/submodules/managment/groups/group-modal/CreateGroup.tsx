@@ -1,44 +1,63 @@
-import React, { useState } from 'react'
-import { GroupModalPropsInterface } from '../../../../models/group.model'
+import { useState } from 'react'
+import { GroupModalPropsInterface, GroupMultiStepInterface } from '../../../../models/group.model'
+import * as GrIcons from 'react-icons/gr'
 import { InputWithDesc, ModalBody, ModalContainer, ModalFooter, ModalHeader, ModalWrapper, TextInput } from '../../../../components/reusable'
 import { FlexBox, FlexBoxInner, FlexInnerContainer, Text } from '../../../../components/reusable/StyledComponent'
 import * as Vsc from 'react-icons/vsc'
-import Select from '../../../../components/reusable/Select'
-import { useGetAllUsersQuery } from '../../../../features/userAPI'
-import { UserAccountInterfacee } from '../../../../models/user.model'
-import useGroup from '../groupHooks/useGroup'
+import GroupDetailComponent from './GroupDetailComponent'
+import PolicyAssignment from './PolicyAssignment'
+import useGroupContext from '../context/useGroupContext'
 
-const CreateGroup = ({isOpen, handleIsOpenCloseMenu, title}: GroupModalPropsInterface) => {
-   const {gernerate_group_abbreviation} = useGroup()
-   const [group, setGroup] = useState("")
+import { Fa500Px } from 'react-icons/fa'
+import Stepper from '@keyvaluesystems/react-vertical-stepper'
+import { color } from 'framer-motion'
+import UnderConstruction from '../../../../components/reusable/UnderConstruction'
 
-   const [abbreviateGroup, setAbbreviateGroup] = useState("none")
+const CreateGroup = ({handleIsOpenCloseMenu, title}: GroupModalPropsInterface) => {
 
-   const handleUsernameTypeChange =  (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-    const type = event.target.value;
-    setAbbreviateGroup(type);
-    if (type === 'auto') {
-      const generatedUsername = gernerate_group_abbreviation();
-      setGroup(generatedUsername)
-  };}
-  
-  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-    const group = event.target.value;
-    setGroup(group);
-  };
+    // const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
-    // hook from the UserAPI 
-   const {data} = useGetAllUsersQuery() 
+    const {
+        prevHide,
+        submitHide,
+        nextHide,
+        disableNext,
+        disablePrev,
+        setPage,
+        page,
+        groupCreationStep,
+        groupData, membersOfGroup
+      } = useGroupContext();
+    
+    const display: GroupMultiStepInterface = {
+        0: <GroupDetailComponent />,
+        1: <UnderConstruction />,
+    }
 
-    // function is a TypeScript type guard. 
-    // Type guards are functions that allow you to determine if a value conforms to a specific type. 
-   const isOptionArray = (data: any): data is typeof Option[] => {
-    return Array.isArray(data) && data.every(item => 'username' in item);
+
+    // Changing the groupCreationStep structure to an array
+    const displayComponent = Object.keys(groupCreationStep).map((key: any) => ({
+        // label: groupCreationStep[key],
+        component: display[key]
+      }));
+
+    const handlePrev = () => setPage(prev => prev - 1);
+    const handleNext = () => setPage(prev => prev + 1);
+
+    const onSaveClicked = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+       console.log(groupData)
   }
- 
+
+//  const customStyles = {
+//     ActiveBubble: (step: any, stepIndex: any) => ({
+//         background-color: "green"
+//     })
+//  }
+
   return (
    <ModalWrapper>
-    <ModalContainer className={`w-[40%] mx-auto bg-[#fff] flex flex-col gap-4 relative top-[5%] shadow-2xl border`}>
+    <ModalContainer className={`w-[50%] mx-auto bg-[#fff] flex flex-col relative top-[5%] shadow-2xl border`}>
         <ModalHeader className='flex justify-between items-center px-5 py-3 border-b-[1px]'>
             <Text className='font-Rubik text-black font-semibold text-[15px] text-opacity-50 text-center px-5'>{title}</Text>
             <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-gray-400 hover:text-white" onClick={handleIsOpenCloseMenu}>
@@ -46,73 +65,49 @@ const CreateGroup = ({isOpen, handleIsOpenCloseMenu, title}: GroupModalPropsInte
             </div>
         </ModalHeader>
         <ModalBody className='bg-gray-50 relative h-[70vh]'>
-            <FlexInnerContainer className='px-10 pt-5 mx-5'>
-                <FlexBox className='flex'>
-                    <InputWithDesc 
-                        label='Group name'
-                        id='username_input'
-                        type='text'
-                        placeholder='Group Name'
-                        className='input-md font-Poppins text-[13px]'
-                        name='username'
-                        desc='Group name which used to identify the group uniquely from others'
+            <FlexInnerContainer className='flex py-5'>
+                <FlexBox className={`my-5`}>
+                    <Stepper
+                        steps={displayComponent}
+                        currentStepIndex={page}
+                        labelPosition="bottom"
+                        styles={{
+                            LineSeparator: (step: any, index: any) => ({ height: "400px"}),
+                            Bubble: (step: any, index: any) => ({ height: "40px", width: "40px", backgroundColor: "gray" }),
+                            ActiveBubble:  (step: any, index: any) => ({ backgroundColor: "#2b4a6d"}),
+                            InactiveLineSeparator: (step: any, stepIndex: any) => ({color: "blue"})
+                        }}
                     />
                 </FlexBox>
-                <FlexBox className='flex flex-col my-5'>
-                    <label className='flex items-center justify-start space-x-2 cursor-pointer'>
-                        <input 
-                            type="radio" 
-                            name='abbreviateGroup'
-                            value="auto"
-                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                            checked={abbreviateGroup === 'auto'} 
-                            onChange={handleUsernameTypeChange}  
-                            />
-                        <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>Get Group Abbreviation</Text>
-                    </label>  
-                    <p className='text-[11px] px-6 text-[#333] text-opacity-60'>Click the radio box to generate the group_abbreviation automatically</p>
-                    <div className='ml-5'>
-                        <InputWithDesc 
-                            id='username_input'
-                            type='text'
-                            placeholder='Custom Username'
-                            className='input-md font-Poppins text-[13px] w-[50%]'
-                            name='group'
-                            value={group}
-                            onChange={handleUsernameChange}
-                            disabled={abbreviateGroup === 'auto'}
-                            desc='example: AC000'
-                        /> 
-                    </div>
+                <FlexBox className='flex-grow'>
+                    {/* {display[page]} */}
+                    {displayComponent[page].component}
                 </FlexBox>
-                <FlexBox>
-                    <TextInput 
-                        label='Description'
-                        id='description_text'
-                        type='text'
-                        placeholder=''
-                        className='input-md font-Poppins text-[13px]'
-                        rows={5}
-                        desc={`description about the group but optional`}
-                        name='group_description'
-                    
-                    /> 
-
-                </FlexBox>
-            </FlexInnerContainer>
-            <FlexInnerContainer className='px-10 pt-5 mx-5 border-t'>
-                <FlexBox className='flex space-x-4 pt-4'>
-                    <FlexBoxInner className='flex-grow'>
-                        <Select title='Available users' options={isOptionArray(data) ? data : []} />
-                    </FlexBoxInner>
-                    <FlexBoxInner className='flex-grow'>
-                        <Select title='Members'  options={[]} />
-                    </FlexBoxInner>
-                </FlexBox>       
             </FlexInnerContainer>
         </ModalBody>
         <ModalFooter className='px-4 py-4 flex justify-end space-x-3 border-t'>
-            groups
+            <div className="flex justify-end space-x-5 pr-5 ">
+                <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] text-[#333] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
+                    <div className='flex justify-start items-center'>
+                        <GrIcons.GrFormPrevious  size={15}/>
+                        <p className='font-Poppins text-[14px]'>Prev</p>
+                    </div>
+                </button>
+
+                <button  className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${nextHide}`} onClick={handleNext} disabled={disableNext}>
+                    <div className='flex justify-start items-center '>
+                        <p className='font-Poppins text-[14px]'>Next</p>
+                        <GrIcons.GrFormNext size={15} />
+                    </div>
+                </button>
+
+                <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${submitHide}`} onClick={onSaveClicked}>
+                    <div className='flex justify-start items-center '>
+                        <p className='font-Poppins text-[14px]'>Create</p>
+                        <GrIcons.GrFormNext size={15} />
+                    </div>
+                </button>
+            </div>
         </ModalFooter>
     </ModalContainer>
    </ModalWrapper>

@@ -122,7 +122,7 @@ export interface IdentityContextType {
   setUserData: React.Dispatch<React.SetStateAction<UserAccountInterfacee>>;
   setUsernameType: React.Dispatch<React.SetStateAction<string>>;
   setPasswordType: React.Dispatch<React.SetStateAction<string>>;
-  handleUserIdentityCreationInputChanges: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
+  handleUserIdentityCreationInputChanges: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleUsernameTypeChange: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
   handleUsernameChange: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
   handlePasswordTypeChange: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;

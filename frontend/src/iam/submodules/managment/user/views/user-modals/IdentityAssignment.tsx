@@ -36,6 +36,7 @@ const IdentityAssignment = () => {
                   type="checkbox" 
                   name='is_staff'
                   id="is_staff" 
+                  // value={userData?.is_staff}
                   className="w-4 h-4 rounded-[2px] appearance-auto checked:appearance-none checked:bg-gray-500before:checked:text-white checked:border checked:border-black"
                   checked={userData?.is_staff} 
                   onChange={handleUserIdentityCreationInputChanges}  
