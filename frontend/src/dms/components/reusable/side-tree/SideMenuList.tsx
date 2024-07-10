@@ -1,0 +1,22 @@
+import React from "react";
+import SideMenuItem from "./SideMenuItem";
+import { MenuItemInterface } from "./side-bar-interface";
+import { FlexBox } from "../../../../iam/components/reusable/StyledComponent";
+
+interface SideMenuListProps {
+  list: MenuItemInterface[] | undefined;
+}
+
+const SideMenuList = ({ list = [] }: SideMenuListProps) => {
+  return (
+    <FlexBox className="flex flex-col gap-1 pt-1">
+      {list.length > 0
+        ? list.map((listItem, index) => (
+            <SideMenuItem key={index} listItem={listItem} />
+          ))
+        : null}
+    </FlexBox>
+  );
+};
+
+export default SideMenuList;

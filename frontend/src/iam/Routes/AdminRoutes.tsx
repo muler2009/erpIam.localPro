@@ -29,8 +29,6 @@ const AdminRoutes = () => {
     { path: 'groups',  element: <GroupManagementDashboard /> },
     { path: 'role_management',  element: <RoleLayout /> },
     { path: 'perm_management',  element: <PermissionLayout /> },
-
-
   ]
 
   return useRoutes(routes)
