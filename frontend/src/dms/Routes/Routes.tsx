@@ -3,6 +3,9 @@ import { useRoutes } from 'react-router-dom'
 import { MenuItemInterface } from '../components/reusable/side-tree/side-bar-interface';
 import DMSDashboard from '../layout/DMSDashboard';
 import menus from '../components/reusable/side-tree/menus';
+import DashboardMain from '../views/dashboard/DashboardMain';
+import UnderConstruction from '../../components/common/UnderConstruction';
+import LibraryMain from '../views/document-management/LibraryMain';
 
 
 interface Route {
@@ -17,9 +20,9 @@ interface RouteWithChildren {
 
 const Routes = () => {
     const dmsRoutes: (Route | RouteWithChildren)[] = [
-        { path: '/dms', element: <DMSDashboard /> },
-        { path: 'dashboard', element: <h1>Test code </h1> },
-        { path: 'activities', element: <h1>Activities </h1> },
+        { path: 'dashboard', element: <UnderConstruction /> },
+        { path: 'document/library/main', element: <LibraryMain/> },
+        { path: 'document/library/upload', element: <DashboardMain/> },
     ];
 
     return useRoutes(dmsRoutes);

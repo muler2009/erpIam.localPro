@@ -8,10 +8,13 @@ import { Link } from "react-router-dom";
 import * as GiIcons from "react-icons/gi";
 import { VscSymbolFile } from "react-icons/vsc";
 import { P } from "../../../../components/common/StyledComponent";
+import { Icon } from "../../../../components/common";
+import { AiFillDashboard } from "react-icons/ai";
 
 
 interface SideMenuListItemProps {
   listItem: MenuItemInterface;
+  
 }
 
 interface DisplayChildrensInterface {
@@ -35,7 +38,7 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
   );
 
   return (
-    <FlexBox>
+    <FlexBox className="py-1">
      
       <FlexBoxInner className="transition translate-x-7" >
             {
@@ -43,28 +46,40 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
               ? ( 
                   <Link to={listItem.path} className="flex items-center space-x-2 cursor-pointer font-Poppins text-sm px-3" onClick={() => handleToggleChildren(listItem.label)}>
                     {
-                        listItem && listItem.children && listItem.children.length ? (
-                          <span>
-                            {
-                              displayChildrens[listItem.label] 
-                              ? <GiIcons.GiOpenFolder size={20} className="text-yellow-600" /> 
-                              : <PiIcons.PiFolderSimplePlusFill size={20} className="text-yellow-600" />
-                            }
-                          </span>
-                        ): <VscSymbolFile size={15} />
+                      listItem.label === 'Dashboard' ? 
+                        (
+                          <AiFillDashboard size={20} className="text-gray-600"/>
+                        ) : (
+
+                          listItem && listItem.children && listItem.children.length ? (
+                                <div className="">
+                                   {
+                                      displayChildrens[listItem.label]  
+                                        ? <GiIcons.GiOpenFolder size={20} className="text-gray-600" /> 
+                                        : <PiIcons.PiFolderSimplePlusFill size={20} className="text-gray-600" />
+                                    }
+                                </div>
+                            ): (
+                              <>{
+                                listItem.icon ? (<>{listItem.icon}</>) : <VscSymbolFile />
+                              }</> 
+                            )                         
+                        )
                     }
-                    <div className={`flex text-[12px] py-[2px] ${!listItem.children && 'hover:underline hover:text-blue-500'}`}>{listItem.label}</div>
-              
+                    <div className={`flex text-[12px] ${!listItem.children && 'hover:underline hover:text-blue-500'}`}>
+                      {
+                        listItem.label 
+                      }
+                    </div>
                   </Link>
-            ) : (
-              <P className="text-[12px] hover:underline hover:text-blue-500 hover:bg-gray-50">{listItem.label}</P>
-            )}
+              ) : (
+                <P className="text-[12px] hover:underline hover:text-blue-500 hover:bg-gray-50">{listItem.label}</P>
+              )}
 
             {
               listItem.children && listItem.children.length > 0 && displayChildrens[listItem.label] && (
-                // <div className="pl-6">
-                    <SideMenuList list={listItem.children} />
-                // </div>
+                <SideMenuList list={listItem.children} />
+              
               )
             }
       </FlexBoxInner>

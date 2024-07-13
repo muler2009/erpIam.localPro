@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'users.apps.UsersConfig',
     'groups.apps.GroupsConfig',
-    'ldap_integration.apps.LdapIntegrationConfig'
+    'ldap_integration.apps.LdapIntegrationConfig',
+    'dmsmodule',
+    'dmsmodule.folder',
 ]
 
 MIDDLEWARE = [

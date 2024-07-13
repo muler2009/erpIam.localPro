@@ -1,7 +1,8 @@
 import React from "react";
-import { FlexBox, FlexBoxInner, FlexInnerContainer, FlexOuterContainer } from "../../../components/common/StyledComponent";
+import { FlexBox, FlexBoxInner, FlexInnerContainer, FlexOuterContainer, Text } from "../../../components/common/StyledComponent";
 import * as MdIcons from "react-icons/md";
 import Tooltip from "../../../iam/components/reusable/Tooltip";
+import { LiaPowerOffSolid } from "react-icons/lia";
 
 const DocumentManagmentHeader = () => {
   return (
@@ -14,14 +15,21 @@ const DocumentManagmentHeader = () => {
             </Tooltip>
             <Tooltip content={`Go forward`}>
               <MdIcons.MdOutlineArrowForwardIos />
-            </Tooltip>
+            </Tooltip> 
           </FlexBoxInner>
         </FlexBox>
         <FlexBox className="w-2/4">
-          <input className="input-sm text-[13px]" />
+          <input className="input-sm text-[13px] px-2" placeholder="https://documentmgmtsys.com" />
         </FlexBox>
         <FlexBox className="w-1/4 flex justify-end items-center">
-          <MdIcons.MdOutlineArrowForwardIos />
+        <FlexBox className={`flex justify-between items-center space-x-3`}>
+          <Text className="text-[12px] text-blue-900">codemuler2014@gmail.com</Text>
+          <FlexBoxInner className="py-2 flex items-center space-x-2 px-5 cursor-pointer bg-[#26cc86] rounded-md hover:bg-gray-300 text-[#cfcfcf]">
+              <Text className="text-[12px]">Signout</Text>
+              <LiaPowerOffSolid />
+            </FlexBoxInner>
+        </FlexBox>
+
         </FlexBox>
       </FlexInnerContainer>
     </header>

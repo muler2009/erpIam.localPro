@@ -11,7 +11,7 @@ const Router = () => {
         createRoutesFromElements(
             <Route element={<Layout />}>
                 <Route path='/' element={<Login />} />
-                <Route path='/dms/*' element={<DMSDashboard />} />
+                <Route path='dms/*' element={<DMSDashboard />} />
                 <Route element={<RequireAuth />}>
                     <Route path="iam/*" element={<Dashboard />} />
                 </Route>

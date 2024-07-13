@@ -25,9 +25,6 @@ class GetGroupsRequestHandler(views.APIView):
 
     def get(self, request):
         user = request.user
-
-
-
          # Debugging user info
         if not user.is_authenticated:
             print("User is not authenticated")

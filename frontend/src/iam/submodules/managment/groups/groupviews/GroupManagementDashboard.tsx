@@ -44,7 +44,8 @@ const GroupManagementDashboard = () => {
                 <LuIcons.LuRefreshCw />
               </button>
               <div className='relative z-20 cursor-pointer'>
-                <div className={`px-2 py-1.5 bg-gray-100 text-[#333] hover:bg-gray-200 rounded-[3px] ${dropdown ? 'bg-opacity-70 text-[#333] transition duration-500 ease-in-out rounded-[2px]': 'text-gray-500'}`}  onClick={() => setDropItems(prevState => !prevState)}>
+                <div className={`px-2 py-1.5 bg-gray-100 text-[#333] hover:bg-gray-200 rounded-[3px]
+                   ${dropdown ? 'bg-opacity-70 text-[#333] transition duration-500 ease-in-out rounded-[2px]': 'text-gray-500'}`}  onClick={() => setDropItems(prevState => !prevState)}>
                     <Text className={`text-[12px] font-Poppins flex items-center px-2`}>
                       <span className='pr-2'><MdGroups size={20} /></span>
                       Actions
