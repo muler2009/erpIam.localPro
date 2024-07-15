@@ -1,6 +1,5 @@
 import GroupTable from '../../../../components/Table/GroupTableUI'
 import { useGetGroupsQuery } from '../../../../features/groupsAPI'
-import { GROUP_COLUMN } from '../../constants/columns/groupColumn'
 import useGroupColumn from '../../constants/columns/useGroupColumn'
 
 const GroupList = () => {

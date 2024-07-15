@@ -12,13 +12,11 @@ interface RowDetailedViewProps {
   columns: ColumnDef<GroupMembersInterface, any>[];
 }
 
-
-
 const RowDetailedView = ({members, columns}: RowDetailedViewProps) => {
     console.log(members)
     const { userColumns } = useUserColumn()
   return (
-      <NestedUserTable columns={NESTED_COL} data={members} /> 
+      <NestedUserTable columns={userColumns} data={members} /> 
   )
 }
 

@@ -40,7 +40,7 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
   return (
     <FlexBox className="py-1">
      
-      <FlexBoxInner className="transition translate-x-7" >
+      <FlexBoxInner className="pl-5" >
             {
               listItem.path
               ? ( 

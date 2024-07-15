@@ -17,11 +17,6 @@ import {Search, ShowEntries, PaginationController, FilterBy} from "../common";
 import UserTableHeader from "./UserTableHeader";
 import { table } from "console";
 
-
-interface Data {
-    data: string;
-}
-
 interface UserTableProps {
     data: UserAccountInterfacee[];
     columns: ColumnDef<UserCoulumn, any>[];

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import React, { useState } from "react"
 import {
     getCoreRowModel, 
     useReactTable, 
@@ -8,96 +8,75 @@ import {
     getSortedRowModel, 
     ColumnFiltersState,
     getPaginationRowModel,
-    PaginationState
+    PaginationState,
+    ExpandedState,
+    getExpandedRowModel
 } from '@tanstack/react-table'
 import { FolderColumn, FolderDataInterface } from "../../models/folder-models";
-
-// import { useTableContext } from "./TableContext"
-// import { UserAccountInterfacee, UserCoulumn } from "../../models/user.model";
-// import {Search, ShowEntries, PaginationController, FilterBy} from "../common";
-// import UserTableHeader from "./UserTableHeader";
-// import { table } from "console";
-
-import { PaginationController } from "../../../iam/components/common";
 import {Search} from "../../../iam/components/common";
+import FolderTableHeader from "./FolderTableHeader";
+import SubFolderView from "../../views/document-management/folders/SubFolderView";
+import useSubFolderColumns from "../../constants/columns/useSubFolderColumns";
+import { FlexBox } from "../../../iam/components/reusable/StyledComponent";
 
-
-interface Data {
-    data: string;
-}
-
-interface UserTableProps {
+interface FolderTableProps {
     data: FolderDataInterface[];
     columns: ColumnDef<FolderColumn, any>[];
 }
   
 
-const FolderTable = ({data, columns}: UserTableProps) => {
+const FolderTable = ({data, columns}: FolderTableProps) => {
     const [globalFilter, setGlobalFilter] = useState<string | number>('')
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+    const [expanded, setExpanded] = useState<ExpandedState>({})
     const [pagination, setPagination] = useState<PaginationState>({
       pageIndex: 0,
       pageSize: 10
     })
-  const userTableInstance = useReactTable({
+  const folderTableInstance = useReactTable({
     data,
     columns,
     state: {
       globalFilter,
       columnFilters,
-      pagination
+      pagination,
+      expanded
     },
     enableRowSelection: true,
+    onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onGlobalFilterChange: setGlobalFilter,
-    onColumnFiltersChange: setColumnFilters,
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    onPaginationChange: setPagination,
+    getRowCanExpand: () => true,
+    getExpandedRowModel: getExpandedRowModel(),
+    getFilteredRowModel: getFilteredRowModel()
   })
 
-
-  console.log({selectedRows: userTableInstance.getSelectedRowModel()})
+  const { subFolderColumns } = useSubFolderColumns()
+//   console.log({selectedRows: userTableInstance.getSelectedRowModel()})
 
   return (
     <div className="flex flex-col gap-2">
         <div className='flex justify-between space-x-3 items-center mt-4'>
-           <div className="flex flex-col space-y">
-            </div> 
-          <div className='flex-grow'>
             <Search
                 globalFilter={globalFilter}
                 setGlobalFilter = {setGlobalFilter}
             /> 
-          </div>
+        
           <div className='w-1/3 flex justify-end items-center space-x-3 divide-x-[1px]'>
             {/* <ShowEntries table={userTableInstance} />
             <PaginationController table = {userTableInstance} /> */}
           
           </div>
         </div>
-        <div className="group">
+        <div className="folder">
             <table className="table table-sm table-border table-striped text-left mb-5 text-[14px]">
                 <thead>
                     {
-                        userTableInstance.getHeaderGroups().map((headerRowElement) => {
+                        folderTableInstance.getHeaderGroups().map((headerRowElement) => {
                             return(
                                 <tr id={headerRowElement.id}>
                                     {
                                         headerRowElement.headers.map((headerColElement) => {
-                                            return (
-                                                <th key={headerColElement.id}>
-                                                    {
-                                                        headerColElement.isPlaceholder
-                                                        ? null 
-                                                        : flexRender(
-                                                            headerColElement.column.columnDef.header,
-                                                            headerColElement.getContext()
-                                                        )
-                                                    }
-                                                </th>
-                                            )
+                                            return <FolderTableHeader folderColRow={headerColElement} />
                                         })
                                     }
                                 </tr>
@@ -106,10 +85,11 @@ const FolderTable = ({data, columns}: UserTableProps) => {
                     }
                 </thead>
                 {/* table body for user table  */}
-                <tbody>
+                <tbody className="">
                     {
-                        userTableInstance.getRowModel().rows.map((row) => {
+                        folderTableInstance.getRowModel().rows.map((row) => {
                             return (
+                            <React.Fragment key={row.id}>
                                 <tr key={row.id} >
                                     {row.getVisibleCells().map((cell) => {
                                     return (
@@ -119,6 +99,25 @@ const FolderTable = ({data, columns}: UserTableProps) => {
                                     );
                                     })}
                                 </tr>
+                                
+                                {
+                                    row.getIsExpanded() && (
+                                        <tr>
+                                            <td className="custom-td relative" colSpan={row.getVisibleCells().length}>
+                                                {
+                                                    row.original.subfolder?.length
+                                                    ? (
+                                                        <div className=" pl-5 before:content-[''] before:absolute before:w-[1px] before:bg-[#ccc] before:h-full">
+                                                            <SubFolderView subfolder={row.original.subfolder} columns={subFolderColumns}  />
+                                                        </div>
+                                                    ): (
+                                                        <FlexBox className="">No folder to show</FlexBox>
+                                                    )
+                                                }
+                                            </td>
+                                        </tr>
+                                    )}
+                            </React.Fragment>
                             );
                         })
                     }

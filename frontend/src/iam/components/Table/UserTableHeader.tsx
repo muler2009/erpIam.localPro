@@ -7,8 +7,6 @@ import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import * as LuIcons from "react-icons/lu";
 
 
-
-
 const UserTableHeader = ({headerColElement, index}: TableHeaderProps) => {
 
   const [open, setOpen] = useState(false)

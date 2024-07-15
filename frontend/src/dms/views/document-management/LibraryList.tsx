@@ -1,7 +1,7 @@
 import React from 'react'
 import { FlexOuterContainer } from '../../../components/common/StyledComponent'
 import { FlexInnerContainer } from '../../../iam/components/reusable/StyledComponent'
-import FolderTable from '../../components/reusable/FolderTable'
+import FolderTable from '../../components/tables/FolderTable'
 import useFolderColumns from '../../constants/columns/useFolderColumns'
 import { useGetFolderQuery } from '../../services/dmsAPISlice'
 
@@ -11,7 +11,7 @@ const LibraryList = () => {
     const {folderColumn} = useFolderColumns()
 
   return (
-    <FlexOuterContainer className='mt-1 px-5 py-3 flex flex-col bg-white h-full'>
+    <FlexOuterContainer className='mt-1 px-2 py-3 flex flex-col bg-white h-full'>
         <div>  
       {/* <Search /> */}
       {isLoading && <p>please wait it is loading ...</p>}

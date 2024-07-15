@@ -5,10 +5,10 @@ interface InputProps {
   type: string;
   name: string;
   placeholder: string;
-  value: string | number;
-  label: string;
-  className: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string | number;
+  label?: string;
+  className?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = ({ id, type, name, placeholder, onChange, value, label, className }: InputProps) => {

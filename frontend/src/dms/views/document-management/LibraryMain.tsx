@@ -1,7 +1,6 @@
 import React from 'react'
 import { FlexBox, FlexOuterContainer, Text, P, FlexBoxInner } from '../../../components/common/StyledComponent'
 import { FlexInnerContainer } from '../../../iam/components/reusable/StyledComponent'
-import { library } from '../../constants/library'
 import { LibraryTopNavigation } from './LibraryTopNavigation'
 import LibraryList from './LibraryList'
 

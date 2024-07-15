@@ -1,7 +1,7 @@
 import React from "react";
 import { PiFolderSimplePlusFill } from "react-icons/pi";
 import * as MdIcons from "react-icons/md";
-import { LibraryChildrenInterface, LibraryInterface } from "../models/library-models";
+import { LibraryChildrenInterface, LibraryInterface } from "../../models/library-models";
 import * as RiIcons from "react-icons/ri";
 import * as FaIcons from "react-icons/fa";
 

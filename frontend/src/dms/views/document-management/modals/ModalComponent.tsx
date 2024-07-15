@@ -47,7 +47,6 @@ const ModalComponent = ({isOpen, handleIsOpenCloseMenu, title, abbreviation}: Mo
                         className=' bg-blue-900 px-10 rounded-none text-sm text-white'
                         
                     />
-        
                 </ModalFooter>
             </ModalContainer>
         </ModalWrapper>

@@ -80,7 +80,7 @@
     
      /* end of the custom css for the table tbody  */
      .table > :not(caption) > * > * {
-      padding: 0.5rem 0.5rem;
+      /* padding: 0.5rem 0.5rem; */
       background-color: var(--bs-table-bg);
       border-bottom-width: 1px;
       box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
@@ -123,7 +123,29 @@
     .group > .table > tbody > tr { @apply cursor-pointer}
     .group > .table > tbody > tr > td { @apply py-3 text-[#333] text-opacity-80 text-[13px] }
     .group > .table > thead > tr > th:first-child{@apply w-[5%] whitespace-nowrap}
+    
   
+    .folder > .table > thead > tr > th { @apply border-none py-3 font-Rubik leading-[1.2] text-[#0b2239] bg-gray-50 text-[13.5px]}
+    .folder > .table > tbody > tr { @apply cursor-pointer}
+    .folder > .table > tbody > tr > td { @apply py-3 text-[#333] text-opacity-80 text-[13px] }
+    .folder > .table > tbody > tr > td:last-child{ @apply py-3 text-[#333] text-opacity-80 text-[13px] }
+    .folder > .table > thead > tr > th:first-child{@apply w-[5%] whitespace-nowrap}
+    .folder > .table-striped > tbody > tr:nth-of-type(odd) { @apply  bg-white }
+    .folder > .table-striped > tbody > tr:nth-of-type(even) { @apply bg-[#eee] bg-opacity-40}
+
+
+    .subfolder > .table { @apply w-full font-Poppins text-[14px] bg-[#ffffff] m-0 cursor-pointer text-sm h-[10px] overflow-y-scroll } 
+    .subfolder > .table-border { @apply w-full border-zinc-500 font-Poppins text-[14px] cursor-pointer text-sm text-left }    
+    .subfolder > .table > thead > tr > th { @apply border-none font-Rubik leading-[1.2] text-[#0b2239] bg-gray-50 py-4 text-[13px]}
+    .subfolder > .table > tbody > tr > td { @apply py-2 text-[#333] text-opacity-80 text-[13px] border-none}
+    .subfolder > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
+    .subfolder > .table > thead > tr > th:first-child{@apply w-[4%] whitespace-nowrap}
+    .subfolder > .table-striped > tbody > tr:nth-of-type(2) { @apply  w-[10%] }
+    .subfolder > .table-striped > tbody > tr:nth-of-type(2) { @apply  w-[10%] }
+
+    .subfolder > .table-striped > tbody > tr:nth-of-type(even) { @apply bg-[#eee] bg-opacity-40}
+
+    
 
     .nested-group > .table { @apply w-full font-Poppins text-[14px] bg-[#ffffff] m-0 cursor-pointer text-sm h-[10px] overflow-y-scroll } 
     .nested-group > .table-border { @apply w-full border-zinc-500 font-Poppins text-[14px] cursor-pointer text-sm text-left }    

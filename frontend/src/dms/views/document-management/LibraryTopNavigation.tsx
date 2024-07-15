@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { FlexInnerContainer, FlexBox, P, FlexBoxInner } from '../../../components/common/StyledComponent'
-import { library } from '../../constants/library'
+import { library } from '../../constants/menu-items/library'
 import { ModalComponent } from './modals'
 import { FlexOuterContainer } from '../../../iam/components/reusable/StyledComponent'
 import { BsListColumns } from "react-icons/bs";
@@ -49,7 +49,6 @@ export const LibraryTopNavigation = () => {
                 library?.map((library, index) => {
                     return(
                     <FlexBox key={index} className={`flex items-center justify-center cursor-pointer text-[#333] pl-2 `} onClick={() => handleDropdownToggle(library.label)}>
-                        
                         {
                             library.childern ? (
                                 <FlexBoxInner className='flex justify-between items-center relative w-full py-[8px]'>
@@ -68,7 +67,7 @@ export const LibraryTopNavigation = () => {
                                                                 const active = index
                                                                 return(
                                                                     <FlexBoxInner className={`text-sm`} key={index}>
-                                                                        <div className='flex space-x-2 hover:bg-gray-100 px-2 py-1' onClick={() => handleIsOpenCloseMenu(childDisplay.abbreviation)}>
+                                                                        <div className='flex space-x-2 px-2 py-1 hover:bg-blue-800 hover:text-white ' onClick={() => handleIsOpenCloseMenu(childDisplay.abbreviation)}>
                                                                             <aside className='text-[12px] flex items-center space-x-2'>
                                                                                 <span className='text-[16px] pr-2'>
                                                                                     {childDisplay.icon}

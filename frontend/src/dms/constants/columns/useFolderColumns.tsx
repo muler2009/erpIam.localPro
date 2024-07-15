@@ -1,28 +1,47 @@
-import { createColumnHelper } from '@tanstack/react-table'
-import { useMemo } from 'react'
+import { createColumnHelper, RowData } from '@tanstack/react-table'
+import { useMemo, useState, useCallback } from 'react'
 import { FolderColumn } from '../../models/folder-models'
 import { format } from 'date-fns'
-import { FlexBox, FlexBoxInner, P } from '../../../components/common/StyledComponent'
+import { FlexBox, FlexBoxInner, P, Text } from '../../../components/common/StyledComponent'
+import { AiFillFolder } from "react-icons/ai";
+import FolderTableActions from './FolderTableActions'
 
 
 const folderColumnHelper = createColumnHelper<FolderColumn>()
+const DISPLAY_COLUMN_SIZE = 100;
 
 const useFolderColumns = () => {
 
   const folderColumn = useMemo(
     () => [
+        // folderColumnHelper.display({
+        //     id: "selection",
+        //         header: ({table}) => {
+        //             return(
+        //                 <input 
+        //                     type='checkbox'
+        //                     onChange={table.getToggleAllPageRowsSelectedHandler()}
+        //                     checked={table.getIsAllRowsSelected()}
+        //                     className="w-[14px] h-[14px] rounded-none appearance-auto checked:appearance-none checked:bg-blue-500 before:checked:text-white" 
+        //                 />
+        //             )
+        //         },
+        // }),
         folderColumnHelper.display({
-            id: "selection",
-                header: ({table}) => {
-                    return(
-                        <input 
-                            type='checkbox'
-                            onChange={table.getToggleAllPageRowsSelectedHandler()}
-                            checked={table.getIsAllRowsSelected()}
-                            className="w-[14px] h-[14px] rounded-none appearance-auto checked:appearance-none checked:bg-blue-500 before:checked:text-white" 
-                        />
-                    )
-                },
+            id: "expand",
+            cell: ({ row }) =>
+            row.original.subfolder?.length && row.getCanExpand() ? (
+                <div className='flex flex-col justify-center items-start cursor-pointer'>
+                    <div className={`text-[#4f46e5] relative`} onClick={row.getToggleExpandedHandler()}>
+                        {
+                            row.getIsExpanded() 
+                            ? <div className='text-[25px]'>&#128193;</div>
+                            : <div className='text-[25px]'>&#128193;</div>
+                        }
+                    </div>
+                </div>  
+            ) : <div className='text-[25px] text-gray-600'><AiFillFolder /></div>,
+            size: DISPLAY_COLUMN_SIZE,
         }),
         folderColumnHelper.accessor(row => row.folder_name, {
             id: "folder_name",
@@ -31,12 +50,12 @@ const useFolderColumns = () => {
                 const date_created = props.row.original.folder_created_date || new Date()
                 const date = format(date_created, 'EEE dd yyyy')
                 return(
-                    <FlexBox className='flex flex-col'>
+                    <FlexBox className='flex flex-col justify-center items-start'>
                         <FlexBoxInner className='flex space-x-2'>
-                            <span className='text-[18px]'>&#128193;</span>
+                            {/* <span className='text-[18px]'>&#128193;</span> */}
                             <P>{props.getValue()}</P>
                         </FlexBoxInner>
-                        <span className='pl-7 text-[10px] text-[#333] text-opacity-50'>created: {date}</span>
+                        <span className='text-[10px] text-[#333] text-opacity-50'>created: {date}</span>
                     </FlexBox>
                 )
             },
@@ -77,12 +96,16 @@ const useFolderColumns = () => {
         folderColumnHelper.display({
             id: "name",
             header: () => <span>Actions</span>,
+            cell: ({ row }) => <FolderTableActions row={row} />
            
         })
-     ], [])
-
-  return {folderColumn}
+    ], [])
+    
+    return {folderColumn}
 }
+
+
+  
 
 
 
