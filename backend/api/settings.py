@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'ldap_integration.apps.LdapIntegrationConfig',
     'dmsmodule',
     'dmsmodule.folder',
+    'dmsmodule.file_mangement',
 ]
 
 MIDDLEWARE = [
@@ -138,6 +139,9 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.ScryptPasswordHasher",
 ]
 
+# Media related configuration
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')   # the path on the disk where the media (such as uploaded files) will be stored.
+MEDIA_URL = '/media/'  # it’s the URL that should be used to serve media.
 
 ###################### Project specific configuration ########################
 

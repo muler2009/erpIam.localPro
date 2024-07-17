@@ -11,26 +11,14 @@ class GetFolderRequestHandler(views.APIView):
         try:
             if folder_identifier:
                 folder = get_object_or_404(FolderModel, folder_identifier=folder_identifier)
-                serializer = GetFolderSerializer(folder)
+                serializer = GetFolderSerializer(folder, context={'request': request})
                 return Response(serializer.data)
             else:
                 top_level_folders = FolderModel.objects.filter(parent_folder__isnull=True)
                 if not top_level_folders:
                     raise NotFound(detail="No Folder Found")
-                serializer = GetFolderSerializer(top_level_folders, many=True)
+                serializer = GetFolderSerializer(top_level_folders, many=True, context={'request': request})
                 return Response(serializer.data)
         except NotFound as exc:
-            return Response({"Error": exc.detail}, status=status.HTTP_404_NOT_FOUND)
-
-
-      
-
-
-
-            
-        # else:
-        #     top_level_folders = FolderModel.objects.filter(parent_folder__isnull=True)
-        #     serializer = GetFolderSerializer(top_level_folders, many=True)
-        #     return Response(serializer.data)
-            
+            return Response({"Error": exc.detail}, status=status.HTTP_404_NOT_FOUND)           
       

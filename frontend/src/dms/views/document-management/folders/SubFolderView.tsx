@@ -7,6 +7,7 @@ import useSubFolderColumns from '../../../constants/columns/useSubFolderColumns'
 interface SubFolderRowDetailedViewProps {
     subfolder: FolderDataInterface[] | undefined;
     columns: ColumnDef<FolderDataInterface, any>[];
+
   }
 
 const SubFolderView = ({subfolder, columns}: SubFolderRowDetailedViewProps) => {

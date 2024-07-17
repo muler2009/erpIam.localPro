@@ -22,7 +22,6 @@ const InputWithDesc = ({id, type, name, placeholder, onChange, value, label, cla
             value={value}
             onChange={onChange}
             disabled={disabled}
-        
         />
         <p className="text-[12px] text-[#333] text-opacity-50">{desc}</p>
 

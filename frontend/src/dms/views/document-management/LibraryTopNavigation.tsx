@@ -56,7 +56,7 @@ export const LibraryTopNavigation = () => {
                                         <span className=''>{library.icon}</span>
                                         <p className='text-[12px]'>{library.label}</p>
                                     </div>
-                                    <span className='pl-5'>{ isOpen[library.label] ? <>{library.iconOpen}</> : <>{library.iconClose}</> }</span>
+                                    <span className='pl-3'>{ isOpen[library.label] ? <>{library.iconOpen}</> : <>{library.iconClose}</> }</span>
                                     <FlexBox className={`absolute top-9 -left-[7%] w-[250px] mt-2 whitespace-nowrap z-50 ${library.label === activeLabel ? 'border-t-[2px] border-gray-100' : null}`}>
                                         {
                                             library.childern && isOpen[library.label] &&  (

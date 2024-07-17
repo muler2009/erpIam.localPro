@@ -11,9 +11,9 @@ import * as FaIcons from "react-icons/fa";
 export const library: LibraryInterface[] = [
     {
         label: "Folder",
-        icon: <PiFolderSimplePlusFill size={15} />,
-        iconClose: <MdIcons.MdKeyboardArrowRight />,
-        iconOpen: <MdIcons.MdKeyboardArrowLeft />,
+        icon: <PiFolderSimplePlusFill size={20} />,
+        iconClose: <MdIcons.MdOutlineArrowDropDown size={20} />,
+        iconOpen: <MdIcons.MdOutlineArrowDropUp size={20} />,
         childern: [
             {
                 label: "Create Folder",

@@ -18,6 +18,7 @@ const useFolderActions = () => {
             ...prevState,
             [folderName]: !prevState[folderName],
         }));
+        
     };
 
     return{

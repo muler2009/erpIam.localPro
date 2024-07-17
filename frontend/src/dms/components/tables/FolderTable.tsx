@@ -17,7 +17,11 @@ import {Search} from "../../../iam/components/common";
 import FolderTableHeader from "./FolderTableHeader";
 import SubFolderView from "../../views/document-management/folders/SubFolderView";
 import useSubFolderColumns from "../../constants/columns/useSubFolderColumns";
-import { FlexBox } from "../../../iam/components/reusable/StyledComponent";
+import { FlexBox, FlexBoxInner, Text, P } from "../../../iam/components/reusable/StyledComponent";
+import { FaFilePdf } from "react-icons/fa";
+import { AiFillEye } from "react-icons/ai";
+import { format } from "date-fns";
+
 
 interface FolderTableProps {
     data: FolderDataInterface[];
@@ -105,13 +109,48 @@ const FolderTable = ({data, columns}: FolderTableProps) => {
                                         <tr>
                                             <td className="custom-td relative" colSpan={row.getVisibleCells().length}>
                                                 {
-                                                    row.original.subfolder?.length
+                                                    row.original.subfolder?.length || row.original.uploaded_file?.length
                                                     ? (
-                                                        <div className=" pl-5 before:content-[''] before:absolute before:w-[1px] before:bg-[#ccc] before:h-full">
-                                                            <SubFolderView subfolder={row.original.subfolder} columns={subFolderColumns}  />
-                                                        </div>
+                                                        <FlexBox className=" pl-5 before:content-[''] before:absolute before:w-[1px] before:bg-[#ccc] before:h-full flex flex-col">
+                                                           
+                                                            <div className="">
+                                                                <SubFolderView subfolder={row.original.subfolder} columns={subFolderColumns}  />
+                                                            </div>
+                                                            <FlexBoxInner className="pl-5">
+                                                                {
+                                                                    row.original.uploaded_file?.length && (
+                                                                        row.original.uploaded_file?.map((file, index) => {
+                                                                            const date = format(file.uploaded_file_date || 0, 'EEE dd yyyy')
+                                                                            return(
+                                                                                <FlexBox key={index} className="flex justify-between items-center bg-white py-2 left-10">
+                                                                                    <FlexBoxInner className="flex items-center justify-between w-2/3">
+                                                                                        <aside className="pr-4 flex items-center">
+                                                                                            <FaFilePdf />
+                                                                                            <span className="pl-4">
+                                                                                                {file.uploaded_document_name}
+                                                                                            </span>
+                                                                                        </aside>
+                                                                                       
+                                                                                        <Text>{date}</Text>
+                                                                                        <Text className="">PDF file</Text>
+                                                                                        <Text> {date}</Text>
+                                                                                    </FlexBoxInner>
+                                                                                    <FlexBoxInner className="pr-20 flex space-x-1 items-center" onClick={() => alert(`clicked ${file.file_url}`)}>
+                                                                                        <AiFillEye /><span className="">View</span>
+                                                                                    </FlexBoxInner>
+                                                                                </FlexBox>
+
+                                                                            )
+                                                                        }
+                                                                        )
+                                                                    )
+                                                                }
+
+                                                            </FlexBoxInner>
+                                                
+                                                        </FlexBox>
                                                     ): (
-                                                        <FlexBox className="">No folder to show</FlexBox>
+                                                        <FlexBox className="">No Empty</FlexBox>
                                                     )
                                                 }
                                             </td>

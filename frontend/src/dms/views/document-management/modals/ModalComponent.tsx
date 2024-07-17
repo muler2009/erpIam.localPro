@@ -2,6 +2,9 @@ import React from 'react'
 import { ModalBody, ModalContainer, ModalWrapper, ModalFooter, ModalHeader, InputWithDesc } from '../../../../iam/components/reusable'
 import * as Vsc from 'react-icons/vsc'
 import { Button } from '../../../../components/common';
+import CreateFolder from './CreateFolder';
+import UploadFile from './UploadFile';
+import { Text } from '../../../../components/common/StyledComponent';
 
 interface ModalProps {
     isOpen: boolean;
@@ -15,12 +18,12 @@ interface ModalProps {
   }
 
   const modalContent: ModalContent = {
-    create_folder: <div>Create Folder Modal Content</div>,
-    update_folder: <div>Update Folder Modal Content</div>,
+    create_folder: <CreateFolder />,
+    update_folder: <UploadFile />,
     upload_folder: <div>Upload Folder Modal Content</div>,
     add_link: <div>Add Link Modal Content</div>,
-    open_word_doc: <div>Open Word Document Modal Content</div>,
-    excel_doc: <div>Open Excel Spreadsheet Modal Content</div>,
+    open_word_doc: <UploadFile />,
+    excel_doc: <UploadFile />,
   };
  
   
@@ -30,9 +33,9 @@ const ModalComponent = ({isOpen, handleIsOpenCloseMenu, title, abbreviation}: Mo
         <ModalWrapper>
             <ModalContainer className={`w-[30%] mx-auto bg-[#fff] flex flex-col relative top-[9%] shadow-2xl`}>
                 <ModalHeader className='flex justify-between items-center px-5 py-3 border-b-[1px] bg-[#efefef] bg-opacity-50 font-Poppins'>
-                    <h1 className='font-Rubik text-[17px] text-black text-opacity-50 text-center px-5'>
+                    <Text className='font-Poppins text-[14px] text-center pr-5 text-[#333] text-opacity-60'>
                         {title}
-                    </h1>
+                    </Text>
                     <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-red-400 hover:text-white" onClick={handleIsOpenCloseMenu} > 
                         <Vsc.VscClose size={15} />
                     </div>
@@ -40,14 +43,6 @@ const ModalComponent = ({isOpen, handleIsOpenCloseMenu, title, abbreviation}: Mo
                 <ModalBody className='p-5'>
                     {modalContent[abbreviation]}
                 </ModalBody>
-
-                <ModalFooter className='flex justify-end pr-5 pt-3 pb-5 border-t space-x-3'>
-                    <Button 
-                        label={`Create`}
-                        className=' bg-blue-900 px-10 rounded-none text-sm text-white'
-                        
-                    />
-                </ModalFooter>
             </ModalContainer>
         </ModalWrapper>
    ): null

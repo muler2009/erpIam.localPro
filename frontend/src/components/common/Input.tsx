@@ -9,13 +9,14 @@ interface InputProps {
   label?: string;
   className?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean
 }
 
-const Input = ({ id, type, name, placeholder, onChange, value, label, className }: InputProps) => {
+const Input = ({ id, type, name, placeholder, onChange, value, label, className, disabled }: InputProps) => {
   
   return (
-    <div className="flex flex-col gap-4 text-sm w-full">
-      <label htmlFor={name} className="text-[15px] whitespace-nowrap font-Rubik">
+    <div className="flex flex-col gap-2 text-sm w-full">
+      <label htmlFor={name} className="text-[13px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80">
         {label}
       </label>
       <input
@@ -26,6 +27,7 @@ const Input = ({ id, type, name, placeholder, onChange, value, label, className 
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        disabled={disabled}
       />
     </div>
   );
