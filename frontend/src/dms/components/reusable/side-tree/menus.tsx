@@ -9,15 +9,15 @@ import * as MdIcons from "react-icons/md";
 export const sidear_link: MenuItemInterface[] = [
     {
       label: "Dashboard",
-      path: "dashboard",
+      path: ".",
     },
     {
       label: "My Document",
-      path: "dashboard",
+      path: ".",
       children: [
         {
           label: "Library",
-          path: "dashboard",
+          path: ".",
           children: [
             {
               label: "Main",

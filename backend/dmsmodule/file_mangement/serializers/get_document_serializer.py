@@ -11,6 +11,8 @@ class GetDocumentSerializer(serializers.ModelSerializer):
 
     def get_file_url(self, obj):
         request = self.context.get('request')
+        if request is None:
+            return None
         if obj.uploaded_file and hasattr(obj.uploaded_file, 'url'):
             return request.build_absolute_uri(obj.uploaded_file.url)
         return None

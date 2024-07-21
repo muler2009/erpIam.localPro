@@ -27,6 +27,7 @@ const useFolderColumns = () => {
         //             )
         //         },
         // }),
+
         folderColumnHelper.display({
             id: "expand",
             cell: ({ row }) =>
@@ -43,6 +44,7 @@ const useFolderColumns = () => {
             ) : <div className='text-[25px] text-gray-600'><AiFillFolder /></div>,
             size: DISPLAY_COLUMN_SIZE,
         }),
+        
         folderColumnHelper.accessor(row => row.folder_name, {
             id: "folder_name",
             header: () => <span>Name</span>,
@@ -66,13 +68,14 @@ const useFolderColumns = () => {
             header: () => <span>Content</span>,
             cell: (props) => {
                 const file_folder = props.row.original.subfolder
+                const uploads = props.row.original.uploaded_file
                 return(
                     <FlexBox className='flex justify-start'>
                         {
                             file_folder?.length 
                             ? (
                                 <P className='text-[11px] text-[#333] text-opacity-50'>
-                                    {file_folder.length}<span className='pl-1'>items</span>
+                                    {(file_folder.length + (uploads?.length || 0))}<span className='pl-1'>items</span>
                                 </P>
                             )
                             : <P className='text-[11px] text-[#333] text-opacity-50'>---</P>

@@ -140,8 +140,10 @@
     .subfolder > .table > tbody > tr > td { @apply py-2 text-[#333] text-opacity-80 text-[13px] border-none}
     .subfolder > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
     .subfolder > .table > thead > tr > th:first-child{@apply w-[4%] whitespace-nowrap}
+    .subfolder > .table-striped > tbody > tr > td:nth-of-type(2) { @apply  w-[15%] }
     .subfolder > .table-striped > tbody > tr:nth-of-type(2) { @apply  w-[10%] }
-    .subfolder > .table-striped > tbody > tr:nth-of-type(2) { @apply  w-[10%] }
+    .subfolder > .table-striped > tbody > tr > td:last-child { @apply  w-[10%] }
+
 
     .subfolder > .table-striped > tbody > tr:nth-of-type(even) { @apply bg-[#eee] bg-opacity-40}
 

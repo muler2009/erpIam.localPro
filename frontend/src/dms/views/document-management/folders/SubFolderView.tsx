@@ -18,3 +18,15 @@ const SubFolderView = ({subfolder, columns}: SubFolderRowDetailedViewProps) => {
 }
 
 export default SubFolderView
+  // {
+  //   subfolder.map((folder) => (
+  //     <div key={folder.folder_identifier} className="subfolder-item">
+  //     <div className="folder-info">
+  //       {columns.map((column) => (
+  //         <div key={column.accessor} className="folder-column">
+  //           {column.cell({ getValue: () => folder[column.accessor] })}
+  //         </div>
+  //       ))}
+  //     </div>
+  //   ))
+  // }

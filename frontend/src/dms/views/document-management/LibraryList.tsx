@@ -11,8 +11,8 @@ const LibraryList = () => {
     const {folderColumn} = useFolderColumns()
 
   return (
-    <FlexOuterContainer className='mt-1 px-2 py-3 flex flex-col bg-white h-full'>
-        <div>  
+    <FlexOuterContainer className='px-2 flex flex-col bg-white h-full'>
+        
       {/* <Search /> */}
       {isLoading && <p>please wait it is loading ...</p>}
       {
@@ -37,7 +37,7 @@ const LibraryList = () => {
           ) : null
       }
     
-  </div>
+  
         
     </FlexOuterContainer>
   )

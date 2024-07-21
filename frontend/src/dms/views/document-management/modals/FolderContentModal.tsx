@@ -11,7 +11,7 @@ interface FolderContentModalStructure {
     title: string;
     openFolderId: boolean;
     handleOptionsAction: () => void,
-    folder_data: any
+    folder_data: FolderDataInterface;
     abbreviation: string
 }
 

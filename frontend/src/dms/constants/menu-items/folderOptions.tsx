@@ -1,8 +1,12 @@
 import React from 'react'
 import * as PiIcons from 'react-icons/pi'
-import { VscNewFolder } from "react-icons/vsc";
+import  * as VscIcon from "react-icons/vsc";
 import { FaRegPaste } from "react-icons/fa6";
 import { MdDriveFileRenameOutline } from "react-icons/md";
+import  * as LiIcons from "react-icons/lia";
+import * as IoIcons from "react-icons/io";
+
+
 
 export const folderOptions = [
     {
@@ -12,7 +16,7 @@ export const folderOptions = [
     },
     {
         label: "Create Folder",
-        icon: <VscNewFolder />,
+        icon: <VscIcon.VscNewFolder />,
         abbreviation: "create_new_folder"
     },
     {
@@ -29,5 +33,44 @@ export const folderOptions = [
         label: "Rename",
         icon: <MdDriveFileRenameOutline />,
         abbreviation: "create_folder"
+    }
+]
+
+
+export const folder_modal_top_menu = [
+    {
+        label: "New Folder",
+        icon: <VscIcon.VscNewFolder />,
+        identifier: "create_new_folder"
+    },
+    {
+        label: "Copy",
+        icon: <VscIcon.VscCopy />,
+        identifier: "create_new_folder"
+    },
+    {
+        label: "Cut",
+        icon: <LiIcons.LiaCutSolid />,
+        identifier: "cut"
+    },
+    {
+        label: "Paste",
+        icon: <LiIcons.LiaPasteSolid />,
+        identifier: "paste"
+    },
+    {
+        label: "Rename",
+        icon: <MdDriveFileRenameOutline />,
+        identifier: "create_folder"
+    },
+    {
+        label: "Delete",
+        icon: <LiIcons.LiaTrashAltSolid />,
+        identifier: "delete"
+    },
+    {
+        label: "Download",
+        icon: <IoIcons.IoMdDownload />,
+        identifier: "save"
     }
 ]

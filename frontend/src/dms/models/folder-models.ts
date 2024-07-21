@@ -1,15 +1,19 @@
 export interface FolderColumn {
+    folder_identifier: string
     folder_name: string,
     parent_folder?: string;
     subfolder?: FolderDataInterface[] | undefined,
-    folder_created_date?: string | undefined;
+    folder_created_date?: string;
     folder_updated_date?: string;
     uploaded_file?: UploadedDocumentInterface[] | undefined   
 }
 
+
 export interface FolderDataInterface { 
+    folder_identifier: string
     folder_name: string,
     parent_folder?: string;
+    type?: 'file' | 'folder';
     subfolder?: FolderDataInterface[] | undefined,
     folder_created_date?: string;
     folder_updated_date?: string;  
@@ -18,6 +22,7 @@ export interface FolderDataInterface {
 }
 
 export interface UploadedDocumentInterface {
+    uploaded_document_id: string;
     uploaded_document_name: string;
     uploaded_file?: string; 
     file_url?: string;
@@ -25,3 +30,13 @@ export interface UploadedDocumentInterface {
     updated_file_date?: string;
 }
 
+export interface FolderGridViewInterface {
+    folder_data: FolderDataInterface
+}
+
+export interface FolderListProps {
+    handleOptionsAction: () => void,
+    title: string;
+    folder_data: FolderDataInterface;
+    abbreviation: string; 
+  }

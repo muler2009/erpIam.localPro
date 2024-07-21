@@ -24,7 +24,7 @@ class GetFolderSerializer(serializers.ModelSerializer):
     # It serializes each subfolder using the same FolderSerializer and returns the serialized data.
     def get_subfolder(self, obj):
         subfolder = obj.subfolder.all()
-        return GetFolderSerializer(subfolder, many=True).data
+        return GetFolderSerializer(subfolder, many=True, context=self.context).data
     
     def get_uploaded_file(self, obj):
         uploaded_file = obj.documents.all()

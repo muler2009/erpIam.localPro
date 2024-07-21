@@ -4,7 +4,7 @@ import * as Vsc from 'react-icons/vsc'
 import { Button } from '../../../../components/common';
 import CreateFolder from './CreateFolder';
 import UploadFile from './UploadFile';
-import { Text } from '../../../../components/common/StyledComponent';
+import { Text, FlexBox } from '../../../../components/common/StyledComponent';
 
 interface ModalProps {
     isOpen: boolean;
@@ -36,6 +36,7 @@ const ModalComponent = ({isOpen, handleIsOpenCloseMenu, title, abbreviation}: Mo
                     <Text className='font-Poppins text-[14px] text-center pr-5 text-[#333] text-opacity-60'>
                         {title}
                     </Text>
+
                     <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-red-400 hover:text-white" onClick={handleIsOpenCloseMenu} > 
                         <Vsc.VscClose size={15} />
                     </div>

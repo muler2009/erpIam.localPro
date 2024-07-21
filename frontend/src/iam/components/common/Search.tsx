@@ -5,7 +5,7 @@ import { SearchProps } from '../interface/Search.Interface';
 const Search = ({globalFilter, setGlobalFilter} : SearchProps) => {
 
   return (
-    <div>
+  
       <Input   
         id="serech_input" 
         type='text'
@@ -15,7 +15,7 @@ const Search = ({globalFilter, setGlobalFilter} : SearchProps) => {
         value={globalFilter}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => setGlobalFilter(event.target.value)}
       />
-    </div>
+    
   )
 }
 

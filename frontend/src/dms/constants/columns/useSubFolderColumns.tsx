@@ -1,15 +1,18 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { FolderColumn } from "../../models/folder-models";
 import { useMemo } from "react";
-import { P, FlexBox } from "../../../components/common/StyledComponent";
+import { P, FlexBox, FlexBoxInner } from "../../../components/common/StyledComponent";
+import { AiFillFolder } from "react-icons/ai";
+import { format } from "date-fns";
 
 
-
+const DISPLAY_COLUMN_SIZE = 10;
 const subColumnFolder = createColumnHelper<FolderColumn>()
 
 const useSubFolderColumns = () => {
     const subFolderColumns = useMemo(
         () => [
+
             subColumnFolder.accessor(row => row.folder_name, {
                 id: "folder_name",
                 header: () => <span>Folder name</span>,
@@ -25,6 +28,41 @@ const useSubFolderColumns = () => {
                     )
                 }
             }),
+
+            subColumnFolder.accessor(row => row.folder_name, {
+                id: "folder_name",
+                header: () => <span>Name</span>,
+                cell: (props) => {
+                    const date_created = props.row.original.folder_created_date || new Date()
+                    const date = format(date_created, 'EEE dd yyyy')
+                    return(
+                        <FlexBox className='flex flex-col justify-center items-start'>
+                            <FlexBoxInner className='flex space-x-2'>
+                                {/* <span className='text-[18px]'>&#128193;</span> */}
+                                <P>{props.getValue()}</P>
+                            </FlexBoxInner>
+                            <span className='text-[10px] text-[#333] text-opacity-50'>created: {date}</span>
+                        </FlexBox>
+                    )
+                },
+                enableSorting: true
+            }),
+
+            // subColumnFolder.accessor(row => row.folder_name, {
+            //     id: "folder_name",
+            //     header: () => <span>Folder name</span>,
+            //     cell: props => {
+            //         return(
+            //             <div className="before:content-[''] before:mt-3 before:h-[1px] before:absolute before:bg-[#ccc] before:w-[15px] ">
+            //                 <div className="flex space-x-2 ml-4">
+            //                     <span className='text-[18px]'>&#128193;</span>
+            //                     <P>{props.getValue()}</P>
+
+            //                 </div>
+            //             </div>
+            //         )
+            //     }
+            // }),
             subColumnFolder.accessor(row => row.subfolder, {
                 id: "subfolder",
                 header: () => <span>Content</span>,

@@ -3,9 +3,11 @@ import { useRoutes } from 'react-router-dom'
 import { MenuItemInterface } from '../components/reusable/side-tree/side-bar-interface';
 import DMSDashboard from '../layout/DMSDashboard';
 import menus from '../components/reusable/side-tree/menus';
-import DashboardMain from '../views/dashboard/DashboardMain';
+import DashboardMain from '../views/dashboard/DashboardMain2';
 import UnderConstruction from '../../components/common/UnderConstruction';
 import LibraryMain from '../views/document-management/LibraryMain';
+import SharedMainDashboard from '../views/shared/SharedMainDashboard';
+import Dashboard from '../views/dashboard/Dashboard';
 
 
 interface Route {
@@ -20,8 +22,10 @@ interface RouteWithChildren {
 
 const Routes = () => {
     const dmsRoutes: (Route | RouteWithChildren)[] = [
-        { path: 'dashboard', element: <UnderConstruction /> },
+        { path: '/', element: <Dashboard /> },
+        // { path: 'dashboard', element: <DashboardMain /> },
         { path: 'document/library/main', element: <LibraryMain/> },
+        { path: 'document/library/shared', element: <SharedMainDashboard/> },
         { path: 'document/library/upload', element: <DashboardMain/> },
     ];
 

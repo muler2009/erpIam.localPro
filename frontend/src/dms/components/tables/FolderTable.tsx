@@ -21,7 +21,10 @@ import { FlexBox, FlexBoxInner, Text, P } from "../../../iam/components/reusable
 import { FaFilePdf } from "react-icons/fa";
 import { AiFillEye } from "react-icons/ai";
 import { format } from "date-fns";
-
+import { BsCardList } from "react-icons/bs";
+import { TfiLayoutGrid2Alt } from "react-icons/tfi";
+import { BsFileEarmark } from "react-icons/bs";
+import { GiOpenFolder } from "react-icons/gi";
 
 interface FolderTableProps {
     data: FolderDataInterface[];
@@ -40,6 +43,7 @@ const FolderTable = ({data, columns}: FolderTableProps) => {
   const folderTableInstance = useReactTable({
     data,
     columns,
+    // getSubRows: (row) => row.subfolder,
     state: {
       globalFilter,
       columnFilters,
@@ -58,19 +62,23 @@ const FolderTable = ({data, columns}: FolderTableProps) => {
 //   console.log({selectedRows: userTableInstance.getSelectedRowModel()})
 
   return (
-    <div className="flex flex-col gap-2">
-        <div className='flex justify-between space-x-3 items-center mt-4'>
+    <div className="flex flex-col gap-1">
+        <FlexBox className="flex">
             <Search
                 globalFilter={globalFilter}
                 setGlobalFilter = {setGlobalFilter}
             /> 
+            <FilterText />
+
+        </FlexBox>
+      
         
-          <div className='w-1/3 flex justify-end items-center space-x-3 divide-x-[1px]'>
-            {/* <ShowEntries table={userTableInstance} />
-            <PaginationController table = {userTableInstance} /> */}
+          {/* <div className='w-1/3 flex justify-end items-center space-x-3 divide-x-[1px]'>
+            <ShowEntries table={userTableInstance} />
+            <PaginationController table = {userTableInstance} />
           
-          </div>
-        </div>
+          </div> */}
+       
         <div className="folder">
             <table className="table table-sm table-border table-striped text-left mb-5 text-[14px]">
                 <thead>
@@ -113,7 +121,7 @@ const FolderTable = ({data, columns}: FolderTableProps) => {
                                                     ? (
                                                         <FlexBox className=" pl-5 before:content-[''] before:absolute before:w-[1px] before:bg-[#ccc] before:h-full flex flex-col">
                                                            
-                                                            <div className="">
+                                                            <div>
                                                                 <SubFolderView subfolder={row.original.subfolder} columns={subFolderColumns}  />
                                                             </div>
                                                             <FlexBoxInner className="pl-5">
@@ -155,7 +163,8 @@ const FolderTable = ({data, columns}: FolderTableProps) => {
                                                 }
                                             </td>
                                         </tr>
-                                    )}
+                                    )
+                                }
                             </React.Fragment>
                             );
                         })
@@ -169,3 +178,27 @@ const FolderTable = ({data, columns}: FolderTableProps) => {
 }
 
 export default FolderTable
+
+const FilterText = () => {
+    return(
+        <FlexBox className='bg-white mt-1 py-4 px-2 cursor-pointer h-full'>
+        <FlexBoxInner className='flex justify-end items-center divide-x-[1px] divide-[#333] pl-5 pr-10'>
+          <FlexBoxInner className='flex space-x-2 items-center'>
+            <FlexBoxInner className='flex space-x-2 '>
+               <div className='btn-sm px-2 hover:bg-gray-50 rounded-none flex items-center justify-center text-[12px]'>
+                  <span className='pr-1'><BsFileEarmark size={20} /></span>Files
+                </div>
+                <div className='btn-sm pr-3 hover:bg-gray-50 rounded-none  flex items-center justify-center text-[12px]'>
+                  <span className='pr-1'><GiOpenFolder size={20} /></span>Folders
+                </div>
+            </FlexBoxInner>
+          </FlexBoxInner>
+          <FlexBoxInner className='pl-3'>
+            <TfiLayoutGrid2Alt size={18} />
+          </FlexBoxInner>
+        </FlexBoxInner>
+      
+        
+      </FlexBox>
+    )
+}
