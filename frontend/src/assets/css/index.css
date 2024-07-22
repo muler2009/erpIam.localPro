@@ -143,11 +143,7 @@
     .subfolder > .table-striped > tbody > tr > td:nth-of-type(2) { @apply  w-[15%] }
     .subfolder > .table-striped > tbody > tr:nth-of-type(2) { @apply  w-[10%] }
     .subfolder > .table-striped > tbody > tr > td:last-child { @apply  w-[10%] }
-
-
-    .subfolder > .table-striped > tbody > tr:nth-of-type(even) { @apply bg-[#eee] bg-opacity-40}
-
-    
+    .subfolder > .table-striped > tbody > tr:nth-of-type(even) { @apply bg-[#eee] bg-opacity-40} 
 
     .nested-group > .table { @apply w-full font-Poppins text-[14px] bg-[#ffffff] m-0 cursor-pointer text-sm h-[10px] overflow-y-scroll } 
     .nested-group > .table-border { @apply w-full border-zinc-500 font-Poppins text-[14px] cursor-pointer text-sm text-left }    
@@ -161,6 +157,18 @@
 
     .nested-group > .table-striped > tbody > tr:nth-of-type(odd) { @apply bg-white}
     .nested-group > .table-striped > tbody > tr:nth-of-type(even) { @apply bg-[#eee] bg-opacity-20}
+
+    .shared > .table > thead > tr > th { @apply border-none py-3 font-Poppins font-semibold leading-[1.2] text-[#333] text-opacity-70 bg-gray-50 text-[13.5px]}
+    .shared > .table > thead > tr > th:first-child { @apply w-[50%] }
+    .shared > .table > thead > tr > th:nth-child(2) { @apply w-[15%] }
+    .shared > .table > thead > tr > th:nth-child(3) { @apply w-[10%] }
+    .shared > .table > thead > tr > th:last-child { @apply w-[25%] }
+
+    .shared > .table > tbody > tr { @apply cursor-pointer}
+    .shared > .table > tbody > tr > td { @apply pl-5 py-1 text-[#333] text-opacity-80 text-[13px] }
+    /* .shared > .table > thead > tr > th:first-child{@apply w-[5%] whitespace-nowrap} */
+ 
+
 
 
     .custom-td {
