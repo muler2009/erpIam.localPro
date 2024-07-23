@@ -2,16 +2,14 @@ import React from 'react'
 import { ModalProps } from '../../../../../models/user.model'
 import { ModalBody, ModalContainer, ModalHeader, ModalWrapper, Input, ModalFooter } from '../../../../../components/reusable'
 import * as Vsc from 'react-icons/vsc'
-import Permission from '../Permission'
 import IdentityRegistrationForm from './IdentityRegistrationForm'
 import IdentityAssignment from './IdentityAssignment'
 import * as GrIcons from 'react-icons/gr'
-import useAccountProps from '../../context/useAccountProps'
-import { UserAccountContextProvider } from '../../context/UserAccountContext'
 import { useUserAccountContext } from '../../context/useUserAccountContext'
 import { AssignGroupToIdentityContextProvider } from '../../context/AssignGroupIdentityContext'
-import { Text } from '../../../../../components/reusable/StyledComponent'
+import { Text, FlexInnerContainer, FlexBox, FlexBoxInner } from '../../../../../components/reusable/StyledComponent'
 import { useCreateUserAccountMutation } from '../../../../../features/userAPI'
+import Stepper from '@keyvaluesystems/react-vertical-stepper'
 
 interface UserContainerInterface {
     [key: number]: React.ReactNode;
@@ -38,6 +36,11 @@ const CreateUserIdentity = ({openCreateIdentity, isOpen, title} : ModalProps) =>
         1: <IdentityAssignment />,
     }
 
+       // Changing the groupCreationStep structure to an array
+       const displayComponent = Object.keys(userCreationStep).map((key: any) => ({
+        // label: groupCreationStep[key],
+        component: display[key]
+      }));
 
     const handlePrev = () => setPage(prev => prev - 1);
     const handleNext = () => setPage(prev => prev + 1);
@@ -57,10 +60,9 @@ const CreateUserIdentity = ({openCreateIdentity, isOpen, title} : ModalProps) =>
   }
 
   return isOpen ? (
-   
         <AssignGroupToIdentityContextProvider>
             <ModalWrapper>
-                <ModalContainer className={`w-[40%] mx-auto bg-[#fff] flex flex-col gap-4 relative top-[6%] shadow-2xl`} >
+                <ModalContainer className={`w-[60%] mx-auto bg-[#fff] flex flex-col relative top-[6%] shadow-2xl rounded-t-md`} >
                     <ModalHeader className='flex justify-between items-center px-5 py-3 border-b-[1px]'>
                         <h1 className='font-Rubik text-black font-semibold text-[15px] text-opacity-50 text-center px-5'>
                             {title}
@@ -70,8 +72,8 @@ const CreateUserIdentity = ({openCreateIdentity, isOpen, title} : ModalProps) =>
                             <Vsc.VscClose size={15} />
                         </div>
                     </ModalHeader>
-                    <ModalBody className='bg-white relative h-[70vh]'>
-                        <div className='after:absolute after:bg-gray-100 after:h-[1px] after:w-full after:top-[6%] after:px-1'>
+                    <ModalBody className='bg-white relative h-[60vh]'>
+                        {/* <div className='after:absolute after:bg-gray-100 after:h-[1px] after:w-full after:top-[6%] after:px-1'>
                             <div className='flex justify-between pl-5 pb-1 border-opacity-80 border-gray-100 sticky top-0 bg-white'>
                                 {
                                     Object.keys(userCreationStep)?.map((title: any, index) => {
@@ -93,7 +95,26 @@ const CreateUserIdentity = ({openCreateIdentity, isOpen, title} : ModalProps) =>
                         </div>
                     <div className='flex flex-col'>
                         {display[page]}
-                    </div>
+                    </div> */}
+                     <FlexInnerContainer className='flex py-5'>
+                        <FlexBox className={`my-5`}>
+                            <Stepper
+                                steps={displayComponent}
+                                currentStepIndex={page}
+                                labelPosition="bottom"
+                                styles={{
+                                    LineSeparator: (step: any, index: any) => ({ height: "400px"}),
+                                    Bubble: (step: any, index: any) => ({ height: "40px", width: "40px", backgroundColor: "gray" }),
+                                    ActiveBubble:  (step: any, index: any) => ({ backgroundColor: "#2b4a6d"}),
+                                    InactiveLineSeparator: (step: any, stepIndex: any) => ({color: "blue"})
+                                }}
+                            />
+                        </FlexBox>
+                        <FlexBox className='flex-grow'>
+                            {/* {display[page]} */}
+                            {displayComponent[page].component}
+                        </FlexBox>
+                    </FlexInnerContainer>
                     </ModalBody>
 
                     <ModalFooter className='px-4 py-4 flex justify-end space-x-3 border-t'>
@@ -101,21 +122,21 @@ const CreateUserIdentity = ({openCreateIdentity, isOpen, title} : ModalProps) =>
                             <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] text-[#333] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
                                 <div className='flex justify-start items-center'>
                                     <GrIcons.GrFormPrevious  size={15}/>
-                                    <p className='font-Poppins text-[14px]'>Prev</p>
+                                    <p className='font-Poppins text-[13px]'>Prev</p>
                                 </div>
                             </button>
 
                             <button  className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${nextHide}`} onClick={handleNext} disabled={disableNext}>
                                 <div className='flex justify-start items-center '>
-                                    <p className='font-Poppins text-[14px]'>Next</p>
+                                    <p className='font-Poppins text-[13px]'>Next</p>
                                     <GrIcons.GrFormNext size={15} />
                                 </div>
                             </button>
 
                             <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${submitHide}`} onClick={onSaveClicked}>
                                 <div className='flex justify-start items-center '>
-                                    <p className='font-Poppins text-[14px]'>Create</p>
-                                    <GrIcons.GrFormNext size={15} />
+                                    <p className='font-Poppins text-[13px]'>Create</p>
+                        
                                 </div>
                             </button>
                         </div>

@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { InputInterface } from "../interface/Input-select.interface";
 
 
-const InputWithDesc = ({id, type, name, placeholder, onChange, value, label, className, label_description= "", desc="Optional", icon, disabled }: InputInterface) => {
+const InputWithDesc = ({id, type, name, placeholder, onChange, value, label, checked, className, label_description= "", desc="Optional", icon, disabled }: InputInterface) => {
   return (
     <div className="flex flex-col gap-2 text-sm w-full">
       <div className="flex flex-col gap-0">
@@ -22,6 +22,7 @@ const InputWithDesc = ({id, type, name, placeholder, onChange, value, label, cla
             value={value}
             onChange={onChange}
             disabled={disabled}
+            checked={checked}
         />
         <p className="text-[12px] text-[#333] text-opacity-50">{desc}</p>
 

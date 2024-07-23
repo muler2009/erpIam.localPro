@@ -9,7 +9,7 @@ const IdentityAssignment = () => {
   const { userData, handleUserIdentityCreationInputChanges } = useUserAccountContext()
   
   return (
-    <FlexOuterContainer className='flex flex-col px-5 mt-10'>
+    <FlexOuterContainer className='flex flex-col px-5'>
       <FlexInnerContainer className='flex gap-5 px-10'>
         <InputWithDesc 
             label='User Home directory *'
@@ -29,7 +29,7 @@ const IdentityAssignment = () => {
           <CustomTable />
         </AssignGroupToIdentityContextProvider>
       </FlexInnerContainer>
-      <FlexInnerContainer className='flex flex-col border-t-[1px] gap-5 bg-gray-50'>
+      <FlexInnerContainer className='flex flex-col border-t-[1px] gap-3 bg-gray-50'>
           <div className='flex flex-col pt-3'>
             <label className='flex items-center justify-start space-x-3 cursor-pointer'>
               <input 

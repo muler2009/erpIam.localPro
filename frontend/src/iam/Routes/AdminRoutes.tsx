@@ -3,8 +3,8 @@ import { useRoutes } from 'react-router-dom';
 // import Dashboard from '../layout/Dashboard';
 import UserLayout from '../submodules/managment/user/userLayout/UserLayout';
 import PermissionLayout from '../submodules/managment/permissions/PermissionLayout';
-import GroupManagementDashboard from '../submodules/managment/groups/groupviews/GroupManagementDashboard';
 import Dashboard from '../submodules/dashboard/Dashboard';
+import GroupDashboard from '../submodules/managment/groups/groupviews/GroupDashboard';
 
 interface Route {
     path: string;
@@ -20,7 +20,7 @@ const AdminRoutes = () => {
   const routes: (Route | RouteWithChildren)[] = [
     { path: '/',  element: <Dashboard /> },
     { path: 'users',  element: <UserLayout /> },
-    { path: 'groups',  element: <GroupManagementDashboard /> },
+    { path: 'groups',  element: <GroupDashboard /> },
     { path: 'perm_management',  element: <PermissionLayout /> },
   ]
 

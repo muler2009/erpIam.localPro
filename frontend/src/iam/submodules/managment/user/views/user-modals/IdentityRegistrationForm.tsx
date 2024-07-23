@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { FlexBox, FlexBoxInner, FlexInnerContainer, FlexOuterContainer, Text } from '../../../../../components/reusable/StyledComponent'
 import { Input , InputWithDesc} from '../../../../../components/reusable'
-import  * as RiIcons from "react-icons/ri";
 import * as BiIcons from 'react-icons/bi'
 import { useUserAccountContext } from '../../context/useUserAccountContext';
+import * as CiIcons from "react-icons/ci";
 
 
 const IdentityRegistrationForm = () => {
@@ -23,7 +23,7 @@ const IdentityRegistrationForm = () => {
   
   
   return (
-    <FlexOuterContainer className='flex flex-col px-5 mt-10'>
+    <FlexOuterContainer className='flex flex-col px-5'>
       <FlexInnerContainer className='flex gap-5 px-10'>
         <InputWithDesc 
             label='First Name *'
@@ -49,14 +49,14 @@ const IdentityRegistrationForm = () => {
         />
       </FlexInnerContainer>
 
-      <FlexInnerContainer className='flex flex-col border-t-[1px] mt-5 bg-gray-50'>
-        <Text className='font-Rubik text-[#333] text-opacity-50 text-[15px] py-3 px-4'>Authentication Information</Text> 
-        <FlexInnerContainer className='flex flex-col gap-3'>
+      <FlexInnerContainer className='flex flex-col border-t-[1px] bg-gray-50'>
+        <Text className='font-Rubik text-[#333] text-opacity-50 text-[15px] py-2 px-4'>Authentication Information</Text> 
+        <FlexInnerContainer className='flex flex-col gap-2'>
           <Text className='flex items-center text-[#333] text-opacity-80 text-sm'>
-            <span className='pr-1'><RiIcons.RiAccountCircleFill /></span>Username
+            <span className='pr-2'><CiIcons.CiUser /></span>Username
           </Text>
     
-          <FlexBox className='flex gap-4 px-4'>
+          <FlexBox className='flex gap-4 px-6'>
             <FlexBoxInner className='flex flex-col'>
               <label className='flex items-center justify-start space-x-2 cursor-pointer'>
                 <input 
@@ -72,7 +72,7 @@ const IdentityRegistrationForm = () => {
               <p className='text-[11px] px-6 text-[#333] text-opacity-60'>Click the radio box to generate username automatically for the user</p> 
             </FlexBoxInner>
 
-            <FlexBoxInner className='flex flex-col'>
+            <FlexBoxInner className='flex flex-col flex-grow'>
               <label className='flex items-center justify-start space-x-1 cursor-pointer'>
                 <input 
                   type="radio" 
@@ -82,14 +82,14 @@ const IdentityRegistrationForm = () => {
                   checked={usernameType === 'manual'} 
                   onChange={handleUsernameTypeChange}
                 />
-                <h1 className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>Manuall-set-the-username</h1>
+                <h1 className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80 pl-1'>Manuall-set-the-username</h1>
               </label>
-              <div className='flex-grow'>
+              <div className='flex-grow ml-7'>
                 <InputWithDesc 
                   id='username_input'
                   type='text'
                   placeholder='Custom Username'
-                  className='input-md font-Poppins text-[13px]'
+                  className='input-md font-Poppins text-[13px] '
                   name='username'
                   value={userData?.username}
                   onChange={handleUsernameChange}
@@ -104,10 +104,10 @@ const IdentityRegistrationForm = () => {
 
         <FlexInnerContainer className='flex flex-col gap-4'>
           <Text className='flex items-center text-[#333] text-opacity-80 text-sm'>
-            <span className='pr-1'><RiIcons.RiLockPasswordFill /></span>Password
+            <span className='pr-2'><CiIcons.CiLock /></span>Password
           </Text>
           <FlexBox className='flex px-4'>
-            <div className='flex flex-col'>
+            <div className='flex flex-col pl-2'>
               <label className='flex items-center justify-start space-x-2 cursor-pointer'>
                 <input 
                     type="radio" 
@@ -122,7 +122,7 @@ const IdentityRegistrationForm = () => {
               <p className='text-[11px] px-6 text-[#333] text-opacity-60'>Click the radio box to generate password automatically for the user</p>
             </div>
 
-            <div className='flex flex-col'>
+            <div className='flex flex-col flex-grow pl-5'>
               <label className='flex items-center justify-start space-x-1 cursor-pointer'>
                 <input 
                   type="radio" 
@@ -132,9 +132,9 @@ const IdentityRegistrationForm = () => {
                   checked={passwordType === 'manual'} 
                   onChange={handlePasswordTypeChange}
                 />
-                <h1 className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>Manually-set-the-password</h1>
+                <h1 className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80 pl-1'>Manually-set-the-password</h1>
               </label>
-              <div className='flex-grow'>
+              <div className='flex-grow ml-7'>
                 <InputWithDesc 
                   id='password_input'
                   type='password'
@@ -157,7 +157,7 @@ const IdentityRegistrationForm = () => {
             icon={<BiIcons.BiSolidEnvelope />}
             type='email'
             placeholder='userid@domain.com'
-            className='input-md font-Poppins text-[13px] disabled:bg-black'
+            className='input-md font-Poppins text-[13px] disabled:bg-black w-1/2'
             name='email'
             value={userData?.email}
             onChange={handleUserIdentityCreationInputChanges}

@@ -95,11 +95,11 @@
    
     /* Admin styling*/
     
-    .user {@apply h-full border-2 border-black } 
+    .user {@apply border-[1px] p-[1px] border-[#333] border-opacity-20 h-full} 
     .user > .table > thead { @apply  border-b-[1px] bg-black}
     .user > .table > thead > tr > th { @apply border-none py-4 px-5 font-Poppins font-semibold tracking-wide leading-[1.2] text-[#0b2239] text-opacity-70 bg-gray-50 text-[13px]}
     .user > .table > thead > tr > th:first-child {@apply w-[40px] whitespace-nowrap}
-    .user > .table > tbody > tr > td { @apply py-3 text-[#333] text-opacity-80 text-[13px] px-5}
+    .user > .table > tbody > tr > td { @apply py-1 text-[#333] text-opacity-80 text-[13px] px-5}
     .user > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
     .user > .table > tbody  { @apply border-b-[1px] px-5}
     .user > .table > tbody  { @apply border-b-[1px] px-5}
@@ -119,7 +119,7 @@
     .role .table-striped > tbody > tr:nth-of-type(odd), 
     .role > .table-striped > tbody > tr:nth-of-type(even) { @apply bg-white }
 
-    .group > .table > thead > tr > th { @apply border-none py-3 font-Rubik leading-[1.2] text-[#0b2239] bg-gray-50 text-[13.5px]}
+    .group > .table > thead > tr > th { @apply border-none py-3 font-Poppins font-semibold text-opacity-90 tracking-wide leading-[1.2] text-[#0b2239] bg-gray-50 text-[13px]}
     .group > .table > tbody > tr { @apply cursor-pointer}
     .group > .table > tbody > tr > td { @apply py-3 text-[#333] text-opacity-80 text-[13px] }
     .group > .table > thead > tr > th:first-child{@apply w-[5%] whitespace-nowrap}

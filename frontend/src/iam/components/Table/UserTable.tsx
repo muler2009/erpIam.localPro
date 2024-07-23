@@ -16,6 +16,7 @@ import { UserAccountInterfacee, UserCoulumn } from "../../models/user.model";
 import {Search, ShowEntries, PaginationController, FilterBy} from "../common";
 import UserTableHeader from "./UserTableHeader";
 import { table } from "console";
+import { FlexBox, FlexBoxInner } from "../reusable/StyledComponent";
 
 interface UserTableProps {
     data: UserAccountInterfacee[];
@@ -52,25 +53,25 @@ const UserTable = ({data, columns}: UserTableProps) => {
   console.log({selectedRows: userTableInstance.getSelectedRowModel()})
 
   return (
-    <div className="flex flex-col gap-2">
-        <div className='flex justify-between space-x-3 items-center mt-4'>
-          <div className='flex-grow'>
+    <FlexBox className="flex flex-col h-full gap-2">
+        <FlexBoxInner className='flex justify-between space-x-3 items-center'>
+          <FlexBox className='flex-grow'>
             <Search
                 globalFilter={globalFilter}
                 setGlobalFilter = {setGlobalFilter}
             /> 
-          </div>
-          <div className='w-1/3 flex justify-end items-center space-x-3 divide-x-[1px]'>
+          </FlexBox>
+          <FlexBox className='w-1/3 flex justify-between items-center space-x-3 z-10'>
             <ShowEntries table={userTableInstance} />
             <PaginationController table = {userTableInstance} />
             <FilterBy 
                 columnFilters={columnFilters}
                 setColumnFilters={setColumnFilters}
             />
-          </div>
-        </div>
-        <div className="user">
-            <table className="table table-sm table-border table-striped text-left mb-5 text-[14px]">
+          </FlexBox>
+        </FlexBoxInner>
+        <FlexBoxInner className="user">
+            <table className="table table-sm table-border table-striped text-left text-[14px]">
                 <thead>
                     {
                         userTableInstance.getHeaderGroups().map((headerRowElement) => {
@@ -91,7 +92,7 @@ const UserTable = ({data, columns}: UserTableProps) => {
                     {
                         userTableInstance.getRowModel().rows.map((row) => {
                             return (
-                                <tr key={row.id} >
+                                <tr key={row.id} className="group" >
                                     {row.getVisibleCells().map((cell) => {
                                     return (
                                         <td key={cell.id}>
@@ -106,8 +107,8 @@ const UserTable = ({data, columns}: UserTableProps) => {
                 </tbody>
 
             </table>
-        </div>
-    </div>
+        </FlexBoxInner>
+    </FlexBox>
   )
 }
 

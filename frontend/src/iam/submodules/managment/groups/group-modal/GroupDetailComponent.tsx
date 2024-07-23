@@ -22,7 +22,8 @@ const GroupDetailComponent = () => {
         handleSelectionChange,
         handleStoreToMembersClick,
         membersOfGroup,
-        selectedOption
+        selectedOption,
+        handleRemoveMember
     } = useGroupContext()
 
    // hook from the UserAPI 
@@ -88,14 +89,23 @@ const GroupDetailComponent = () => {
                 </FlexBox>
             </FlexInnerContainer>
             <FlexInnerContainer className='px-10 pt-5 mx-5 border-t'>
-                <FlexBox className='flex space-x-4 pt-4'>
-                    <FlexBoxInner className='flex-grow'>
-                        <Select title='Available users' options={isOptionArray(data) ? data : []} onChange={handleSelectionChange} />
-                    </FlexBoxInner>
-                    <FlexBoxInner className='flex-grow'>
-                        <Select title='Members'  options={membersOfGroup} onChange={handleSelectionChange}  />
-                    </FlexBoxInner>
-                </FlexBox>
+            <FlexBox className='flex space-x-4 pt-4'>
+                <FlexBoxInner className='flex-grow'>
+                    <Select 
+                        title='Available users' 
+                        options={isOptionArray(data) ? data : []} 
+                        onChange={handleSelectionChange} 
+                    />
+                   
+                </FlexBoxInner>
+                <FlexBoxInner className='flex-grow'>
+                    <Select 
+                        title='Members'  
+                        options={membersOfGroup} 
+                        onChange={(option) => handleRemoveMember(option)}  
+                    />
+                </FlexBoxInner>
+            </FlexBox>
                 <FlexBox className={`flex justify-between items-center space-x-3 pt-2`}>
                     <Tooltip content={`Select user`}>
                         <button onClick={handleStoreToMembersClick} className={`flex items-center border px-2 btn-sm`}>

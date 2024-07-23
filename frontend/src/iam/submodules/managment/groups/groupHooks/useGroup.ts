@@ -7,10 +7,9 @@ const useGroup = () => {
     const [groupData, setGroupData] = useState<GroupInterface>({
         group_name: "",
         group_abbreviation: "",
-        has_sub_group: false,
         group_posix_Id: 0,
-        members: [],
         group_description: "",
+        members: [],
     })
 
     // A method to automatically generate the group_abbreviation 
@@ -24,7 +23,6 @@ const useGroup = () => {
     const { has_sub_group, ...requiredValues } = groupData
 
     const handleGroupInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-       
         const {type, name, value, checked} = event.target
   
         setGroupData((prevData) => ({

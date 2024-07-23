@@ -1,6 +1,7 @@
 import { useGetAllUsersQuery } from '../../../../features/userAPI'
 import UserTable from '../../../../components/Table/UserTable'
 import useUserColumn from '../../constants/columns/useUserColumn'
+import { FlexBox } from '../../../../components/reusable/StyledComponent'
 
 
 const UserList = () => {    
@@ -8,7 +9,7 @@ const UserList = () => {
  const { userColumns } = useUserColumn()
     
 return (
-    <div>  
+    <FlexBox className=''>  
       {/* <Search /> */}
       {isLoading && <p>please wait it is loading ...</p>}
       {
@@ -33,7 +34,7 @@ return (
           ) : null
       }
     
-  </div>
+  </FlexBox>
 )
 }
 

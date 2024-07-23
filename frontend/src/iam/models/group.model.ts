@@ -35,6 +35,10 @@ export interface GroupMembersInterface {
     account_modified_at?: string | undefined; 
 }
 
+interface Members {
+    username: string | number;
+}
+
 export interface SubGroupInterface {
     sub_group_name: string | undefined,
     sub_group_abbreviation: string | undefined,
@@ -59,9 +63,7 @@ interface Option {
     username: string | number;
 };
 
-interface Members {
-    username: string | number;
-}
+
 
 interface Step {
     [key: number]: React.ReactNode;
@@ -85,6 +87,7 @@ export interface GroupContextType {
     handleSelectionChange: (option: Option) => void;
     handleStoreToMembersClick: () => void;
     handleBackButtonClick: () => void;
+    handleRemoveMember: (memberToRemove: Option) => void;
     canSave: boolean;
     page: number;
     setPage: React.Dispatch<React.SetStateAction<number>>;

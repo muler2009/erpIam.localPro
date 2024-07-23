@@ -22,13 +22,13 @@ const Submenu = (props: SidemenuProps) => {
   
   
     return(
-      <div className='flex flex-col text-[13px] font-Poppins' >
+      <div className='flex flex-col text-[13px] font-Poppins pl-[25px]' >
         <Link 
           to={sideParent.path || ""} 
           onClick={sideParent.submenu && showSubnav} 
-          className={`flex justify-between ${!controller && 'text-[#333] hover:bg-inherit hover:border-none focus:border-none flex justify-center'} text-black text-opacity-50 font-semibold hover:bg-white hover:border-r-[5px] hover:bg-opacity-50 hover:text-[#333] hover:scale-[1.005] focus:text-[#333] focus:border-r-[5px] focus:border-green-700`}> 
-              <div className={`flex items-center justify-center space-x-4 py-3 px-3 `}>
-                <span className={`text-[18px]`}>{sideParent.icon}</span>
+          className={`flex justify-between ${!controller && 'text-[#333] hover:bg-inherit hover:border-none focus:border-none flex justify-center'} text-black font-semibold hover:bg-white  hover:bg-opacity-50 hover:text-[#333]  focus:text-[#333] focus:border-r-[5px] focus:border-green-700 ${active === sideParent.label && 'focus:bg-gray-500'}`}> 
+              <div className={`flex items-center justify-center space-x-4 py-3 px-1`}>
+                <span className={`text-[17px]`}>{sideParent.icon}</span>
                 <h2 className={`duration-500 font-Poppins font-normal text-[13px] ${!controller && 'opacity-0 translate-x-28 overflow-hidden'}`}>{sideParent.label}</h2>
               </div>
           

@@ -82,8 +82,8 @@ export const sidebarItems: SideBar[] = [
         ] 
     },
     { 
-        path: "tasks", 
-        label: "Tasks", 
+        path: "audit_logs", 
+        label: "Audit Logs", 
         icon: <FaIcons.FaUserCog />,
         iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
         iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   

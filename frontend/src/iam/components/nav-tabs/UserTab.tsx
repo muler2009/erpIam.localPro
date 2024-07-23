@@ -16,7 +16,7 @@ const UserTab = ({ tabs }: UserTabProps) => {
   return ( 
       <div className='relative w-full font-Poppins text-[14px]'>
           <div className='flex justify-between items-center border-b-[1px] bg-gray-50 bg-opacity-50 px-16'>
-              <div className='flex justify-start space-x-5'>
+              <div className='flex justify-start'>
                   {tabs && tabs.map((link, index) => (
                       <div key={index} onClick={() => changeTabIndex(index)} 
                           className={`relative cursor-pointer px-1 ${activeTabIndex === index ? "border-b-[2px] border-green-600 pt-5 pb-2 duration-500 transition ease-in-out": "pt-5 pb-1"}`}>
@@ -27,7 +27,7 @@ const UserTab = ({ tabs }: UserTabProps) => {
                   ))}
               </div>  
           </div>
-          <div className="mx-1 bg-white py-5 px-10">
+          <div className="mx-1 bg-white py-5">
               {tabs && tabs[activeTabIndex]?.tabContent}
           </div>     
       </div>    

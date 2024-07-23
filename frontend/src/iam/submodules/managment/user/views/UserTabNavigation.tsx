@@ -11,7 +11,7 @@ const UserTabNavigation = () => {
   
     return ( 
       <>
-        <div className='relative w-full font-Poppins text-[14px] '>
+        <div className='relative w-full font-Poppins text-[14px]'>
           <div className='flex justify-between items-center border-b-[1px] bg-gray-50 bg-opacity-50'>
             <div className='flex justify-start space-x-5 px-3 pl-5 flex-grow'>
               {
@@ -31,10 +31,9 @@ const UserTabNavigation = () => {
                       </div>
                   ))
               }
-            </div>  
-                        
+            </div>                  
           </div>
-          <div className="mx-1 bg-white p-5">
+          <div className="mx-1 my-2 bg-white">
             {userTabLink[activeTabIndex].tabContent}
           </div>     
         </div>

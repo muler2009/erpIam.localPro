@@ -33,6 +33,7 @@ export const GroupCreateContextProvider = ({children}: GroupCreateChildrenInterf
 
     const [page, setPage] = useState(0)
 
+    // a state for handling the group abbreviation 
     const [abbreviateGroup, setAbbreviateGroup] = useState("none")
 
     const [groupData, setGroupData] = useState<GroupInterface>({
@@ -102,12 +103,6 @@ export const GroupCreateContextProvider = ({children}: GroupCreateChildrenInterf
         setSelectedOption(option);
     };
     
-    const handleStoreToMembersClick = () => {
-        if (selectedOption && !membersOfGroup.some(option => option.username === selectedOption.username)) {
-        setMembersOfGroup([...membersOfGroup, selectedOption]);
-        //   setSelectedOption(null); // Clear selected option after storing
-        }
-    };
 
     const handleBackButtonClick = () => {
         if (membersOfGroup.length > 0) {
@@ -118,9 +113,34 @@ export const GroupCreateContextProvider = ({children}: GroupCreateChildrenInterf
     };
 
 
+    const handleStoreToMembersClick = () => {
+      if (selectedOption && !membersOfGroup.some(option => option.username === selectedOption.username)) {
+          const updatedMembers = [...membersOfGroup, selectedOption];
+          setMembersOfGroup(updatedMembers);
+          setGroupData(prevData => ({
+              ...prevData,
+              members: updatedMembers.map(member => ({
+                  username: member.username
+              }))
+          }));
+      }
+  };
+  
+  const handleRemoveMember = (memberToRemove: Option) => {
+    const updatedMembers = membersOfGroup.filter(member => member.username !== memberToRemove.username);
+    setMembersOfGroup(updatedMembers);
+    setGroupData(prevData => ({
+        ...prevData,
+        members: updatedMembers.map(member => ({
+            username: member.username
+        }))
+    }));
+};
+
+
 //   const handleChange = ()
 
-    // function is a TypeScript type guard. 
+  // function is a TypeScript type guard. 
   // Type guards are functions that allow you to determine if a value conforms to a specific type. 
   const isOptionArray = (data: any): data is Option[] => {
       return Array.isArray(data) && data.every(item => typeof item.username !== 'undefined');
@@ -154,6 +174,8 @@ export const GroupCreateContextProvider = ({children}: GroupCreateChildrenInterf
         handleSelectionChange,
         handleStoreToMembersClick,
         handleBackButtonClick,
+        handleRemoveMember
+        
 
     }}>
         {children}

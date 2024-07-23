@@ -1,8 +1,11 @@
 import React, { useMemo } from 'react'
 import { createColumnHelper} from '@tanstack/react-table'
 import { GroupInterface } from '../../../../models/group.model'
-import * as AiIcons from "react-icons/ai";
+import * as IoIcons from "react-icons/io";
 import * as FaIcons from "react-icons/fa";
+import * as CiIcons from "react-icons/ci";
+
+
 
 const DISPLAY_COLUMN_SIZE = 100;
 
@@ -17,8 +20,8 @@ const useGroupColumn = () => {
                 cell: ({ row }) =>
                 row.getCanExpand() ? (
                     <div className='flex justify-center items-center cursor-pointer'>
-                        <div className={`text-[#4f46e5]`} onClick={row.getToggleExpandedHandler()}>
-                            {row.getIsExpanded() ? <AiIcons.AiFillFolderOpen size={20} /> : <AiIcons.AiFillFolderAdd size={20}  /> }
+                        <div className={``} onClick={row.getToggleExpandedHandler()}>
+                            {row.getIsExpanded() ? <IoIcons.IoMdArrowDropup size={18} /> : <IoIcons.IoMdArrowDropdown size={18}  /> }
                         </div>
                     </div>  
                 ) : null,

@@ -47,7 +47,6 @@ const AssignUserToGroup = () => {
             <div>
               <SelectedRowContextProvider>
                 <CustomTable />
-
               </SelectedRowContextProvider>
             </div>
             
