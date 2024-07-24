@@ -3,6 +3,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from utils.custom_exception_handler import CustomExceptionHandler, AlreadyExists
 from groups.models import PosixGroupUserModel
+from users.models import UserAccountsModel
 from groups.serializers.create_group_serializer import CreateGroupSerializer
 
 
@@ -13,8 +14,23 @@ class CreateGroupRequestHandler(views.APIView):
             create_group_serializer.is_valid(raise_exception=True)  
 
             if PosixGroupUserModel.objects.filter(group_name=request.data.get('group_name')).exists():
-                raise AlreadyExists           
-            create_group_serializer.create(create_group_serializer.validated_data)  
+                raise AlreadyExists    
+            # group_members = create_group_serializer.validated_data.pop("members")
+            # for username in group_members:
+            #     group_members.use
+                   
+            # create_group_serializer.create(create_group_serializer.validated_data)  
+            # Create the group instance
+            group_instance = create_group_serializer.create(create_group_serializer.validated_data)
+
+            # Ensure members are added before saving
+            members_data = request.data.get('members', [])
+            for username in members_data:
+                user = UserAccountsModel.objects.get(username=username)
+                group_instance.members.add(user)
+                
+            
+            group_instance.save()
 
         except CustomExceptionHandler as exc:
             return Response({

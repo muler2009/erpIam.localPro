@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from utils.set_default_password import set_default_password
+from groups.models import PosixGroupUserModel
 # from .posixGroupSerializer import GetGroupSerializer
 
 
@@ -25,10 +26,7 @@ class UsernameAndEmailUniqueValidator(UniqueValidator):
 
 class CreateLDAPUserSerializer(serializers.ModelSerializer):  
     is_staff = serializers.BooleanField(default=False)
-    username = serializers.CharField(validators=[UsernameAndEmailUniqueValidator(queryset=UserAccountsModel.objects.all(), message="Username exists")])
-    email = serializers.CharField(validators=[UsernameAndEmailUniqueValidator(queryset=UserAccountsModel.objects.all(), message="Email already taken exists")])  
-
-    group = serializers.SerializerMethodField()  
+    group = serializers.PrimaryKeyRelatedField(queryset=PosixGroupUserModel.objects.all(), required=False)
 
     class Meta:
         model = UserAccountsModel
@@ -95,17 +93,3 @@ class CreateLDAPUserSerializer(serializers.ModelSerializer):
         print(f"Plain password in serializer: {user._plain_password}")
         user.save()
         return user
-
-
-    # def update(self, instance, validated_data):
-    #     for key, value in validated_data.items():
-    #         if key == 'password':
-    #             password = validated_data.pop('password')
-    #             if password:
-    #                 validate_password(password=password)
-    #                 instance.set_password(password)
-    #         else:
-    #             setattr(instance, key, value)
-
-    #     instance.save()    
-    #     return instance

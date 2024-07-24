@@ -6,7 +6,7 @@ import { SelectInterface } from '../interface/Input-select.interface'
 const Select = ({title, options = [], onChange, value}: SelectInterface) => {
     return (
       <div className="flex flex-col gap-2 text-sm">
-          <label className="text-[15px] whitespace-nowrap font-Rubik">{title}</label>
+          <label className="whitespace-nowrap font-Poppins text-[13px] text-[#333] text-opacity-70">{title}</label>
           <div className='relative border'>
               <select 
                   className="input-md w-full py-[8px] h-[20vh] border-none border-l font-Poppins text-xs rounded-none bg-white" 

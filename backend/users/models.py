@@ -17,7 +17,7 @@ class UserAccountsModel(AbstractBaseUser):
     password = models.CharField(max_length=255, blank=True)
     email = models.EmailField(max_length=254, unique=True)
     userId = models.IntegerField(blank=True, null=True)
-    group = models.ForeignKey('groups.PosixGroupUserModel', null=True, blank=True, on_delete=models.SET_NULL)
+    group = models.ForeignKey('groups.PosixGroupUserModel', null=True, blank=True, on_delete=models.SET_NULL, related_name="user_groups")
     home_directory = models.CharField(max_length=255, null=True, blank=True)
     account_created_at = models.DateTimeField(auto_now_add=True)
     account_modified_at = models.DateTimeField(auto_now=True)

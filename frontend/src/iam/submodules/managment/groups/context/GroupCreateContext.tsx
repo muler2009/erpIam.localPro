@@ -16,19 +16,10 @@ type Option = {
 const GroupCreateContext = createContext<GroupContextType | undefined>(undefined)
 
 export const GroupCreateContextProvider = ({children}: GroupCreateChildrenInterface) => {
-
-    // const groupCreationStep: GroupCreationSteps = [
-    //     { 0: "Group Creation" },
-    //     { 1: "Attach Policy" },
-    //     { 3: "Attach Policy" }    
-    // ]
-
-    
-    const groupCreationStep: { [key: number]: string }  = {
-        
+   
+    const groupCreationStep: { [key: number]: string }  = {      
         0: "Group Creation",
         1: "Attach Policy",
-        
     } 
 
     const [page, setPage] = useState(0)
@@ -76,6 +67,7 @@ export const GroupCreateContextProvider = ({children}: GroupCreateChildrenInterf
 
     }
 
+    // a function used to automatically generate the user abbreviation
     const handleAutomaticallyTypeChange =  (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         const type = event.target.value;
         setAbbreviateGroup(type);
@@ -136,9 +128,6 @@ export const GroupCreateContextProvider = ({children}: GroupCreateChildrenInterf
         }))
     }));
 };
-
-
-//   const handleChange = ()
 
   // function is a TypeScript type guard. 
   // Type guards are functions that allow you to determine if a value conforms to a specific type. 

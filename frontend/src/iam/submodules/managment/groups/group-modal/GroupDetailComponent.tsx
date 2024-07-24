@@ -72,40 +72,27 @@ const GroupDetailComponent = () => {
                         /> 
                     </div>
                 </FlexBox>
-                <FlexBox>
-                    <TextInput 
-                        label='Description'
-                        id='description_text'
-                        type='text'
-                        placeholder=''
-                        className='input-md font-Poppins text-[13px]'
-                        desc={`description about the group but optional`}
-                        name='group_description'
-                        value={groupData?.group_description}
-                        onChange={handleGroupAttributesChange}
-                    
-                    /> 
-
-                </FlexBox>
+                
             </FlexInnerContainer>
-            <FlexInnerContainer className='px-10 pt-5 mx-5 border-t'>
-            <FlexBox className='flex space-x-4 pt-4'>
-                <FlexBoxInner className='flex-grow'>
-                    <Select 
-                        title='Available users' 
-                        options={isOptionArray(data) ? data : []} 
-                        onChange={handleSelectionChange} 
-                    />
-                   
-                </FlexBoxInner>
-                <FlexBoxInner className='flex-grow'>
-                    <Select 
-                        title='Members'  
-                        options={membersOfGroup} 
-                        onChange={(option) => handleRemoveMember(option)}  
-                    />
-                </FlexBoxInner>
-            </FlexBox>
+            <FlexInnerContainer className='px-10 pt-1 mx-5 relative'>
+                <Text className='font-semibold text-[#26cc86] text-[15px] after:content-[""] after:absolute after:h-[1px] after:bg-gray-200 after:w-[80%] after:top-6 after:right-3'>Attach user to Group</Text>
+                <FlexBox className='flex space-x-4 pt-4'>
+                    <FlexBoxInner className='w-1/2'>
+                        <Select 
+                            title='Available users' 
+                            options={isOptionArray(data) ? data : []} 
+                            onChange={handleSelectionChange} 
+                        />
+                    
+                    </FlexBoxInner>
+                    <FlexBoxInner className='w-1/2'>
+                        <Select 
+                            title='Members'  
+                            options={membersOfGroup} 
+                            onChange={(option) => handleRemoveMember(option)}  
+                        />
+                    </FlexBoxInner>
+                </FlexBox>
                 <FlexBox className={`flex justify-between items-center space-x-3 pt-2`}>
                     <Tooltip content={`Select user`}>
                         <button onClick={handleStoreToMembersClick} className={`flex items-center border px-2 btn-sm`}>

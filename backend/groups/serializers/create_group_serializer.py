@@ -6,13 +6,9 @@ from users.models import UserAccountsModel
 from users.serializers.create_user_account_serializer import CreateLDAPUserSerializer
 
 class CreateGroupSerializer(serializers.ModelSerializer):
+
     group_posix_Id = serializers.IntegerField(required=False)
-    members = serializers.PrimaryKeyRelatedField(
-        queryset=UserAccountsModel.objects.all(),
-        many=True,
-        required=False
-    )
-  
+    members = serializers.SerializerMethodField() 
     
     class Meta:
         model = PosixGroupUserModel
@@ -20,6 +16,11 @@ class CreateGroupSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'group_id': {'read_only': True},
         } 
+
+    # To access the memebers in the list with the username 
+    def get_members(self, obj):
+        return [member.username for member in obj.members.all()]
+  
         
     def validate_group_posix_Id(self, value):
         existing_group = PosixGroupUserModel.objects.filter(group_posix_Id=value).exists()
@@ -45,7 +46,7 @@ class CreateGroupSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(validation_errors_dict)
         
         return attrs
-       
+    
     def create(self, validated_data):
         members = validated_data.pop('members', [])
         group_posix_Id = validated_data.get('group_posix_Id')

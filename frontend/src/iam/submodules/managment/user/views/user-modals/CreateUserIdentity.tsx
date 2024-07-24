@@ -135,7 +135,7 @@ const CreateUserIdentity = ({openCreateIdentity, isOpen, title} : ModalProps) =>
 
                             <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${submitHide}`} onClick={onSaveClicked}>
                                 <div className='flex justify-start items-center '>
-                                    <p className='font-Poppins text-[13px]'>Create</p>
+                                    <p className='font-Poppins text-[13px]'>Create account</p>
                         
                                 </div>
                             </button>

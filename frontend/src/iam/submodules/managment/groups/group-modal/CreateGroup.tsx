@@ -31,7 +31,7 @@ const CreateGroup = ({handleIsOpenCloseMenu, title}: GroupModalPropsInterface) =
     
     const display: GroupMultiStepInterface = {
         0: <GroupDetailComponent />,
-        1: <UnderConstruction />,
+        1: <PolicyAssignment />,
     }
 
 
@@ -57,14 +57,14 @@ const CreateGroup = ({handleIsOpenCloseMenu, title}: GroupModalPropsInterface) =
 
   return (
    <ModalWrapper>
-    <ModalContainer className={`w-[50%] mx-auto bg-[#fff] flex flex-col relative top-[5%] shadow-2xl border`}>
+    <ModalContainer className={`w-[60%] mx-auto bg-[#fff] flex flex-col relative top-[5%] shadow-2xl border rounded-t-[5px]`}>
         <ModalHeader className='flex justify-between items-center px-5 py-3 border-b-[1px]'>
             <Text className='font-Rubik text-black font-semibold text-[15px] text-opacity-50 text-center px-5'>{title}</Text>
             <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-gray-400 hover:text-white" onClick={handleIsOpenCloseMenu}>
                 <Vsc.VscClose size={15} />
             </div>
         </ModalHeader>
-        <ModalBody className='bg-gray-50 relative h-[70vh]'>
+        <ModalBody className='bg-gray-50 relative h-[60vh]'>
             <FlexInnerContainer className='flex py-5'>
                 <FlexBox className={`my-5`}>
                     <Stepper
@@ -90,24 +90,24 @@ const CreateGroup = ({handleIsOpenCloseMenu, title}: GroupModalPropsInterface) =
                 <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] text-[#333] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
                     <div className='flex justify-start items-center'>
                         <GrIcons.GrFormPrevious  size={15}/>
-                        <p className='font-Poppins text-[14px]'>Prev</p>
+                        <p className='font-Poppins text-[13px]'>Prev</p>
                     </div>
                 </button>
 
                 <button  className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${nextHide}`} onClick={handleNext} disabled={disableNext}>
                     <div className='flex justify-start items-center '>
-                        <p className='font-Poppins text-[14px]'>Next</p>
+                        <p className='font-Poppins text-[13px]'>Next</p>
                         <GrIcons.GrFormNext size={15} />
                     </div>
                 </button>
 
                 <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${submitHide}`} onClick={onSaveClicked}>
                     <div className='flex justify-start items-center '>
-                        <p className='font-Poppins text-[14px]'>Create</p>
-                        <GrIcons.GrFormNext size={15} />
+                        <p className='font-Poppins text-[13px]'>Save</p>
+            
                     </div>
                 </button>
-            </div>
+                </div>
         </ModalFooter>
     </ModalContainer>
    </ModalWrapper>

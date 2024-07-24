@@ -42,10 +42,8 @@ from django.contrib.auth.hashers import make_password
 
 
 class CreateUserAccountRequestHandler(views.APIView):
-    def post(self, request):
-        # password = request.data.get('password')
-        # print(f"Password from request: {password}")
 
+    def post(self, request):
         user_serializer = CreateLDAPUserSerializer(data=request.data)
         try:
             user_serializer.is_valid(raise_exception=True)
@@ -53,7 +51,7 @@ class CreateUserAccountRequestHandler(views.APIView):
             password = request.data.get('password')
             hashed_password = make_password(password)
             user.set_password(hashed_password)
-
+            
             print(f"Set plain password: {user._plain_password}")
             # Check and ensure the plain password is set correctly
             if not user._plain_password:
