@@ -7,15 +7,13 @@ import * as Vsc from 'react-icons/vsc'
 import GroupDetailComponent from './GroupDetailComponent'
 import PolicyAssignment from './PolicyAssignment'
 import useGroupContext from '../context/useGroupContext'
-
-import { Fa500Px } from 'react-icons/fa'
 import Stepper from '@keyvaluesystems/react-vertical-stepper'
-import { color } from 'framer-motion'
-import UnderConstruction from '../../../../components/reusable/UnderConstruction'
+import { useCreateGroupsMutation } from '../../../../features/groupsAPI'
+
 
 const CreateGroup = ({handleIsOpenCloseMenu, title}: GroupModalPropsInterface) => {
 
-    // const [currentStepIndex, setCurrentStepIndex] = useState(0);
+    const [ createGroups, {isSuccess, isError} ] = useCreateGroupsMutation()
 
     const {
         prevHide,
@@ -26,7 +24,8 @@ const CreateGroup = ({handleIsOpenCloseMenu, title}: GroupModalPropsInterface) =
         setPage,
         page,
         groupCreationStep,
-        groupData, membersOfGroup
+        groupData, 
+        membersOfGroup
       } = useGroupContext();
     
     const display: GroupMultiStepInterface = {
@@ -46,7 +45,14 @@ const CreateGroup = ({handleIsOpenCloseMenu, title}: GroupModalPropsInterface) =
 
     const onSaveClicked = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-       console.log(groupData)
+        try{
+            const response = await createGroups(groupData).unwrap()
+            if (response?.status === 201) {
+                handleIsOpenCloseMenu()
+            }
+        }catch(error){
+            console.log(error)
+        }
   }
 
 //  const customStyles = {

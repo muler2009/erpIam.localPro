@@ -4,9 +4,6 @@ export interface GroupCreateChildrenInterface {
     children: React.ReactNode
 }
 
-
-
-
 export interface GroupModalPropsInterface {
     isOpen: boolean;
     title: string;
@@ -14,11 +11,11 @@ export interface GroupModalPropsInterface {
 }
 
 export interface GroupInterface {
-    group_id?: number,
+    group_id?: string | number ,
     group_name: string,
     group_posix_Id: number,
     group_abbreviation: string,
-    members: GroupMembersInterface[] | Members[],
+    members: (string | number)[];  // Ensure this matches your data type
     group_description?: string | undefined
     group_created_at?: string | undefined,
     group_modified_at?: string | undefined,

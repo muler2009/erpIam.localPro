@@ -3,7 +3,7 @@ import { GroupInterface } from '../../../../models/group.model';
 
 // structure for the row of the selected table
 export interface RowDataType extends GroupInterface {
-    id?: number
+    group_id?: string
     group_name: string,
     group_abbreviation: string,
 }

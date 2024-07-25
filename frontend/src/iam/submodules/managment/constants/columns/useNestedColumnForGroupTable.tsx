@@ -1,0 +1,82 @@
+import React, { useMemo } from 'react'
+import { createColumnHelper } from '@tanstack/react-table'
+import { GroupMembersInterface } from '../../../../models/group.model'
+import {format} from 'date-fns'
+import * as BiIcons from 'react-icons/bi'
+import * as CiIcons from 'react-icons/ci'
+import * as Fa6Icons from 'react-icons/fa6'
+import BottomTooltip from '../../../../../components/common/BottomTooltip'
+import { FlexBox, FlexBoxInner } from '../../../../../components/common/StyledComponent'
+
+const nestedUserColumn = createColumnHelper<GroupMembersInterface>()
+
+const useNestedColumnForGroupTable = () => {
+
+    const nestedUserInGroupTable = useMemo(
+        () => [
+           
+            nestedUserColumn.accessor(row => `${row.userId}`, {
+                id: "userId",
+                header: () => <span>User ID</span>,
+                cell: cellprops => cellprops.getValue(),
+                enableSorting: true,                
+            }),
+            nestedUserColumn.accessor(row => `${row.first_name} ${row.last_name}`, {
+                id: "Full name",
+                header: () => <span className='white'>Full Name</span>,
+            }),
+            nestedUserColumn.accessor(row => `${row.email}`, {
+                id: "email", 
+                header: () => <span className=''>Email</span>,
+                cell: cellprops => cellprops.getValue(),
+                enableSorting: true
+            }),
+            nestedUserColumn.accessor(row => `${row.username}`, {
+                id: "username",
+                header: () => <span>Username</span>,
+                cell: cellprops => cellprops.getValue(),
+                enableSorting: true
+            }),
+            
+            nestedUserColumn.accessor(row => `${row.account_modified_at}`, {
+                id: "account_modified_at",
+                header: () => <span>Registrerd Date</span>,
+                cell: createdDate => {
+                    const date_ = createdDate.getValue()
+                    return(
+                        <div className=''>{format(date_, 'EEE dd yyyy')}</div>
+                    )
+                },
+                enableSorting: false
+            }),
+            nestedUserColumn.display({
+                id: "actions",
+                header: () => <span className="flex justify-end pr-10"><BiIcons.BiDotsVerticalRounded /></span>,
+                cell: ({ row }) => {
+                    return(
+                        <FlexBox className="flex justify-end items-center pr-20 invisible group-hover:visible">
+                            <BottomTooltip content={`Rename`}>
+                                <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.first_name} Edit Clicked`)}>
+                                    <CiIcons.CiEdit size={17} />
+                                </FlexBoxInner>
+                            </BottomTooltip>
+                            <BottomTooltip content={`Delete`}>
+                                <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.first_name} Delete Clicked`)}>
+                                    <CiIcons.CiTrash size={17} />
+                                </FlexBoxInner>
+                            </BottomTooltip>
+                        </FlexBox>
+                    )
+                }
+            }),
+
+        ], []
+    )
+
+
+
+  return {nestedUserInGroupTable}
+}
+
+export default useNestedColumnForGroupTable
+

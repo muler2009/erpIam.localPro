@@ -1,10 +1,10 @@
 import React from 'react'
 import GroupList from '../../groups/groupviews/GroupList'
 // import useUserContext from '../context/useUserContext'
-import { useSelectedRowContext } from '../../../../components/Table/CustomTable'
+// import { useSelectedRowContext } from '../../../../components/Table/CustomTable'
 const UserCreationSummary = () => {
   // const {newUserAccount} = useUserContext()
-  const { selectedRows, setSelectedRows } = useSelectedRowContext()
+  // const { selectedRows, setSelectedRows } = useSelectedRowContext()
 
   
   return (
@@ -61,9 +61,9 @@ const UserCreationSummary = () => {
       </div>
         <div className=''>
           <h1 className='font-Rubik text-[#000] text-opacity-50 pt-6'>Groups Assigned</h1>
-          {
+          {/* {
             selectedRows?.custom_group_abbreviation
-          }
+          } */}
         </div>
      
     </div>

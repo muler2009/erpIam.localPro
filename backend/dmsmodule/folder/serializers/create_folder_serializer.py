@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from dmsmodule.folder.models import FolderModel
+from dmsmodule.folder.models.models import FolderModel
 
 class CreateFolderSerializer(serializers.ModelSerializer):
     class Meta:

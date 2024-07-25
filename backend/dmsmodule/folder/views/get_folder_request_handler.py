@@ -2,7 +2,7 @@ from rest_framework import views, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
-from dmsmodule.folder.models import FolderModel
+from dmsmodule.folder.models.models import FolderModel
 from dmsmodule.folder.serializers.get_folder_serializer import GetFolderSerializer
 from django.shortcuts import get_object_or_404
 

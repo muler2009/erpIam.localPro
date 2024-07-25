@@ -106,28 +106,31 @@ export const GroupCreateContextProvider = ({children}: GroupCreateChildrenInterf
 
 
     const handleStoreToMembersClick = () => {
-      if (selectedOption && !membersOfGroup.some(option => option.username === selectedOption.username)) {
-          const updatedMembers = [...membersOfGroup, selectedOption];
-          setMembersOfGroup(updatedMembers);
-          setGroupData(prevData => ({
-              ...prevData,
-              members: updatedMembers.map(member => ({
-                  username: member.username
-              }))
-          }));
-      }
-  };
+        if (selectedOption && !membersOfGroup.some(option => option.username === selectedOption.username)) {
+            const updatedMembers = [...membersOfGroup, selectedOption];
+            setMembersOfGroup(updatedMembers);
+    
+            const usernames = updatedMembers.map(member => member.username);  // Extract usernames
+    
+            setGroupData(prevData => ({
+                ...prevData,
+                members: usernames  // Set members as an array of usernames
+            }));
+        }
+    };
   
-  const handleRemoveMember = (memberToRemove: Option) => {
-    const updatedMembers = membersOfGroup.filter(member => member.username !== memberToRemove.username);
-    setMembersOfGroup(updatedMembers);
-    setGroupData(prevData => ({
-        ...prevData,
-        members: updatedMembers.map(member => ({
-            username: member.username
-        }))
-    }));
-};
+    const handleRemoveMember = (memberToRemove: Option) => {
+        // Filter out the member to remove
+        const updatedMembers = membersOfGroup.filter(member => member.username !== memberToRemove.username);
+        // Update the membersOfGroup state
+        setMembersOfGroup(updatedMembers);   
+        // Extract usernames and update the groupData state
+        const usernames = updatedMembers.map(member => member.username);
+        setGroupData(prevData => ({
+            ...prevData,
+            members: usernames  // Set members as an array of usernames
+        }));
+    };
 
   // function is a TypeScript type guard. 
   // Type guards are functions that allow you to determine if a value conforms to a specific type. 

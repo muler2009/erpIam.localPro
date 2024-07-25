@@ -36,12 +36,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
-    'users.apps.UsersConfig',
-    'groups.apps.GroupsConfig',
-    'ldap_integration.apps.LdapIntegrationConfig',
+    'iam',
+    'iam.users',
+    'iam.groups',
+    'iam.ldap_integration.apps.LdapIntegrationConfig',
     'dmsmodule',
     'dmsmodule.folder',
     'dmsmodule.file_mangement',
+    
 ]
 
 MIDDLEWARE = [
@@ -145,12 +147,12 @@ MEDIA_URL = '/media/'  # it’s the URL that should be used to serve media.
 
 ###################### Project specific configuration ########################
 
-AUTH_USER_MODEL = 'users.UserAccountsModel'
+AUTH_USER_MODEL = 'iam.UserAccountsModel'
 
 # app use LDAP for authenticating users by default
 
 
-from ldap_integration.ldap_config import *
+from iam.ldap_integration.ldap_config import *
 
 AUTH_LDAP_SERVER_URI = LDAP_URI 
 AUTH_LDAP_BIND_DN = LDAP_BIND_DN
@@ -176,7 +178,7 @@ AUTH_LDAP_GROUP_TYPE = PosixGroupType()
 
 AUTH_LDAP_REQUIRE_GROUP = (
     LDAPGroupQuery("cn=active,ou=groups,ou=iam,dc=erpIam,dc=local")
-    | LDAPGroupQuery("cn=student,ou=groups,ou=iam,dc=erpIam,dc=local") 
+    | LDAPGroupQuery("cn=admin,ou=groups,ou=iam,dc=erpIam,dc=local") 
     | LDAPGroupQuery("ou=admin,dc=erpIam,dc=local")
 ) & ~LDAPGroupQuery("cn=disabled,ou=groups,ou=groups,ou=iam,dc=erpIam,dc=local") 
 

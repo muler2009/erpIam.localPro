@@ -2,5 +2,6 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path('folder/', include('dmsmodule.folder.urls'))
+    path('folder/', include('dmsmodule.folder.urls')),
+    
 ]

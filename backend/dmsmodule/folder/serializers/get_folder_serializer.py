@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from dmsmodule.folder.models import FolderModel
+from dmsmodule.folder.models.models import FolderModel
 from dmsmodule.file_mangement.serializers.get_document_serializer import GetDocumentSerializer
 
 class GetFolderSerializer(serializers.ModelSerializer):

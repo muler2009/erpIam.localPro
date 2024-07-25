@@ -1,5 +1,5 @@
 from django.db import models
-from dmsmodule.folder.models import FolderModel
+from dmsmodule.folder.models.models import FolderModel
 import uuid
 
 class UploadedDocumentModel(models.Model):

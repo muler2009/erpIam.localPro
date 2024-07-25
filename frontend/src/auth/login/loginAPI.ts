@@ -6,14 +6,14 @@ const loginAPI = erpAPISlice.injectEndpoints({
     endpoints: (builder) => ({
         getLoggedUser: builder.query<AuthResponse, void>({
             query: () => ({
-                url: `account/login/`,
+                url: `iam/account/login/`,
                 method: "GET",
             }),
             providesTags: [API_TAGS.USER]
         }),
         userLogin: builder.mutation<AuthResponse, LoginRequiredData>({
             query: (loginData) => ({
-                url: `account/login/`,
+                url: `iam/account/login/`,
                 method: "POST",
                 body: loginData
             }),

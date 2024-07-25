@@ -14,10 +14,12 @@ import GroupTableHeader from './GroupTableHeader';
 import useGroupColumn from '../../submodules/managment/constants/columns/useGroupColumn';
 import RowDetailedView from './RowDetailedView';
 import useUserColumn from '../../submodules/managment/constants/columns/useUserColumn';
-import { NESTED_COL } from '../../submodules/managment/constants/columns/useUserColumn';
 import React from 'react';
 import { FlexBox, FlexBoxInner } from '../reusable/StyledComponent';
 import GroupChart from '../../submodules/managment/groups/groupviews/GroupChart';
+import useNestedColumnForGroupTable from '../../submodules/managment/constants/columns/useNestedColumnForGroupTable';
+
+
 interface TableProps {
   columns: any[];
   data: any[] ;
@@ -31,6 +33,7 @@ const GroupTable = ({columns, data}: TableProps) => {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({}) 
 
   const {userColumns } = useUserColumn()
+  const {nestedUserInGroupTable} = useNestedColumnForGroupTable()
     
   const groupTableInstance = useReactTable({
         data,
@@ -90,11 +93,11 @@ const GroupTable = ({columns, data}: TableProps) => {
                             );
                           })}
                         </tr>
-                    
+                                            
                         {row.getIsExpanded() && (
-                            <tr>
+                            <tr className='mx-10'>
                               <td className="custom-td" colSpan={row.getVisibleCells().length}>
-                                <RowDetailedView members={row.original.members} columns={NESTED_COL}  />
+                                <RowDetailedView members={row.original.members} columns={nestedUserInGroupTable}  />
                               </td>
                             </tr>
                           )}

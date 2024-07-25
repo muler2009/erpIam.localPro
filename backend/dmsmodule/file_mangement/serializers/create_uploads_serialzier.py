@@ -2,7 +2,7 @@ from rest_framework import views, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from dmsmodule.file_mangement.models.models import  UploadedDocumentModel
-from backend.dmsmodule.file_mangement.serializers.get_document_serializer import GetDocumentSerializer
+from dmsmodule.file_mangement.serializers.get_document_serializer import GetDocumentSerializer
 
 class GetDocumentRequestHandler(views.APIView):
     def get(self, request:Request, folder_identifier=None):

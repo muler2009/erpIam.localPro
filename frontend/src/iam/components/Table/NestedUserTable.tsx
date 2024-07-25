@@ -25,8 +25,8 @@ const NestedUserTable = ({columns, data}: NestedUserTableProps ) => {
   return (
     <div className='nested-group'>
 
-        <table className="table table-sm table-border table-striped text-left mb-5 text-[14px]">
-        <thead>
+        <table className="table table-sm table-border table-striped text-left mb-5 text-[14px] mx-5">
+        {/* <thead>
             {
                 nestedTableInstance.getHeaderGroups().map((headerRowElement) => {
                     return(
@@ -51,9 +51,9 @@ const NestedUserTable = ({columns, data}: NestedUserTableProps ) => {
                     )
                 })
             }
-        </thead>
+        </thead> */}
         {/* table body for user table  */}
-        <tbody>
+        <tbody >
             {
                 nestedTableInstance.getRowModel().rows.map((row) => {
                     return (

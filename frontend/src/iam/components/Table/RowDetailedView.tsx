@@ -3,8 +3,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import { UserAccountInterfacee } from '../../models/user.model'
 import { GroupAPIResponse, GroupColumn, GroupMembersInterface } from '../../models/group.model'
 import UserTable from './UserTable'
-import useUserColumn, { NESTED_COL } from '../../submodules/managment/constants/columns/useUserColumn'
+import useUserColumn from '../../submodules/managment/constants/columns/useUserColumn'
 import NestedUserTable from './NestedUserTable'
+import useNestedColumnForGroupTable from '../../submodules/managment/constants/columns/useNestedColumnForGroupTable';
 
 
 interface RowDetailedViewProps {
@@ -14,9 +15,9 @@ interface RowDetailedViewProps {
 
 const RowDetailedView = ({members, columns}: RowDetailedViewProps) => {
     console.log(members)
-    const { userColumns } = useUserColumn()
+    const { nestedUserInGroupTable } = useNestedColumnForGroupTable()
   return (
-      <NestedUserTable columns={userColumns} data={members} /> 
+      <NestedUserTable columns={nestedUserInGroupTable} data={members} /> 
   )
 }
 

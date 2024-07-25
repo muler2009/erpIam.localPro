@@ -8,8 +8,7 @@ const GroupDashboard = () => {
   return (
     <FlexOuterContainer>
         <GroupTopNavigation />
-        <GroupList />
-        <GroupList />     
+        <GroupList />    
     </FlexOuterContainer>
   )
 }

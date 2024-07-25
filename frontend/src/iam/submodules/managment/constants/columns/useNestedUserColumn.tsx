@@ -40,10 +40,7 @@ const useNestdUserColumn = () => {
                 id: "userId",
                 header: () => <span>User ID</span>,
                 cell: cellprops => cellprops.getValue(),
-                enableSorting: true,
-                
-                
-                
+                enableSorting: true,                
             }),
             nestedUserColumn.accessor(row => `${row.first_name} ${row.last_name}`, {
                 id: "Full name",
