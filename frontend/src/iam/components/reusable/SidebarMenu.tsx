@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Tooltip from './Tooltip'
 import * as AiIcons from 'react-icons/ai'
 import * as BiIcons from 'react-icons/bi'
-import { sidebarItems } from '../../constants/sidebar'
+import { sidebarItems } from '../../submodules/managment/constants/iam-menu-items/sidebar'
 import SideMenuList from './SideMenuList'
 
 

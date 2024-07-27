@@ -1,5 +1,5 @@
 import React from 'react'
-import { SideBar } from '../../constants/sidebar'
+import { SideBar } from '../../submodules/managment/constants/iam-menu-items/sidebar'
 import SideMenuList from './SideMenuList'
 
 

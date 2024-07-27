@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { SideBar } from "../../constants/sidebar";
+import { SideBar } from "../../submodules/managment/constants/iam-menu-items/sidebar";
 
 interface SidemenuProps {
   sideParent: SideBar;

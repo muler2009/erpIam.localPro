@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import { userTabLink } from '../../constants/nav-links/usertabLink';
-import { useGetAllUsersQuery } from '../../../../features/userAPI';
+import { userTabLink } from '../../../constants/nav-links/usertabLink';
+import { useGetAllUsersQuery } from '../../../../../features/userAPI';
 
 const UserTabNavigation = () => {
     const {data} = useGetAllUsersQuery()

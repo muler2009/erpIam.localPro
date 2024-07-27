@@ -111,11 +111,10 @@
     /* .user > .table > thead > tr > th:last-child { @apply w-[3%]} */
 
     .role > .table > thead { @apply  border-b-[1px] bg-opacity-40}
-
-    .role > .table > thead > tr > th { @apply border-none py-3 px-5 font-Rubik leading-[1.2] text-[#0b2239] bg-gray-50 text-[13.5px]}
-    .role > .table > tbody > tr > td { @apply py-3 text-[#333] text-opacity-40 text-[13px]}
+    .role > .table > thead > tr > th { @apply border-none py-3 font-Poppins leading-[1.2] text-[#0b2239] text-[12.5px] font-semibold text-opacity-70}
+    .role > .table > tbody > tr > td { @apply py-3 text-[#333] text-[13px] px-4}
     .role > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
-    .role > .table > thead > tr > th:last-child { @apply w-[3%]}
+ 
     .role .table-striped > tbody > tr:nth-of-type(odd), 
     .role > .table-striped > tbody > tr:nth-of-type(even) { @apply bg-white }
 

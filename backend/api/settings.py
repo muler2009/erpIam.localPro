@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'iam',
     'iam.users',
     'iam.groups',
+    'iam.role',
     'iam.ldap_integration.apps.LdapIntegrationConfig',
     'dmsmodule',
     'dmsmodule.folder',

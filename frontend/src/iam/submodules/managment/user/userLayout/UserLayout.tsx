@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react'
-import UserTabNavigation from '../views/UserTabNavigation'
+import UserTabNavigation from '../views/user-mini-components/UserTabNavigation'
 import { Link } from 'react-router-dom'
 import CreateUserIdentity from '../views/user-modals/CreateUserIdentity'
 import { UserAccountContextProvider } from '../context/UserAccountContext'
 import { FlexBox, FlexInnerContainer, FlexOuterContainer, Text, FlexBoxInner, P } from '../../../../components/reusable/StyledComponent'
+import { LuUser2 } from 'react-icons/lu'
 
 const UserLayout = () => {
  
@@ -23,10 +24,20 @@ const UserLayout = () => {
     <>
       <FlexOuterContainer className='bg-[#fff] h-full flex flex-col'>
         <FlexInnerContainer className='flex justify-between items-end'>
-          <FlexBox className='px-10 font-Rubik w-1/2'>
-              <Text className='font-[600] text-[20px] text-[#333] '>User Management</Text>
+          <FlexBox className='px-2 font-Rubik w-1/2 pt-4 pb-3'>
+            <FlexBoxInner className='flex space-x-2 items-start'>
+                {/* <Text className='font-[600] text-[20px] text-[#333] '>User Management</Text> */}
+                <LuUser2 size={25} className='text-primary-green' />
+                <Text className='font-Poppins font-semibold text-2xl'>
+                  OiAMs | <span className='text-[16px] font-normal'>User Management</span>
+                </Text>
+
+            </FlexBoxInner>
               <P className='text-[#333] text-opacity-50'>An identity of user with long-term credentials given for the users</P>
           </FlexBox>
+         
+         
+        
 
           <FlexBox className='flex justify-center items-center divide-x-[1px] space-x-4 mr-10'>
             <h6 className='font-Rubik font-semibold text-sm'><Link to={`/iam`}>List of Users</Link></h6>
@@ -38,6 +49,8 @@ const UserLayout = () => {
             </FlexBoxInner> 
           </FlexBox>
         </FlexInnerContainer>
+
+
         <FlexInnerContainer className='bg-[#ffffff] mr-2 my-5 shadow-sm h-full'>
           <UserTabNavigation />  
         </FlexInnerContainer>

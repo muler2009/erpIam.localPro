@@ -1,7 +1,7 @@
 
 import React from 'react'
 import * as IoIcons from "react-icons/io";
-import { UserDashboardProps } from '../../../models/user.model';
+import { UserDashboardProps } from '../../../../models/user.model';
 
 export const groupsDropdown: UserDashboardProps[] = [
     {

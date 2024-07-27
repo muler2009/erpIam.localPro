@@ -5,6 +5,8 @@ import UserLayout from '../submodules/managment/user/userLayout/UserLayout';
 import PermissionLayout from '../submodules/managment/permissions/PermissionLayout';
 import Dashboard from '../submodules/dashboard/Dashboard';
 import GroupDashboard from '../submodules/managment/groups/groupviews/GroupDashboard';
+import RoleDashboard from '../submodules/managment/roles/views/RoleDashboard';
+import UserDashboard from '../submodules/managment/user/views/UserDashboard';
 
 interface Route {
     path: string;
@@ -19,8 +21,9 @@ interface RouteWithChildren {
 const AdminRoutes = () => {
   const routes: (Route | RouteWithChildren)[] = [
     { path: '/',  element: <Dashboard /> },
-    { path: 'users',  element: <UserLayout /> },
+    { path: 'users',  element: <UserDashboard /> },
     { path: 'groups',  element: <GroupDashboard /> },
+    { path: 'roles',  element: <RoleDashboard /> },
     { path: 'perm_management',  element: <PermissionLayout /> },
   ]
 

@@ -10,7 +10,12 @@ module.exports = {
         Rubik: ["Rubik", "sans"],
         MonaSans: ["Mona-Sans", "sans"],
         Oswald: ["Oswald, sans-serif"]
+      },
+      colors: {
+        'primary-green': '#26cc86',
+        'text-primary': '#0f172a'
       }
+      
     },
   },
   plugins: [],

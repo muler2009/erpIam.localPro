@@ -1,5 +1,5 @@
 import { erpAPISlice } from "../../api/apiSlice";
-import { RoleInterface } from "../models/role.models";
+import { RoleDataAPIResponse, RoleDataModelInterface } from "../models/role.models";
 import { API_TAGS } from "../../config/config";
 
  interface BackendCreateRolesResponse {
@@ -17,26 +17,26 @@ import { API_TAGS } from "../../config/config";
 
 export const roleAPI = erpAPISlice.injectEndpoints({
     endpoints: (builder) => ({
-        getRoles: builder.query<RoleInterface[], void>({
+        getAllRoles: builder.query<RoleDataAPIResponse[], void>({
             query: () => ({
-                url: `account/get_role/`,
+                url: `iam/role/get_role/`,
                 method: 'GET'
             }),
             providesTags: [API_TAGS.ROLE_TAG]
         }),
-        createRoles: builder.mutation<BackendCreateRolesResponse, RoleInterface>({
-            query: (roleData) => ({
-                url: `account/create_role/`,
-                method: 'POST',
-                body: roleData,
-            }),
-            invalidatesTags: [API_TAGS.ROLE_TAG]
-        })
+        // createRoles: builder.mutation<BackendCreateRolesResponse, R>({
+        //     query: (roleData) => ({
+        //         url: `account/create_role/`,
+        //         method: 'POST',
+        //         body: roleData,
+        //     }),
+        //     invalidatesTags: [API_TAGS.ROLE_TAG]
+        // })
     })
 })
 
 
 export const {
-    useGetRolesQuery,
-    useCreateRolesMutation,
+    useGetAllRolesQuery,
+   
 } = roleAPI

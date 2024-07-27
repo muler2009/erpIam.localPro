@@ -1,4 +1,4 @@
-import { RoleInterface } from "../../models/role.models";
+
 import { UserAccountInterfacee } from "../../models/user.model";
 
 type valueProps = string | number;

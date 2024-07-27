@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react'
 import * as LuIcons from 'react-icons/lu'
 import { FlexInnerContainer, FlexBox, Text, FlexBoxInner } from '../../../../components/reusable/StyledComponent'
-import { groupsDropdown } from '../../constants/groups'
+import { groupsDropdown } from '../../constants/iam-menu-items/groups'
 import { MdGroups } from "react-icons/md";
 import { GroupCreateContextProvider } from '../context/GroupCreateContext';
 import CreateGroup from '../group-modal/CreateGroup';

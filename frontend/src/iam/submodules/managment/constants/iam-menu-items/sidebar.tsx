@@ -42,6 +42,21 @@ export const sidebarItems: SideBar[] = [
         iconClosed: <RxIcons.RxCaretDown size={20}/>,    
         submenu: [
             {
+                path: 'users',
+                label: 'Users',
+                icon: <FaIcons.FaRegUser />,
+                iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
+                iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
+            },
+            {
+                path: 'roles',
+                label: 'Roles',
+                icon: <VscIcon.VscOrganization />,
+                iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
+                iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
+               
+            }, 
+            {
                 path: 'groups',
                 label: 'Groups',
                 icon: <TiIcons.TiGroup />,
@@ -49,22 +64,7 @@ export const sidebarItems: SideBar[] = [
                 iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
                
             },
-            {
-                path: 'role_management',
-                label: 'Roles',
-                icon: <VscIcon.VscOrganization />,
-                iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
-                iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
-               
-            },
-            {
-                path: 'users',
-                label: 'Users',
-                icon: <FaIcons.FaRegUser />,
-                iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
-                iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
-            },
-       
+              
             {
                 path: 'perm_management',
                 label: 'Permission System',

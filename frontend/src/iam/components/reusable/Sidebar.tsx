@@ -1,6 +1,6 @@
 import React,{ useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { sidebarItems } from '../../constants/sidebar'
+import { sidebarItems } from '../../submodules/managment/constants/iam-menu-items/sidebar'
 import { Submenu } from '.'
 import * as AiIcons from 'react-icons/ai'
 import * as BiIcons from 'react-icons/bi'

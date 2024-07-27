@@ -23,7 +23,6 @@ class CreateGroupSerializer(serializers.ModelSerializer):
      
     def create(self, validated_data):
         members = validated_data.pop('members', [])
-       
         group = PosixGroupUserModel.objects.create(**validated_data)
         if members:
             group.members.set(members)

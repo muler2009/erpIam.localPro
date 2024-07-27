@@ -2,7 +2,7 @@ import React from 'react'
 import { FiRefreshCcw } from "react-icons/fi";
 import Tooltip from '../../../components/reusable/Tooltip';
 import { useGetGroupsQuery } from '../../../features/groupsAPI';
-import { useGetRolesQuery } from '../../../features/roleAPI';
+import { useGetAllRolesQuery } from '../../../features/roleAPI';
 import { useGetAllUsersQuery } from '../../../features/userAPI';
 // import { useGetSubGroupsQuery } from '../../../features/groupsAPI';
 
@@ -17,7 +17,7 @@ const IAMResources = () => {
     const {data: group} = useGetGroupsQuery()
     const {data: users} = useGetAllUsersQuery()
 
-    const {data: total_roles} = useGetRolesQuery()
+    const {data: total_roles} = useGetAllRolesQuery()
     // const {data: subgroup} = useGetSubGroupsQuery()
 
 
