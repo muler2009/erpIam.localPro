@@ -10,7 +10,7 @@ const initialState: AuthState = {
     token: localStorage.getItem('token') || null,
     refresh: localStorage.getItem('refresh') || null,
     csrftoken: null,
-    role: localStorage.getItem('role') || null,
+    group: null,
 }
 
 export const authSlice = createSlice({
@@ -18,12 +18,12 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setAuthData: (state, action) => {
-            const {access, refresh, role } = action.payload
+            const {access, refresh, group } = action.payload
             state.token = access;
             state.refresh = refresh;
             state.isAuthenticated = true;
-            localStorage.setItem("token", access)
-            localStorage.setItem("refresh", refresh)
+            // localStorage.setItem("token", access)
+            // localStorage.setItem("refresh", refresh)
             localStorage.setItem("isAuthenticated", JSON.stringify(true))      
         },
         clearAuthData: (state, action) => {
@@ -33,6 +33,9 @@ export const authSlice = createSlice({
             localStorage.removeItem("token")
             localStorage.removeItem("refresh")
             localStorage.removeItem("isAuthenticated")
+        },
+        setGroup: (state, { payload }) => {
+            state.group = payload
         }
        
         
@@ -44,9 +47,9 @@ export const isAuthenticated = (state: RootState) => state.auth.isAuthenticated
 export const access = (state: RootState) => state.auth.token
 export const refresh = (state: RootState) => state.auth.refresh
 export const csrfToken = (state: RootState) => state.auth.csrftoken
-export const userRole = (state: RootState) => state.auth.role
+export const group = (state: RootState) => state.auth.group
 
 
-export const { setAuthData, clearAuthData } = authSlice.actions
+export const { setAuthData, clearAuthData, setGroup } = authSlice.actions
 
 export default authSlice.reducer

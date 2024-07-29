@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { iconNotify, dropdownItems } from '../../constants/dropdown'
 import Tooltip from './Tooltip'
 import { Input } from '../../../components/common'
-import useLogout from '../../../auth/logout/useLogout'
+import useLogout from '../../auth/logout/useLogout'
 import { Text } from './StyledComponent'
 
 

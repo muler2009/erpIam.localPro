@@ -5,6 +5,7 @@ from iam.users.views.create_user_account_request_handler import CreateUserAccoun
 from iam.users.views.update_user_account_request_handler import UpdateUserAccountRequestHandler
 from iam.users.views.delete_user_account_request_handler import DeleteUserAccountRequestHandler
 from iam.users.views.authentication_request_handler import AuthenticationRequestHandler, UserLogoutRequestHandler
+from iam.users.views.get_user_group_request_handler import GetUserGroupRequestHandler
 
 urlpatterns = [
     path('login/', AuthenticationRequestHandler.as_view()),
@@ -16,4 +17,7 @@ urlpatterns = [
     path('create_account/', CreateUserAccountRequestHandler.as_view()),
     path('update/<str:user_account_id>/', UpdateUserAccountRequestHandler.as_view()),
     path('delete/<str:user_account_id>/', DeleteUserAccountRequestHandler.as_view()),
+
+    path('get_user_group/', GetUserGroupRequestHandler.as_view()),
+
 ]

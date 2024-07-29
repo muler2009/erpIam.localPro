@@ -3,6 +3,7 @@ export interface AuthResponse {
     refresh: string;
     status: string;
     user: string;
+    group: string;
 }
 
 export interface LoginRequiredData {

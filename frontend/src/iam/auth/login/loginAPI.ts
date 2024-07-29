@@ -1,6 +1,7 @@
 import { erpAPISlice } from "../../api/apiSlice";
-import { API_TAGS } from "../../config/config";
-import { LoginRequiredData, AuthResponse } from "../../iam/models/login.model";
+import { GetUserGroupAPIinterface } from "../../api/models";
+import { API_TAGS } from "../../../config/config";
+import { LoginRequiredData, AuthResponse } from "../../models/login.model";
 
 const loginAPI = erpAPISlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -18,12 +19,20 @@ const loginAPI = erpAPISlice.injectEndpoints({
                 body: loginData
             }),
             invalidatesTags: [API_TAGS.USER]
-        }) 
+        }),
+        getUserGroup: builder.query<GetUserGroupAPIinterface, void>({
+            query: () => ({
+                url: `iam/account/get_user_group/`,
+                method: `GET`,
+            }),
+        }),
+
     })
 })
 
 
 export const {
     useGetLoggedUserQuery,
-    useUserLoginMutation
+    useUserLoginMutation,
+    useGetUserGroupQuery
 } = loginAPI

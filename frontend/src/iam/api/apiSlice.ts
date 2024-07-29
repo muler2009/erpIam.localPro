@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
-import { BASE_URL, API_TAGS } from '../config/config'
+import { BASE_URL, API_TAGS } from '.././../config/config'
 import { setAuthData, clearAuthData } from './auth'
-import { RootState } from '../store/store';
+import { RootState } from '../../store/store';
 
 interface ArgsProps {
   url: string;
@@ -41,7 +41,7 @@ const baseQueryForReauthentication: BaseQueryFn<string | FetchArgs , any, FetchB
     if (resultFromBaseQuery?.error?.status === 401) {
         // send a refresh to get access token
         const refreshResult = await baseQuery(
-          "account/token/refresh/",
+          "iam/account/token/refresh/",
           api,
           extraOptions
         );

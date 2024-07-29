@@ -1,4 +1,4 @@
-import { erpAPISlice } from "../../api/apiSlice";
+import { erpAPISlice } from "../api/apiSlice";
 import { API_TAGS } from "../../config/config";
 import { UserAPIResponse, UserAccountInterfacee } from "../models/user.model"; 
 

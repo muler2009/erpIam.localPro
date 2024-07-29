@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Input, Button } from '../../components/common'
 import { FaUserAlt, FaLock } from 'react-icons/fa'
-import useLogin from '../../auth/login/useLogin'
+import useLogin from '../../iam/auth/login/useLogin'
 import erp from '../../assets/images/erp.png'
 
 

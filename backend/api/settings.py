@@ -201,8 +201,7 @@ AUTH_LDAP_USER_FLAGS_BY_GROUP = {
 
 AUTHENTICATION_BACKENDS = [
     'django_auth_ldap.backend.LDAPBackend',
-    'django.contrib.auth.backends.ModelBackend',
-    
+    'django.contrib.auth.backends.ModelBackend',   
 ]
 
 CORS_ORIGIN_WHITELIST = ["http://localhost:3000", ]
@@ -226,7 +225,8 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": False,
-    "TOKEN_OBTAIN_SERIALIZER": "account.serializers.authSerializer.UserTokenObtainPairSerializer",
+    # "TOKEN_OBTAIN_SERIALIZER": "account.serializers.authSerializer.UserTokenObtainPairSerializer",
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'USER_ID_FIELD': 'username',
     'USER_ID_CLAIM': 'username',
 }

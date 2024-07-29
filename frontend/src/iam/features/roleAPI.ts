@@ -1,4 +1,4 @@
-import { erpAPISlice } from "../../api/apiSlice";
+import { erpAPISlice } from "../api/apiSlice";
 import { RoleDataAPIResponse, RoleDataModelInterface } from "../models/role.models";
 import { API_TAGS } from "../../config/config";
 

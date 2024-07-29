@@ -1,5 +1,9 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.exceptions import AuthenticationFailed
+from rest_framework import serializers
+from iam.models import UserAccountsModel
+from django_auth_ldap.backend import LDAPBackend
+from utils.custom_exception_handler import AuthenticationFailedException
 
 
 class UserTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -10,3 +14,38 @@ class UserTokenObtainPairSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
         token['username'] = user.username
         return token
+    
+
+    
+class LoginUserSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(max_length = 100)
+    password = serializers.CharField(max_length = 255, write_only=True)
+    full_name = serializers.CharField(max_length=255, read_only=True)
+    access = serializers.CharField(max_length=255, read_only=True)
+    refresh = serializers.CharField(max_length=255, read_only=True)
+    group = serializers.CharField(max_length = 100, read_only=True )
+
+    class Meta:
+        model = UserAccountsModel
+        fields = ['username', 'password', 'group', 'full_name', 'access', 'refresh' ]
+
+    
+    def validate(self, attrs):
+        username = attrs.get('username')  # Get the username
+        password = attrs.get('password')  # get the password
+        request = self.context.get('request')
+        ldap_backend = LDAPBackend()
+        user = ldap_backend.authenticate(request, username=username, password=password)  
+        if not user:
+            raise AuthenticationFailedException(message="User with credentials not Found!", error_type="Authentication Error") 
+
+        user_token = user.get_tokens_for_user() 
+        return {
+            "username": user.username,
+            "full_name": user.get_full_account_name,
+            "group": user.group,
+            "access": user_token.get('access'),
+            "refresh": user_token.get("refresh")
+        }
+
+

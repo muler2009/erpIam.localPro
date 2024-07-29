@@ -1,4 +1,5 @@
 
+import React from "react";
 import { UserAccountInterfacee } from "../../models/user.model";
 
 type valueProps = string | number;
@@ -43,3 +44,12 @@ export interface SelectInterface {
    value?: string | number;
    onChange?: (selected: Option) => void;
 }
+
+export interface CustomSelectInterface {
+    label: string;
+    name?: string
+    icon?: React.ReactElement
+    options: {label: string}[],
+    value?: string | number;
+    onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void,
+ }

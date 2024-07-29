@@ -14,7 +14,7 @@ const RoleNavigationHeader = () => {
     setTriggerModal(prevState => ({
       ...prevState,
       [label]: !prevState[label]
-    }));
+    }))
   }, []);
 
   return (
@@ -36,42 +36,21 @@ const RoleNavigationHeader = () => {
                 </FlexBoxInner>
               )
             })
-
           }
       </FlexBoxInner>
 
-          {/* {
-            role_tab.map(role => (
-              triggerModal[role.label] && (
-                <RoleModal 
-                  key={role.label}
-                  isOpen={triggerModal[role.label]}
-                  onRequestClose={() => handleOpenCloseActiononRoleHeader(role.label)}
-                  title={role.label}
-                />
-              )
-            ))
-            
-          } */}
-
-        {Object.entries(triggerModal) // This convert trigger modal object to an array
-          .filter(([_, isOpen]) => isOpen) //This filters the array of entries, keeping only those where isOpen is true
-          .map(([label, isOpen]) => {
-             const role = role_tab.find(role => role.label === label)
-            return (  
-            <RoleModal 
-              key={label}
-              isOpen={isOpen}
-              onRequestClose={() => handleOpenCloseActiononRoleHeader(label)}
-              title={label}
-              link_identifier={role?.link_identifier}
-            />
-          )
-          }
-            
-        
-        )
-        }
+        {
+          Object.keys(triggerModal).map(label => 
+            triggerModal[label] && (
+              <RoleModal 
+                key={label}
+                isOpen={triggerModal[label]}
+                onRequestClose={() => handleOpenCloseActiononRoleHeader(label)}
+                title={label}
+                link_identifier={label}
+              />
+            )
+          )}
      </FlexBox>
   )
 }

@@ -14,11 +14,11 @@ class IamRoleModel(models.Model):
     role_name = models.CharField(max_length=100)
     role_description = models.TextField(max_length=255, null=True, blank=True)
     role_scope = models.CharField(max_length=150, null=True, blank=True)
+    role_status = models.CharField(max_length=150, choices=RoleStatus.choices, default=RoleStatus.Active)
     role_created_at = models.DateTimeField(auto_now=True)
+    role_modified_date = models.DateTimeField(auto_now_add=True)
     # role_expired_date = models.DateTimeField(auto_now_add=True)
     # role_owner = models.CharField(max_length=100)
-    role_modified_date = models.DateTimeField(auto_now_add=True)
-    role_status = models.CharField(max_length=150, choices=RoleStatus.choices, default=RoleStatus.Active)
 
     class Meta:
         ordering = ['role_name']

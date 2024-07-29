@@ -1,4 +1,4 @@
-import { erpAPISlice } from "../../api/apiSlice"
+import { erpAPISlice } from "../api/apiSlice"
 import { API_TAGS } from "../../config/config"
 import { GroupInterface, GroupAPIResponse, SubGroupInterface } from "../models/group.model"
 

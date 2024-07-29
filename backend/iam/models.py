@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Group
 from iam.users.manager import UserAccountsManager
 from django.conf import settings
 from utils.set_default_password import set_default_password
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 
@@ -54,6 +55,17 @@ class UserAccountsModel(AbstractBaseUser):
     def has_module_perms(self, app_label):
         # Simplistic permission check: superuser has all module permissions
         return self.is_superuser
+    
+    @property
+    def get_full_account_name(self):
+        return f"{self.first_name} {self.last_name}"
+    
+    def get_tokens_for_user(self):
+        refresh = RefreshToken.for_user(self)
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token)
+        }
     
     def save(self, *args, **kwargs):
         if not self.userId:  # Check if the instance is being created

@@ -4,5 +4,9 @@ export interface AuthState {
     token: string | null;
     refresh: string | null;
     csrftoken: null;
-    role?: string | null;
+    group: string | null;
+}
+
+export interface GetUserGroupAPIinterface {
+    groups: string | null;
 }
