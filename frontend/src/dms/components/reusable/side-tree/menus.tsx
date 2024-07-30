@@ -3,9 +3,6 @@ import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io5";
 import * as MdIcons from "react-icons/md";
 
-
-
-
 export const sidear_link: MenuItemInterface[] = [
     {
       label: "Dashboard",
@@ -39,8 +36,28 @@ export const sidear_link: MenuItemInterface[] = [
               path: "document/library/trash",
               icon: <IoIcons.IoTrashOutline size={15} />
             }
-          ]
-          
+          ]  
+        },
+        {
+          label: "New File",
+          path: "file",
+          children: [
+            {
+              label: "Word File",
+              path: "document/file/doc",
+              icon: <MdIcons.MdOutlineCloudUpload size={15} />
+            },
+            {
+              label: "Spreedsheet",
+              path: "document/file/xlsx",
+              icon: <MdIcons.MdOutlineFolderShared size={15} />
+            },
+            {
+              label: "Other File",
+              path: "document/file/other",
+              icon: <MdIcons.MdOutlineFolderZip size={15} />
+            }
+          ]  
         },
         {
           label: "Placeholder",

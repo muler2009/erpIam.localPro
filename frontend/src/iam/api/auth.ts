@@ -11,6 +11,7 @@ const initialState: AuthState = {
     refresh: localStorage.getItem('refresh') || null,
     csrftoken: null,
     group: null,
+    username: null,
 }
 
 export const authSlice = createSlice({
@@ -18,10 +19,11 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setAuthData: (state, action) => {
-            const {access, refresh, group } = action.payload
+            const {access, refresh, group, username } = action.payload
             state.token = access;
             state.refresh = refresh;
             state.isAuthenticated = true;
+            state.username = username
             // localStorage.setItem("token", access)
             // localStorage.setItem("refresh", refresh)
             localStorage.setItem("isAuthenticated", JSON.stringify(true))      
@@ -30,6 +32,7 @@ export const authSlice = createSlice({
             state.isAuthenticated = false
             state.token = null
             state.refresh = null
+            state.username = null
             localStorage.removeItem("token")
             localStorage.removeItem("refresh")
             localStorage.removeItem("isAuthenticated")
@@ -37,8 +40,6 @@ export const authSlice = createSlice({
         setGroup: (state, { payload }) => {
             state.group = payload
         }
-       
-        
     },
     extraReducers: (builder) => {  }
 })
@@ -48,6 +49,8 @@ export const access = (state: RootState) => state.auth.token
 export const refresh = (state: RootState) => state.auth.refresh
 export const csrfToken = (state: RootState) => state.auth.csrftoken
 export const group = (state: RootState) => state.auth.group
+export const username = (state: RootState) => state.auth.username
+
 
 
 export const { setAuthData, clearAuthData, setGroup } = authSlice.actions

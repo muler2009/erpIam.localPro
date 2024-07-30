@@ -1,5 +1,5 @@
 export interface AuthState {
-    user?: null;
+    username?: null;
     isAuthenticated: string | boolean;
     token: string | null;
     refresh: string | null;

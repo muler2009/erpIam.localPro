@@ -8,12 +8,17 @@ import Tooltip from './Tooltip'
 import { Input } from '../../../components/common'
 import useLogout from '../../auth/logout/useLogout'
 import { Text } from './StyledComponent'
+import { useSelector } from 'react-redux'
+import { username } from '../../api/auth'
 
 
 const Header = () => {
 
     const [drop, setDrop] = useState<boolean>(false)
     const { onUserLogoutClicked } = useLogout()
+    const user = useSelector(username)
+
+    console.log(user)
 
 
   return (
@@ -52,7 +57,7 @@ const Header = () => {
 
                 <div className='flex gap-0 cursor-pointer pr-4' onClick={() => setDrop(prev => !prev)}>
                     <div className={`text-[#333] flex space-x-1`}>
-                        <Text className='font-Poppins text-[13px] leading-4 flex items-center space-x-6'>User account
+                        <Text className='font-Poppins text-[13px] leading-4 flex items-center space-x-6'>{user}
                             <span>{ drop ? <MdIcons.MdArrowDropUp size={20} /> : <MdIcons.MdArrowDropDown size={20} /> }</span>
                         </Text>
                     </div>

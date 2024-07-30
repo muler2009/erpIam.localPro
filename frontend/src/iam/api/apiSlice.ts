@@ -34,7 +34,7 @@ const baseQuery = fetchBaseQuery({
   
 const baseQueryForReauthentication: BaseQueryFn<string | FetchArgs , any, FetchBaseQueryError> = async (args, api, extraOptions) => {
     let resultFromBaseQuery = await baseQuery(args, api, extraOptions);
-    const user = (<RootState>api.getState()).auth.user;
+    const username = (<RootState>api.getState()).auth.username;
     const access = (<RootState>api.getState()).auth.token;
    
     // cheking if the token is expired
@@ -47,7 +47,7 @@ const baseQueryForReauthentication: BaseQueryFn<string | FetchArgs , any, FetchB
         );
         if (refreshResult?.data) {
           // store the new token
-          api.dispatch(setAuthData({ ...refreshResult.data, access, user }));
+          api.dispatch(setAuthData({ ...refreshResult.data, access, username }));
           // retry the original query with new access token
           resultFromBaseQuery = await baseQuery(args, api, extraOptions);
         } else {

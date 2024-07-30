@@ -8,56 +8,22 @@ import { BsFileEarmark } from "react-icons/bs";
 import { GiOpenFolder } from "react-icons/gi";
 import { BsCardList } from "react-icons/bs";
 import { TfiLayoutGrid2Alt } from "react-icons/tfi";
+import { Outlet } from 'react-router-dom'
+import Routes, { DocumentRoutes } from '../../Routes/Routes'
 
 const LibraryMain = () => {
   return (
-    <FlexOuterContainer className='flex flex-col mx-[1px] h-full' >
-        <FlexInnerContainer className='border-b bg-[#fff] p-4'>
-          <Text className='text-xl font-semibold p-1'>My Document</Text>
-        </FlexInnerContainer>
+    <FlexOuterContainer className='flex flex-col h-full' >
+        <FlexBoxInner className='bg-[#fff] '>
+          <Text className='text-xl font-semibold px-5 pt-2'>My Document</Text>
+        </FlexBoxInner>
         <LibraryTopNavigation />
-
-        
-            <LibraryList />
+        <FlexBoxInner className='mt-[3px] h-full'>
+          <Outlet />
+        </FlexBoxInner>
     </FlexOuterContainer>
   )
 }
 
 export default LibraryMain
 
-{/* <FlexBoxInner className='flex justify-end items-center pr-10'>
-            <FlexBoxInner className='flex space-x-2'>
-              <Text className='text-[12px] font-semibold p-1'>Suggested</Text> 
-              <FlexBoxInner className='flex divide-x-[1px] cursor-pointer border rounded-r-full rounded-l-full'>
-                 <div className='btn-sm px-5 hover:bg-gray-50 rounded-none flex items-center justify-center'>
-                    <span className='pr-1'><BsFileEarmark /></span>Files
-                  </div>
-                  <div className='btn-sm px-5 hover:bg-gray-50 rounded-none  flex items-center justify-center'>
-                    <span className='pr-1'><GiOpenFolder size={18} /></span>Folders
-                  </div>
-              </FlexBoxInner>
-            </FlexBoxInner>
-          </FlexBoxInner> */}
-
-
-{/* <FlexBox>
-fsdfdfdsfd
-</FlexBox>
-
-<FlexBox className='flex space-x-1 h-full'>
-<FlexBoxInner className='flex-grow'>
-  <LibraryList />
-</FlexBoxInner>
-
-</FlexBox> */}
-
-
-
- {/* <FlexBoxInner className='flex divide-x-[1px] cursor-pointer border rounded-r-full rounded-l-full'>
-            <div className='btn-sm px-5 hover:bg-gray-50 rounded-none flex items-center justify-center'>
-                    <span className='pr-1'><BsCardList /></span>
-                  </div>
-                  <div className='btn-sm px-5 hover:bg-gray-50 rounded-none  flex items-center justify-center'>
-                    <span className='pr-1'><TfiLayoutGrid2Alt size={18} /></span>
-                  </div> 
-            </FlexBoxInner> */}

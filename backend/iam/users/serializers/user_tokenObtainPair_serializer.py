@@ -36,10 +36,13 @@ class LoginUserSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         ldap_backend = LDAPBackend()
         user = ldap_backend.authenticate(request, username=username, password=password)  
+        if(username is None or password is None):
+            raise AuthenticationFailedException(message="Username or password is empty!", error_type="Authentication Error", status_code=403) 
         if not user:
-            raise AuthenticationFailedException(message="User with credentials not Found!", error_type="Authentication Error") 
-
+            raise AuthenticationFailedException(message="User with credentials not Found!", error_type="Authentication Error", status_code=401) 
+        
         user_token = user.get_tokens_for_user() 
+        
         return {
             "username": user.username,
             "full_name": user.get_full_account_name,

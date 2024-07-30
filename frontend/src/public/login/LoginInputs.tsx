@@ -3,17 +3,15 @@ import { Input, Button } from '../../components/common'
 import { FaUserAlt, FaLock } from 'react-icons/fa'
 import useLogin from '../../iam/auth/login/useLogin'
 import erp from '../../assets/images/erp.png'
+import { LoginErrorMessageModal } from '../../iam/components/errors/LoginError'
+import { ErrorResponseInterface } from '../../iam/models/error.model'
 
 
 const LoginInputs = () => {
-  const { 
-    loginData, 
-    handleInputLoginChanges, 
-    onLoginButtonClicked 
-  } = useLogin()
+  const { loginData, handleInputLoginChanges, onLoginButtonClicked, loginErrorMessage, loginFailed, setLoginFailed} = useLogin()
 
   return (
-    <div className='flex-1 bg-[#013243] bg-opacity-5 flex justify-center items-center py-5'>
+    <div className='flex-1 h-full bg-[#013243] bg-opacity-5 flex justify-center items-center py-5'>
       <div className='w-[30%] shadow-lg bg-[#fff]  border-gray-200 pt-10 py-5 my-5'>
           <div className='py-5 border-b flex flex-col items-center border-1 px-5'>
             <div className='flex justify-center'>
@@ -67,26 +65,19 @@ const LoginInputs = () => {
                   className='btn-sm bg-gray-300 font-Poppins rounded-sm px-10 hover:bg-[#00bdff] hover:text-white hover:ring-2 hover:ring-white hover:rounded-sm' 
                   onClick={onLoginButtonClicked}
                 />
-                <Button 
-                  label="Cancel" 
-                  className='btn-sm bg-gray-300 font-Poppins rounded-sm px-5 hover:bg-[#00bdff] hover:text-white hover:ring-2 hover:ring-white hover:rounded-sm' 
-                  onClick={onLoginButtonClicked}
-                />
-                <Button 
-                  label="Help" 
-                  className='btn-sm bg-gray-300 font-Poppins rounded-sm px-5 hover:bg-[#00bdff] hover:text-white hover:ring-2 hover:ring-white hover:rounded-sm' 
-                  onClick={onLoginButtonClicked}
-                />
-                <Button 
-                  label="Option" 
-                  className='btn-sm bg-gray-300 font-Poppins rounded-sm px-5 hover:bg-[#00bdff] hover:text-white hover:ring-2 hover:ring-white hover:rounded-sm' 
-                  onClick={onLoginButtonClicked}
-                />
             </div>
         </form>
       </div>
+
+      <LoginErrorMessageModal 
+        loginErrorMessage={loginErrorMessage}
+        loginFailed={loginFailed} 
+        setLoginFailed={setLoginFailed} 
+      />
+
     </div>
   )
 }
 
 export default LoginInputs
+

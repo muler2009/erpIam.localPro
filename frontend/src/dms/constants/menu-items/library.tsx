@@ -5,9 +5,6 @@ import { LibraryChildrenInterface, LibraryInterface } from "../../models/library
 import * as RiIcons from "react-icons/ri";
 import * as FaIcons from "react-icons/fa";
 
-
-
-
 export const library: LibraryInterface[] = [
     {
         label: "Folder",
@@ -31,8 +28,8 @@ export const library: LibraryInterface[] = [
     {
         label: "Upload",
         icon: <MdIcons.MdUpload size={15} />,
-        iconClose: <MdIcons.MdKeyboardArrowRight />,
-        iconOpen: <MdIcons.MdKeyboardArrowLeft />,
+        iconClose: <MdIcons.MdOutlineArrowDropDown size={20} />,
+        iconOpen: <MdIcons.MdOutlineArrowDropUp size={20} />,
         childern: [
             {
                 label: "Upload Folder",

@@ -12,10 +12,10 @@ const avaialabelGroups: GroupBasedPaths = {
 }
 
 const useUtils = () => {
-    const getGroupBasedDashboardPath = (group: string): string => {
+    const routeToDashboard = (group: string): string => {
       return avaialabelGroups[group] || avaialabelGroups.default
     }
-    return {getGroupBasedDashboardPath}
+    return { routeToDashboard }
   }
   
   export default useUtils

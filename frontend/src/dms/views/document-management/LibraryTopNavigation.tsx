@@ -1,54 +1,57 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect, useRef } from 'react'
 import { FlexInnerContainer, FlexBox, P, FlexBoxInner } from '../../../components/common/StyledComponent'
 import { library } from '../../constants/menu-items/library'
 import { ModalComponent } from './modals'
 import { FlexOuterContainer } from '../../../iam/components/reusable/StyledComponent'
 import { BsListColumns } from "react-icons/bs";
 import { SiWindows11 } from "react-icons/si";
+import { Link, useLocation } from 'react-router-dom'
+import { IoArrowBackCircle } from "react-icons/io5";
+import FileMenu from './folders/FileMenu'
+import useUtils from '../../hooks/useUtils'
 
 
 export const LibraryTopNavigation = () => {
 
-    const [isOpen, setIsOpen] = useState<{[key: string]: boolean}>({})     
-    const [activeLabel, setActiveLabel] = useState<string | null>(null);
 
+    const {handleDropdownToggle, handleIsOpenCloseMenu, isOpen, activeLabel, setIsOpen, setActiveLabel} = useUtils()
+    const location = useLocation()
+    const dropdownRef = useRef<HTMLDivElement | null>(null)
+    // const isRootPath = location.pathname === '' || location.pathname === '/';W
+    // {
+    //     location.pathname === '/dms/document/library/main' 
+    //     ? <IoArrowBackCircle size={25} className="text-gray-400 cursor-not-allowed text-[20px]" />
+    //     : ( <Link to=''><IoArrowBackCircle size={25} className="text-blue-500 hover:text-blue-700" /></Link>)
+    // }
 
-    const handleIsOpenCloseMenu = (label: string) => {
-        setIsOpen(prevState => ({
-          ...prevState,
-          [label]: !prevState[label],
-        }));
-      };
-
-    const handleDropdownToggle = (label: string) => {
-        setIsOpen(prevState => {
-            const newOpenState: { [key: string]: boolean } = {};
-            
-            // Close all other menu items
-            library.forEach(item => {
-              if (item.label !== label) {
-                newOpenState[item.label] = false;
-              }
+    useEffect(() => {
+        const handleClickOutside = (event: any) => {
+          if (!dropdownRef.current?.contains(event.target ?? null)) {
+            handleDropdownToggle('').then(() => {
+              setIsOpen({});
+              setActiveLabel(null);
             });
-        
-            // Toggle the selected menu item
-            newOpenState[label] = !prevState[label];
-            setActiveLabel(prevState[label] ? null : label);
-        
-            return {
-              ...prevState,
-              ...newOpenState,
-            };
-          });
-    };
+          }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+      }, [handleDropdownToggle]);
+   
+
 
   return (
-    <FlexOuterContainer className='flex justify-between items-center bg-[#fff] pr-10'>
-        <FlexInnerContainer className='flex p-0'>
+    <FlexOuterContainer className='flex justify-between items-center bg-[#fff] pr-10 pl-3'>
+        <FlexInnerContainer className='flex items-center pl-10 flex-grow'>
+       
+            <FileMenu />
+        </FlexInnerContainer>
+        <FlexInnerContainer className='flex p-0 space-x-5'>
             {
                 library?.map((library, index) => {
                     return(
-                    <FlexBox key={index} className={`flex items-center justify-center cursor-pointer text-[#333] pl-2 `} onClick={() => handleDropdownToggle(library.label)}>
+                    <FlexBox key={index} className={`flex items-center justify-center cursor-pointer text-[#333] pl-2 border rounded-[3px]`} onClick={() => handleDropdownToggle(library.label)}>
                         {
                             library.childern ? (
                                 <FlexBoxInner className='flex justify-between items-center relative w-full py-[8px]'>
@@ -57,7 +60,7 @@ export const LibraryTopNavigation = () => {
                                         <p className='text-[12px]'>{library.label}</p>
                                     </div>
                                     <span className='pl-3'>{ isOpen[library.label] ? <>{library.iconOpen}</> : <>{library.iconClose}</> }</span>
-                                    <FlexBox className={`absolute top-9 -left-[7%] w-[250px] mt-2 whitespace-nowrap z-50 ${library.label === activeLabel ? 'border-t-[2px] border-gray-100' : null}`}>
+                                    <FlexBox className={`absolute top-9 -right-[10%] w-[250px] mt-2 whitespace-nowrap z-50 ${library.label === activeLabel ? 'border-t-[2px] border-gray-100' : null}`}>
                                         {
                                             library.childern && isOpen[library.label] &&  (
                                                 <div className=' bg-white border py-2'>
@@ -74,6 +77,7 @@ export const LibraryTopNavigation = () => {
                                                                                 </span>
                                                                                 {childDisplay.label}
                                                                             </aside>
+                                                                            
                                                                         </div>
                                                                     </FlexBoxInner>
                                                                 )
@@ -97,10 +101,11 @@ export const LibraryTopNavigation = () => {
                 } )
             }
         </FlexInnerContainer>
-        <FlexInnerContainer className='flex space-x-3 cursor-pointer pr-5 p-[10px]'>
+        {/* <FlexInnerContainer className='flex space-x-3 cursor-pointer pr-5 p-[10px]'>
+          
             <BsListColumns size={20} color={`#333`}  />
             <SiWindows11 size={20} color={`#1ea1d7`} />
-        </FlexInnerContainer>
+        </FlexInnerContainer> */}
             {/* display the respective modal based on their name  */}
             <>
                 { 

@@ -1,11 +1,12 @@
 import React from 'react'
 import LoginInputs from './LoginInputs'
+import { FlexBox, FlexBoxInner, Text } from '../../components/common/StyledComponent'
 
 const Login = () => {
   return (
-    <div className='w-screen h-screen flex flex-col'> 
+    <FlexBox className='h-full'>
       <LoginInputs />
-    </div>
+    </FlexBox>
   )
 }
 

@@ -14,8 +14,20 @@ class AuthenticationRequestHandler(generics.GenericAPIView):
 
     def post(self, request: Request, *args, **kwargs):
         user_serializer = self.serializer_class(data=request.data, context={'request': request})
-        user_serializer.is_valid(raise_exception=True)
-        return Response(user_serializer.data, status=status.HTTP_200_OK)
+        # user_serializer.is_valid(raise_exception=True)
+        try: 
+            if not user_serializer.is_valid(raise_exception=True):
+                raise AuthenticationFailedException(message="User with credentials not Found!", error_type="Authentication Error")
+
+            return Response(user_serializer.data, status=status.HTTP_200_OK)
+        except AuthenticationFailedException as exc:
+            AUTH_REPLY = {
+                'error_type': exc.error_type,
+                'message': exc.message,
+                'status_code': exc.status_code 
+            }
+            return Response(AUTH_REPLY, status=status.HTTP_400_BAD_REQUEST)
+    
           
 
 class UserLogoutRequestHandler(views.APIView):
