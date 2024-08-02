@@ -8,8 +8,10 @@ class CreateFolderSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'folder_identifier': {'read_only': True},
         } 
-        
 
+    # def validate(self, attrs):
+    #     return super().validate(attrs)
+        
     def create(self, validated_data):
         folder = FolderModel.objects.create(
             folder_name=validated_data.get('folder_name'),

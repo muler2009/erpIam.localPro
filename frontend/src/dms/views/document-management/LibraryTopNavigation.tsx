@@ -13,16 +13,15 @@ import useUtils from '../../hooks/useUtils'
 
 export const LibraryTopNavigation = () => {
 
-
     const {handleDropdownToggle, handleIsOpenCloseMenu, isOpen, activeLabel, setIsOpen, setActiveLabel} = useUtils()
     const location = useLocation()
     const dropdownRef = useRef<HTMLDivElement | null>(null)
     // const isRootPath = location.pathname === '' || location.pathname === '/';W
-    // {
-    //     location.pathname === '/dms/document/library/main' 
-    //     ? <IoArrowBackCircle size={25} className="text-gray-400 cursor-not-allowed text-[20px]" />
-    //     : ( <Link to=''><IoArrowBackCircle size={25} className="text-blue-500 hover:text-blue-700" /></Link>)
-    // }
+    {
+        location.pathname === '/dms/document/library/main' 
+        ? <IoArrowBackCircle size={25} className="text-gray-400 cursor-not-allowed text-[20px]" />
+        : ( <Link to=''><IoArrowBackCircle size={25} className="text-blue-500 hover:text-blue-700" /></Link>)
+    }
 
     useEffect(() => {
         const handleClickOutside = (event: any) => {
@@ -42,9 +41,8 @@ export const LibraryTopNavigation = () => {
 
 
   return (
-    <FlexOuterContainer className='flex justify-between items-center bg-[#fff] pr-10 pl-3'>
+    <FlexOuterContainer className='flex justify-between items-center bg-[#fff] pr-10 pl-3' ref={dropdownRef}>
         <FlexInnerContainer className='flex items-center pl-10 flex-grow'>
-       
             <FileMenu />
         </FlexInnerContainer>
         <FlexInnerContainer className='flex p-0 space-x-5'>
@@ -60,10 +58,10 @@ export const LibraryTopNavigation = () => {
                                         <p className='text-[12px]'>{library.label}</p>
                                     </div>
                                     <span className='pl-3'>{ isOpen[library.label] ? <>{library.iconOpen}</> : <>{library.iconClose}</> }</span>
-                                    <FlexBox className={`absolute top-9 -right-[10%] w-[250px] mt-2 whitespace-nowrap z-50 ${library.label === activeLabel ? 'border-t-[2px] border-gray-100' : null}`}>
+                                    <FlexBox className={`absolute top-8 -right-[12%] w-[250px] mt-2 whitespace-nowrap z-50 bg-[#fefefe]`}>
                                         {
                                             library.childern && isOpen[library.label] &&  (
-                                                <div className=' bg-white border py-2'>
+                                                <div className=' bg-[#f2f2f2] border py-2'>
                                                     {
                                                         library.childern && (
                                                             library.childern?.map((childDisplay, index) => {

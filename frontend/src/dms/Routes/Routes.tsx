@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRoutes } from 'react-router-dom'
+import { useRoutes, Outlet } from 'react-router-dom'
 import { MenuItemInterface } from '../components/reusable/side-tree/side-bar-interface';
 import DMSDashboard from '../layout/DMSDashboard';
 import menus from '../components/reusable/side-tree/menus';
@@ -9,7 +9,8 @@ import LibraryMain from '../views/document-management/LibraryMain';
 import SharedMainDashboard from '../views/shared/SharedMainDashboard';
 import Dashboard from '../views/dashboard/Dashboard';
 import LibraryList from '../views/document-management/LibraryList';
-import Document from '../views/document-management/Document';
+import MainFolderLibrary from '../views/document-management/folders/MainFolderLibrary';
+
 
 
 interface Route {
@@ -25,15 +26,15 @@ interface RouteWithChildren {
 const Routes = () => {
     const dmsRoutes: (Route | RouteWithChildren)[] = [
         { path: '/', element: <Dashboard /> },
-        { path: 'document/library/main', element: <LibraryMain/>,
+        { path: 'library/main', element: <LibraryMain />,
             children: [
-                {path: '', element: <LibraryList />},
-                {path: 'create', element: <Document />},
+                {path: '', element: <MainFolderLibrary />},
+                {path: 'create', element: <h1>Test Docuemtn</h1>},
 
             ]
         },
-        { path: 'document/library/shared', element: <SharedMainDashboard/> },
-        { path: 'document/library/upload', element: <DashboardMain/> },
+        { path: 'library/shared', element: <SharedMainDashboard/> },
+        { path: 'library/upload', element: <DashboardMain/> },
     ];
 
     return useRoutes(dmsRoutes);

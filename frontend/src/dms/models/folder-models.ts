@@ -8,17 +8,36 @@ export interface FolderColumn {
     uploaded_file?: UploadedDocumentInterface[] | undefined   
 }
 
+export interface ModalProps {
+    isOpen: boolean;
+    handleIsOpenCloseMenu: () => void;
+    title: string;
+    abbreviation: string;
+}
 
-export interface FolderDataInterface { 
-    folder_identifier: string
+export interface FolderCreateInterface {
     folder_name: string,
     parent_folder?: string;
-    type?: 'file' | 'folder';
+    subfolder?: FolderDataInterface[] | undefined,
+    folder_created_date?: string;
+    folder_updated_date?: string;  
+    uploaded_file?: UploadedDocumentInterface[] | undefined  
+}
+
+export interface FolderDataInterface extends FolderCreateInterface { 
+    folder_identifier: string
+    folder_name: string;
+    parent_folder?: string;
     subfolder?: FolderDataInterface[] | undefined,
     folder_created_date?: string;
     folder_updated_date?: string;  
     uploaded_file?: UploadedDocumentInterface[] | undefined 
-    
+   
+}
+
+export interface FolderAPIResponseInterface {
+    status_code?: number;
+    status_text?: string;
 }
 
 export interface UploadedDocumentInterface {
@@ -40,3 +59,11 @@ export interface FolderListProps {
     folder_data: FolderDataInterface;
     abbreviation: string; 
   }
+
+  export interface FolderTabMenuInterface {
+    icon?: React.ReactElement;
+    tabContent: React.ReactElement;
+    label: string;
+    totalValues?: number;
+    total?: boolean;
+}

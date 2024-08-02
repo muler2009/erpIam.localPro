@@ -5,6 +5,11 @@ import { FaRegPaste } from "react-icons/fa6";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import  * as LiIcons from "react-icons/lia";
 import * as IoIcons from "react-icons/io";
+import { FolderTabMenuInterface } from '../../models/folder-models';
+import { SharedDocument } from '../../views/shared/sub-components';
+import AllFileandFolderView from '../../views/document-management/folders/folder-mini-reusable-components/AllFileandFolderView';
+import LibraryList from '../../views/document-management/LibraryList';
+import AlllUploadedFiles  from '../../views/document-management/folders/file-uploads-component/AlllUploadedFiles';
 
 
 
@@ -74,3 +79,37 @@ export const folder_modal_top_menu = [
         identifier: "save"
     }
 ]
+
+
+export const folder_tab_menu: FolderTabMenuInterface[] = [
+    { 
+      label: "All",
+      tabContent: <AllFileandFolderView />,
+      totalValues: 0,
+      total: true
+    },
+    { 
+        label: "Folders",
+        tabContent: <LibraryList />,
+        totalValues: 0,
+        total: true
+    },
+    { 
+        label: "Uploads",
+        tabContent: <AlllUploadedFiles />,
+        totalValues: 0,
+        total: true
+      },
+      { 
+        label: "Archived Document",
+        tabContent: <h1>Test</h1>,
+        totalValues: 0,
+        total: true
+      },
+      { 
+        label: "Shared",
+        tabContent: <SharedDocument />,
+        totalValues: 0,
+        total: true
+      }
+] 

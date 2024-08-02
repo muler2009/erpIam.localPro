@@ -1,6 +1,13 @@
 import React from "react";
 
 
+
+export interface FileAPIResponseInterface {
+    status_code?: number;
+    status_text?: string;
+}
+
+
 export interface FileMenuItemInterface {
     label: string;
     icon?: React.ReactElement;

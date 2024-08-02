@@ -2,6 +2,7 @@ import { CategoryInterface, MenuItemInterface } from "./side-bar-interface";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io5";
 import * as MdIcons from "react-icons/md";
+import * as FaIcons from "react-icons/fa";
 
 export const sidear_link: MenuItemInterface[] = [
     {
@@ -18,12 +19,12 @@ export const sidear_link: MenuItemInterface[] = [
           children: [
             {
               label: "Main",
-              path: "document/library/main",
-              icon: <MdIcons.MdOutlineCloudUpload size={15} />
+              path: "library/main",
+              icon: <MdIcons.MdLibraryBooks size={15} />
             },
             {
               label: "Shared",
-              path: "document/library/shared",
+              path: "library/shared",
               icon: <MdIcons.MdOutlineFolderShared size={15} />
             },
             {
@@ -39,23 +40,23 @@ export const sidear_link: MenuItemInterface[] = [
           ]  
         },
         {
-          label: "New File",
-          path: "file",
+          label: "Uploads",
+          path: "upload",
           children: [
             {
               label: "Word File",
               path: "document/file/doc",
-              icon: <MdIcons.MdOutlineCloudUpload size={15} />
+              icon: <FaIcons.FaFileWord size={15} color="blue" />
             },
             {
               label: "Spreedsheet",
               path: "document/file/xlsx",
-              icon: <MdIcons.MdOutlineFolderShared size={15} />
+              icon: <FaIcons.FaFileExcel size={15} color="green"/>
             },
             {
-              label: "Other File",
+              label: "Pdf",
               path: "document/file/other",
-              icon: <MdIcons.MdOutlineFolderZip size={15} />
+              icon: <FaIcons.FaFilePdf size={15} color="red" />
             }
           ]  
         },

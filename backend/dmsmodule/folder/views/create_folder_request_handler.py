@@ -1,9 +1,9 @@
-from rest_framework import views, status
+from rest_framework import views, status, serializers
 from rest_framework.request import Request
 from rest_framework.response import Response
 from dmsmodule.folder.models.models import FolderModel
 from dmsmodule.folder.serializers.create_folder_serializer import CreateFolderSerializer
-from utils.custom_exception_handler import AlreadyExists
+from utils.custom_exception_handler import AlreadyExists, AlreadyExistAPIException
 
 
 class CreateFolderRequestHandler(views.APIView):
@@ -14,17 +14,19 @@ class CreateFolderRequestHandler(views.APIView):
             folder_serializer.is_valid(raise_exception=True)
 
             if FolderModel.objects.filter(folder_name=request.data.get('folder_name')).exists():
-                raise AlreadyExists
+                raise AlreadyExistAPIException(message="folder already exist", status_code=400)
+            
             folder_serializer.create(folder_serializer.validated_data)
 
-        except AlreadyExists as exc:
+        except AlreadyExistAPIException as exc:
              return Response({
-                f'group {request.data.get("folder_name")}': str(exc.default_code),
+                "error_type": str(exc.error_type),
                 'status_code': exc.status_code,
-                'Error': exc.detail, 
-            })
+                'message': f'{request.data.get("folder_name")} {exc.message}' , 
+            }, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({
                 "status_code": 201,
-                "status_text": "Folder Created Successfully"
+                "status_text": "Folder Created Successfully",
+                "data": folder_serializer.data
             }, status=status.HTTP_201_CREATED)

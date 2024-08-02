@@ -1,17 +1,9 @@
 import { useState, useEffect } from 'react';
-import React from 'react'
-import { pdfjs } from 'react-pdf';
 import { FlexInnerContainer, FlexBox, FlexBoxInner, Text } from '../../../../components/common/StyledComponent'
 import { AiFillFolder } from "react-icons/ai";
-import {format} from 'date-fns'
 import { FaFilePdf } from "react-icons/fa";
-import { BASE_URL } from '../../../../config/config';
 import PdfReader from '../../../components/common/PDFReader';
-import ModalTest from './ModalTest';
-import { FlexOuterContainer } from '../../../../iam/components/reusable/StyledComponent';
-import { FolderDataInterface, UploadedDocumentInterface } from '../../../models/folder-models';
 import useFolderExplorerActions from '../../../hooks/useFolderExplorerActions';
-import Breadcrumbs from '../../../context/Breadcrumbs';
 import Tooltip from '../../../../iam/components/reusable/Tooltip';
 import { TfiLayoutGrid2Alt } from "react-icons/tfi";
 import { MdOutlineFormatListBulleted } from "react-icons/md";

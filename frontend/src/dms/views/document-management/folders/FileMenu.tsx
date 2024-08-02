@@ -28,14 +28,14 @@ const FileMenu = () => {
         {
             file_menu?.map((file_menu, index) => {
                return(
-                <div className='text-sm' key={index} onClick={() => handleDropdownToggle(file_menu.label)}>
+                <FlexBox className={`text-sm `} key={index} onClick={() => handleDropdownToggle(file_menu.label)}>
                     {
                         file_menu.childern ? (
                             <FlexBoxInner className='flex justify-between items-center relative w-full'>
-                              <div className={`flex justify-start items-center space-x-2`}>
+                                <FlexBoxInner className={`flex justify-start items-center space-x-2`}>
                                     {/* <span className=''>{file_menu.icon}</span> */}
                                     <p className='text-[12px]'>{file_menu.label}</p>
-                                </div>
+                                </FlexBoxInner>
                                 <span className='pl-3'>{ isOpen[file_menu.label] ? <>{file_menu.iconOpen}</> : <>{file_menu.iconClose}</> }</span>
                                 <FlexBox className={`absolute top-8 -left-[7%] w-[250px] mt-2 whitespace-nowrap z-50 ${file_menu.label === activeLabel ? 'border-t-[2px] border-gray-100' : null}`}> 
                                     {
@@ -106,7 +106,7 @@ const FileMenu = () => {
                             </FlexBoxInner>
                         )
                     }
-                </div>
+                </FlexBox>
                )
             })
         }

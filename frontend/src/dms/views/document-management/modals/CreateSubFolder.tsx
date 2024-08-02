@@ -1,6 +1,6 @@
 import React from 'react'
 import { InputWithDesc, ModalBody, ModalContainer, ModalFooter, ModalHeader } from '../../../../iam/components/reusable'
-import { useGetFolderQuery } from '../../../services/dmsAPISlice'
+import { useGetFolderQuery } from '../../../services/folderAPISlice'
 import { Input, Button } from '../../../../components/common'
 import { FlexBox, FlexBoxInner, Text, P } from '../../../../components/common/StyledComponent'
 import * as Vsc from 'react-icons/vsc'

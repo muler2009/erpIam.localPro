@@ -49,7 +49,7 @@ class AlreadyExistAPIException(APIException):
         if self.message is not None:
             self.message = message
         else:
-            self.detail = {'detail': self.default_detail}
+            self.detail = self.default_detail
 
         if self.error_type is not None:
             self.error_type = error_type

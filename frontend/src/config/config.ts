@@ -5,5 +5,9 @@ export const API_TAGS = {
     ROLE_TAG: "Roles",
     GROUPS_TAG: "Groups",
     SUB_GROUPS_TAG: "Sub Groups",
+    FOLDERS: "folders",
+    FILES: "files",
+
+
 
 } as const

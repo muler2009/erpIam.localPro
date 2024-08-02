@@ -7,7 +7,7 @@ class GetDocumentSerializer(serializers.ModelSerializer):
    
     class Meta:
         model = UploadedDocumentModel
-        fields = ['uploaded_document_id','uploaded_document_name', 'uploaded_file', 'file_url', 'uploaded_file_date', 'updated_file_date']
+        fields = ['uploaded_document_id','uploaded_document_name', 'uploaded_file', 'file_url', 'uploaded_file_date', 'updated_file_date', 'folder']
 
     def get_file_url(self, obj):
         request = self.context.get('request')

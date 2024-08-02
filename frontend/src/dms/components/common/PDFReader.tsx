@@ -18,7 +18,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     pdfURL: string,
     openPdfs: boolean;
     setOpenPdfs: React.Dispatch<React.SetStateAction<boolean>>,
-    title: string
+    title?: string
   }
 
 const PdfReader = ({pdfURL, openPdfs, setOpenPdfs, title}: PdfReaderInterface) => {

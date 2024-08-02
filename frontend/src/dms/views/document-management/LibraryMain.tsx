@@ -14,10 +14,11 @@ import Routes, { DocumentRoutes } from '../../Routes/Routes'
 const LibraryMain = () => {
   return (
     <FlexOuterContainer className='flex flex-col h-full' >
-        <FlexBoxInner className='bg-[#fff] '>
+        {/* <FlexBoxInner className='bg-[#fff] '>
           <Text className='text-xl font-semibold px-5 pt-2'>My Document</Text>
-        </FlexBoxInner>
+        </FlexBoxInner> */}
         <LibraryTopNavigation />
+      
         <FlexBoxInner className='mt-[3px] h-full'>
           <Outlet />
         </FlexBoxInner>

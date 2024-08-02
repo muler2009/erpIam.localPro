@@ -4,7 +4,7 @@ import uuid
 
 class UploadedDocumentModel(models.Model):
     uploaded_document_id = models.UUIDField(db_index=True, default=uuid.uuid4, primary_key=True, editable=False)
-    folder = models.ForeignKey(FolderModel, on_delete=models.CASCADE, related_name='documents')
+    folder = models.ForeignKey(FolderModel, on_delete=models.CASCADE, related_name='documents', null=True, blank=True)
     uploaded_document_name = models.CharField(max_length=255)
     uploaded_file = models.FileField(upload_to='pdf_files/')
     uploaded_file_date = models.DateTimeField(auto_now_add=True)

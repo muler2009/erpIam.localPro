@@ -3,7 +3,7 @@ import { FlexOuterContainer } from '../../../components/common/StyledComponent'
 import { FlexInnerContainer } from '../../../iam/components/reusable/StyledComponent'
 import FolderTable from '../../components/tables/FolderTable'
 import useFolderColumns from '../../constants/columns/useFolderColumns'
-import { useGetFolderQuery } from '../../services/dmsAPISlice'
+import { useGetFolderQuery } from '../../services/folderAPISlice'
 
 const LibraryList = () => {
 
