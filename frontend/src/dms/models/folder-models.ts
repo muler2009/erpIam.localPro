@@ -24,7 +24,7 @@ export interface FolderCreateInterface {
     uploaded_file?: UploadedDocumentInterface[] | undefined  
 }
 
-export interface FolderDataInterface extends FolderCreateInterface { 
+export interface FolderDataInterface { 
     folder_identifier: string
     folder_name: string;
     parent_folder?: string;

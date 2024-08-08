@@ -16,9 +16,14 @@ import useUtils from '../../../../hooks/useUtils';
 import { CreateFolder } from '../../modals';
 import CreateFolderM from '../../modals/CreateFolderM';
 import useCreareFolder from '../../../../hooks/useCreareFolder';
+import FolderTest from './FolderTest';
+import FolderContent from './FolderTest';
 
 
 const AllFileandFolderView = () => {
+
+    
+
 
     const {
         folder_data, 
@@ -39,7 +44,7 @@ const AllFileandFolderView = () => {
     const {setFolderAttributes, folderAttributes, handleFolderCreationInputChanges} = useCreareFolder()
     
     useEffect(() => {
-        if (folder_data) {
+        if (folder_data && folder_data.length > 0) {
           setCurrentFolder(folder_data);
           setOpenStates(new Array(folder_data.length).fill(false));
         }
@@ -103,10 +108,10 @@ const AllFileandFolderView = () => {
 
        
         <FlexBoxInner className='h-full overflow-y-scroll'>
-            {
+            {/* {
                 currentFolder && (
                     <Folder 
-                        folder_data={currentFolder} 
+                        folder_data={currentFolder || folder_data} 
                         handleItemClick={handleItemClick} 
                         openStates={openStates} 
                         toggleItem={toggleItem}
@@ -114,21 +119,37 @@ const AllFileandFolderView = () => {
                         handleForwardClick={handleForwardClick}
                 
                     />
+                )}   */}
+
+                {currentFolder && currentPath.length > 0 ? (
+                <FolderContent
+                    folder_data={currentFolder || []} 
+                    handleItemClick={handleItemClick}
+                    openStates={openStates} 
+                    toggleItem={toggleItem}
+                    handleBackClick={handleBackClick}
+                    handleForwardClick={handleForwardClick}
+                />
+                ) : (
+                <Folder
+                    folder_data={folder_data || []} 
+                    handleItemClick={handleItemClick} 
+                    openStates={openStates} 
+                    toggleItem={toggleItem}
+                    handleBackClick={handleBackClick}
+                    handleForwardClick={handleForwardClick}
+                />
                 )}
-        </FlexBoxInner> 
+            </FlexBoxInner> 
 
         <>
-           
-                    <CreateFolderM 
-                        isOpen={isOpen}
-                        setIsOpen={setIsOpen}
-                        title={'Create Folder'}
-                        folderAttributes={folderAttributes}
-                        handleFolderCreationInputChanges={handleFolderCreationInputChanges}
-
-                    
-                    />
-            
+            <CreateFolderM 
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                title={'Create Folder'}
+                folderAttributes={folderAttributes}
+                handleFolderCreationInputChanges={handleFolderCreationInputChanges}
+            />
         </>
     
       </FlexBox>

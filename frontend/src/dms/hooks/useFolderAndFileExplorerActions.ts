@@ -10,25 +10,52 @@ const useFolderAndFileExplorerActions = () => {
     const [forwardStack, setForwardStack] = useState<any[]>([]);
     const [selectedItem, setSelectedItem] = useState<string | null>(null); 
 
+    // const handleBackClick = () => {
+    //     if (currentPath.length > 0) {
+    //       const lastFolder = currentPath[currentPath.length - 1];
+    //       setForwardStack([...forwardStack, currentFolder]); // Add current folder to forward stack
+    //       setCurrentPath(currentPath.slice(0, -1));
+    //       setCurrentFolder(currentPath.length > 1 ? currentPath[currentPath.length - 2].subfolder : folder_data); // Set current folder to last folder's parent or root
+    //       setOpenStates(new Array((lastFolder.subfolder || folder_data).length).fill(false));
+    //     }
+    //   };
+
     const handleBackClick = () => {
-        if (currentPath.length > 0) {
-          const lastFolder = currentPath[currentPath.length - 1];
-          setForwardStack([...forwardStack, currentFolder]); // Add current folder to forward stack
-          setCurrentPath(currentPath.slice(0, -1));
-          setCurrentFolder(currentPath.length > 1 ? currentPath[currentPath.length - 2].subfolder : folder_data); // Set current folder to last folder's parent or root
-          setOpenStates(new Array((lastFolder.subfolder || folder_data).length).fill(false));
+      if (currentPath.length > 0) {
+        const lastFolder = currentPath[currentPath.length - 1];
+        setForwardStack([currentFolder, ...forwardStack]); // Add current folder to the beginning of forward stack
+        const newPath = currentPath.slice(0, -1);
+        setCurrentPath(newPath);
+        
+        if (newPath.length > 0) {
+          const parentFolder = newPath[newPath.length - 1];
+          setCurrentFolder(parentFolder.subfolder || []);
+        } else {
+          setCurrentFolder(folder_data);
         }
-      };
+        
+        setOpenStates(new Array((lastFolder.subfolder || folder_data).length).fill(false));
+      }
+    };
+    const handleForwardClick = () => {
+      if (forwardStack.length > 0) {
+        const [nextFolder, ...remainingForwardStack] = forwardStack;
+        setCurrentFolder(nextFolder);
+        setCurrentPath([...currentPath, nextFolder]);
+        setOpenStates(new Array(nextFolder.length).fill(false));
+        setForwardStack(remainingForwardStack);
+      }
+    };
     
-      const handleForwardClick = () => {
-        if (forwardStack.length > 0) {
-          const nextFolder = forwardStack.pop();
-          setCurrentFolder(nextFolder);
-          setCurrentPath([...currentPath, nextFolder]);
-          setOpenStates(new Array(nextFolder.length).fill(false));
-          setForwardStack([...forwardStack]); // Update the forward stack state
-        }
-      };
+      // const handleForwardClick = () => {
+      //   if (forwardStack.length > 0) {
+      //     const nextFolder = forwardStack.pop();
+      //     setCurrentFolder(nextFolder);
+      //     setCurrentPath([...currentPath, nextFolder]);
+      //     setOpenStates(new Array(nextFolder.length).fill(false));
+      //     setForwardStack([...forwardStack]); // Update the forward stack state
+      //   }
+      // };
   
     // a function that update the currently clicked folder 
     // const handleItemClick = (folder: any) => {
@@ -40,14 +67,18 @@ const useFolderAndFileExplorerActions = () => {
     //     }
     //   };
 
-      const handleItemClick = (folder: any) => {
-        if (folder.subfolder) {
-          setCurrentFolder(folder.subfolder);
-          setCurrentPath([...currentPath, folder]);
-          setOpenStates(new Array(folder.subfolder.length).fill(false));
-          setForwardStack([]); // Clear forward stack on new navigation
-        }
-      };
+    const handleItemClick = (folder: any) => {
+      if (folder.subfolder || folder.uploaded_file) {
+        const newFolderContent = [
+          ...(folder.subfolder || []),
+          ...(folder.uploaded_file || [])
+        ];
+        setCurrentFolder(newFolderContent);
+        setCurrentPath([...currentPath, folder]);
+        setOpenStates(new Array(newFolderContent.length).fill(false));
+        setForwardStack([]); // Clear forward stack on new navigation
+      }
+    };
   
     const toggleItem = (index: number) => {
       setOpenStates(prevState => {
