@@ -71,7 +71,7 @@ const AllFileandFolderView = () => {
 
     return (
       <FlexBox className="flex flex-col h-full relative">
-        <FlexBox className='flex gap-5 justify-between items-center pt-2 pb-2 sticky top-0 '>
+        <FlexBox className='flex gap-5 justify-between items-center pt-2 pb-2 sticky top-0 mx-5'>
             <FlexBoxInner className='flex space-x-1'>
                 <Fa6Icons.FaCircleArrowLeft size={20} onClick={handleBackClick}  /> 
                 <Fa6Icons.FaCircleArrowRight size={20} onClick={handleForwardClick}/>
@@ -88,8 +88,8 @@ const AllFileandFolderView = () => {
             </FlexBoxInner>
             <FlexBox className='flex space-x-1 cursor-pointer pr-5 p-[5px]'>
                 <FlexBox className='flex justify-center items-center space-x-3 '>
-                    <Text className=' text-[12px] border px-3 rounded-md hover:bg-gray-200 py-2' onClick={openCreateFolderModal}>Create Folder</Text>
-                    <Text className='text-[12px] border px-3 rounded-md hover:bg-gray-200 py-2' onClick={openCreateFolderModal}>Upload</Text>
+                    <Text className=' text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={openCreateFolderModal}>Create Folder</Text>
+                    <Text className='text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={openCreateFolderModal}>Upload</Text>
                 
                 </FlexBox>
                 <FlexBoxInner className={`w-10 h-10 flex justify-center items-center hover:rounded-full hover:bg-gray-200`}>

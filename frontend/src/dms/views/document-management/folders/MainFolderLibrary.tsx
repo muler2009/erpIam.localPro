@@ -20,15 +20,15 @@ const MainFolderLibrary = () => {
     const {wrapText} = useUtils()
   return (
     <FlexOuterContainer className='mt-[1px] h-full gap-2'> 
-        <FlexBox className='flex gap-[2px] h-full'>
-            <FlexBoxInner className='w-[75%] flex flex-col bg-white h-full px-5 pt-5 '>
+        <FlexBox className='h-full'>
+            <FlexBoxInner className='flex flex-col bg-white h-full pt-5 '>
                 
                 <FlexBox className='pt-3 flex justify-between items-center'>
-                    <FlexBoxInner>
+                    <FlexBoxInner className='mx-5'>
                         <Text className='font-semibold text-primary-green text-opacity-95 text-[23px]'>Main Library</Text>
                         <P className='text-[9px] text-[#333] text-opacity-65'>Document and any attachment the you made with yoou user account </P>
                     </FlexBoxInner>
-                    <FlexBoxInner className='flex-grow pl-10 items-center '>
+                    <FlexBoxInner className='flex-grow pl-10 items-center pr-10 '>
                         <input className='input-md bg-gray-100 text-sm mb-4' placeholder='search file and folder'/>
                     </FlexBoxInner>
                 </FlexBox>
@@ -36,9 +36,9 @@ const MainFolderLibrary = () => {
                 <FolderTabNavigation />
             </FlexBoxInner>
 
-            <FlexBoxInner className='w-[25%]  bg-white flex justify-start flex-wrap text-[10px]'>
+            {/* <FlexBoxInner className='w-[25%]  bg-white flex justify-start flex-wrap text-[10px]'>
                Folder Metta data placeholder
-            </FlexBoxInner>
+            </FlexBoxInner> */}
         </FlexBox>
 
         

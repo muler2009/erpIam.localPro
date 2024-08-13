@@ -38,13 +38,15 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'iam',
     'iam.users',
+    'iam.user_profile',
     'iam.groups',
     'iam.role',
     'iam.ldap_integration.apps.LdapIntegrationConfig',
     'dmsmodule',
     'dmsmodule.folder',
     'dmsmodule.file_mangement',
-    
+    'workflow_manager',  
+    'notification_service',
 ]
 
 MIDDLEWARE = [

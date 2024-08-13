@@ -27,8 +27,8 @@ const Folder = ({ folder_data, handleItemClick, openStates, toggleItem, handleBa
 
 
   return (
-    <div>
-      <FlexBoxInner className='flex flex-col gap-3 relative mb-5 mx-1'>
+    <div className='pt-5'>
+      <FlexBoxInner className='flex flex-col gap-3 relative mb-5 mx-5'>
          {
           folder_data.some((folder: FolderDataInterface) => folder.subfolder?.length) && (
             <Text className='after:content-[""] after:absolute after:w-[80%] after:h-[1px] after:left-[5.5rem] after:top-[0.75rem] after:bg-gray-100'>Folder</Text>

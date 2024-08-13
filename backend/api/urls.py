@@ -9,7 +9,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('ldap/', include('directoryService.iam.urls')),
     path('dms/', include('dmsmodule.urls')),
-    path('iam/', include('iam.urls') )
+    path('iam/', include('iam.urls')),
+    path('work-flows/', include('workflow_manager.urls')),
+    path('notification/', include('notification.urls'))
+
+
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

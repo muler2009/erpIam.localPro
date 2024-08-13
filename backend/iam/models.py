@@ -6,8 +6,6 @@ from django.conf import settings
 from utils.set_default_password import set_default_password
 from rest_framework_simplejwt.tokens import RefreshToken
 
-
-
 """
     a user account model for storing user in the database and the ldap directory for authenthication 
 """

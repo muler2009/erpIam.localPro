@@ -11,8 +11,8 @@ const FolderTabNavigation = () => {
     return ( 
       <>
         <div className='relative w-full h-full font-Poppins text-[14px] pt-5'>
-          <div className='flex justify-between items-center  bg-opacity-50'>
-            <div className='flex justify-start flex-grow'>
+          <div className='flex justify-between items-center bg-opacity-50'>
+            <div className='flex justify-start flex-grow mx-5'>
               {
                   folder_tab_menu?.map((folder_tab, index) => (
                       <div key={index} onClick={() => changeTabIndex(index)} 
@@ -32,7 +32,7 @@ const FolderTabNavigation = () => {
               }
             </div>                  
           </div>
-          <div className="mx-1 my-2 bg-white">
+          <div className="mx-1 my-2 h-full">
             {folder_tab_menu[activeTabIndex].tabContent}
           </div>     
         </div>

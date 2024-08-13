@@ -73,9 +73,7 @@ class AuthenticationFailedException(APIException):
         
     def __str__(self):
         return f"{self.__class__.__name__}: {self.message}"
-            
-            
-    
+                
 class CustomExceptionHandler(APIException):
     def __init__(self, message=None, status_code=400, error_type=None):
         self.message = message
@@ -108,7 +106,19 @@ class EmptyExceptionHandler(APIException):
         # if code is not None:
         #     self.detail['code'] = code
 
+class PostExceptionHandler(APIException):
+    status_code = 400
+    default_detail = 'Empty'
+    default_code = 'error'
 
+    def __init__(self, detail=None, code=None, message=None, error_type=None, status_code=404):
+        self.message = message
+        self.error_type = error_type
+        self.status_code = status_code
+        if message is not None:
+            self.message = message
+        else:
+            self.message = self.default_detail
         
 # custom validation class overriding ValidationError
 class CustomSerializerValidationError(serializers.ValidationError):

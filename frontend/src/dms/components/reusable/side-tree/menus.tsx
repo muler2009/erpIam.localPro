@@ -41,7 +41,7 @@ export const sidear_link: MenuItemInterface[] = [
         },
         {
           label: "Uploads",
-          path: "upload",
+          path: ".",
           children: [
             {
               label: "Word File",
@@ -61,8 +61,9 @@ export const sidear_link: MenuItemInterface[] = [
           ]  
         },
         {
-          label: "Placeholder",
-          path: "upload"
+          label: "Requests",
+          path: "request",
+          icon: <MdIcons.MdApproval size={18} />
         },
         {
           label: "Shared Document",
@@ -98,7 +99,12 @@ export const sidear_link: MenuItemInterface[] = [
           path: "requested-approvals"
         }
       ]
-    }      
+    } ,
+    {
+      label: "Request",
+      path: "requests",
+      icon: <MdIcons.MdApproval size={18} />
+    },     
   ];
 
 export const category: CategoryInterface[] = [
