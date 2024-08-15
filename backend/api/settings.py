@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'dmsmodule.folder',
     'dmsmodule.file_mangement',
     'workflow_manager',  
-    'notification_service',
+    'notification',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +131,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# DEFAULT_AUTO_FIELD = 'utils.CustomPKField.DefaultPrimaryKeyField'
+
 
 # Password Security (List of password hasher)
 

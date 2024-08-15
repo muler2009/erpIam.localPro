@@ -8,8 +8,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('ldap/', include('directoryService.iam.urls')),
-    path('dms/', include('dmsmodule.urls')),
     path('iam/', include('iam.urls')),
+    path('dms/', include('dmsmodule.urls')),
     path('work-flows/', include('workflow_manager.urls')),
     path('notification/', include('notification.urls'))
 

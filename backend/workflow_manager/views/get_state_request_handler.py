@@ -1,6 +1,8 @@
 from rest_framework import generics, status
 from ..models.workflow_state_model import WorkFlowStateModel
+from ..models.request_model import RequestInWorkFlowModel
 from ..serilizers.get_state_serializer import GetStateModelSerializer
+from ..serilizers.get_request_serializer import RequestSubmissionModelSerializer, RequestModelSerializer
 from rest_framework.request import Request
 from rest_framework.response import Response
 from utils.custom_exception_handler import CustomObjectDoesNotExist
@@ -20,5 +22,10 @@ class GetStateRequestHandler(generics.GenericAPIView):
             }, status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(state_serializer.data)
+        
+
+class GetRequesthandler(generics.ListAPIView):
+    serializer_class = RequestModelSerializer
+    queryset = RequestInWorkFlowModel.objects.all()
 
 

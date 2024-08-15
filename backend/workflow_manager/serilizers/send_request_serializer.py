@@ -34,7 +34,7 @@ class RequestSendSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RequestInWorkFlowModel
-        fields = ['title', 'requesting_user', 'request_assigned_to_user', 'current_state', 'request_type', 'request_sent_at', 'request_updated_at']
+        fields = ['request_id', 'title', 'requesting_user', 'request_assigned_to_user', 'current_state', 'request_type', 'request_sent_at', 'request_updated_at']
         extra_kwargs = {
             'request_id': {'read_only': True},
             'request_sent_at': {'read_only': True},
@@ -45,5 +45,19 @@ class RequestSendSerializer(serializers.ModelSerializer):
         request_type = validated_data.pop('request_type', None)
         if request_type:
             validated_data['request_type'] = WorkFlowProtocolModel.objects.get(protocol_name=request_type)
-        return super().create(validated_data)
+        
+        request_instance = RequestInWorkFlowModel.objects.create(
+            **validated_data
+        )
 
+        return request_instance
+
+
+        # request_data = RequestInWorkFlowModel.objects.create(
+        #     title = validated_data['title'],
+        #     requesting_user = validated_data['requesting_user'],
+        #     request_assigned_to_user = ['request_assigned_to_user'],
+        #     current_state=validated_data['current_state'],
+        #     request_type= validated_data['request_type']
+            
+        # )

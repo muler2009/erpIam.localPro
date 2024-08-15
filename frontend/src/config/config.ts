@@ -7,6 +7,8 @@ export const API_TAGS = {
     SUB_GROUPS_TAG: "Sub Groups",
     FOLDERS: "folders",
     FILES: "files",
+    NOTIFICATION: "notification",
+
 
 
 

@@ -14,6 +14,8 @@ class GetActionModelSerializer(serializers.ModelSerializer):
         model = WorkFlowActionsModel
         fields = '__all__'
 
+        
+
 class GetTransitionModelSerializer(serializers.ModelSerializer):
     action_name = serializers.SerializerMethodField()
     protocol_name = serializers.SerializerMethodField()
