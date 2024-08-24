@@ -30,58 +30,17 @@ const FolderContent = ({ folder_data, handleItemClick, openStates, toggleItem, h
   if (!folder_data || folder_data.length === 0) return null;
 
   return (
-    // <FlexBoxInner className='flex space-x-5 flex-wrap'>
-    //   {folder_data.map((item, index) => (
-    //     <React.Fragment key={item.folder_identifier}>
-    //       {item.folder_name ? (
-    //         <div className="folder-container">
-    //           <FlexBox className='w-20 h-20' onDoubleClick={() => handleItemClick(item)}>
-    //             <FlexBoxInner className='flex flex-col justify-center items-center pb-5'>
-    //               <AiFillFolder size={60} color='#f8d775' />
-    //               <Text className='text-[#333] text-[12px] whitespace-pre-wrap break-words w-[100px] text-center'>
-    //                 {item.folder_name}
-    //               </Text>
-    //             </FlexBoxInner>
-    //           </FlexBox>
-              
-    //           {
-    //             item.subfolder && item.subfolder.length > 0 ? (
-    //               <FolderContent 
-    //                 folder_data={item.subfolder} 
-    //                 openStates={openStates} 
-    //                 handleForwardClick={handleForwardClick} 
-    //                 toggleItem={toggleItem} 
-    //                 handleBackClick={handleBackClick} 
-    //                 handleItemClick={handleItemClick}  
-    //               />
-    //             ): null}
-    //         </div>
-    //       ) : item.uploaded_file?.length ? (
-    //         <FlexBox className='w-20 h-20'>
-    //           <FlexBoxInner className='flex flex-col justify-center items-center pb-5'>
-    //             <BsFiletypePdf size={60} color='#ff4d4d' />
-    //             <Text className='text-[#333] text-[12px] whitespace-pre-wrap break-words w-[100px] text-center'>
-    //              tet
-    //             </Text>
-    //           </FlexBoxInner>
-    //         </FlexBox>
-    //       ) : null}
-    //     </React.Fragment>
-    //   ))}
-    // </FlexBoxInner>
-    <FlexBoxInner className='flex space-x-5 relative mb-5 mx-1'>
+  
+    <FlexBoxInner className='flex flex-col relative mx-1'>
     {folder_data.map((item, index) => (
         <React.Fragment key={item.folder_identifier}>
             {/* Display folders */}
             {item.folder_name && (
-                <div className="folder-container">
-                    <FlexBox 
-                        className='w-20 h-20' 
-                        onDoubleClick={() => handleItemClick(item)}
-                    >
-                        <FlexBoxInner className='flex flex-col justify-center items-center pb-5'>
-                            <AiFillFolder size={60} color='#f8d775' />
-                            <Text className='text-[#333] text-[12px] whitespace-pre-wrap break-words w-[100px] text-center'>
+                <div className="mx-5 border-b">
+                    <FlexBox className='w-20 h-20 flex'  onDoubleClick={() => handleItemClick(item)}>
+                        <FlexBoxInner className='flex items-center space-x-4 cursor-pointer'>
+                            <AiFillFolder size={50} color='#f8d775' />
+                            <Text className='text-[#333] text-[12px] whitespace-pre-wrap text-nowrap text-center'>
                                 {item.folder_name}
                             </Text>
                         </FlexBoxInner>
@@ -121,6 +80,65 @@ const FolderContent = ({ folder_data, handleItemClick, openStates, toggleItem, h
 
 
 export default FolderContent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // <FlexBoxInner className='flex space-x-5 flex-wrap'>
+    //   {folder_data.map((item, index) => (
+    //     <React.Fragment key={item.folder_identifier}>
+    //       {item.folder_name ? (
+    //         <div className="folder-container">
+    //           <FlexBox className='w-20 h-20' onDoubleClick={() => handleItemClick(item)}>
+    //             <FlexBoxInner className='flex flex-col justify-center items-center pb-5'>
+    //               <AiFillFolder size={60} color='#f8d775' />
+    //               <Text className='text-[#333] text-[12px] whitespace-pre-wrap break-words w-[100px] text-center'>
+    //                 {item.folder_name}
+    //               </Text>
+    //             </FlexBoxInner>
+    //           </FlexBox>
+              
+    //           {
+    //             item.subfolder && item.subfolder.length > 0 ? (
+    //               <FolderContent 
+    //                 folder_data={item.subfolder} 
+    //                 openStates={openStates} 
+    //                 handleForwardClick={handleForwardClick} 
+    //                 toggleItem={toggleItem} 
+    //                 handleBackClick={handleBackClick} 
+    //                 handleItemClick={handleItemClick}  
+    //               />
+    //             ): null}
+    //         </div>
+    //       ) : item.uploaded_file?.length ? (
+    //         <FlexBox className='w-20 h-20'>
+    //           <FlexBoxInner className='flex flex-col justify-center items-center pb-5'>
+    //             <BsFiletypePdf size={60} color='#ff4d4d' />
+    //             <Text className='text-[#333] text-[12px] whitespace-pre-wrap break-words w-[100px] text-center'>
+    //              tet
+    //             </Text>
+    //           </FlexBoxInner>
+    //         </FlexBox>
+    //       ) : null}
+    //     </React.Fragment>
+    //   ))}
+    // </FlexBoxInner>
 
 
 

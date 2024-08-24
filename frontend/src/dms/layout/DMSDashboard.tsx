@@ -16,11 +16,9 @@ import Routes from "../Routes/Routes";
 
 const DMSDashboard = () => {
   return (
-    <FlexBoxInner className="flex flex-col h-[96vh] bg-gray-100 font-Poppins overflow-y-auto">
-      <FlexBox className="">
+    <FlexBoxInner className=" bg-gray-100 font-Poppins h-full">
         <DocumentManagmentHeader />
-      </FlexBox>
-      <FlexBox className="flex flex-grow">
+      <FlexBox className="flex h-full flex-grow">
         <FlexBoxInner className="flex space-x-1 my-[1px] w-[18%]">
           {/* <FlexBox className="pt-3 px-2 bg-[#fff]">
             <FaBars size={18} />
@@ -52,7 +50,7 @@ const DMSDashboard = () => {
           
           </FlexBox>
         </FlexBoxInner>
-        <FlexBox className="w-full flex flex-col border">
+        <FlexBox className="w-full border">
           <Outlet />
           <Routes />
         </FlexBox>

@@ -47,8 +47,6 @@ const useFileColumns = () => {
                         />
                     )
                 },
-          
-
                 
             }),
             fileColumnsHelper.accessor(row => row.uploaded_file, {
@@ -102,21 +100,9 @@ const useFileColumns = () => {
                 id: "uploaded_by",
                 header: () => <span></span>,
                 cell: ({row}) => {
-                    const [openPdfs, setOpenPdfs] = useState<boolean>(false)
+                    const rowData = row.original
                     return(
-                        <>
-                        
-                        <FlexBox className="flex justify-end items-center pr-20 invisible group-hover:visible">
-                            <BottomTooltip content={`Share`}>
-                                <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => setOpenPdfs(prev => !prev)}>
-                                    <MdOutlinePreview size={15} />
-                                </FlexBoxInner>
-                            </BottomTooltip>
-                        </FlexBox>
-
-                        <PdfReader pdfURL={`${row.original.file_url}`}  openPdfs={openPdfs} setOpenPdfs={setOpenPdfs} />
-
-                        </>
+                        <ReadFile rowData={rowData} />
                     )
                 }
             }),
@@ -125,6 +111,27 @@ const useFileColumns = () => {
 
 
         return{fileColumn}
+}
+
+
+const ReadFile = ({rowData}: {rowData: FileUploadColumnInterface}) => {
+
+    const [openPdfs, setOpenPdfs] = useState<boolean>(false)
+    return(
+        <>
+        
+        <FlexBox className="flex justify-end items-center pr-20 invisible group-hover:visible">
+            <BottomTooltip content={`Share`}>
+                <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => setOpenPdfs(prev => !prev)}>
+                    <MdOutlinePreview size={15} />
+                </FlexBoxInner>
+            </BottomTooltip>
+        </FlexBox>
+
+        <PdfReader pdfURL={`${rowData.file_url}`}  openPdfs={openPdfs} setOpenPdfs={setOpenPdfs} />
+
+        </>
+    )
 }
 
 

@@ -60,7 +60,7 @@ export interface FolderListProps {
     abbreviation: string; 
   }
 
-  export interface FolderTabMenuInterface {
+export interface FolderTabMenuInterface {
     icon?: React.ReactElement;
     tabContent: React.ReactElement;
     label: string;

@@ -1,12 +1,12 @@
 from django.db import models
 from .core_notification_model import NotificationModel
 from workflow_manager.models.workflow_state_model import WorkFlowStateModel
-from workflow_manager.models.request_model import RequestInWorkFlowModel
+from workflow_manager.models.request_model import RequestInWorkFlowModel, ApprovedRequestByRequestOwnerModel
 
 class WorkFlowNotification(NotificationModel):
     workflow_state = models.ForeignKey(WorkFlowStateModel, on_delete=models.SET_NULL, null=True)
     action_taken = models.CharField(max_length=100)
-    request = models.ForeignKey(RequestInWorkFlowModel, on_delete=models.CASCADE, null=True)
+    request = models.ForeignKey(ApprovedRequestByRequestOwnerModel, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
         return f"{self.notification_id}"

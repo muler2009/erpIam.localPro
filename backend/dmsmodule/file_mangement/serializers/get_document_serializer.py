@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from dmsmodule.file_mangement.models.models import UploadedDocumentModel
+from dmsmodule.file_mangement.models.document_uploads_models import UploadedDocumentModel
 
 
 class GetDocumentSerializer(serializers.ModelSerializer): 

@@ -9,7 +9,10 @@ module.exports = {
         Poppins: ["Poppins", "sans-serif"],
         Rubik: ["Rubik", "sans"],
         MonaSans: ["Mona-Sans", "sans"],
-        Oswald: ["Oswald, sans-serif"]
+        Oswald: ["Oswald", "sans-serif"],
+        IBMPlexSans: ["IBMPlexSans-Regular", "sans-serif"],
+
+        
       },
       colors: {
         'primary-green': '#26cc86',

@@ -1,13 +1,10 @@
 import React, { useEffect, useState} from 'react'
-import { FlexBox, FlexBoxInner, Text } from '../../../../../components/common/StyledComponent'
+import { FlexBox, FlexBoxInner, Text, P } from '../../../../../components/common/StyledComponent'
 import Tooltip from '../../../../../iam/components/reusable/Tooltip'
 import { BsListColumns } from "react-icons/bs";
 import { SiWindows11 } from "react-icons/si";
 import Folder from './Folder'
-
 import * as Fa6Icons from 'react-icons/fa6' 
-
-
 import useFolderAndFileExplorerActions from '../../../../hooks/useFolderAndFileExplorerActions'
 import { InputWithDesc } from '../../../../../iam/components/reusable';
 import { Input } from '../../../../../components/common';
@@ -21,10 +18,6 @@ import FolderContent from './FolderTest';
 
 
 const AllFileandFolderView = () => {
-
-    
-
-
     const {
         folder_data, 
         openStates,
@@ -70,56 +63,59 @@ const AllFileandFolderView = () => {
       };
 
     return (
-      <FlexBox className="flex flex-col h-full relative">
-        <FlexBox className='flex gap-5 justify-between items-center pt-2 pb-2 sticky top-0 mx-5'>
-            <FlexBoxInner className='flex space-x-1'>
-                <Fa6Icons.FaCircleArrowLeft size={20} onClick={handleBackClick}  /> 
-                <Fa6Icons.FaCircleArrowRight size={20} onClick={handleForwardClick}/>
-            </FlexBoxInner>
-            <FlexBoxInner className='flex-grow'>
-               {/* <Input 
-                    placeholder='Search here'
-                    name='search'
-                    type='text'
-                    id='search_input'
-                    className='input-md'
-               
-               /> */}
-            </FlexBoxInner>
-            <FlexBox className='flex space-x-1 cursor-pointer pr-5 p-[5px]'>
-                <FlexBox className='flex justify-center items-center space-x-3 '>
-                    <Text className=' text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={openCreateFolderModal}>Create Folder</Text>
-                    <Text className='text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={openCreateFolderModal}>Upload</Text>
-                
-                </FlexBox>
-                <FlexBoxInner className={`w-10 h-10 flex justify-center items-center hover:rounded-full hover:bg-gray-200`}>
-                    <Tooltip content={`List View`}>
-                        <BsListColumns size={18} color={`#333`}  />
-                    </Tooltip>
+      <FlexBox className="flex flex-col h-full relative bg-white mx-1">
+        <FlexBoxInner className='bg-gray-50'>
+            <FlexBox className='pt-3 flex justify-between items-center'>
+                <FlexBoxInner className='mx-5'>
+                    <Text className='font-semibold text-primary-green text-opacity-95 text-[23px]'>Main Library</Text>
+                    <P className='text-[9px] text-[#333] text-opacity-65'>Document and any attachment the you made with yoou user account </P>
                 </FlexBoxInner>
-                <FlexBoxInner className={`w-10 h-10 flex justify-center items-center hover:rounded-full hover:bg-gray-200`}>
-                    <Tooltip content={`Grid View`}>
-                        <SiWindows11 size={18} color={`#1ea1d7`} />
-                    </Tooltip>
+                <FlexBoxInner className='flex-grow pl-10 items-center pr-10 '>
+                    <input className='input-md bg-gray-100 text-sm mb-4' placeholder='search file and folder'/>
                 </FlexBoxInner>
             </FlexBox>
 
-        </FlexBox>
+            <FlexBox className='flex gap-5 justify-between items-center pt-2 pb-2 sticky top-0 mx-5'>
+                <FlexBoxInner className='flex space-x-1'>
+                    <Fa6Icons.FaCircleArrowLeft size={20} onClick={handleBackClick}  /> 
+                    <Fa6Icons.FaCircleArrowRight size={20} onClick={handleForwardClick}/>
+                </FlexBoxInner>
+                <FlexBoxInner className='flex-grow'>
+                </FlexBoxInner>
+                <FlexBox className='flex space-x-1 cursor-pointer pr-5 p-[5px]'>
+                    <FlexBox className='flex justify-center items-center space-x-3 '>
+                        <Text className='text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={openCreateFolderModal}>Create Folder</Text>
+                        <Text className='text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={openCreateFolderModal}>Upload</Text>
+                    
+                    </FlexBox>
+                    <FlexBoxInner className={`w-10 h-10 flex justify-center items-center hover:rounded-full hover:bg-gray-200`}>
+                        <Tooltip content={`List View`}>
+                            <BsListColumns size={18} color={`#333`}  />
+                        </Tooltip>
+                    </FlexBoxInner>
+                    <FlexBoxInner className={`w-10 h-10 flex justify-center items-center hover:rounded-full hover:bg-gray-200`}>
+                        <Tooltip content={`Grid View`}>
+                            <SiWindows11 size={18} color={`#1ea1d7`} />
+                        </Tooltip>
+                    </FlexBoxInner>
+                </FlexBox>
+            </FlexBox>
+        </FlexBoxInner>
+            
+
+        <FlexBoxInner className='flex justify-between pl-5 pr-20 pt-2 pb-4 border-b cursor-pointer'>
+          <Text className='font-IBMPlexSans text-[#333] text-opacity-75 text-[13px]'>Name</Text>
+          <FlexBoxInner className='flex space-x-5'>
+          <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Items</Text>
+            <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Size</Text>
+            <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Modified Date</Text>
+          </FlexBoxInner>
+        </FlexBoxInner>
+       
 
        
         <FlexBoxInner className='h-full overflow-y-scroll'>
-            {/* {
-                currentFolder && (
-                    <Folder 
-                        folder_data={currentFolder || folder_data} 
-                        handleItemClick={handleItemClick} 
-                        openStates={openStates} 
-                        toggleItem={toggleItem}
-                        handleBackClick={handleBackClick}
-                        handleForwardClick={handleForwardClick}
-                
-                    />
-                )}   */}
+          
 
                 {currentFolder && currentPath.length > 0 ? (
                 <FolderContent
@@ -140,7 +136,7 @@ const AllFileandFolderView = () => {
                     handleForwardClick={handleForwardClick}
                 />
                 )}
-            </FlexBoxInner> 
+        </FlexBoxInner> 
 
         <>
             <CreateFolderM 
@@ -159,3 +155,24 @@ const AllFileandFolderView = () => {
   
 
 export default AllFileandFolderView
+
+
+
+
+
+
+
+
+
+  {/* {
+                currentFolder && (
+                    <Folder 
+                        folder_data={currentFolder || folder_data} 
+                        handleItemClick={handleItemClick} 
+                        openStates={openStates} 
+                        toggleItem={toggleItem}
+                        handleBackClick={handleBackClick}
+                        handleForwardClick={handleForwardClick}
+                
+                    />
+                )}   */}

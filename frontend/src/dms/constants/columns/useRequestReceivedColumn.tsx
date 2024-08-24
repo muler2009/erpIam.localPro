@@ -1,0 +1,208 @@
+import React, { useState, useMemo } from 'react'
+import { createColumnHelper } from '@tanstack/react-table'
+import { Link } from 'react-router-dom'
+import { RequestColumnInterface, RequestDataInterface, SendRequestApprovalInterface } from '../../models/request-model'
+import * as BiIcons from 'react-icons/bi'
+import { FlexBox, FlexBoxInner, Text } from '../../../components/common/StyledComponent'
+import { format } from 'date-fns'
+import TimeAgo from '../../../components/common/TimeAgo'
+import { BsFillChatRightDotsFill } from "react-icons/bs";
+import { OpenFileForReview } from './column-mini-component'
+import BottomTooltip from '../../../components/common/BottomTooltip'
+import { RxEyeOpen } from "react-icons/rx";
+import * as AiIcons from 'react-icons/ai'
+import PerformTransition from './column-mini-component/PerformTransition'
+
+const requestApprovalColumnHandler = createColumnHelper<RequestColumnInterface >()
+
+const useRequestReceivedColumn = () => {
+    const [approvalStatus, setApprovalStatus] = useState<Record<string | number, string>>({});
+
+    const handleApprovalChange = (rowId: string | number, status: string) => {
+        setApprovalStatus(prev => ({ ...prev, [rowId]: status }));
+    };
+
+    const requestApprovalColumn = useMemo(
+        () => [
+            requestApprovalColumnHandler.display({
+                id: "selection",
+                header: ({table}) => {
+                    return(
+                        <input 
+                            type='checkbox'
+                            onChange={table.getToggleAllPageRowsSelectedHandler()}
+                            checked={table.getIsAllRowsSelected()}
+                            className="w-[14px] h-[14px] rounded-none appearance-auto checked:appearance-none checked:bg-blue-500 before:checked:text-white" 
+                        />
+                    )
+                },
+
+                cell: ({row}) => {
+                    return(
+                        <input 
+                            type='checkbox'
+                            onChange={row.getToggleSelectedHandler()}
+                            checked={row.getIsSelected()}
+                            className="w-[14px] h-[14px] rounded-none appearance-auto checked:appearance-none checked:bg-primary-green before:checked:text-white"  
+                        />
+                    )
+                },
+                
+            }),
+            requestApprovalColumnHandler.accessor(row => row.current_state, {
+                id: "Requesting user",
+                header: () => <span>Status</span>,
+                cell: props => {
+                    return(
+                        <div className='whitespace-nowrap'>
+                        {
+                            props.row.original.current_state === 'pending for approval' ? (
+                                <Text className='px-2 py-2 flex items-center text-red-700'>
+                                    <span className='pr-1'><BsFillChatRightDotsFill size={20}/></span>WFA
+                                </Text>
+                            ) : null 
+                        }
+                    </div>
+                    )
+                }
+            }),
+            requestApprovalColumnHandler.accessor(row => row.requesting_user, {
+                id: "Title",
+                header: () => <span>Request Informations</span>,
+                cell: ({row}) => {
+                    const request_recieved_at = row.original.request_sent_at || new Date()
+                    return(
+                        <FlexBox className='flex flex-col pb-2'>
+                            <FlexBoxInner className='flex space-x-1'>
+                                <Text className='font-semibold'>{row.original.title}</Text>
+                                <TimeAgo timestamp={request_recieved_at} className='' />
+                            </FlexBoxInner>
+                            <FlexBox>
+                            <p className='text-[12px] text-[#333] text-opacity-65'>{format(request_recieved_at, 'EE dd, yyyy')}</p>
+                                {/* {row.original.file_url} */}
+                            </FlexBox>
+                        </FlexBox>
+                    )
+                }
+            }),
+            requestApprovalColumnHandler.accessor(row => row.file_url, {
+                id: "Requesting user",
+                header: () => <span>Attached File</span>,
+                cell: ({row}) => {
+                    const rowData = row.original
+                    return(
+                        <OpenFileForReview  
+                            rowData={rowData}
+                        />
+                    )
+                }
+            }),
+         
+            requestApprovalColumnHandler.display({
+                id: "status",
+                header: () => <span className="flex justify-start"><BiIcons.BiDotsVerticalRounded /> Action</span>,
+                cell: ({row}) => {
+                    const rowData = row.original
+                    const approvalStatusForRow = approvalStatus[rowData.request_id];  
+                    return(
+                        <FlexBox className="flex justify-start items-center space-x-3">
+                            <BottomTooltip content={`See detail of the request`}>
+                                <FlexBoxInner className="flex justify-center items-center hover:bg-gray-200 rounded-full">
+                                    <RxEyeOpen size={15} />
+                                </FlexBoxInner>
+                            </BottomTooltip>
+                            <FlexBoxInner className='flex justify-start items-center space-x-5' >
+                                <ApprovalSelect 
+                                    rowId={row.original.request_id} 
+                                    onApprovalChange={handleApprovalChange}
+                                    currentStatus={approvalStatus[row.original.request_id] }
+                                    rowData={rowData}
+                                />
+                              
+                                <PerformTransition 
+                                    rowData={rowData} 
+                                    approvalStatus={approvalStatusForRow}
+                                
+                                />
+                            </FlexBoxInner>
+                      </FlexBox>
+                    )
+                }
+            }),
+        ],
+        [approvalStatus]
+    )
+    
+    return {requestApprovalColumn}
+}
+
+interface ApprovalSelectProps {
+    rowId: string | number;
+    onApprovalChange: (rowId: string | number, status: string) => void;
+    currentStatus: string;
+    rowData?: RequestColumnInterface;
+}
+
+
+
+const ApprovalSelect: React.FC<ApprovalSelectProps> = ({ rowId, onApprovalChange, currentStatus, rowData }) => {
+    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const newStatus = event.target.value;
+        onApprovalChange(rowId, newStatus);
+    };
+
+    return (
+        <FlexBox className='relative'>
+            <select 
+                id={`approve_input_${rowId}`}
+                name={`approve`} 
+                className="select-md rounded-sm font-Poppins py-1 w-full text-[12px]"   
+                onChange={handleChange}
+                value={currentStatus}
+            >
+                <option value="Waiting for Approval">Waiting for Approval</option>
+                <option value="Approved">Approved</option>
+                <option value="Reject">Reject</option>
+                <option value="Reject with modification">Reject with modification</option>
+
+            </select>   
+            <span className='flex justify-center items-center absolute top-0 border right-0 text-gray-500 bg-gray-50 h-full w-[30px] pointer-events-none'>
+                <AiIcons.AiOutlineCaretDown />
+            </span>
+        </FlexBox>
+    );
+};
+
+export default useRequestReceivedColumn
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   // requestApprovalColumnHandler.accessor(row => row.current_state, {
+            //     id: "Requesting Type",
+            //     header: () => <span>Status</span>,
+            //     cell: props => {
+            //         return(
+            //             <div className='whitespace-nowrap'>
+            //                 {
+            //                     props.row.original.current_state === 'pending for approval' ? (
+            //                         <Text className='px-2 py-2 flex items-center text-blue-900'>
+            //                             <span className='pr-1'><HiCheckCircle size={20}/></span>Waiting for approval
+            //                         </Text>
+            //                     ) : null 
+            //                 }
+            //             </div>
+            //         )
+            //     }
+            // }),

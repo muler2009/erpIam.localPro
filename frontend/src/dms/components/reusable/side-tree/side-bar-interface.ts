@@ -4,7 +4,8 @@ export interface MenuItemInterface {
     label: string;
     path?: string ,
     children?: MenuItemInterface[],
-    icon?: React.ReactElement
+    icon?: React.ReactElement,
+    name?: string;
 }
 
 export interface CategoryInterface {

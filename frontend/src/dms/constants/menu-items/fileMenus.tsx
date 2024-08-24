@@ -5,9 +5,6 @@ import * as MdIcons from "react-icons/md";
 import * as AiIcons from "react-icons/ai";
 
 
-
-
-
 export const file_menu: FileMenuItemInterface[] = [
     {
         label: "File",

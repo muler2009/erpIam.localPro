@@ -26,13 +26,14 @@ import { TfiLayoutGrid2Alt } from "react-icons/tfi";
 import { BsFileEarmark } from "react-icons/bs";
 import { GiOpenFolder } from "react-icons/gi";
 import useSharedColumns, { SharedColumn } from "../../constants/columns/useSharedColumns";
+import { RequestColumnInterface } from "../../models/request-model";
 
-interface SharedTableProps {
-    data: SharedColumn[];
-    columns: ColumnDef<SharedColumn, any>[];
-}
+interface SharedTableProps<T> {
+    data: T[];
+    columns: ColumnDef<T, any>[];
+  }
   
-const SharedTable = ({data, columns}: SharedTableProps) => {
+const SharedTable= <T,>({data, columns}: SharedTableProps<T>) => {
     const [globalFilter, setGlobalFilter] = useState<string | number>('')
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [expanded, setExpanded] = useState<ExpandedState>({})
@@ -58,11 +59,11 @@ const SharedTable = ({data, columns}: SharedTableProps) => {
     getFilteredRowModel: getFilteredRowModel()
   })
 
- const sharedColumn = useSharedColumns()
+//  const sharedColumn = useSharedColumns()
 
   return (
     <div className="flex flex-col gap-1 h-full">      
-        <div className="shared">
+        <div className="">
             <table className="table table-sm table-border text-left mb-5 text-[14px]">
                 <thead className="font-Poppins font-semibold">
                     {
@@ -110,7 +111,6 @@ const SharedTable = ({data, columns}: SharedTableProps) => {
                         })
                     }
                 </tbody>
-
             </table>
         </div>
     </div>

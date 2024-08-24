@@ -11,6 +11,10 @@ import Dashboard from '../views/dashboard/Dashboard';
 import LibraryList from '../views/document-management/LibraryList';
 import MainFolderLibrary from '../views/document-management/folders/MainFolderLibrary';
 import RequestMainPage from '../views/requests/RequestMainPage';
+import RequestList from '../views/requests/request-mini-components/RequestList';
+import RequestTabNavigation from '../views/requests/request-mini-components/RequestTabNavigation';
+import RequestDashboard from '../views/requests/request-mini-components/RequestDashboard';
+import AllFileandFolderView from '../views/document-management/folders/folder-mini-reusable-components/AllFileandFolderView';
 
 
 
@@ -27,7 +31,7 @@ interface RouteWithChildren {
 const Routes = () => {
     const dmsRoutes: (Route | RouteWithChildren)[] = [
         { path: '/', element: <Dashboard /> },
-        { path: 'library/main', element: <MainFolderLibrary />,
+        { path: 'library/main', element: <AllFileandFolderView />,
             children: [
                 // {path: '', element: <MainFolderLibrary />},
                 {path: 'create', element: <h1>Test Docuemtn</h1>},
@@ -37,10 +41,9 @@ const Routes = () => {
         { path: 'library/upload', element: <DashboardMain/> },
         { path: 'request', element: <RequestMainPage/>,
             children: [
-                {path: 'test_request', element: <h1>Test Request</h1>},
+                { path: '', element: <RequestDashboard /> },
+                { path: 'test_request', element: <h1>Test Request</h1> },
             ]
-
-
          },
 
     ];

@@ -3,14 +3,16 @@ import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io5";
 import * as MdIcons from "react-icons/md";
 import * as FaIcons from "react-icons/fa";
+import * as Fa6Icons from "react-icons/fa6";
 
 export const sidear_link: MenuItemInterface[] = [
     {
-      label: "Dashboard",
+      label: "All Files",
       path: ".",
+      icon: <Fa6Icons.FaRegFolder size={17} />
     },
     {
-      label: "My Document",
+      label: "My Devices",
       path: ".",
       children: [
         {
@@ -33,7 +35,7 @@ export const sidear_link: MenuItemInterface[] = [
               icon: <MdIcons.MdOutlineFolderZip size={15} />
             },
             {
-              label: "Trash",
+              label: "Deleted Files",
               path: "document/library/trash",
               icon: <IoIcons.IoTrashOutline size={15} />
             }
@@ -60,30 +62,7 @@ export const sidear_link: MenuItemInterface[] = [
             }
           ]  
         },
-        {
-          label: "Requests",
-          path: "request",
-          icon: <MdIcons.MdApproval size={18} />
-        },
-        {
-          label: "Shared Document",
-          path: "upload"
-        }
-      ]
-    },
-    {
-      label: "Search",
-      path: "search",
-      children: [
-        {
-          label: "basic search",
-          path: "basic-search"
-        },
-        {
-          label: "Advanced search",
-          path: "advanced-search"
-        }
-
+        
       ]
     },
     {
@@ -91,19 +70,25 @@ export const sidear_link: MenuItemInterface[] = [
       path: "work-flow",
       children: [
         {
-          label: "Pending Approvals",
-          path: "pending-approvals"
+          label: "Requests",
+          path: "request"
         },
         {
-           label: "Requested Approvals",
+           label: "Approvals",
           path: "requested-approvals"
         }
       ]
     } ,
     {
-      label: "Request",
-      path: "requests",
-      icon: <MdIcons.MdApproval size={18} />
+      label: "Recents",
+      path: "recent",
+      icon: <FaIcons.FaRegClock size={17} />
+      
+    },
+    {
+      label: "Important",
+      path: "important",
+      icon: <MdIcons.MdOutlineStarOutline size={18} />
     },     
   ];
 

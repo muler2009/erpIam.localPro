@@ -1,6 +1,6 @@
 from rest_framework import serializers, views, generics
 from rest_framework.response import Response
-from dmsmodule.file_mangement.models.models import UploadedDocumentModel
+from dmsmodule.file_mangement.models.document_uploads_models import UploadedDocumentModel
 from dmsmodule.file_mangement.serializers.get_document_serializer import GetDocumentSerializer
 
 class GetDocumentRequestHandler(generics.GenericAPIView):

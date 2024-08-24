@@ -10,6 +10,8 @@ import { VscSymbolFile } from "react-icons/vsc";
 import { P } from "../../../../components/common/StyledComponent";
 import { Icon } from "../../../../components/common";
 import { AiFillDashboard } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { username } from "../../../../iam/api/auth";
 
 
 interface SideMenuListItemProps {
@@ -24,6 +26,7 @@ interface DisplayChildrensInterface {
 
 const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
   // a state for handling open and closing
+  const loggedInUser = useSelector(username)
   const [displayChildrens, setDisplayCurrentChildren] = useState<DisplayChildrensInterface>({});
 
   // Toggle handler
@@ -55,8 +58,8 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
                                 <div className="">
                                    {
                                       displayChildrens[listItem.label]  
-                                        ? <GiIcons.GiOpenFolder size={20} className="text-gray-600" /> 
-                                        : <PiIcons.PiFolderSimplePlusFill size={20} className="text-gray-600" />
+                                        ? <GiIcons.GiOpenFolder size={17} className="text-gray-600" /> 
+                                        : <PiIcons.PiFolderSimplePlusFill size={17} className="text-gray-600" />
                                     }
                                 </div>
                             ): (

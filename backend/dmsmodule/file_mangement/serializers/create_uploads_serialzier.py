@@ -1,7 +1,7 @@
 from rest_framework import views, serializers
 from rest_framework.request import Request
 from rest_framework.response import Response
-from dmsmodule.file_mangement.models.models import  UploadedDocumentModel
+from dmsmodule.file_mangement.models.document_uploads_models import  UploadedDocumentModel
 from dmsmodule.file_mangement.serializers.get_document_serializer import GetDocumentSerializer
 
 

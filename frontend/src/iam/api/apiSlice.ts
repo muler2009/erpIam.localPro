@@ -18,7 +18,7 @@ const tagTypes: TagType[] = Object.values(API_TAGS);
 const baseQuery = fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers:Headers, {getState}) => {
-        headers.set('Content-Type', 'application/json')
+        // headers.set('Content-Type', 'application/json')
         const token = (<RootState>getState()).auth.token
         if(token) {
             if(token) {

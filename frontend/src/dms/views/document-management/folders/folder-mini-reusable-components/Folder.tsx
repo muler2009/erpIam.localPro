@@ -1,15 +1,9 @@
 import React, {useState} from 'react'
-import { useGetAllRolesQuery } from '../../../../../iam/features/roleAPI';
 import { FolderDataInterface, UploadedDocumentInterface } from '../../../../models/folder-models';
-import { FlexBox, FlexBoxInner, Text } from '../../../../../components/common/StyledComponent';
-import useFolderExplorerActions from '../../../../hooks/useFolderExplorerActions';
-import { FaFilePdf } from 'react-icons/fa';
-import PdfReader from '../../../../components/common/PDFReader';
+import { FlexBox, FlexBoxInner, Text, P } from '../../../../../components/common/StyledComponent';
+
 import { AiFillFolder, AiFillFile } from 'react-icons/ai';
-import { useGetFolderQuery } from '../../../../services/folderAPISlice';
-import * as Fa6Icons from 'react-icons/fa6' 
-import { BsFiletypePdf } from "react-icons/bs";
-import useFolderAndFileExplorerActions from '../../../../hooks/useFolderAndFileExplorerActions';
+
 
 
 interface FolderProps {
@@ -28,14 +22,8 @@ const Folder = ({ folder_data, handleItemClick, openStates, toggleItem, handleBa
 
   return (
     <div className='pt-5'>
-      <FlexBoxInner className='flex flex-col gap-3 relative mb-5 mx-5'>
-         {
-          folder_data.some((folder: FolderDataInterface) => folder.subfolder?.length) && (
-            <Text className='after:content-[""] after:absolute after:w-[80%] after:h-[1px] after:left-[5.5rem] after:top-[0.75rem] after:bg-gray-100'>Folder</Text>
-          )
-        }
-        {/* <button onClick={() => alert(`${Array.isArray(currentPath)}`)}>{getLastPathName()}</button> */}
-        <FlexBoxInner className='flex space-x-5 flex-wrap'>
+      <FlexBoxInner className='flex flex-col gap-2 relative mb-5 mx-5'>       
+       
           {
             folder_data?.map((folder: FolderDataInterface, index: number) => {
 
@@ -44,7 +32,7 @@ const Folder = ({ folder_data, handleItemClick, openStates, toggleItem, handleBa
                   <FlexBoxInner className='flex flex-col justify-center items-center pb-5'>
                     <AiFillFolder size={60} color='#f8d775' />
                     <Text className='text-[#333] text-[12px] whitespace-pre-wrap break-words w-[100px] text-center'>
-                      {folder.folder_name}
+                      {folder.folder_name} 
                     </Text>
                   </FlexBoxInner>
                 </FlexBox>
@@ -54,7 +42,7 @@ const Folder = ({ folder_data, handleItemClick, openStates, toggleItem, handleBa
             
           )
           }
-        </FlexBoxInner>
+        
       </FlexBoxInner>
 
      

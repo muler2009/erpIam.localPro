@@ -156,13 +156,13 @@
     .nested-group > .table-striped > tbody > tr:nth-of-type(odd) { @apply bg-white}
     .nested-group > .table-striped > tbody > tr:nth-of-type(even) { @apply bg-[#eee] bg-opacity-20}
 
-    .shared > .table > thead > tr > th { @apply border-none py-3 font-Poppins font-semibold whitespace-nowrap leading-[1.2] text-[#333] text-opacity-70 bg-gray-50 text-[13.5px]}
-    .shared > .table > thead > tr > th:first-child { @apply w-[50%] }
-    .shared > .table > thead > tr > th:nth-child(2) { @apply w-[15%] }
-    .shared > .table > thead > tr > th:nth-child(3) { @apply w-[10%] }
-    .shared > .table > thead > tr > th:last-child { @apply w-[25%] }
-    .shared > .table > tbody > tr { @apply cursor-pointer}
-    .shared > .table > tbody > tr > td { @apply pl-5 py-1 text-[#333] text-opacity-80 text-[13px] }
+    .shared  .table > thead > tr > th { @apply border-none py-3 font-Poppins font-semibold whitespace-nowrap leading-[1.2] text-[#333] text-opacity-70 bg-gray-50 text-[13.5px]}
+    .shared  .table > thead > tr > th:first-child { @apply w-[50%] }
+    .shared  .table > thead > tr > th:nth-child(2) { @apply w-[15%] }
+    .shared  .table > thead > tr > th:nth-child(3) { @apply w-[10%] }
+    .shared  .table > thead > tr > th:last-child { @apply w-[25%] }
+    .shared  .table > tbody > tr { @apply cursor-pointer}
+    .shared  .table > tbody > tr > td { @apply pl-5 py-1 text-[#333] text-opacity-80 text-[13px] }
     /* .shared > .table > thead > tr > th:first-child{@apply w-[5%] whitespace-nowrap} */
  
     
@@ -170,13 +170,31 @@
     .file > .table > thead > tr > th { @apply border-none py-3 font-Poppins font-semibold whitespace-nowrap leading-[1.2] text-[#333] text-opacity-70 text-[13.5px]}
     .file > .table > thead > tr > th:first-child { @apply w-[1%] }
     .file > .table > thead > tr > th:nth-child(2) { @apply w-[25%] }
-    /* .file > .table > thead > tr > th:nth-child(3) { @apply w-[10%] }
-    .file > .table > thead > tr > th:nth-child(4) { @apply w-[10%] } */
     .file > .table > thead > tr > th:last-child { @apply w-[20px] }
-
     .file > .table > tbody > tr > td:first-child { @apply w-[1%]}
     .file > .table > tbody > tr { @apply cursor-pointer}
     .file > .table > tbody > tr > td { @apply pl-4 py-3 text-[#333] text-opacity-80 text-[13px] }
+
+    .request  .table > thead > tr > th,
+    .request-recieved  .table > thead > tr > th  { 
+        @apply border-none py-3 font-Poppins font-semibold whitespace-nowrap leading-[1.2] text-[#333] text-opacity-70 bg-gray-50 text-[13.5px]
+    }
+    .request  .table > tbody > tr, .request-recieved .table > tbody > tr { @apply cursor-pointer}
+    .request  .table > tbody > tr > td, .request-recieved .table > tbody > tr > td { @apply pl-5 py-1 text-[#333] text-opacity-80 text-[13px]}
+    .request  .table > thead > tr > th:nth-child(5) { @apply w-[15%] }
+    .request  .table > tbody > tr > td:last-child { @apply w-[10%]}
+
+
+    .request-recieved .table-border > thead { @apply border-t-[1px] border-b-[3px] }
+    .request-recieved .table > thead > tr > th:nth-child(3) { @apply w-[10%] border-b-primary-green;}
+    .request-recieved .table > tbody > tr > td:first-child { @apply w-[3%]}
+    .request-recieved .table > tbody > tr > td:nth-child(2) { @apply w-[5%]}
+    .request-recieved .table > tbody > tr > td:nth-child(3) { @apply w-[15%]}
+    .request-recieved .table > tbody > tr > td:nth-child(4) { @apply w-[20%]}
+    .request-recieved .table > tbody > tr > td:nth-child(5) { @apply w-[20%]}
+
+
+
 
 
     .custom-td {

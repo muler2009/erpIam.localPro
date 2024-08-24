@@ -21,7 +21,7 @@ export interface InputInterface {
 }
 
 export interface TextInputWithDescWithout {
-    id: string;
+    id?: string;
     type: string;
     name: string;
     placeholder: string;

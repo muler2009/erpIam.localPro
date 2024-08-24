@@ -21,8 +21,7 @@ const MainFolderLibrary = () => {
   return (
     <FlexOuterContainer className='mt-[1px] h-full gap-2'> 
         <FlexBox className='h-full'>
-            <FlexBoxInner className='flex flex-col bg-white h-full pt-5 '>
-                
+            <FlexBoxInner className='flex flex-col bg-white h-full pt-5 '> 
                 <FlexBox className='pt-3 flex justify-between items-center'>
                     <FlexBoxInner className='mx-5'>
                         <Text className='font-semibold text-primary-green text-opacity-95 text-[23px]'>Main Library</Text>

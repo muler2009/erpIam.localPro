@@ -1,7 +1,6 @@
 from django.db import models
 import uuid
 
-
 class UploadsModel(models.Model):
     uploaded_document_id = models.UUIDField(db_index=True, default=uuid.uuid4, primary_key=True, editable=False)
     uploaded_document_name = models.CharField(max_length=255)

@@ -3,7 +3,8 @@ import { shared } from '../constants/menu-items/shared'
 
 const useUtils = () => {
     const [drop, setDrop] = useState<boolean>(false)
-    const [isOpen, setIsOpen] = useState<{[key: string]: boolean}>({})     
+    const [isOpen, setIsOpen] = useState<{[key: string]: boolean}>({})  
+    const [open, setOpen] = useState<boolean>(false)     
     const [activeLabel, setActiveLabel] = useState<string | null>(null);
 
 
@@ -13,6 +14,10 @@ const useUtils = () => {
           [label]: !prevState[label],
         }));
       };
+
+    const handleIsOpenCloseMenuModal = useCallback(() => {
+      setOpen(prevOpen => !prevOpen)
+    }, [])
 
     // const handleDropdownToggle = (label: string) => {
     //     setIsOpen(prevState => {
@@ -87,10 +92,12 @@ const useUtils = () => {
 
   return {
     isOpen,
+    open,
     setIsOpen,
     handleDropdownToggle,
     activeLabel,
     handleIsOpenCloseMenu,
+    handleIsOpenCloseMenuModal,
     setActiveLabel,
     wrapText
 
