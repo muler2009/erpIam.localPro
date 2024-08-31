@@ -25,7 +25,7 @@ const SendRequestCell = ({ rowData, approvalStatus }: SendRequestCellProps) => {
         if(approvalStatus === "Approved"){
             const requestData = {
                 request_id: rowData.request_id,
-                action_name: 'submit'
+                action_name: 'submitted'
             }
                 console.log(`Sending request for row ${requestData.action_name} ${requestData.request_id}`);
             try{

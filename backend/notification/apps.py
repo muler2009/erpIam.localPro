@@ -8,3 +8,5 @@ class NotificationConfig(AppConfig):
 
     def ready(self) -> None:
         import notification.signals.send_notification
+
+    

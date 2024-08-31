@@ -6,12 +6,6 @@ type Option = {
     username: string | number;
   };
 
-  interface Step {
-    [key: number]: string;
-  }
-
-  type GroupCreationSteps = Step[];
-
 
 const GroupCreateContext = createContext<GroupContextType | undefined>(undefined)
 

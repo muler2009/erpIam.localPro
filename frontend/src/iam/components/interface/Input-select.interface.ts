@@ -51,5 +51,5 @@ export interface CustomSelectInterface {
     icon?: React.ReactElement
     options: {label: string}[],
     value?: string | number;
-    onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void,
+    onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void
  }

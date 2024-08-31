@@ -24,19 +24,20 @@ export const roleAPI = erpAPISlice.injectEndpoints({
             }),
             providesTags: [API_TAGS.ROLE_TAG]
         }),
-        // createRoles: builder.mutation<BackendCreateRolesResponse, R>({
-        //     query: (roleData) => ({
-        //         url: `account/create_role/`,
-        //         method: 'POST',
-        //         body: roleData,
-        //     }),
-        //     invalidatesTags: [API_TAGS.ROLE_TAG]
-        // })
+        createRole: builder.mutation<RoleDataAPIResponse, RoleDataAPIResponse>({
+            query: (roleData) => ({
+                url: `iam/role/create_role/`,
+                method: `POST`,
+                body: roleData,
+            }),
+            invalidatesTags: [API_TAGS.ROLE_TAG]
+        })
     })
 })
 
 
 export const {
     useGetAllRolesQuery,
+    useCreateRoleMutation,
    
 } = roleAPI

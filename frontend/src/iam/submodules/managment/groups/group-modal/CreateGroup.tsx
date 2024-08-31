@@ -55,11 +55,6 @@ const CreateGroup = ({handleIsOpenCloseMenu, title}: GroupModalPropsInterface) =
         }
   }
 
-//  const customStyles = {
-//     ActiveBubble: (step: any, stepIndex: any) => ({
-//         background-color: "green"
-//     })
-//  }
 
   return (
    <ModalWrapper>
@@ -85,7 +80,7 @@ const CreateGroup = ({handleIsOpenCloseMenu, title}: GroupModalPropsInterface) =
                         }}
                     />
                 </FlexBox>
-                <FlexBox className='flex-grow'>
+                <FlexBox className='flex-grow pr-10'>
                     {/* {display[page]} */}
                     {displayComponent[page].component}
                 </FlexBox>

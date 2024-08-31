@@ -13,8 +13,8 @@ import useUtils from '../../../../hooks/useUtils';
 import { CreateFolder } from '../../modals';
 import CreateFolderM from '../../modals/CreateFolderM';
 import useCreareFolder from '../../../../hooks/useCreareFolder';
-import FolderTest from './FolderTest';
-import FolderContent from './FolderTest';
+import FolderTest from './FolderContent';
+import FolderContent from './FolderContent';
 
 
 const AllFileandFolderView = () => {
@@ -74,20 +74,16 @@ const AllFileandFolderView = () => {
                     <input className='input-md bg-gray-100 text-sm mb-4' placeholder='search file and folder'/>
                 </FlexBoxInner>
             </FlexBox>
-
             <FlexBox className='flex gap-5 justify-between items-center pt-2 pb-2 sticky top-0 mx-5'>
                 <FlexBoxInner className='flex space-x-1'>
                     <Fa6Icons.FaCircleArrowLeft size={20} onClick={handleBackClick}  /> 
                     <Fa6Icons.FaCircleArrowRight size={20} onClick={handleForwardClick}/>
                 </FlexBoxInner>
-                <FlexBoxInner className='flex-grow'>
-                </FlexBoxInner>
                 <FlexBox className='flex space-x-1 cursor-pointer pr-5 p-[5px]'>
-                    <FlexBox className='flex justify-center items-center space-x-3 '>
+                    <FlexBoxInner className='flex justify-center items-center space-x-3 '>
                         <Text className='text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={openCreateFolderModal}>Create Folder</Text>
                         <Text className='text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={openCreateFolderModal}>Upload</Text>
-                    
-                    </FlexBox>
+                    </FlexBoxInner>
                     <FlexBoxInner className={`w-10 h-10 flex justify-center items-center hover:rounded-full hover:bg-gray-200`}>
                         <Tooltip content={`List View`}>
                             <BsListColumns size={18} color={`#333`}  />
@@ -102,21 +98,18 @@ const AllFileandFolderView = () => {
             </FlexBox>
         </FlexBoxInner>
             
-
-        <FlexBoxInner className='flex justify-between pl-5 pr-20 pt-2 pb-4 border-b cursor-pointer'>
-          <Text className='font-IBMPlexSans text-[#333] text-opacity-75 text-[13px]'>Name</Text>
-          <FlexBoxInner className='flex space-x-5'>
-          <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Items</Text>
-            <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Size</Text>
-            <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Modified Date</Text>
-          </FlexBoxInner>
+        <FlexBoxInner className='flex justify-between pl-6 pr-20 pt-2 pb-4  cursor-pointer'>
+            <Text className='font-IBMPlexSans text-[#333] text-opacity-75 text-[13px]'>Name</Text>
+            <FlexBoxInner className='w-12s'>
+                <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Items</Text>
+            </FlexBoxInner>
+            <FlexBoxInner className='flex space-x-5'>
+                <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Size</Text>
+                <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Modified Date</Text>
+            </FlexBoxInner>
         </FlexBoxInner>
-       
-
-       
+           
         <FlexBoxInner className='h-full overflow-y-scroll'>
-          
-
                 {currentFolder && currentPath.length > 0 ? (
                 <FolderContent
                     folder_data={currentFolder || []} 

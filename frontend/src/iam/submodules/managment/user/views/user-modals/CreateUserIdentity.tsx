@@ -73,29 +73,7 @@ const CreateUserIdentity = ({openCreateIdentity, isOpen, title} : ModalProps) =>
                         </div>
                     </ModalHeader>
                     <ModalBody className='bg-white relative h-[60vh]'>
-                        {/* <div className='after:absolute after:bg-gray-100 after:h-[1px] after:w-full after:top-[6%] after:px-1'>
-                            <div className='flex justify-between pl-5 pb-1 border-opacity-80 border-gray-100 sticky top-0 bg-white'>
-                                {
-                                    Object.keys(userCreationStep)?.map((title: any, index) => {
-                                        const isActive = index === page
-                                        return(
-                                            
-                                                // <div key={index} className={`flex flex-col space-y-4 space-x-2 justify-end items-center py-3 cursor-pointer relative ${isActive && Object.values(userCreationStep).length - 1 !== index ? 'after:content-[""] after:absolute after:w-[60%] after:bg-green-500 after:top-[40%] after:left-20 after:h-[2px] ': null } `}>
-                                                //     <div className={`border rounded-full flex justify-center items-center w-12 h-12 ${isActive ? 'text-white transition duration-700 ease-in-out bg-green-500' : 'bg-white shadow-lg'}`} onClick={() => setPage(index)}>
-                                                //         {index + 1}
-                                                //     </div>
-                                                // </div>        
-                                                    <Text className={`font-Poppins px-2 text-sm ${isActive && 'text-green-600'} `}>
-                                                        {userCreationStep[title]}
-                                                    </Text>             
-                                        )
-                                    })
-                                }   
-                            </div>                        
-                        </div>
-                    <div className='flex flex-col'>
-                        {display[page]}
-                    </div> */}
+                     
                      <FlexInnerContainer className='flex py-5'>
                         <FlexBox className={`my-5`}>
                             <Stepper
@@ -149,3 +127,35 @@ const CreateUserIdentity = ({openCreateIdentity, isOpen, title} : ModalProps) =>
 }
 
 export default CreateUserIdentity
+
+
+
+
+
+
+
+
+
+   {/* <div className='after:absolute after:bg-gray-100 after:h-[1px] after:w-full after:top-[6%] after:px-1'>
+                            <div className='flex justify-between pl-5 pb-1 border-opacity-80 border-gray-100 sticky top-0 bg-white'>
+                                {
+                                    Object.keys(userCreationStep)?.map((title: any, index) => {
+                                        const isActive = index === page
+                                        return(
+                                            
+                                                // <div key={index} className={`flex flex-col space-y-4 space-x-2 justify-end items-center py-3 cursor-pointer relative ${isActive && Object.values(userCreationStep).length - 1 !== index ? 'after:content-[""] after:absolute after:w-[60%] after:bg-green-500 after:top-[40%] after:left-20 after:h-[2px] ': null } `}>
+                                                //     <div className={`border rounded-full flex justify-center items-center w-12 h-12 ${isActive ? 'text-white transition duration-700 ease-in-out bg-green-500' : 'bg-white shadow-lg'}`} onClick={() => setPage(index)}>
+                                                //         {index + 1}
+                                                //     </div>
+                                                // </div>        
+                                                    <Text className={`font-Poppins px-2 text-sm ${isActive && 'text-green-600'} `}>
+                                                        {userCreationStep[title]}
+                                                    </Text>             
+                                        )
+                                    })
+                                }   
+                            </div>                        
+                        </div>
+                    <div className='flex flex-col'>
+                        {display[page]}
+                    </div> */}

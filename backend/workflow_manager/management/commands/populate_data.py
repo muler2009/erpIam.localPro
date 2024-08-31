@@ -15,22 +15,22 @@ class Command(BaseCommand):
         leave_process = WorkFlowProtocolModel.objects.create(protocol_name='Leave process', protocol_description="approval processes for leave")
 
         # Create states 
-        submitted = WorkFlowStateModel.objects.create(state_name='submitted', state_description="submitted state", state_in_protocol=document_approval_process)
-        Approved = WorkFlowStateModel.objects.create(state_name='Approved', state_description="Approved state", state_in_protocol=document_approval_process)
+        # approved_by_owner = WorkFlowStateModel.objects.create(state_name='Approved by owner', state_description="approved by owner state", state_in_protocol=document_approval_process)
+        Approved = WorkFlowStateModel.objects.create(state_name='approved', state_description="Approved state", state_in_protocol=document_approval_process)
         not_approved = WorkFlowStateModel.objects.create(state_name='Not Approved by Owner', state_description="Not Approved by Owner state", state_in_protocol=document_approval_process)
         pending = WorkFlowStateModel.objects.create(state_name='pending for approval', state_description="pending for approval state", state_in_protocol=document_approval_process)
         rejected = WorkFlowStateModel.objects.create(state_name='Rejected', state_description="Rejected state", state_in_protocol=document_approval_process)
-        rejected_with_modification = WorkFlowStateModel.objects.create(state_name='Rejected with Modification', state_description="Rejected with Modification state", state_in_protocol=document_approval_process)
+        rejected_with_reservation = WorkFlowStateModel.objects.create(state_name='Rejected with Modification', state_description="Rejected with Modification state", state_in_protocol=document_approval_process)
 
         # Create actions
         approved = WorkFlowActionsModel.objects.create(action_name='approved', action_description="Approved Action", action_protocol=document_approval_process)
         rejected_without_modification = WorkFlowActionsModel.objects.create(action_name='Rejected', action_description="Rejected without reseravation Action", action_protocol=document_approval_process)
         rejected_with_modification = WorkFlowActionsModel.objects.create(action_name='Rejected With Modification', action_description="Rejected_With_Modification Action", action_protocol=document_approval_process)
-        submit = WorkFlowActionsModel.objects.create(action_name='submit', action_description="submit Action", action_protocol=document_approval_process)
-        
+        submitted = WorkFlowActionsModel.objects.create(action_name='submitted', action_description="approved by owner Action", action_protocol=document_approval_process)
+       
         # Create example transitions
         WorkFlowTransitionModel.objects.create(
-            transition_name= "Approved_Transition",
+            transition_name= "Approve",
             action_name = approved,
             protocol_name = document_approval_process,
             from_state = pending,
@@ -50,12 +50,12 @@ class Command(BaseCommand):
             action_name = rejected_with_modification,
             protocol_name = document_approval_process,
             from_state = pending,
-            to_state = rejected_with_modification
+            to_state = rejected_with_reservation
         )
 
         WorkFlowTransitionModel.objects.create(
             transition_name= "Submit_Transition",
-            action_name = submit,
+            action_name = submitted,
             protocol_name = document_approval_process,
             from_state = not_approved,
             to_state = pending,   

@@ -3,7 +3,7 @@ import { useRoutes, Outlet } from 'react-router-dom'
 import { MenuItemInterface } from '../components/reusable/side-tree/side-bar-interface';
 import DMSDashboard from '../layout/DMSDashboard';
 import menus from '../components/reusable/side-tree/menus';
-import DashboardMain from '../views/dashboard/DashboardMain2';
+
 import UnderConstruction from '../../components/common/UnderConstruction';
 import LibraryMain from '../views/document-management/LibraryMain';
 import SharedMainDashboard from '../views/shared/SharedMainDashboard';
@@ -38,7 +38,7 @@ const Routes = () => {
             ]
         },
         { path: 'library/shared', element: <SharedMainDashboard/> },
-        { path: 'library/upload', element: <DashboardMain/> },
+       
         { path: 'request', element: <RequestMainPage/>,
             children: [
                 { path: '', element: <RequestDashboard /> },

@@ -20,24 +20,14 @@ const DMSDashboard = () => {
         <DocumentManagmentHeader />
       <FlexBox className="flex h-full flex-grow">
         <FlexBoxInner className="flex space-x-1 my-[1px] w-[18%]">
-          {/* <FlexBox className="pt-3 px-2 bg-[#fff]">
-            <FaBars size={18} />
-          </FlexBox> */}
           <FlexBox className="flex flex-1 flex-col gap-3 py-5 bg-[#f7f9fb;]">
             <FlexBoxInner className="flex justify-start px-5 items-center ">
               <div className="flex flex-col items-center">
                 <div className="flex justify-center items-center">
-                  <HiIcons.HiClipboardDocumentCheck
-                    size={60}
-                    className="text-[#26cc86]"
-                  />
+                  <HiIcons.HiClipboardDocumentCheck size={60} className="text-[#26cc86]" />
                   <div className="flex flex-col">
-                    <Text className="font-Oswald tracking-wide text-[2rem] text-[#26cc86] whitespace-nowrap">
-                      oDMS
-                    </Text>
-                    <P className="float-right font-Poppins text-sm -pt-1">
-                      system
-                    </P>
+                    <Text className="font-Oswald tracking-wide text-[2rem] text-[#26cc86] whitespace-nowrap">oDMS</Text>
+                    <P className="float-right font-Poppins text-sm -pt-1"> system</P>
                   </div>
                 </div>
               </div>

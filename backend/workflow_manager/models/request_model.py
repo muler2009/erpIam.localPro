@@ -7,12 +7,14 @@ from .workflow_protocol_model import WorkFlowProtocolModel
 from .workflow_action_model import WorkFlowActionsModel
 from dmsmodule.file_mangement.models.document_uploads_models import UploadedDocumentModel
 
+
 class RequestInWorkFlowModel(models.Model):
     request_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     title = models.CharField(max_length=150, null=False, blank=False)
     request_sent_at = models.DateTimeField(auto_now_add=True)
     request_updated_at = models.DateTimeField(auto_now=True)
     file_for_approval = models.ForeignKey(UploadedDocumentModel, on_delete=models.SET_NULL, null=True, blank=True)
+    current_stage = models.ForeignKey('ApprovalStageModel', on_delete=models.SET_NULL, null=True, blank=True)
    
     class Meta:
         abstract = True

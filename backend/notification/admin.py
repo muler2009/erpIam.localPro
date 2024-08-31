@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models.workflow_notification import WorkFlowNotification
+from .models.core_notification_model import NotificationModel
 # Register your models here.
 
-admin.site.register(WorkFlowNotification)
+admin.site.register(NotificationModel)

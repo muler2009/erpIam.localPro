@@ -15,12 +15,7 @@ class CreateGroupRequestHandler(views.APIView):
 
             if PosixGroupUserModel.objects.filter(group_name=request.data.get('group_name')).exists():
                 raise AlreadyExists    
-            # group_members = create_group_serializer.validated_data.pop("members")
-            # for username in group_members:
-            #     group_members.use
-                   
-            # create_group_serializer.create(create_group_serializer.validated_data)  
-            # Create the group instance
+            
             group_instance = create_group_serializer.create(create_group_serializer.validated_data)
 
             # Ensure members are added before saving

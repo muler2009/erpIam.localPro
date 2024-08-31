@@ -2,6 +2,7 @@ import React from 'react'
 import { FaFile, FaFolder } from 'react-icons/fa';
 import { FlexBox, FlexBoxInner, FlexInnerContainer, Text } from '../../../../components/common/StyledComponent';
 import { Button } from '../../../../components/common';
+import { useGetFolderQuery } from '../../../services/folderAPISlice';
 
 interface DashboardCardProps {
   label: string;
@@ -10,28 +11,28 @@ interface DashboardCardProps {
   total?: number
 }
 
-const card_data = [
+const card_data: DashboardCardProps[] = [
   {
     label: "Folders",
-    icons: <FaFolder />,
+    icon: <FaFolder />,
     text: "Folder",
     total: 500
   },
   {
     label: "Files",
-    icons: <FaFile />,
+    icon: <FaFile />,
     text: "Files",
     total: 523
   },
   {
     label: "Shared Documents",
-    icons: <FaFolder />,
+    icon: <FaFolder />,
     text: "Folder",
     total: 635
   },
   {
     label: "Proposals",
-    icons: <FaFolder />,
+    icon: <FaFolder />,
     text: "Folder",
     total: 500
   }
@@ -39,8 +40,10 @@ const card_data = [
 
 
 const DashboardCard = () => {
+  const {data } = useGetFolderQuery()
+  const total_folder = data || []
   return (
-    <FlexInnerContainer className='bg-white rounded-md'>
+    <FlexInnerContainer className='bg-white rounded-md border py-3'>
       <FlexBoxInner className='flex flex-col'>
         <FlexBox className='flex justify-between items-center px-5 mb-5'>
           <Text className='font-semibold'>Total Documents</Text>
@@ -50,10 +53,10 @@ const DashboardCard = () => {
           {
             card_data?.map((cards, index) => (
             <FlexBox key={index} className='flex gap-5'>
-                <div className='text-[25px] w-12 h-12 flex justify-center items-center rounded-full text-[#26cc86] bg-gray-100 '>{cards.icons}</div>
+                <div className='text-[25px] w-12 h-12 flex justify-center items-center rounded-full text-[#26cc86] bg-gray-100 '>{cards.icon}</div>
                 <FlexBoxInner className='flex flex-col'>
                   <Text className='text-[13px] text-[#333]'>{cards.label}</Text>
-                  <Text className='text-[20px] text-[#333] font-semibold'>{cards.total}</Text>
+                  <Text className='text-[20px] text-[#333] font-semibold'>{total_folder.length}</Text>
 
                 </FlexBoxInner>
             </FlexBox>

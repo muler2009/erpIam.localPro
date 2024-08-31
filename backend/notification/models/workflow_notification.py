@@ -1,20 +1,21 @@
-from django.db import models
-from .core_notification_model import NotificationModel
-from workflow_manager.models.workflow_state_model import WorkFlowStateModel
-from workflow_manager.models.request_model import RequestInWorkFlowModel, ApprovedRequestByRequestOwnerModel
+# from django.db import models
+# from .core_notification_model import NotificationModel
+# from workflow_manager.models.workflow_state_model import WorkFlowStateModel
+# from workflow_manager.models.request_model import RequestInWorkFlowModel, ApprovedRequestByRequestOwnerModel
 
-class WorkFlowNotification(NotificationModel):
-    workflow_state = models.ForeignKey(WorkFlowStateModel, on_delete=models.SET_NULL, null=True)
-    action_taken = models.CharField(max_length=100)
-    request = models.ForeignKey(ApprovedRequestByRequestOwnerModel, on_delete=models.CASCADE, null=True)
+# class WorkFlowNotification(NotificationModel):
+#     pass
+    # request = models.ForeignKey(ApprovedRequestByRequestOwnerModel, on_delete=models.CASCADE, null=True)
+    # workflow_state = models.ForeignKey(WorkFlowStateModel, on_delete=models.SET_NULL, null=True)
+    # action_taken = models.CharField(max_length=100)
 
-    def __str__(self) -> str:
-        return f"{self.notification_id}"
+    # def __str__(self) -> str:
+    #     return f"{self.notification_recepient}"
     
-    class Meta:
-        ordering=['notification_id']
-        db_table = 'Notification'
-        app_label = 'notification'
+    # class Meta:
+    #     ordering=['notification_id']
+    #     db_table = 'Notification'
+    #     app_label = 'notification'
 
 
 

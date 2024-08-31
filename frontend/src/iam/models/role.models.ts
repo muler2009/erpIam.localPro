@@ -1,3 +1,5 @@
+import { UserAccountDataInterface } from "./user.model";
+
 export interface CommonMenuItemsProps {
     label: string;
     icon?: React.ReactElement;
@@ -18,16 +20,18 @@ export interface RoleModalContent {
   }
 
 export interface RoleDataModelInterface {
+    role_id?: string;
     role_name: string;
     role_description: string;
     role_status: string;
     role_scope: string;
-    role_id: string;
+    users: (string | number)[];
     role_created_at: string | undefined;
     role_modified_date: string | undefined;
 }
 
 export interface RoleDataAPIResponse extends RoleDataModelInterface {
+   
     status_code?: number,
     statusText?: string,
 }
@@ -35,5 +39,35 @@ export interface RoleDataAPIResponse extends RoleDataModelInterface {
 export interface RoleTableColumn extends RoleDataAPIResponse{
     row_data?: unknown
 }
+
+interface Option {
+    username: string | number;
+};
+
+
+export interface RoleContextInterface {
+    roleData: RoleDataModelInterface;
+    membersOfGroup: Option[];
+    setRoleData: React.Dispatch<React.SetStateAction<RoleDataModelInterface>>
+    handleRoleDataCreationInputChanges: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleInputChange: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLSelectElement> ) => void;
+    isOptionArray: (data: any) => data is Option[];
+    setSelectedOption: React.Dispatch<React.SetStateAction<Option | null>>;
+    setMembersOfGroup: React.Dispatch<React.SetStateAction<Option[]>>;
+    handleSelectionChange: (option: Option) => void;
+    handleStoreToMembersClick: () => void;
+    handleBackButtonClick: () => void;
+    handleRemoveMember: (memberToRemove: Option) => void;
+    canSave: boolean;
+    page: number;
+    setPage: React.Dispatch<React.SetStateAction<number>>;
+    roleCreationStep: { [key: number]: string };
+    disableNext: boolean;
+    disablePrev: boolean;
+    prevHide?: string | boolean;
+    nextHide: string | boolean;
+    submitHide: string | boolean;
+    canSubmit: boolean;
+  }
 
 

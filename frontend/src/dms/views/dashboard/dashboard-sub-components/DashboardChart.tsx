@@ -1,6 +1,7 @@
 import React from 'react';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
+// import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { FlexBox, FlexBoxInner, Text } from '../../../../components/common/StyledComponent';
+import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 
 const data = [
@@ -17,7 +18,7 @@ const data = [
       amt: 2210,
     },
     {
-      name: 'Shared Document',
+      name: 'Shared',
       uv: 2000,
       pv: 9800,
       amt: 2290,
@@ -29,45 +30,46 @@ const data = [
       amt: 2000,
     },
     {
-      name: 'Approved Docuement',
+      name: 'Approved ',
       uv: 1890,
       pv: 4800,
       amt: 2181,
     }
   ];
 
+
 const DashboardChart = () => {
-
-
   const chart = (interval: any) => (
-    <ResponsiveContainer height={250} width={800} className={`text-[12px] `}>
-      <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" axisLine={false} />
-        <YAxis interval={interval} axisLine={false} />
-        <Line type="monotone" dataKey="pv" stroke="#000" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="uv" stroke="#26cc86" />
-      </LineChart>
+    <ResponsiveContainer height={250} width={600} className={`text-[11px] `}>   
+        <BarChart data={data} margin={{ top: 5, right: 0, left: 0, bottom: 5, }} barCategoryGap={2} >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" axisLine={false} />
+          <YAxis interval={interval} axisLine={false} />
+          <Bar dataKey="pv" fill="#26cc86" barSize={30}  />
+        </BarChart>
     </ResponsiveContainer>
   );
 
   return (
-    <FlexBox className='my-2 bg-white pl-5 pr-3 py-10 flex space-x-2 '>
-        <FlexBoxInner className='flex flex-col'>
+    <FlexBox className=' bg-white flex space-x-2 rounded-[5px]'>
+        <FlexBoxInner className='flex flex-col border py-5 px-4'>
             <Text className='font-semibold pb-5'>System Record Summary</Text>
             {chart('preserveEnd')}
         </FlexBoxInner>
-        <FlexBoxInner className='bg-[#26cc86] flex-grow mb-5 rounded-md'>
-            <FlexBox className='flex flex-col items-center pt-10'>
-                <Text className='text-[16px] text-white'>Total</Text>
-                <Text className='font-semibold text-[35px] text-white'>1200</Text>
-
-            </FlexBox>
-        </FlexBoxInner>
     </FlexBox>
-      
   );
 };
 
 
 export default DashboardChart;
+
+
+
+
+ {/* <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" axisLine={false} />
+        <YAxis interval={interval} axisLine={false} />
+        <Line type="monotone" dataKey="pv" stroke="#000" activeDot={{ r: 8 }} />
+        <Line type="monotone" dataKey="uv" stroke="#26cc86" />
+      </LineChart> */}

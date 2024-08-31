@@ -1,0 +1,26 @@
+import uuid
+from django.db import models
+from iam.role.models.models import IamRoleModel
+from iam.models import UserAccountsModel
+from .request_model import ApprovedRequestByRequestOwnerModel
+
+
+
+class IntermediateRequestModel(models.Model):
+    intermediate_request_id = models.UUIDField(db_index=True, default=uuid.uuid4, primary_key=True, unique=True, editable=False)
+    request = models.ForeignKey(ApprovedRequestByRequestOwnerModel, on_delete=models.CASCADE, related_name='approval_stages')
+    stage_name = models.CharField(max_length=255)
+    role = models.ForeignKey(IamRoleModel, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserAccountsModel, on_delete=models.SET_NULL, null=True, blank=True)
+    action_taken = models.CharField(max_length=255, blank=True, null=True)
+    comments = models.TextField(blank=True, null=True)
+    request_recieved_at = models.DateTimeField(auto_now_add=True)
+    request_updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.request}-{self.stage_name}"
+    
+    class Meta:
+        ordering = ["request_recieved_at"]
+        db_table = "Intermediate_Request"
+        app_label = "workflow_manager"

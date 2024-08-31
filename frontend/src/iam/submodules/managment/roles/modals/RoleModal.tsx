@@ -4,6 +4,8 @@ import { ModalContainer, ModalWrapper, ModalHeader, ModalBody } from '../../../.
 import * as Vsc from 'react-icons/vsc'
 import AddRole from './AddRole'
 import DownloadRoleAssignment from './DownloadRoleAssignment'
+import BasicRoleInformation from './AddRole'
+import { RoleContextProvider } from '../context/RoleContext'
 
 
 const RoleModal = ({isOpen, onRequestClose, title, link_identifier}: RoleModalPropsInterface) => {
@@ -18,9 +20,11 @@ const RoleModal = ({isOpen, onRequestClose, title, link_identifier}: RoleModalPr
 
     return (
         isOpen ? (
-            <ModalWrapper>
-                {modalContent[safeLinkIdentifier]}
-            </ModalWrapper>
+            <RoleContextProvider>
+                <ModalWrapper>
+                    {modalContent[safeLinkIdentifier]}
+                </ModalWrapper>
+            </RoleContextProvider>
         ) : null
     
       )

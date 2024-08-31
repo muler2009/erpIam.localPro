@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from iam.models import UserAccountsModel
 
 # Create your models here.
 
@@ -12,6 +13,7 @@ class IamRoleModel(models.Model):
       
     role_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     role_name = models.CharField(max_length=100)
+    users = models.ManyToManyField(UserAccountsModel, related_name='roles')
     role_description = models.TextField(max_length=255, null=True, blank=True)
     role_scope = models.CharField(max_length=150, null=True, blank=True)
     role_status = models.CharField(max_length=150, choices=RoleStatus.choices, default=RoleStatus.Active)

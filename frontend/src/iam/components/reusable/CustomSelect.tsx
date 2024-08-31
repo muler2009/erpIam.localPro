@@ -13,14 +13,13 @@ const CustomSelect = ({label, icon, options=[], name, onChange, value}: CustomSe
 
         <FlexBoxInner className='relative'>
             <select 
-                id='recruitment_education_level_input' 
+                id='role_select_input' 
                 className="select-md text-[13px] rounded-sm font-MonaSans pt-2.5"    
-                name='recruitment_education_level' 
+                name={name} 
                 value={value}
                 onChange={onChange}
             >
                 <option><p className='text-sm font-Poppins'>--select--</p></option>
-                
                     {
                         options?.map((opt, index) => (
                             <option key={index}>{opt.label}</option>

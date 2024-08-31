@@ -17,36 +17,24 @@ interface FolderProps {
 }
 
 const Folder = ({ folder_data, handleItemClick, openStates, toggleItem, handleBackClick, handleForwardClick }: FolderProps) => {
- 
-
-
   return (
-    <div className='pt-5'>
-      <FlexBoxInner className='flex flex-col gap-2 relative mb-5 mx-5'>       
-       
-          {
+    <FlexBox className='pt-2'>
+      <FlexBoxInner className='flex flex-col relative mb-5 mx-5'>        
+        {
             folder_data?.map((folder: FolderDataInterface, index: number) => {
-
               return(
-                <FlexBox className='w-20 h-20' key={index} onDoubleClick={() =>handleItemClick(folder)}>
-                  <FlexBoxInner className='flex flex-col justify-center items-center pb-5'>
-                    <AiFillFolder size={60} color='#f8d775' />
-                    <Text className='text-[#333] text-[12px] whitespace-pre-wrap break-words w-[100px] text-center'>
-                      {folder.folder_name} 
-                    </Text>
+                <FlexBox className='flex justify-start items-center border-b hover:bg-gray-100' key={index} onDoubleClick={() =>handleItemClick(folder)}>
+                  <FlexBoxInner className='flex items-center cursor-pointer py-[5px]'>
+                    <AiFillFolder size={50} color='#f8d775' />
+                    <Text className='text-[#333] text-[12px] whitespace-nowrap break-words w-[100px] text-center'>{folder.folder_name}</Text>
                   </FlexBoxInner>
                 </FlexBox>
-  
               )
-            }   
-            
+            }    
           )
-          }
-        
+        }        
       </FlexBoxInner>
-
-     
-    </div>
+    </FlexBox>
   )}
 
 // const FolderItem = () => {

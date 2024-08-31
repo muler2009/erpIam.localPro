@@ -15,7 +15,17 @@ class RequestSendSerializer(serializers.ModelSerializer):
     class Meta:
         # Use the specific model, not the abstract one
         abstract = True
-        fields = ['request_id', 'title', 'request_sent_at', 'request_updated_at', 'file_for_approval', 'file_url', 'file_name']
+        fields = [
+            'request_id', 
+            'title', 
+            'request_sent_at', 
+            'request_updated_at', 
+            'file_for_approval', 
+            'file_url', 
+            'file_name',
+            
+        ]
+        
         extra_kwargs = {
             'request_id': {'read_only': True},
             'request_sent_at': {'read_only': True},
@@ -34,18 +44,18 @@ class RequestSendSerializer(serializers.ModelSerializer):
         return None
 
     def create(self, validated_data):
-        # Handle file creation and linking to the model
+        # Extract the file_for_approval directly from validated_data
         file_for_approval = validated_data.pop('file_for_approval', None)
-        
+
         if file_for_approval:
-            # Create the file in UploadedDocumentModel
+            # Directly use file_for_approval to get the file attributes
             file_instance = UploadedDocumentModel.objects.create(
-                uploaded_document_name=file_for_approval.name,  # Use the file's name
+                uploaded_document_name=file_for_approval.name,  # Use file name here
                 uploaded_file=file_for_approval
             )
             validated_data['file_for_approval'] = file_instance
 
-        # Create the request instance
+        # Create the request instance using the parent class's create method
         return super().create(validated_data)
 
 
@@ -79,8 +89,7 @@ class UnApprovedRequestSerializer(RequestSendSerializer):
                 data['request_type'] = WorkFlowProtocolModel.objects.get(protocol_name=data['request_type']).pk
             except WorkFlowProtocolModel.DoesNotExist:
                 raise serializers.ValidationError({"request_type_name": "Invalid request type name"})
-        return super().to_internal_value(data)
-    
+        return super().to_internal_value(data)  
 
 
 class ApprovedRequestsByRequestSerializer(RequestSendSerializer):

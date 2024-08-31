@@ -60,6 +60,11 @@ class UserAccountsModel(AbstractBaseUser):
     
     def get_tokens_for_user(self):
         refresh = RefreshToken.for_user(self)
+         # Get the user's role =>  roles is the related_name attribute of rrelated
+        roles = self.roles.values_list('role_name', flat=True)
+        # Add roles to the access token payload
+        refresh['roles'] = list(roles)
+
         return {
             'refresh': str(refresh),
             'access': str(refresh.access_token)

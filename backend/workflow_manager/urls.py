@@ -7,8 +7,10 @@ from .views.post_view.approved_request_handler import ApprovedByRequestOwnerHand
 from .views.get_view.get_request_handler import  GetRequestsRecievedForApprovalRequestHandler
 from .views.get_view.get_unapproved_request_of_sender_handler import GetUnapprovedRequestOfSender
 from .views.get_view.get_approved_request_of_sender import GetAapprovedRequestsOfTheSender
+from .views.get_view.get_intermediate_request_handler import GetIntermediateRequestHandler
 
 from .views.delete_view.delete_requests_handlers import DeleteUserAccountRequestHandler
+from .views.get_view.get_approval_stage import GetApprovalStageRequestHander
 
 urlpatterns = [
     path('get/', GetStateRequestHandler.as_view()),  # get the available state workflow 
@@ -20,6 +22,8 @@ urlpatterns = [
 
     path('get_unapproved_request_of_sender/', GetUnapprovedRequestOfSender.as_view()), # list unapproved request by the user before approving ans sending to approval 
     path('get_approved/', GetAapprovedRequestsOfTheSender.as_view()), # list approved requests of the whose state is pending for approval 
+    path('get_intermediate_request/', GetIntermediateRequestHandler.as_view()), # list approved requests of the whose state is pending for approval 
+
 
 
     path('approvals/', GetFinalApprovedRequest.as_view()), # Get all the Approved requests of the sender (i.e approved by the approver)
@@ -32,5 +36,15 @@ urlpatterns = [
 
     # delete requests 
     path('delete_unapproved_request/<str:request_id>/', DeleteUserAccountRequestHandler.as_view()), # remove the requests before sending request to approval 
+
+
+
+
+    path('approval_stage/', GetApprovalStageRequestHander.as_view()), # remove the requests before sending request to approval 
+
+
+
+
+
 
 ]
