@@ -9,6 +9,8 @@ from utils.custom_exception_handler import EmptyExceptionHandler
 import uuid
 from ...models.workflow_state_model import WorkFlowStateModel
 from ...serilizers.send_request_serializer import UnApprovedRequestSerializer
+from ...models.intermediate_request import IntermediateRequestModel
+from ...serilizers.get_intermediate_request_serializer import GetIntermediateRequestModelSerializer
     
 class GetRequestSendByUserHandler(generics.GenericAPIView):
     authentication_classes = [JWTAuthentication]
@@ -31,39 +33,51 @@ class GetRequestSendByUserHandler(generics.GenericAPIView):
             })
         
 
-class GetRequestsRecievedForApprovalRequestHandler(generics.ListAPIView):
-    '''
-        Get request handler lists requests sent 
-        for the specific user
-    
-    '''
+class GetRequestsReceivedForApprovalRequestHandler(generics.ListAPIView):
+
+
+   
+    """
+    Get request handler lists requests sent 
+    for the specific user
+    """
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = GetApprovedRequestModelSerializer
+    serializer_class = GetIntermediateRequestModelSerializer
 
     def get_queryset(self):
+        # Retrieve the current state from query parameters
         state_name = self.request.query_params.get("current_state")
 
-        # if not state_name:
-        #     raise EmptyExceptionHandler(detail="State name not provided.")
+        # If no state name is provided, raise a custom exception
+        if not state_name:
+            raise EmptyExceptionHandler(detail="State name not provided.")
 
+        # Attempt to retrieve the state object based on the state name
         state = get_object_or_404(WorkFlowStateModel, state_name=state_name)
-        queryset = ApprovedRequestByRequestOwnerModel.objects.filter(
-            request_assigned_to_user=self.request.user,
-            current_state=state
+
+        # Retrieve the requests assigned to the user in the specified state
+        queryset = IntermediateRequestModel.objects.filter(
+            request__request_assigned_to_user=self.request.user,
+            request__current_state=state
         )
+
         return queryset
 
-    
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
-        try: 
+        try:
+            # Check if the queryset has any results
             if not queryset.exists():
                 raise EmptyExceptionHandler(message="No requests found for this user.")
+            
+            # Serialize the queryset data
             serializer = self.serializer_class(queryset, many=True, context={'request': request})
             return Response(serializer.data)
+
         except EmptyExceptionHandler as exc:
-            return  Response({"status_code": 400, "status_text": exc.message})
-    
+            # Handle the exception and return a custom error response
+            return Response({"status_code": 400, "status_text": exc.message}, status=status.HTTP_400_BAD_REQUEST)
+
         
         

@@ -155,14 +155,32 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
                     stage_level__gt=current_stage.stage_level
                 ).order_by('stage_level').first()
 
+                  # Log the transition in IntermediateRequestModel
+                IntermediateRequestModel.objects.create(
+                    request=approved_request,
+                    stage_name=current_stage.stage_name,
+                    role=current_stage.role,
+                    user=request.user,
+                    action_taken=action_name,
+                    comments=comments
+                )
+
                 if next_stage:
                     approved_request.current_stage = next_stage
                     approved_request.current_state = pending  # Set the state to 'pending approval'
                     approved_request.save()
+
                 else:
                     approved_request.current_stage = None
                     approved_request.current_state = WorkFlowStateModel.objects.get(state_name="approved")  # Indicate that the process is completed
                     approved_request.save()
+
+                    # Delete the approved request after final approval which meand from ApprovedByOwnerModel
+
+                    # Remove all stages after the final approval
+                    ApprovalStageModel.objects.filter(request=approved_request).delete()
+
+                    # approved_request.delete()
 
             else:  # Handle rejection or rejection with modification
                 # Create an entry in IntermediateRequestModel to return it to the source

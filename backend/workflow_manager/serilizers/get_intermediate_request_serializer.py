@@ -20,6 +20,35 @@ class ApprovalStageSerializer(serializers.ModelSerializer):
         ]
 
 class GetIntermediateRequestModelSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    role = serializers.SerializerMethodField()
+    current_state = serializers.SerializerMethodField()
+
+    def get_role(self, object):
+        return object.role.role_name if object.role.role_name else None
+    
+    def get_user(self, object):
+        return object.user.username if object.user.username else None
+    
+    def get_current_state(self, object):
+        return object.current_state.state_name
+    
+    
+    
     class Meta:
         model = IntermediateRequestModel
-        fields = '__all__'
+        fields = [
+            'user',
+            'stage_name',
+            'role', 
+            'action_taken',
+            'comments',
+            'request_recieved_at',
+            'request_updated_at',
+            'current_state',
+        ]
+
+        
+      
+        
+        

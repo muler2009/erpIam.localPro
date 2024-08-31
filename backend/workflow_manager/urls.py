@@ -4,7 +4,7 @@ from .views.get_view.get_constant_workflow_requestHandler import  GetStateReques
 from .views.post_view.send_request_handler import RequestSubmissionHandler
 from .views.post_view.perform_transition_request_handler import PerformTransitionRequestHandler
 from .views.post_view.approved_request_handler import ApprovedByRequestOwnerHandler, GetFinalApprovedRequest
-from .views.get_view.get_request_handler import  GetRequestsRecievedForApprovalRequestHandler
+from .views.get_view.get_request_handler import  GetRequestsReceivedForApprovalRequestHandler
 from .views.get_view.get_unapproved_request_of_sender_handler import GetUnapprovedRequestOfSender
 from .views.get_view.get_approved_request_of_sender import GetAapprovedRequestsOfTheSender
 from .views.get_view.get_intermediate_request_handler import GetIntermediateRequestHandler
@@ -27,7 +27,7 @@ urlpatterns = [
 
 
     path('approvals/', GetFinalApprovedRequest.as_view()), # Get all the Approved requests of the sender (i.e approved by the approver)
-    path('request_recieved/', GetRequestsRecievedForApprovalRequestHandler.as_view()), # url list of requests recieved 
+    path('request_recieved/', GetRequestsReceivedForApprovalRequestHandler.as_view()), # url list of requests recieved 
 
     # creating request handlers
     path('approved_by_owner/', ApprovedByRequestOwnerHandler.as_view()), # post request sendet creator send request
