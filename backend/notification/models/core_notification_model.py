@@ -17,7 +17,7 @@ class NotificationModel(models.Model):
         HIGHT = "high", "high"
 
     notification_id = models.UUIDField(db_index=True, default=uuid.uuid4, primary_key=True, editable=False, unique=True)
-    notification_recepient = models.ForeignKey(UserAccountsModel, on_delete=models.CASCADE, related_name='notification')
+    notification_recepient = models.ForeignKey(UserAccountsModel, on_delete=models.CASCADE, related_name='notification', null=True, blank=True)
     notification_message = models.TextField()
     notification_read = models.BooleanField(default=False)
     notification_type = models.CharField(max_length=50, choices=WORKFLOW_NOTIFICATION_TYPE.choices, default=WORKFLOW_NOTIFICATION_TYPE.IN_APP) # notification type
@@ -32,7 +32,7 @@ class NotificationModel(models.Model):
         app_label = "notification"
 
     def __str__(self) -> str:
-        return f"{self.notification_recepient.username}"
+        return f"{self.notification_id}"
     
     def save(self, using='erp_db', *args, **kwargs):
         if self.notification_read is None:

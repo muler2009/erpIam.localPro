@@ -6,6 +6,7 @@ import Dashboard from '../iam/layout/Dashboard'
 import RequireAuth from '../components/auth/RequiredAuth'
 import DMSDashboard from '../dms/layout/DMSDashboard'
 import MainScreeen from '../public/login/MainScreeen'
+import DMSMainLayout from '../dms/layout/DMSMainLayout'
 
 const Router = () => {
     const router = createBrowserRouter(
@@ -14,7 +15,7 @@ const Router = () => {
                 <Route path='/*' element={<MainScreeen />} />
                 <Route element={<RequireAuth />}  >
                     <Route path="iam/*" element={<Dashboard />} />
-                    <Route path="dms/*" element={<DMSDashboard />} />
+                    <Route path="dms/*" element={<DMSMainLayout />} />
                 </Route>
             </Route>
         )

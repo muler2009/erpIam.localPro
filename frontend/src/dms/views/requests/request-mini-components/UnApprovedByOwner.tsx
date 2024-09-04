@@ -31,7 +31,7 @@ const UnApprovedByOwner = () => {
         </FlexBoxInner>
         <p className='text-[11px] text-[#333] text-opacity-70 '>Saved request for owner approval</p>
       </FlexBox>
-      <FlexBox className='pt-[1px] px-2 pb-5 h-[150px] w-full overflow-y-scroll'>
+      <FlexBox className='pt-[1px] px-2 pb-5 h-[130px] w-full overflow-y-scroll'>
        
         {
           isSuccess ? (

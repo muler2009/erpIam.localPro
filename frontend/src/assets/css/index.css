@@ -181,17 +181,21 @@
     }
     .request  .table > tbody > tr, .request-recieved .table > tbody > tr { @apply cursor-pointer}
     .request  .table > tbody > tr > td, .request-recieved .table > tbody > tr > td { @apply pl-5 py-1 text-[#333] text-opacity-80 text-[13px]}
+    .request  .table > thead > tr > th:first-child { @apply w-[2%] }
     .request  .table > thead > tr > th:nth-child(5) { @apply w-[15%] }
     .request  .table > tbody > tr > td:last-child { @apply w-[10%]}
 
 
     .request-recieved .table-border > thead { @apply border-t-[1px] border-b-[3px] }
-    .request-recieved .table > thead > tr > th:nth-child(3) { @apply w-[10%] border-b-primary-green;}
     .request-recieved .table > tbody > tr > td:first-child { @apply w-[3%]}
-    .request-recieved .table > tbody > tr > td:nth-child(2) { @apply w-[5%]}
+    .request-recieved .table > tbody > tr > td:nth-child(2) { @apply w-[25%]}
     .request-recieved .table > tbody > tr > td:nth-child(3) { @apply w-[15%]}
     .request-recieved .table > tbody > tr > td:nth-child(4) { @apply w-[20%]}
     .request-recieved .table > tbody > tr > td:nth-child(5) { @apply w-[20%]}
+    .request-recieved .table > tbody > tr > td:nth-child(6) { @apply w-[20%]}
+    .request-recieved .table > tbody > tr > td:nth-child(7) { @apply w-[20%]}
+
+
 
 
 

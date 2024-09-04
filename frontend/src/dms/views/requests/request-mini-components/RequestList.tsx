@@ -1,13 +1,14 @@
 import React from 'react'
 import SharedTable from '../../../components/tables/SharedTable'
 import useRequestColumns from '../../../constants/columns/useRequestColumns'
-import { useGetAllRequestQuery } from '../../../services/requestAPISlice'
+import { useGetAllRequestQuery, useGetPendingRequestOfSenderQuery } from '../../../services/requestAPISlice'
 import { FlexOuterContainer } from '../../../../components/common/StyledComponent'
 import { RequestDataInterface } from '../../../models/request-model'
+import { FlexBox, FlexBoxInner, Text } from '../../../../components/common/StyledComponent'
 
 const RequestList = () => {
     const {requestColumn} = useRequestColumns()
-    const {data, isSuccess, isLoading} = useGetAllRequestQuery()
+    const {data, isSuccess, isLoading} = useGetPendingRequestOfSenderQuery()
   return (
     <FlexOuterContainer className='px-2 flex flex-col bg-white h-full'>
         
@@ -16,20 +17,17 @@ const RequestList = () => {
       {
           isSuccess ? (
               data?.length > 0 ? (
-                <div className='shared'>
+                <div className='request'>
                     <SharedTable
                         columns={requestColumn}
                         data={data || []}                        
                     />
                 </div>
               ) : (
-                <div className='flex flex-col shared'>
-                    <SharedTable 
-                        columns={requestColumn}
-                        data={data || []}                                          
-                    />
-                    <p className='text-black text-center text-[18px] text-opacity-50'>No User Registered available.</p>                      
-                </div>
+               
+                <FlexBox className='flex justify-center items-center pt-5'>
+                  <Text className='text-[#333] text-opacity-70 font-semibold'> No Pending requests</Text>
+              </FlexBox>
               )
           ) : null
       }

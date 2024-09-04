@@ -99,11 +99,6 @@ class GetApprovedRequestModelSerializer(GetRequestInWorkFlowModelSerializer):
 
     
 
-
-
-
-
-
 class RequestSubmissionModelSerializer(serializers.ModelSerializer):
     request_assigned_to_user = serializers.SerializerMethodField()
     class Meta:

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { RequestColumnInterface } from '../../../models/request-model';
+import { IntermediateAPIResponse, RequestColumnInterface } from '../../../models/request-model';
 import { usePerformTransitionRequestMutation, useDeleteUnapprovedRequestMutation } from '../../../services/requestAPISlice';
 import { FlexBox, FlexBoxInner } from '../../../../components/common/StyledComponent';
 import BottomTooltip from '../../../../components/common/BottomTooltip';
@@ -10,7 +10,7 @@ import { IoCloseSharp } from "react-icons/io5";
 
 
 interface SendRequestCellProps {
-    rowData: RequestColumnInterface;
+    rowData: IntermediateAPIResponse;
     approvalStatus: string | undefined;
 }
 
@@ -34,12 +34,12 @@ const PerformTransition = ({ rowData, approvalStatus }: SendRequestCellProps) =>
     const onTransitionRequestSend = async() => {
         const status = approvalStatus ?? "Waiting for Approval"; // Default to "Waiting for Approval"
         const actionName = statusToActionMap[status];
-        if(actionName && rowData.request_id){
+        if(actionName && rowData.request?.request_id){
             const formData = new FormData();
-            formData.append('request_id', rowData.request_id);
+            formData.append('request_id', rowData.request?.request_id);
             formData.append('action_name', actionName);
-            if (rowData.file_for_approval) {
-                formData.append('file_for_approval', rowData.file_for_approval);
+            if (rowData.request?.file_for_approval) {
+                formData.append('file_for_approval', rowData.request?.file_for_approval);
             }
 
             try {

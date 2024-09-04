@@ -8,7 +8,7 @@ import { FlexOuterContainer } from '../iam/components/reusable/StyledComponent'
 export const Layout = () => {
   return (
     <React.Fragment>
-        <FlexOuterContainer className="w-screen h-screen flex flex-col justify-between overflow-x-hidden">
+        <FlexOuterContainer className="w-screen h-screen overflow-x-hidden">
             <Outlet />
         </FlexOuterContainer> 
     </React.Fragment>

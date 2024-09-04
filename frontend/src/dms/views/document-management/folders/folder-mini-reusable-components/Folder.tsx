@@ -26,7 +26,7 @@ const Folder = ({ folder_data, handleItemClick, openStates, toggleItem, handleBa
                 <FlexBox className='flex justify-start items-center border-b hover:bg-gray-100' key={index} onDoubleClick={() =>handleItemClick(folder)}>
                   <FlexBoxInner className='flex items-center cursor-pointer py-[5px]'>
                     <AiFillFolder size={50} color='#f8d775' />
-                    <Text className='text-[#333] text-[12px] whitespace-nowrap break-words w-[100px] text-center'>{folder.folder_name}</Text>
+                    <Text className='text-[#333] text-[12px] whitespace-nowrap break-words w-[100px] pl-2'>{folder.folder_name}</Text>
                   </FlexBoxInner>
                 </FlexBox>
               )

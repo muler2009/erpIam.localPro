@@ -20,7 +20,7 @@ const DocumentManagmentHeader = () => {
   const loggedInUser = useSelector(username)
 
   return (
-    <header className="border-b shadow-sm bg-gray-50 font-Poppins sticky top-0 z-50">
+    
       <FlexInnerContainer className="flex justify-between items-center mx-8">
           <FlexBox className="flex space-x-3 items-center cursor-pointer">
               <Text className="text-[30px] text-primary-green">edms</Text>
@@ -38,7 +38,7 @@ const DocumentManagmentHeader = () => {
               </FlexBoxInner>
           </FlexBox>
       </FlexInnerContainer>
-    </header>
+
   );
 };
 

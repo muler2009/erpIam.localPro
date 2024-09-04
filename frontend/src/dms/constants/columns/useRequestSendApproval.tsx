@@ -14,8 +14,8 @@ import SendRequestCell from './column-mini-component/SendRequestCell'
 const requestSendColumnHelper = createColumnHelper<RequestColumnInterface>()
 
 const useRequestSendApproval = () => {
+    
     const [approvalStatus, setApprovalStatus] = useState<Record<string | number, string>>({});
-
     const handleApprovalChange = (rowId: string | number, status: string) => {
         setApprovalStatus(prev => ({ ...prev, [rowId]: status }));
     };

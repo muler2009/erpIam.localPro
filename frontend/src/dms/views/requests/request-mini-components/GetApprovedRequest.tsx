@@ -7,28 +7,27 @@ import useRequestColumns from '../../../constants/columns/useRequestColumns'
 
 const GetApprovedRequest = () => {
 
-    const { data } = useGetApprovedRequestQuery()
+    const { data } = useGetApprovedRequestQuery({current_state: "approved"})
     const {requestColumn} = useRequestColumns()
 
   return (
-    <FlexBox className='pt-[1px] px-2 pb-5 w-full overflow-y-scroll'>
-       
-    {
-      data?.length ? (
-        <FlexBoxInner className='request'>
-          <SharedTable 
-            data={data || []}
-            columns={requestColumn}
-          />
-        </FlexBoxInner>
-      ):(
-        <FlexBox className='flex justify-center items-center h-full'>
-            <Text className='text-[#333] text-opacity-70 font-semibold'>No saved requests for approval</Text>
-        </FlexBox>
-      )
-    }
- 
-    
+    <FlexBox className='pt-[1px] px-2 pb-5 w-full'>
+      {
+        data?.length ? (
+          <FlexBoxInner className='request'>
+            
+            <SharedTable 
+              data={data || []}
+              columns={requestColumn}
+              watermark='Approved'
+            />
+          </FlexBoxInner>
+        ):(
+          <FlexBox className='flex justify-center items-center'>
+              <Text className='text-[#333] text-opacity-70 font-semibold'>No approved Request</Text>
+          </FlexBox>
+        )
+      }
   </FlexBox>
   )
 }

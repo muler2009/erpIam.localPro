@@ -4,7 +4,7 @@ import { useGetApprovedRequestQuery } from '../../../services/requestAPISlice'
 import { FlexBox, FlexBoxInner, Text } from '../../../../components/common/StyledComponent'
 
 const DashboardStateStastics = () => {
-    const {data} = useGetApprovedRequestQuery()
+    const {data} = useGetApprovedRequestQuery({current_state: 'approved'})
   
     const ldata = data || []
     const totalLength = 100; 

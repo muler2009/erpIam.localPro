@@ -9,7 +9,7 @@ from workflow_manager.serilizers.send_request_serializer import ApprovedRequests
 
 
 
-class GetAapprovedRequestsOfTheSender(generics.GenericAPIView):
+class GetAapprovedRequestsOfTheSender(generics.ListAPIView):
     '''
         Get request handler for requests approved by the owner 
         which means requests on pending approval state 
@@ -18,14 +18,14 @@ class GetAapprovedRequestsOfTheSender(generics.GenericAPIView):
     serializer_class = GetApprovedRequestModelSerializer
     queryset = ApprovedRequestByRequestOwnerModel.objects.all()
 
-    def get(self, request:Request, *args, **kwargs):
-        user = request.user
-        try: 
-            approved_request = ApprovedRequestByRequestOwnerModel.objects.filter(requesting_user=user)
-            if not approved_request:
-                raise EmptyExceptionHandler(message="No Approved request Found", error_type='ERROR')
-            approved_requests_seriallizer = self.serializer_class(approved_request, many=True, context={'request': request})
-            return Response(approved_requests_seriallizer.data, status=status.HTTP_200_OK)
+    # def get(self, request:Request, *args, **kwargs):
+    #     user = request.user
+    #     try: 
+    #         approved_request = ApprovedRequestByRequestOwnerModel.objects.filter(requesting_user=user)
+    #         if not approved_request:
+    #             raise EmptyExceptionHandler(message="No Approved request Found", error_type='ERROR')
+    #         approved_requests_seriallizer = self.serializer_class(approved_request, many=True, context={'request': request})
+    #         return Response(approved_requests_seriallizer.data, status=status.HTTP_200_OK)
 
-        except EmptyExceptionHandler as exc:
-            return Response({'Error': exc.message, 'error_type': exc.error_type })
+    #     except EmptyExceptionHandler as exc:
+    #         return Response({'Error': exc.message, 'error_type': exc.error_type })

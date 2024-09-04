@@ -23,10 +23,10 @@ class RequestSubmissionHandler(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         try:
             serializer = self.validate_request_data(request)
-            concerned_user = self.get_concerned_user(request.data)
+            # concerned_user = self.get_concerned_user(request.data)
             request_type = self.get_request_type(request.data)
             file_to_approve = self.check_duplicate_data(request)
-            self.save_request(serializer, request.user, concerned_user, request_type, file_to_approve)     
+            self.save_request(serializer, request.user, request_type, file_to_approve)     
         except PostExceptionHandler as exc:
             return Response({"message": exc.message, "error_code": exc.error_type, "status_code": exc.status_code}, status=400)
         else:
@@ -49,12 +49,12 @@ class RequestSubmissionHandler(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         return serializer
 
-    def get_concerned_user(self, data):
-        username = data.get('request_assigned_to_user')
-        user = UserAccountsModel.objects.filter(username=username).first()
-        if not user:
-            raise PostExceptionHandler("No user found with the given username")
-        return user
+    # def get_concerned_user(self, data):
+    #     username = data.get('request_assigned_to_user')
+    #     user = UserAccountsModel.objects.filter(username=username).first()
+    #     if not user:
+    #         raise PostExceptionHandler("No user found with the given username")
+    #     return user
 
     def get_request_type(self, data):
         protocol_name = data.get('request_type')
@@ -62,11 +62,10 @@ class RequestSubmissionHandler(generics.GenericAPIView):
             raise PostExceptionHandler("Request type is required")
         return WorkFlowProtocolModel.objects.filter(protocol_id=protocol_name).first()
 
-    def save_request(self, serializer, requesting_user, concerned_user, request_type, file_to_approve):
+    def save_request(self, serializer, requesting_user, request_type, file_to_approve):
         serializer.save(
             requesting_user=requesting_user,
             request_type=request_type,
-            request_assigned_to_user=concerned_user,
             file_for_approval=file_to_approve
         )
 

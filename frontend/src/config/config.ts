@@ -9,6 +9,8 @@ export const API_TAGS = {
     FILES: "files",
     REQUESTS: "requests",
     NOTIFICATION: "notification",
+    INTERMEDIATE_REQUEST: "intermediate request",
+
 
 
 

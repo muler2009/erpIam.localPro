@@ -14,6 +14,7 @@ from ...serilizers.get_request_serializer import GetFinalApprovedRequestModelSer
 from iam.role.models.models import IamRoleModel
 from ...serilizers.get_state_serializer import GetStateModelSerializer
 from ...models.approval_processes import ApprovalStageTemplateModel
+from ...models.intermediate_request import IntermediateRequestModel
 import logging
 # from workflow_manager.models.workflow_action_model import WorkFlowActionsModel
 
@@ -59,7 +60,7 @@ class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
         approved_request = ApprovedRequestByRequestOwnerModel.objects.create(
             title=unapproved_request.title,
             requesting_user=unapproved_request.requesting_user,
-            request_assigned_to_user=unapproved_request.request_assigned_to_user,
+            # request_assigned_to_user=unapproved_request.request_assigned_to_user,
             request_type=unapproved_request.request_type,
             current_state=transition.to_state,  # Set the state from transition
             file_for_approval=unapproved_request.file_for_approval
@@ -67,6 +68,17 @@ class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
 
         # Save the Approved request
         approved_request.save()
+
+         # Create or update an entry in the IntermediateRequestModel
+        intermediate_request = IntermediateRequestModel.objects.create(
+            request=approved_request,
+            user=request.user,
+            current_state=transition.to_state,
+            stage_name='Initial Approval',  # Set the appropriate stage name
+            role=request.user.roles.first(),  # Assume the first role of the user is the one acting
+            action_taken=action_name,
+            comments=request.data.get('comments', '')
+        )
 
         # Delete the UnApproved request
         unapproved_request.delete()
@@ -105,6 +117,17 @@ class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
         if first_stage:
             approved_request.current_stage = first_stage
             approved_request.save()
+       
+
+
+
+
+
+
+
+
+
+
        
 
     # def initiate_approval_workflow(self, approved_request):
@@ -244,23 +267,6 @@ class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
     
 
     
-class GetFinalApprovedRequest(generics.ListAPIView):
-    serializer_class = GetFinalApprovedRequestModelSerializer
-    queryset = ApprovedRequestsModel.objects.all()
 
-    def get(self, request: Request, *args, **kwargs):
-        user = request.user
-        try:
-            approved_request= ApprovedRequestsModel.objects.filter(requesting_user=user)
-            if not approved_request:
-                raise EmptyExceptionHandler(message="No Approved request Found", error_type='ERROR')
-            approved_requests_seriallizer = self.serializer_class(approved_request, many=True, context={'request': request})
-            return Response(approved_requests_seriallizer.data, status=status.HTTP_200_OK)
-
-        except EmptyExceptionHandler as exc:
-            return Response({
-                'Error': exc.message,
-                'error_type': exc.error_type
-            })
     
 

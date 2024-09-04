@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from ..models.intermediate_request import IntermediateRequestModel
 from ..models.approval_level import ApprovalStageModel
+from ..serilizers.get_request_serializer import GetApprovedRequestModelSerializer
 
 
 class ApprovalStageSerializer(serializers.ModelSerializer):
@@ -20,25 +21,26 @@ class ApprovalStageSerializer(serializers.ModelSerializer):
         ]
 
 class GetIntermediateRequestModelSerializer(serializers.ModelSerializer):
+    request = GetApprovedRequestModelSerializer(read_only=True)
     user = serializers.SerializerMethodField()
     role = serializers.SerializerMethodField()
     current_state = serializers.SerializerMethodField()
 
-    def get_role(self, object):
-        return object.role.role_name if object.role.role_name else None
+    def get_role(self, obj):
+        return obj.role.role_name if obj.role and obj.role.role_name else None
     
-    def get_user(self, object):
-        return object.user.username if object.user.username else None
+    def get_user(self, obj):
+        return obj.user.username if obj.user and obj.user.username else None
     
-    def get_current_state(self, object):
-        return object.current_state.state_name
-    
-    
+    def get_current_state(self, obj):
+        # Check if current_state exists before accessing its attributes
+        return obj.current_state.state_name if obj.current_state else None
     
     class Meta:
         model = IntermediateRequestModel
         fields = [
             'user',
+            'request',
             'stage_name',
             'role', 
             'action_taken',

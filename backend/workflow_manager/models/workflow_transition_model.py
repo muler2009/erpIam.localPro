@@ -5,6 +5,7 @@ from .workflow_protocol_model import WorkFlowProtocolModel
 from .workflow_state_model import WorkFlowStateModel
 
 
+
 class WorkFlowTransitionModel(models.Model):
     transition_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True, db_index=True)
     transition_name = models.CharField(max_length=150, null=True, blank=True)
@@ -12,6 +13,7 @@ class WorkFlowTransitionModel(models.Model):
     protocol_name = models.ForeignKey(WorkFlowProtocolModel, on_delete=models.CASCADE, related_name="transitions_protocol")
     from_state = models.ForeignKey(WorkFlowStateModel, on_delete=models.CASCADE, related_name="transitions_from_state")
     to_state = models.ForeignKey(WorkFlowStateModel, on_delete=models.CASCADE, related_name="transitions_to_state")
+   
     
     def __str__(self) -> str:
         return f"{self.transition_name}"

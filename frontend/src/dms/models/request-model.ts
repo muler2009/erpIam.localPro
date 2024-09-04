@@ -1,3 +1,6 @@
+import { RoleDataAPIResponse } from "../../iam/models/role.models";
+import { UserAccountColumnsInterface } from "../../iam/models/user.model";
+
 export interface SendRequestModalProps {
     open: boolean;
     handleIsOpenCloseMenuModal: () => void;
@@ -38,6 +41,8 @@ export interface RequestDataInterface {
     file_for_approval?: File | null;
     file_url?: string;
     file_name?: string;
+    message?: string;
+   
 }
 
 export interface SendRequestApprovalInterface{
@@ -45,9 +50,10 @@ export interface SendRequestApprovalInterface{
     action_name: string;
     file_for_approval?: File | null
 }
-export interface RequestAPIResponse  {
+export interface RequestAPIResponse extends RequestDataInterface {
     status_code?: number,
     statusText?: string,
+    message?: string;
 }
 
 export interface RequestColumnInterface extends RequestDataInterface  {
@@ -63,3 +69,15 @@ export interface RequestTabMenuInterface {
     total?: boolean;
 }
 
+export interface IntermediateAPIResponse {
+    user?: UserAccountColumnsInterface; 
+    request: RequestColumnInterface; 
+    current_state: string;
+    stage_name?: string; 
+    role: string;
+    action_taken?: string
+    comments?: string;
+    request_recieved_at?: string;
+    request_updated_at?: string;
+
+}

@@ -14,7 +14,7 @@ const DashboardRecentActivity = () => {
   const unreadCount = Array.isArray(notifications) ? notifications.filter(notification => !notification.notification_read).length : 0;
 
   return (
-    <FlexBox className='bg-white border rounded-[3px] h-[50vh] overflow-y-scroll sticky top-[7%]'>
+    <FlexBox className='bg-white border rounded-[3px] overflow-y-scroll sticky top-[7%]'>
       <FlexBoxInner className='pt-3 flex justify-between items-center space-x-4  flex-grow '>
           <FlexBoxInner className='pr-10 relative'>
             <Text className='font-IBMPlexSans font-semibold flex-grow whitespace-nowrap px-5 text-[#333] text-opacity-65'>Approval Notification</Text> 

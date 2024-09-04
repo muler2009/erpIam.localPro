@@ -1,6 +1,6 @@
 import { API_TAGS, BASE_URL } from "../../config/config";
 import { erpAPISlice } from "../../iam/api/apiSlice";
-import { StateAPIResponse, ProcessAPIResponse, RequestAPIResponse, RequestDataInterface, RequestColumnInterface, SendRequestApprovalInterface } from "../models/request-model";
+import { StateAPIResponse, ProcessAPIResponse, RequestAPIResponse, RequestDataInterface, RequestColumnInterface, SendRequestApprovalInterface, IntermediateAPIResponse } from "../models/request-model";
 
 
 const requestAPISlice = erpAPISlice.injectEndpoints({
@@ -41,14 +41,25 @@ const requestAPISlice = erpAPISlice.injectEndpoints({
             }),
             providesTags: [API_TAGS.REQUESTS]
         }),
-        getApprovedRequest: builder.query<RequestDataInterface[], void>({
+        getApprovedRequest: builder.query<RequestDataInterface[], {current_state?: string}>({
+            query: ({current_state}) => {
+                let url  =  `work-flows/approvals/`
+                return {
+                    url: url,
+                    method: `GET`,
+                    params: {current_state}
+                }
+            },
+            providesTags: [API_TAGS.REQUESTS]
+        }),
+        getPendingRequestOfSender: builder.query<RequestAPIResponse[], void>({
             query: () => ({
-                url: `work-flows/approvals/`,
+                url: `work-flows/get_pending_requesting_user/`,
                 method: `GET`
             }),
             providesTags: [API_TAGS.REQUESTS]
         }),
-        getRequestsRecivedForApproval: builder.query<RequestColumnInterface[],  { current_state?: string }>({
+        getRequestsRecivedForApproval: builder.query<IntermediateAPIResponse[],  { current_state?: string }>({
             query: ({ current_state }) => {
                let url = 'work-flows/request_recieved/';
                 return {
@@ -57,7 +68,7 @@ const requestAPISlice = erpAPISlice.injectEndpoints({
                     params: {current_state}
                 }; 
             },
-            providesTags: [API_TAGS.REQUESTS]
+            providesTags: [API_TAGS.INTERMEDIATE_REQUEST]
         }),
         
         createdUnapprovedRequest: builder.mutation<RequestAPIResponse, FormData>({
@@ -73,19 +84,13 @@ const requestAPISlice = erpAPISlice.injectEndpoints({
             query: (formData) => {
                 // Extract the request_id from FormData for use in the URL
                 const requestId = formData.get('request_id') as string;
-        
                 return {
                     url: `work-flows/send_request/${requestId}/transition/`,
                     method: 'POST',
                     body: formData,  // Ensure the FormData object is set as the body
-                    headers: {
-                        // Include headers if necessary; usually, 'Content-Type' is not set for FormData
-                        // 'Content-Type': 'multipart/form-data',
-                    },
                 };
-            },
-                
-            invalidatesTags: [API_TAGS.REQUESTS]
+            },        
+            invalidatesTags: [API_TAGS.INTERMEDIATE_REQUEST]
         }),
 
         deleteUnapprovedRequest: builder.mutation<void, string>({
@@ -109,6 +114,7 @@ export const {
     useCreatedUnapprovedRequestMutation,
     usePerformTransitionRequestMutation,
     useDeleteUnapprovedRequestMutation,
+    useGetPendingRequestOfSenderQuery,
     
 
 } = requestAPISlice

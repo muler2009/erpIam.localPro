@@ -9,11 +9,11 @@ from workflow_manager.models.workflow_state_model import WorkFlowStateModel
 
 class IntermediateRequestModel(models.Model):
     intermediate_request_id = models.UUIDField(db_index=True, default=uuid.uuid4, primary_key=True, unique=True, editable=False)
+    user = models.ForeignKey(UserAccountsModel, on_delete=models.SET_NULL, null=True, blank=True)
     request = models.ForeignKey(ApprovedRequestByRequestOwnerModel, on_delete=models.CASCADE, related_name='approval_stages')
     current_state = models.ForeignKey(WorkFlowStateModel, on_delete=models.SET_NULL, null=True, blank=True)
     stage_name = models.CharField(max_length=255)
     role = models.ForeignKey(IamRoleModel, on_delete=models.CASCADE)
-    user = models.ForeignKey(UserAccountsModel, on_delete=models.SET_NULL, null=True, blank=True)
     action_taken = models.CharField(max_length=255, blank=True, null=True)
     comments = models.TextField(blank=True, null=True)
     request_recieved_at = models.DateTimeField(auto_now_add=True)

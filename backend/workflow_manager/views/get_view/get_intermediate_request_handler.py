@@ -17,7 +17,7 @@ class GetIntermediateRequestHandler(generics.GenericAPIView):
         try:
             if not data:
                 raise EmptyExceptionHandler(message="No Request in this Intermediate", error_type="NO REQUEST")
-            serializer = self.serializer_class(data, many=True)
+            serializer = self.serializer_class(data, many=True, context={'request': request})
         except EmptyExceptionHandler as exc:
             return Response({
                 "status_text": exc.message,

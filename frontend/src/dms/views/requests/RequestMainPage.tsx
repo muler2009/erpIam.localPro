@@ -6,13 +6,13 @@ import { Outlet } from 'react-router-dom'
 
 const RequestMainPage = () => {
   return (
-    <>
+    <FlexBox className='h-full'>
         <RequestNavigation />
-        <FlexBox className='mx-1'>
+        <FlexBox className='mx-1 h-full'>
             <Outlet />
         </FlexBox>
     
-    </>
+    </FlexBox>
   )
 }
 

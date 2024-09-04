@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { Link } from 'react-router-dom'
-import { RequestColumnInterface, RequestDataInterface, SendRequestApprovalInterface } from '../../models/request-model'
+import { IntermediateAPIResponse, RequestColumnInterface, RequestDataInterface, SendRequestApprovalInterface } from '../../models/request-model'
 import * as BiIcons from 'react-icons/bi'
 import { FlexBox, FlexBoxInner, Text } from '../../../components/common/StyledComponent'
 import { format } from 'date-fns'
@@ -12,8 +12,9 @@ import BottomTooltip from '../../../components/common/BottomTooltip'
 import { RxEyeOpen } from "react-icons/rx";
 import * as AiIcons from 'react-icons/ai'
 import PerformTransition from './column-mini-component/PerformTransition'
+import ApprovalActionCell from './column-mini-component/ApprovalActionCell'
 
-const requestApprovalColumnHandler = createColumnHelper<RequestColumnInterface >()
+const requestApprovalColumnHandler = createColumnHelper<IntermediateAPIResponse>()
 
 const useRequestReceivedColumn = () => {
     const [approvalStatus, setApprovalStatus] = useState<Record<string | number, string>>({});
@@ -47,90 +48,123 @@ const useRequestReceivedColumn = () => {
                         />
                     )
                 },
-                
             }),
-            requestApprovalColumnHandler.accessor(row => row.current_state, {
-                id: "Requesting user",
-                header: () => <span>Status</span>,
-                cell: props => {
-                    return(
-                        <div className='whitespace-nowrap'>
-                        {
-                            props.row.original.current_state === 'pending for approval' ? (
-                                <Text className='px-2 py-2 flex items-center text-red-700'>
-                                    <span className='pr-1'><BsFillChatRightDotsFill size={20}/></span>WFA
-                                </Text>
-                            ) : null 
-                        }
-                    </div>
-                    )
-                }
-            }),
-            requestApprovalColumnHandler.accessor(row => row.requesting_user, {
+           
+            requestApprovalColumnHandler.accessor(row => row.request?.title, {
                 id: "Title",
                 header: () => <span>Request Informations</span>,
                 cell: ({row}) => {
-                    const request_recieved_at = row.original.request_sent_at || new Date()
+                    const request_recieved_at = row.original.request?.request_sent_at || new Date()
                     return(
-                        <FlexBox className='flex flex-col pb-2'>
+                        <FlexBox className='flex flex-col gap-2 pb-2'>
                             <FlexBoxInner className='flex space-x-1'>
-                                <Text className='font-semibold'>{row.original.title}</Text>
+                                <Text className='font-semibold whitespace-nowrap'>{row.original.request?.title}</Text>
                                 <TimeAgo timestamp={request_recieved_at} className='' />
                             </FlexBoxInner>
                             <FlexBox>
-                            <p className='text-[12px] text-[#333] text-opacity-65'>{format(request_recieved_at, 'EE dd, yyyy')}</p>
+                            <p className='text-[12px] text-[#333] text-opacity-65'>Date: {format(request_recieved_at, 'EE dd, yyyy')}</p>
                                 {/* {row.original.file_url} */}
                             </FlexBox>
                         </FlexBox>
                     )
                 }
             }),
-            requestApprovalColumnHandler.accessor(row => row.file_url, {
-                id: "Requesting user",
-                header: () => <span>Attached File</span>,
+           
+            requestApprovalColumnHandler.accessor(row => row.request?.file_url, {
+                id: "file_url",
+                header: () => <span>Attachment</span>,
                 cell: ({row}) => {
                     const rowData = row.original
                     return(
+                        // <div>
+                        //     {
+                        //         rowData ? (
+                        //             <p>Attachement available</p>
+                        //         ): null
+                        //     }
+                        // </div>
                         <OpenFileForReview  
                             rowData={rowData}
                         />
                     )
                 }
             }),
-         
-            requestApprovalColumnHandler.display({
-                id: "status",
-                header: () => <span className="flex justify-start"><BiIcons.BiDotsVerticalRounded /> Action</span>,
-                cell: ({row}) => {
-                    const rowData = row.original
-                    const approvalStatusForRow = approvalStatus[rowData.request_id];  
-                    return(
-                        <FlexBox className="flex justify-start items-center space-x-3">
-                            <BottomTooltip content={`See detail of the request`}>
-                                <FlexBoxInner className="flex justify-center items-center hover:bg-gray-200 rounded-full">
-                                    <RxEyeOpen size={15} />
-                                </FlexBoxInner>
-                            </BottomTooltip>
-                            <FlexBoxInner className='flex justify-start items-center space-x-5' >
-                                <ApprovalSelect 
-                                    rowId={row.original.request_id} 
-                                    onApprovalChange={handleApprovalChange}
-                                    currentStatus={approvalStatus[row.original.request_id] }
-                                    rowData={rowData}
-                                />
-                              
-                                <PerformTransition 
-                                    rowData={rowData} 
-                                    approvalStatus={approvalStatusForRow}
-                                
-                                />
-                            </FlexBoxInner>
-                      </FlexBox>
+
+            requestApprovalColumnHandler.accessor(row => row.request?.requesting_user, {
+                id: "username",
+                header: () => <span>Requested By</span>,
+                cell: props => {
+                   console.log(props.row.original)
+                    return (
+                        <div className='whitespace-nowrap'>
+                            {props.row.original.request.requesting_user}
+                        </div>
                     )
                 }
             }),
+
+            requestApprovalColumnHandler.accessor(row => row.current_state, {
+                id: "current_state",
+                header: () => <span>Status</span>,
+                cell: props => {
+                    const current_state = props.row.original.current_state
+                    return (
+                            <div className='whitespace-nowrap'>
+                                {current_state === 'pending for approval' && <p className='stamp is-waiting'>Waiting approval</p>}
+                            </div>
+                    )
+                }
+            }),
+            requestApprovalColumnHandler.display({
+                id: "actions",
+                header: () => <Text>Action</Text>,
+                cell: ({row}) => {
+                    const requestData = row.original
+                    return(
+                        <ApprovalActionCell
+                            requestData={requestData}
+                            approvalStatus={approvalStatus}
+                        
+                        />
+                    )
+                }
+            
+
+            })
+         
+            // requestApprovalColumnHandler.display({
+            //     id: "status",
+            //     header: () => <span className="flex justify-start"><BiIcons.BiDotsVerticalRounded /> Action</span>,
+            //     cell: ({row}) => {
+            //         const rowData = row.original
+            //         const approvalStatusForRow = approvalStatus[rowData.request?.request_id];  
+            //         return(
+            //             <FlexBox className="flex justify-start items-center space-x-3">
+            //                 <BottomTooltip content={`See detail of the request`}>
+            //                     <FlexBoxInner className="flex justify-center items-center hover:bg-gray-200 rounded-full">
+            //                         <RxEyeOpen size={15} />
+            //                     </FlexBoxInner>
+            //                 </BottomTooltip>
+            //                 <FlexBoxInner className='flex justify-start items-center space-x-5' >
+            //                     <ApprovalSelect 
+            //                         rowId={row.original.request?.request_id} 
+            //                         onApprovalChange={handleApprovalChange}
+            //                         currentStatus={approvalStatus[row.original.request?.request_id] }
+            //                         rowData={rowData}
+            //                     />
+                              
+            //                     <PerformTransition 
+            //                         rowData={rowData} 
+            //                         approvalStatus={approvalStatusForRow}
+            //                     />
+            //                 </FlexBoxInner>
+            //           </FlexBox>
+            //         )
+            //     }
+            // }),
         ],
-        [approvalStatus]
+        
+        [approvalStatus, requestApprovalColumnHandler]
     )
     
     return {requestApprovalColumn}
@@ -139,13 +173,13 @@ const useRequestReceivedColumn = () => {
 interface ApprovalSelectProps {
     rowId: string | number;
     onApprovalChange: (rowId: string | number, status: string) => void;
-    currentStatus: string;
-    rowData?: RequestColumnInterface;
+    currentStatus?: string;
+    rowData?: IntermediateAPIResponse;
 }
 
 
 
-const ApprovalSelect: React.FC<ApprovalSelectProps> = ({ rowId, onApprovalChange, currentStatus, rowData }) => {
+export const ApprovalSelect: React.FC<ApprovalSelectProps> = ({ rowId, onApprovalChange, currentStatus, rowData }) => {
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newStatus = event.target.value;
         onApprovalChange(rowId, newStatus);
@@ -174,6 +208,7 @@ const ApprovalSelect: React.FC<ApprovalSelectProps> = ({ rowId, onApprovalChange
 };
 
 export default useRequestReceivedColumn
+
 
 
 

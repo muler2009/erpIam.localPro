@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 import { BASE_URL, API_TAGS } from '.././../config/config'
 import { setAuthData, clearAuthData } from './auth'
-import { RootState } from '../../store/store';
+import { RootState } from '../../store/store'
 
 interface ArgsProps {
   url: string;

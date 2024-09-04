@@ -15,10 +15,10 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import MultiPartParser, FormParser
 import logging
 from ...models.approval_level import ApprovalStageModel
-
 from ...models.intermediate_request import IntermediateRequestModel
-
 from ...serilizers.get_intermediate_request_serializer import ApprovalStageSerializer
+from django.shortcuts import get_object_or_404
+from notification.models.core_notification_model import NotificationModel
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)  # You can adjust the level to INFO or WARNING based on your needs
@@ -101,17 +101,15 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ApprovalStageSerializer
+    parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request, *args, **kwargs):
         # request_id = request.data.get('request_id')
         request_id = kwargs.get('request_id')
         action_name = request.data.get('action_name')
         comments = request.data.get('comments', '')
-
+        
         try:
-            # if not self.is_valid_uuid(request_id):
-            #     raise serializers.ValidationError(f'"{request_id}" is not a valid UUID.')
-
             if not self.is_valid_uuid(request_id):
                 raise serializers.ValidationError({"detail": "Invalid request ID format. It should be a UUID."})
 
@@ -119,14 +117,16 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
                 raise PostExceptionHandler({"detail": "Request ID and action name are required."}, status=status.HTTP_400_BAD_REQUEST)
 
             approved_request = self.get_request_instance(request_id)
+
+            # if not current_stage:
+            #     return Response({"detail": "No current approval stage found."}, status=status.HTTP_400_BAD_REQUEST)
+            
             current_stage = approved_request.current_stage
+            if not current_stage:
+                return Response({"detail": "No current approval stage found."}, status=status.HTTP_400_BAD_REQUEST)
 
             # Validate user permissions
             self.validate_user_permission(approved_request, request.user)
-          
-
-            if not current_stage:
-                return Response({"detail": "No current approval stage found."}, status=status.HTTP_400_BAD_REQUEST)
 
             try:
                 action = WorkFlowActionsModel.objects.get(action_name=action_name)
@@ -141,73 +141,47 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
             except WorkFlowTransitionModel.DoesNotExist:
                 return Response({"detail": "Transition not allowed for this action."}, status=status.HTTP_400_BAD_REQUEST)
 
+            # Create an intermediate record
+            IntermediateRequestModel.objects.create(
+                request=approved_request,
+                stage_name=current_stage.stage_name,
+                role=current_stage.role,
+                user=request.user,
+                action_taken=action_name,
+                comments=comments,
+                current_state=approved_request.current_state
+            )
+
             # Perform the actual transition
             current_stage.transition = transition
             current_stage.comments = comments
             current_stage.approved_at = datetime.now() if action_name == "approved" else None
+            # current_stage.assigned_user = approved_request.request_assigned_to_user  # Set the assigned user to the current stage
             current_stage.save()
 
             if action_name == "approved":
-                # Move to the next stage or mark as fully approved if it's the last stage
-                pending = WorkFlowStateModel.objects.get(state_name='pending for approval')
-                next_stage = ApprovalStageModel.objects.filter(
-                    request=approved_request,
-                    stage_level__gt=current_stage.stage_level
-                ).order_by('stage_level').first()
+                self.handle_approved_request(approved_request, current_stage, transition, comments, request, action_name)
+            elif action_name == "Rejected With Modification":
+                self.handle_rejected_requests_for_modification(rejected_request=approved_request, current_stage=current_stage, comments=comments, action_name=action_name)
+            else:
+                pass
 
-                  # Log the transition in IntermediateRequestModel
-                IntermediateRequestModel.objects.create(
-                    request=approved_request,
-                    stage_name=current_stage.stage_name,
-                    role=current_stage.role,
-                    user=request.user,
-                    action_taken=action_name,
-                    comments=comments
-                )
-
-                if next_stage:
-                    approved_request.current_stage = next_stage
-                    approved_request.current_state = pending  # Set the state to 'pending approval'
-                    approved_request.save()
-
-                else:
-                    approved_request.current_stage = None
-                    approved_request.current_state = WorkFlowStateModel.objects.get(state_name="approved")  # Indicate that the process is completed
-                    approved_request.save()
-
-                    # Delete the approved request after final approval which meand from ApprovedByOwnerModel
-
-                    # Remove all stages after the final approval
-                    ApprovalStageModel.objects.filter(request=approved_request).delete()
-
-                    # approved_request.delete()
-
-            else:  # Handle rejection or rejection with modification
-                # Create an entry in IntermediateRequestModel to return it to the source
-                IntermediateRequestModel.objects.create(
-                    request=approved_request,
-                    stage_name=current_stage.stage_name,
-                    role=current_stage.role,
-                    user=request.user,
-                    action_taken=action_name,
-                    comments=comments
-                )
-
-                # Set the current state back to the source state
-                approved_request.current_stage = None
-                approved_request.current_state = transition.to_state
-                approved_request.save()
-
+        
         except PostExceptionHandler as exc:
-            return Response({"message": exc.message, "error": exc.error_type})
+            return Response({
+               'message': exc.message,
+               'error': exc.error_type
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
         else:
             return Response({"detail": "Approval stage transitioned successfully."}, status=status.HTTP_200_OK)
-        
+               
     def get_request_instance(self, request_id):
         try:
             return ApprovedRequestByRequestOwnerModel.objects.select_related('current_stage__transition').get(pk=request_id)
         except ApprovedRequestByRequestOwnerModel.DoesNotExist:
             raise PostExceptionHandler(message="Request not found", error_type="error")
+        
         
     def validate_user_permission(self, request_instance, user):
         # Check if the current stage exists
@@ -226,6 +200,8 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
         if current_stage_role_name not in user_roles:
             raise PermissionDenied(detail="You are not authorized to approve this request")
 
+    def delete_intermediate_requests(self, request_instance, action):
+        IntermediateRequestModel.objects.filter(request=request_instance, action_taken=action).delete()
         
     def is_valid_uuid(self, value):
         try:
@@ -233,88 +209,335 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
             return True
         except ValueError:
             return False
+        
+    def handle_approved_request(self, approved_request, current_stage, transition, comments, request, action_name):
+        # Move to the next stage or mark as fully approved if it's the last stage
+        pending = WorkFlowStateModel.objects.get(state_name='pending for approval')
+        next_stage = ApprovalStageModel.objects.filter(
+            request=approved_request,
+            stage_level__gt=current_stage.stage_level
+        ).order_by('stage_level').first()             
+
+        if next_stage:
+            # lets find the previous approver 
+            previous_approver = IntermediateRequestModel.objects.filter(
+                request=approved_request,
+                stage_name = current_stage.stage_name,
+                role=current_stage.role,
+                # action_name='approved'
+            ).order_by('-request_recieved_at').first()
+
+            # Update the approved request to the next stage and state
+            approved_request.current_stage = next_stage
+            approved_request.current_state = pending  # Set the state to 'pending approval'
+            approved_request.save()
+           
+            IntermediateRequestModel.objects.create(
+                request=approved_request,
+                stage_name=next_stage.stage_name,
+                role=next_stage.role,
+                user=previous_approver.user if previous_approver else self.request.user,
+                action_taken=action_name,
+                comments=comments,
+                current_state=pending
+            )
+    
+        else:
+            approved_request.current_stage = None
+            approved_request.current_state = WorkFlowStateModel.objects.get(state_name="approved")  # Indicate that the process is completed
+            
+            # Remove all stages after the final approval
+            ApprovalStageModel.objects.filter(request=approved_request).delete()
+
+        approved_request.save()
+
+
+    def handle_rejected_requests(self, approved_request, current_stage, comments):
+        # Get the previous stage that approved this request
+        previous_approval = IntermediateRequestModel.objects.filter(
+            request=approved_request,
+            action_taken="approved"
+        ).order_by('-request_updated_at').first()
+
+        if previous_approval:
+            try:
+                # Retrieve the corresponding ApprovalStageModel instance
+                previous_stage = ApprovalStageModel.objects.get(stage_name=previous_approval.stage_name, request=approved_request)
+                print(previous_stage)
+            except ApprovalStageModel.DoesNotExist:
+                raise PostExceptionHandler(message="Approval Stage Doen't exist", error_type="DoesNotExist")
+
+            # Update the approved_request to point to the previous_stage
+            approved_request.current_stage = previous_stage
+            approved_request.current_state = WorkFlowStateModel.objects.get(state_name="pending for approval")
+            approved_request.save()
+
+            # Keep the record in IntermediateRequestModel but mark it as rejected
+            previous_approval.action_taken = "rejected"
+            previous_approval.comments = comments
+            previous_approval.save()
+
+            # Notify the previous approver
+            NotificationModel.objects.create(
+                notification_recepient=previous_approval.user,
+                notification_message=f"Request '{approved_request.title}' has been rejected and sent back for your review.",
+                notification_type="In_app",
+                notification_metadata={'request': str(approved_request.request_id)}
+            )
+        else:
+            # If no previous approval is found, send rejection to initiator
+            initiator = approved_request.requesting_user
+            approved_request.current_stage = None
+            approved_request.current_state = WorkFlowStateModel.objects.get(state_name="rejected")
+            approved_request.save()
+
+            # Keep the record in IntermediateRequestModel
+            IntermediateRequestModel.objects.create(
+                request=approved_request,
+                stage_name=current_stage.stage_name,
+                role=current_stage.role,
+                action_taken="rejected",
+                comments=comments,
+                user=initiator,
+                current_state=approved_request.current_state,
+            )
+
+            # Notify the initiator
+            NotificationModel.objects.create(
+                notification_recepient=initiator,
+                notification_message=f"Your request '{approved_request.title}' has been rejected.",
+                notification_type="In_app",
+                notification_metadata={'request': str(approved_request.request_id)}
+            )
+
+        
+        ApprovalStageModel.objects.filter(request=approved_request).delete()
+        # Prevent further rejection attempts on already rejected requests
+        rejected_request = IntermediateRequestModel.objects.filter(
+            request=approved_request,
+            action_taken="rejected"
+        ).exclude(request_id=previous_approval.intermediate_request_id).delete()
+
+        if not rejected_request:
+            raise PostExceptionHandler({'message': "Request rejected"})
+        
+        return rejected_request
+
+    def handle_rejected_requests_for_modification(self, rejected_request, current_stage, comments, action_name):
+        rejected_state = WorkFlowStateModel.objects.get(state_name="pending for approval")
+        
+        previous_stage = ApprovalStageModel.objects.filter(
+            request=rejected_request,
+            stage_level__lt=current_stage.stage_level
+        ).order_by('-stage_level').first()
+
+        if previous_stage:
+            #Update the rejected_request's current_stage and current_state
+            rejected_request.current_stage = previous_stage  # Move back to the previous stage
+            rejected_request.current_state = rejected_state  # Set the state to 'rejected'
+            rejected_request.save()
+
+            # Create a new IntermediateRequestModel entry with the rejection details
+            IntermediateRequestModel.objects.create(
+                request=rejected_request,
+                stage_name=previous_stage.stage_name,  # Current stage that was rejected
+                role=previous_stage.role,  # Role of the current stage
+                user=self.request.user,
+                action_taken=action_name,
+                comments=comments,
+                current_state=rejected_state  # Ensure this is the correct WorkFlowStateModel instance
+            )
+            # Notify the previous approver (Optional: Implement notification logic here)
+            self.notify_previous_approver(previous_stage, rejected_request)
+
+    def notify_previous_approver(self, previous_stage, request):
+        # Logic to notify the previous approver (e.g., via email, system notification, etc.)
+        approver_user = previous_stage.role.users  # Assuming role is linked to a user
+        message = f"The request '{request.title}' has been rejected for modification and is pending your approval."
+        
+        # Example: Send a notification (this can vary depending on how notifications are handled in your system)
+        NotificationModel.objects.create(
+            notification_recepient=previous_stage.user,
+            notification_message=message,
+            notification_metadata=request
+        )
+
+   
 
 
 
-# class PerformTransitionRequestHandler2(generics.GenericAPIView):
-#     parser_classes = [MultiPartParser, FormParser]
+# class PerformTransitionRequestHandler(generics.GenericAPIView):
 #     authentication_classes = [JWTAuthentication]
 #     permission_classes = [permissions.IsAuthenticated]
+#     serializer_class = ApprovalStageSerializer
+#     parser_classes = [MultiPartParser, FormParser]
 
 #     def post(self, request, *args, **kwargs):
-#         request_instance = self.get_request_instance(kwargs['request_id'])
+#         request_id = kwargs.get('request_id')
 #         action_name = request.data.get('action_name')
+#         comments = request.data.get('comments', '')
 
+#         if not self.is_valid_uuid(request_id):
+#             return Response({"detail": "Invalid request ID format. It should be a UUID."}, status=status.HTTP_400_BAD_REQUEST)
+
+#         if not request_id or not action_name:
+#             return Response({"detail": "Request ID and action name are required."}, status=status.HTTP_400_BAD_REQUEST)
+
+#         # Retrieve the approved request
+#         approved_request = self.get_request_instance(request_id)
+#         if not approved_request:
+#             return Response({"detail": "Approved request not found."}, status=status.HTTP_404_NOT_FOUND)
+
+#         current_stage = approved_request.current_stage
+#         if not current_stage:
+#             return Response({"detail": "No current approval stage found."}, status=status.HTTP_400_BAD_REQUEST)
+
+#         # Validate user permissions
+#         self.validate_user_permission(approved_request, request.user)
+
+#         action = self.get_action(action_name)
+#         if not action:
+#             return Response({"detail": f"Action '{action_name}' not found."}, status=status.HTTP_404_NOT_FOUND)
+
+#         transition = self.get_transition(approved_request.current_state, action)
+#         if not transition:
+#             return Response({"detail": "Transition not allowed for this action."}, status=status.HTTP_400_BAD_REQUEST)
+
+#         # Create an intermediate record
+#         self.create_intermediate_record(approved_request, current_stage, request.user, action_name, comments)
+
+#         # Perform the transition
+#         self.perform_transition(approved_request, current_stage, transition, action_name, request)
+
+#         return Response({"detail": "Approval stage transitioned successfully."}, status=status.HTTP_200_OK)
+
+#     def is_valid_uuid(self, uuid_string):
 #         try:
-#             action = self.get_action(action_name)
-#             self.validate_user_permission(request_instance, request.user)
-#             transition = self.get_transition(request_instance.current_stage, action)
+#             uuid.UUID(uuid_string)
+#             return True
+#         except ValueError:
+#             return False
 
-#             # Handle case where transition is None
-#             if not transition:
-#                 raise PostExceptionHandler(message="No valid transition found for the current stage and action", error_type="error")
-
-#             # Perform the transition
-#             next_stage = self.move_to_next_stage(request_instance, transition)
-#             request_instance.current_stage = next_stage
-
-#             # Check if there is no next stage, mark as fully approved
-#             if not next_stage:
-#                 request_instance.current_state = WorkFlowStateModel.objects.get(state_name="Approved")
-#                 request_instance.save()
-#                 serialized_state = GetStateModelSerializer(request_instance.current_state).data
-
-#                 # Create an approved request record if it's fully approved
-#                 approved_request = self.create_approved_request(request_instance)
-#                 approved_request.save()
-
-#                 # Delete the original request from the current model
-#                 request_instance.delete()
-#             else:
-#                 request_instance.save()
-#                 GetStateModelSerializer(next_stage.transition.to_state).data
-
-#         except PostExceptionHandler as exc:
-#             return Response({"status": exc.message, "status_code": exc.error_type}, status=status.HTTP_400_BAD_REQUEST)
-#         except PermissionDenied as exc:
-#             return Response({"status_text": exc.detail, "status_code": 403}, status=status.HTTP_403_FORBIDDEN)
-#         except Exception as exc:
-#             return Response({"status_text": str(exc), "status_code": 500}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-#         else:
-#             return Response({
-#                 'status': 'Successfully transition'
-#             })
-                
 #     def get_request_instance(self, request_id):
-#         try:
-#             return ApprovedRequestByRequestOwnerModel.objects.select_related('current_stage__transition').get(pk=request_id)
-#         except ApprovedRequestByRequestOwnerModel.DoesNotExist:
-#             raise PostExceptionHandler(message="Request not found", error_type="error")
+#         return get_object_or_404(ApprovedRequestByRequestOwnerModel, request_id=request_id)
+
+#     def validate_user_permission(self, request_instance, user):
+#         if not user.has_perm('change_request', request_instance):
+#             raise serializers.ValidationError({"detail": "User does not have permission to perform this action."})
 
 #     def get_action(self, action_name):
-#         try:
-#             return WorkFlowActionsModel.objects.get(action_name=action_name)
-#         except WorkFlowActionsModel.DoesNotExist:
-#             raise PostExceptionHandler(message=f"Action {action_name} not found", error_type="error")
+#         return WorkFlowActionsModel.objects.filter(action_name=action_name).first()
 
-    # def validate_user_permission(self, request_instance, user):
-        # Check if the current stage exists
-        if not request_instance.current_stage:
-            raise PostExceptionHandler(message="Request does not have a current stage", error_type="error")
-        
-        # Get the roles associated with the user
-        user_roles = user.roles.all().values_list('role_name', flat=True)
-        logger.info(f"User roles: {user_roles}")
+#     def get_transition(self, current_state, action):
+#         return WorkFlowTransitionModel.objects.filter(from_state=current_state, action_name=action).first()
 
-        # Get the role associated with the current stage
-        current_stage_role_name = request_instance.current_stage.role.role_name
-        logger.info(f"Current stage role: {current_stage_role_name}")
+#     def create_intermediate_record(self, request_instance, current_stage, user, action_name, comments):
+#         IntermediateRequestModel.objects.create(
+#             request=request_instance,
+#             stage_name=current_stage.stage_name,
+#             role=current_stage.role,
+#             user=user,
+#             action_taken=action_name,
+#             comments=comments
+#         )
 
-        # Check if the user’s roles include the role required for the current stage
-        if current_stage_role_name not in user_roles:
-            raise PermissionDenied(detail="You are not authorized to approve this request")
-        
+#     def perform_transition(self, approved_request, current_stage, transition, request, action_name):
+#         if action_name == "approved":
+#             self.handle_approval(approved_request, current_stage, transition, request)
+#         else:
+#             self.handle_rejection(approved_request, current_stage, transition, request)
+
+#     def handle_approval(self, approved_request, current_stage, transition):
+#         pending = WorkFlowStateModel.objects.get(state_name='pending for approval')
+#         next_stage = ApprovalStageModel.objects.filter(
+#             request=approved_request,
+#             stage_level__gt=current_stage.stage_level
+#         ).order_by('stage_level').first()
+
+#         self.delete_intermediate_requests(approved_request)
+
+#         if next_stage:
+#             approved_request.current_stage = next_stage
+#             approved_request.current_state = pending
+#             approved_request.request_assigned_to_user = next_stage.assign_user  # Assign the user for the next stage
+#         else:
+#             approved_request.current_stage = None
+#             approved_request.current_state = WorkFlowStateModel.objects.get(state_name="approved")
+#             self.create_final_approved_request(approved_request, transition)
+#             approved_request.request_assigned_to_user = None  # Final approval, no more assignment needed
+
+#         approved_request.save()
+
+#     def handle_rejection(self, approved_request, current_stage, transition, request):
+#         IntermediateRequestModel.objects.create(
+#             request=approved_request,
+#             stage_name=current_stage.stage_name,
+#             role=current_stage.role,
+#             user=request.user,
+#             action_taken="rejected",
+#             comments=request.data.get('comments', '')
+#         )
+#         approved_request.current_stage = None
+#         approved_request.current_state = transition.to_state
+#         approved_request.save()
+
+#     def delete_intermediate_requests(self, approved_request):
+#         IntermediateRequestModel.objects.filter(request=approved_request).delete()
+
+#     def create_final_approved_request(self, approved_request, transition):
+#         ApprovedRequestByRequestOwnerModel.objects.create(
+#             title=approved_request.title,
+#             requesting_user=approved_request.requesting_user,
+#             request_assigned_to_user=approved_request.request_assigned_to_user,
+#             request_type=approved_request.request_type,
+#             current_state=transition.to_state,
+#             file_for_approval=approved_request.file_for_approval
+#         )
+#         ApprovalStageModel.objects.filter(request=approved_request).delete()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #     def get_next_stage_template(self, transition):
 #         # Logic to determine the next stage template based on the transition
 #         next_state = transition.to_state
