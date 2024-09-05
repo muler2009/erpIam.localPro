@@ -16,7 +16,6 @@ const ApprovalActionCell = ({requestData, approvalStatus}: ApprovalActionCellInt
 
     const { open, handleIsOpenCloseMenuModal } = useUtils()
     
-  
   return (
     <>
         <FlexBox className='flex space-x-3'>
@@ -29,14 +28,8 @@ const ApprovalActionCell = ({requestData, approvalStatus}: ApprovalActionCellInt
             open={open}
             handleIsOpenCloseMenuModal={handleIsOpenCloseMenuModal}
             requestData={requestData}
-            approvalStatus={approvalStatus}
-
-        
-        />
-
-        
-        
-    
+            approvalStatus={approvalStatus}        
+        />    
     </>
   )
 }

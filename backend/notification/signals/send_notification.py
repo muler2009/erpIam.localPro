@@ -20,7 +20,7 @@ from django.conf import settings
 #             notification_metadata={'request': str(instance.request_id)}
 #         )
 
-@receiver(post_save, sender=ApprovedRequestByRequestOwnerModel)
+# @receiver(post_save, sender=ApprovedRequestByRequestOwnerModel)
 def send_notification_on_request_submission(sender, instance, created, **kwargs):
     if created:  # Check if this is a newly created request
         # Find the current approval stage

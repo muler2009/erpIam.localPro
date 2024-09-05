@@ -42,6 +42,7 @@ export interface RequestDataInterface {
     file_url?: string;
     file_name?: string;
     message?: string;
+
    
 }
 
@@ -53,7 +54,8 @@ export interface SendRequestApprovalInterface{
 export interface RequestAPIResponse extends RequestDataInterface {
     status_code?: number,
     statusText?: string,
-    message?: string;
+  
+    request_id: string;
 }
 
 export interface RequestColumnInterface extends RequestDataInterface  {
@@ -70,7 +72,7 @@ export interface RequestTabMenuInterface {
 }
 
 export interface IntermediateAPIResponse {
-    user?: UserAccountColumnsInterface; 
+    user: string; 
     request: RequestColumnInterface; 
     current_state: string;
     stage_name?: string; 

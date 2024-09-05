@@ -160,9 +160,21 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
             current_stage.save()
 
             if action_name == "approved":
-                self.handle_approved_request(approved_request, current_stage, transition, comments, request, action_name)
+                self.handle_approved_request(
+                    approved_request=approved_request, 
+                    current_stage=current_stage, 
+                    transition=transition, 
+                    comments=comments, 
+                    request=request, 
+                    action_name=action_name
+                )
             elif action_name == "Rejected With Modification":
-                self.handle_rejected_requests_for_modification(rejected_request=approved_request, current_stage=current_stage, comments=comments, action_name=action_name)
+                self.handle_rejected_requests_for_modification(
+                    rejected_request=approved_request, 
+                    current_stage=current_stage, 
+                    comments=comments, 
+                    action_name=action_name
+                )
             else:
                 pass
 
@@ -219,14 +231,6 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
         ).order_by('stage_level').first()             
 
         if next_stage:
-            # lets find the previous approver 
-            previous_approver = IntermediateRequestModel.objects.filter(
-                request=approved_request,
-                stage_name = current_stage.stage_name,
-                role=current_stage.role,
-                # action_name='approved'
-            ).order_by('-request_recieved_at').first()
-
             # Update the approved request to the next stage and state
             approved_request.current_stage = next_stage
             approved_request.current_state = pending  # Set the state to 'pending approval'
@@ -235,17 +239,25 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
             IntermediateRequestModel.objects.create(
                 request=approved_request,
                 stage_name=next_stage.stage_name,
-                role=next_stage.role,
-                user=previous_approver.user if previous_approver else self.request.user,
+                role=next_stage.role,             
+                user=self.request.user,  # Set the user performing the approval
                 action_taken=action_name,
                 comments=comments,
                 current_state=pending
             )
-    
+
+            # NotificationModel.objects.create(
+            #     notification_recepient=next_stage.user,
+            #     notification_message=f"Request '{approved_request.title}' has been rejected and sent back for your review.",
+            #     notification_type="In_app",
+            #     notification_metadata={'request': str(approved_request.request_id)}
+            # )
+
         else:
             approved_request.current_stage = None
             approved_request.current_state = WorkFlowStateModel.objects.get(state_name="approved")  # Indicate that the process is completed
             
+            IntermediateRequestModel.objects.filter(request=approved_request).delete()
             # Remove all stages after the final approval
             ApprovalStageModel.objects.filter(request=approved_request).delete()
 
@@ -342,26 +354,20 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
                 request=rejected_request,
                 stage_name=previous_stage.stage_name,  # Current stage that was rejected
                 role=previous_stage.role,  # Role of the current stage
-                user=self.request.user,
+                user=rejected_request,
                 action_taken=action_name,
                 comments=comments,
                 current_state=rejected_state  # Ensure this is the correct WorkFlowStateModel instance
             )
-            # Notify the previous approver (Optional: Implement notification logic here)
-            self.notify_previous_approver(previous_stage, rejected_request)
+            # # Notify the previous approver (Optional: Implement notification logic here)
+            # NotificationModel.objects.create(
+            #     notification_recepient=previous_stage.user,
+            #     notification_message=f"Request '{rejected_request.title}' has been rejected and sent back for your review.",
+            #     notification_type="In_app",
+            #     notification_metadata={'request': str(rejected_request.request_id)}
+            # )
 
-    def notify_previous_approver(self, previous_stage, request):
-        # Logic to notify the previous approver (e.g., via email, system notification, etc.)
-        approver_user = previous_stage.role.users  # Assuming role is linked to a user
-        message = f"The request '{request.title}' has been rejected for modification and is pending your approval."
-        
-        # Example: Send a notification (this can vary depending on how notifications are handled in your system)
-        NotificationModel.objects.create(
-            notification_recepient=previous_stage.user,
-            notification_message=message,
-            notification_metadata=request
-        )
-
+   
    
 
 
@@ -499,7 +505,37 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
 
 
 
+# try:
+#                # Retrieve the previous stage with the highest level below the current stage
+#                 logger.info(f"Current stage is : {current_stage.stage_level}")
+#                 previous_stage = ApprovalStageModel.objects.filter(
+#                     request=approved_request,
+#                     stage_level__lt=current_stage.stage_level
+#                 ).order_by('-stage_level').first()
 
+#                 if previous_stage:
+#                     # Log previous stage details for debugging
+#                     logger.info(f"Previous Stage: {previous_stage.stage_name}, Stage Level: {previous_stage.stage_level} ")
+
+#                     # Retrieve the most recent approval for the previous stage
+#                     previous_approver = IntermediateRequestModel.objects.filter(
+#                         request=approved_request,
+#                         stage_name=previous_stage.stage_name,
+#                         action_taken=action_name  # Ensure we get the most recent approval action
+#                     ).order_by('-stage_name').first()  # Most recent approval action
+
+#                     if previous_approver:
+#                         logger.info(f"Previous Approver: {previous_approver.user}")
+#                     else:
+#                         logger.warning("No previous approver found for the previous stage")
+
+#                 else:
+#                     logger.warning("No previous stage found")
+#                     previous_approver = None
+
+#             except IntermediateRequestModel.DoesNotExist:
+#                 logger.error("Error retrieving previous approver")
+#                 previous_approver = None
 
 
 

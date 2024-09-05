@@ -90,27 +90,35 @@ const useRequestReceivedColumn = () => {
                 }
             }),
 
-            requestApprovalColumnHandler.accessor(row => row.request?.requesting_user, {
+            requestApprovalColumnHandler.accessor(row => row.user, {
                 id: "username",
                 header: () => <span>Requested By</span>,
                 cell: props => {
                    console.log(props.row.original)
                     return (
                         <div className='whitespace-nowrap'>
-                            {props.row.original.request.requesting_user}
+                            {props.row.original.user}
                         </div>
                     )
                 }
             }),
 
-            requestApprovalColumnHandler.accessor(row => row.current_state, {
+            requestApprovalColumnHandler.accessor(row => row.action_taken, {
                 id: "current_state",
                 header: () => <span>Status</span>,
                 cell: props => {
                     const current_state = props.row.original.current_state
+                    const action_taken = props.row.original.action_taken
                     return (
                             <div className='whitespace-nowrap'>
-                                {current_state === 'pending for approval' && <p className='stamp is-waiting'>Waiting approval</p>}
+                                {action_taken === "Rejected With Modification" ? (
+                                    <p className='stamp is-rejected'>{action_taken}</p>
+                                ) : current_state === 'pending for approval' ? (
+                                    <p className='stamp is-waiting'>Waiting approval</p>
+                                ) : (
+                                    <p className='stamp is-default'>No action</p> // You can customize this default value
+                                )}
+                                                
                             </div>
                     )
                 }

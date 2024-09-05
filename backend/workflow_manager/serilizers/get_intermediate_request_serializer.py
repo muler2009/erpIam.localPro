@@ -13,10 +13,12 @@ class ApprovalStageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApprovalStageModel
         fields = [
-            'request', 'stage_name' 
+            'request', 
+            'stage_name' 
             'stage_level,' 
             'role',
             'transition',
+            
           
         ]
 
@@ -25,12 +27,15 @@ class GetIntermediateRequestModelSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
     role = serializers.SerializerMethodField()
     current_state = serializers.SerializerMethodField()
+  
 
     def get_role(self, obj):
         return obj.role.role_name if obj.role and obj.role.role_name else None
     
     def get_user(self, obj):
         return obj.user.username if obj.user and obj.user.username else None
+    
+   
     
     def get_current_state(self, obj):
         # Check if current_state exists before accessing its attributes
@@ -48,6 +53,7 @@ class GetIntermediateRequestModelSerializer(serializers.ModelSerializer):
             'request_recieved_at',
             'request_updated_at',
             'current_state',
+            'stage'
         ]
 
         

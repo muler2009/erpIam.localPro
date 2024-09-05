@@ -61,6 +61,7 @@ const useRequestColumns = () => {
                     )
                 }
             }),
+            
             requestColumnHandler.accessor(row => row.current_state, {
                 id: "Requesting Type",
                 header: () => <span>Status</span>,

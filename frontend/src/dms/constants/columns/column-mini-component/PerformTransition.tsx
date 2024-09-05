@@ -12,6 +12,8 @@ import { IoCloseSharp } from "react-icons/io5";
 interface SendRequestCellProps {
     rowData: IntermediateAPIResponse;
     approvalStatus: string | undefined;
+    comments: string | undefined;
+
 }
 
 const statusToActionMap: Record<string, string> = {
@@ -22,7 +24,7 @@ const statusToActionMap: Record<string, string> = {
     "Submit": 'submit'
 };
 
-const PerformTransition = ({ rowData, approvalStatus }: SendRequestCellProps) => {
+const PerformTransition = ({ rowData, approvalStatus, comments }: SendRequestCellProps) => {
 
     // const [confirm, setConfirm] = useState<boolean>(false)
     // const [deleteInstance, setDeleteInstance] = useState<RequestColumnInterface | null>(null)
@@ -32,12 +34,20 @@ const PerformTransition = ({ rowData, approvalStatus }: SendRequestCellProps) =>
     const [deleteUnapprovedRequest] = useDeleteUnapprovedRequestMutation()
 
     const onTransitionRequestSend = async() => {
+       
         const status = approvalStatus ?? "Waiting for Approval"; // Default to "Waiting for Approval"
         const actionName = statusToActionMap[status];
-        if(actionName && rowData.request?.request_id){
+        // const comments = statusToActionMap[status]
+        if(actionName && rowData.request?.request_id && comments ){
             const formData = new FormData();
             formData.append('request_id', rowData.request?.request_id);
             formData.append('action_name', actionName);
+          
+            // Append the comment to the form data
+            // const comments = rowData.comments || "No comment provided"; // Add default if no comment exists
+            // formData.append('comment', comments);
+            formData.append('comments', comments); 
+
             if (rowData.request?.file_for_approval) {
                 formData.append('file_for_approval', rowData.request?.file_for_approval);
             }
@@ -48,7 +58,9 @@ const PerformTransition = ({ rowData, approvalStatus }: SendRequestCellProps) =>
             } catch (error) {
                 console.log('Request failed:', error);
             }
+            console.log(formData)
         }
+
         
     }
 

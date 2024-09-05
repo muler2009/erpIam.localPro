@@ -66,23 +66,29 @@ class GetRequestsReceivedForApprovalRequestHandler(generics.GenericAPIView):
         if not state_name:
             raise EmptyExceptionHandler(message="State name parameter missing", error_type="MISSING_STATE_NAME")
 
-        pending_state = WorkFlowStateModel.objects.get(state_name=state_name)
+        # Get the pending state for the current workflow state
+        pending_state = get_object_or_404(WorkFlowStateModel, state_name=state_name)
+
+        # Get the roles associated with the current user
         user_roles = user.roles.all().values_list('role_name', flat=True)
 
-        # Fetch requests where the current stage is pending and was previously approved by the user
-        pending_or_rejected_requests = IntermediateRequestModel.objects.filter(
+        if not user_roles:
+            raise EmptyExceptionHandler(message="User roles not found", error_type="NO_ROLES")
+
+        # Fetch requests where the current stage is pending for the user's role
+        pending_requests = IntermediateRequestModel.objects.filter(
             request__current_state=pending_state,
             request__current_stage__role__role_name__in=user_roles,
-            # user=user
-            # request__previous_stage=user  # assuming `approved_by` is a field in `previous_stage`
-        ).select_related('request')
+            # user=user,
+            
+        ).select_related('request', 'request__current_stage').order_by('request_id' ,'-request_updated_at')
 
-        if not pending_or_rejected_requests.exists():
-            raise EmptyExceptionHandler(message="No Pending or Rejected Requests", error_type="NO_PENDING_OR_REJECTED")
+        if not pending_requests.exists():
+            raise EmptyExceptionHandler(message="No Pending Requests Found", error_type="NO_PENDING_REQUESTS")
 
-        # Manually deduplicate the requests
+        # Deduplicate the requests based on `request_id`
         unique_requests = {}
-        for request_instance in pending_or_rejected_requests:
+        for request_instance in pending_requests:
             request_id = request_instance.request.request_id
             if request_id not in unique_requests:
                 unique_requests[request_id] = request_instance

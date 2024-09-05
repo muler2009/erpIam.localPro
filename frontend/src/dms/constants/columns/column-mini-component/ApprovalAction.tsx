@@ -23,11 +23,14 @@ const ApprovalAction = ({open, handleIsOpenCloseMenuModal, requestData} : Approv
 
     const [approvalStatus, setApprovalStatus] = useState<Record<string | number, string>>({});
     const [openPdfs, setOpenPdfs] = useState<boolean>(false)
+    const [comments, setComments] = useState<string>()
 
     const handleApprovalChange = (rowId: string | number, status: string) => {
         setApprovalStatus(prev => ({ ...prev, [rowId]: status }));
     };
     const date = requestData.request?.request_sent_at || new Date()
+
+  
   return (
     open ? (
         <ModalWrapper>
@@ -88,10 +91,12 @@ const ApprovalAction = ({open, handleIsOpenCloseMenuModal, requestData} : Approv
                                 <TextInput 
                                     type='text'
                                     placeholder='Comment while approval'
-                                    name='dec'
+                                    name='comments'
                                     className="input-md text-sm"
                                     rows={5}
                                     desc='optional'
+                                    value={comments}
+                                    onChange={(event: any) => setComments(event.target.value)}
 
                                 />
                             </FlexBoxInner>
@@ -106,11 +111,13 @@ const ApprovalAction = ({open, handleIsOpenCloseMenuModal, requestData} : Approv
                                     onApprovalChange={handleApprovalChange}
                                     currentStatus={approvalStatus[requestData.request?.request_id] }
                                     rowData={requestData}
+                                    
                                 />
                                 
                                 <PerformTransition 
                                     rowData={requestData} 
                                     approvalStatus={approvalStatus[requestData.request?.request_id] }
+                                    comments={comments}
                                     
                                  />
 
