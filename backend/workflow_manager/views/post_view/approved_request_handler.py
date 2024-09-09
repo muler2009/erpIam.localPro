@@ -33,7 +33,7 @@ class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
         action_name = request.data.get('action_name')
 
         if not request_id or not action_name:
-            raise PostExceptionHandler({"detail": "Request ID and action name are required."}, status=status.HTTP_400_BAD_REQUEST)
+            raise PostExceptionHandler("Request ID and action name are required.", error_type="invalid_data", status_code=400)
 
         try:
             unapproved_request = UnApprovedRequestByOwnerModel.objects.get(request_id=request_id)
@@ -45,12 +45,12 @@ class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
         except WorkFlowActionsModel.DoesNotExist:
             return Response({"detail": f"Action '{action_name}' not found."}, status=status.HTTP_404_NOT_FOUND)
 
-        try:
-            transition = WorkFlowTransitionModel.objects.get(
-                from_state=unapproved_request.approval_status,
-                action_name=action
-            )
-        except WorkFlowTransitionModel.DoesNotExist:
+        transition = WorkFlowTransitionModel.objects.filter(
+            from_state=unapproved_request.approval_status,
+            action_name=action
+        ).first()
+
+        if not transition:
             return Response({"detail": "Transition not allowed for this action."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Perform the actual transition
@@ -60,7 +60,6 @@ class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
         approved_request = ApprovedRequestByRequestOwnerModel.objects.create(
             title=unapproved_request.title,
             requesting_user=unapproved_request.requesting_user,
-            # request_assigned_to_user=unapproved_request.request_assigned_to_user,
             request_type=unapproved_request.request_type,
             current_state=transition.to_state,  # Set the state from transition
             file_for_approval=unapproved_request.file_for_approval
@@ -69,13 +68,13 @@ class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
         # Save the Approved request
         approved_request.save()
 
-         # Create or update an entry in the IntermediateRequestModel
-        intermediate_request = IntermediateRequestModel.objects.create(
+        # Create or update an entry in the IntermediateRequestModel
+        IntermediateRequestModel.objects.create(
             request=approved_request,
             user=request.user,
             current_state=transition.to_state,
             stage_name='Initial Approval',  # Set the appropriate stage name
-            role=request.user.roles.first(),  # Assume the first role of the user is the one acting
+            role=request.user.roles.first() if request.user.roles.exists() else None,  # Handle case where no roles exist
             action_taken=action_name,
             comments=request.data.get('comments', '')
         )

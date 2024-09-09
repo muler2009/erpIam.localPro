@@ -185,9 +185,9 @@ AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
 AUTH_LDAP_GROUP_TYPE = PosixGroupType()
 
 AUTH_LDAP_REQUIRE_GROUP = (
-    LDAPGroupQuery("cn=active,ou=groups,ou=iam,dc=erpIam,dc=local")
+    LDAPGroupQuery("cn=client,ou=groups,ou=iam,dc=erpIam,dc=local")
     | LDAPGroupQuery("cn=admin,ou=groups,ou=iam,dc=erpIam,dc=local") 
-    | LDAPGroupQuery("ou=admin,dc=erpIam,dc=local")
+    | LDAPGroupQuery("cn=directors,ou=groups,ou=iam,dc=erpIam,dc=local")
 ) & ~LDAPGroupQuery("cn=disabled,ou=groups,ou=groups,ou=iam,dc=erpIam,dc=local") 
 
 # LDAP attribute mappings

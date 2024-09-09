@@ -43,7 +43,7 @@ export const FolderExplorerProvider = ({ folder_data, children }: { folder_data:
     if ('subfolder' in item) {
       setCurrentPath([...currentPath, item.folder_identifier]);
     }
-    setSelectedItem('folder_identifier' in item ? item.folder_identifier : item.uploaded_document_id);
+    setSelectedItem('folder_identifier' in item ? item.folder_identifier : item.document_id);
   };
 
   const handleBackClick = () => {

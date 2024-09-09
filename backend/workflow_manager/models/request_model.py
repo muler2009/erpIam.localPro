@@ -5,7 +5,7 @@ from iam.models import UserAccountsModel
 from .workflow_state_model import WorkFlowStateModel
 from .workflow_protocol_model import WorkFlowProtocolModel
 from .workflow_action_model import WorkFlowActionsModel
-from dmsmodule.file_mangement.models.document_uploads_models import UploadedDocumentModel
+from dmsmodule.file_mangement.models.document_uploads_models import DocumentVersion
 
 
 class RequestInWorkFlowModel(models.Model):
@@ -13,7 +13,7 @@ class RequestInWorkFlowModel(models.Model):
     title = models.CharField(max_length=150, null=False, blank=False)
     request_sent_at = models.DateTimeField(auto_now_add=True)
     request_updated_at = models.DateTimeField(auto_now=True)
-    file_for_approval = models.ForeignKey(UploadedDocumentModel, on_delete=models.SET_NULL, null=True, blank=True)
+    file_for_approval = models.ForeignKey(DocumentVersion, on_delete=models.SET_NULL, null=True, blank=True)
     current_stage = models.ForeignKey('ApprovalStageModel', on_delete=models.SET_NULL, null=True, blank=True)
     approved_by = models.ForeignKey(UserAccountsModel, on_delete=models.CASCADE, null=True, blank=True )
    

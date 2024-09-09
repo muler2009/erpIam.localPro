@@ -25,7 +25,7 @@ const useFolderExplorerActions = (folder_data: FolderDataInterface) => {
       setCurrentPath([...currentPath, item.folder_name]);
       console.log('handleItemClick - currentPath:', currentPath);
     }
-    setSelectedItem('folder_identifier' in item ? item.folder_name : item.uploaded_document_name);
+    setSelectedItem('folder_identifier' in item ? item.folder_name : item.document_name);
   };
 
   // const handleBackClick = () => {

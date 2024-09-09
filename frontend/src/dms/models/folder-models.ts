@@ -41,8 +41,8 @@ export interface FolderAPIResponseInterface {
 }
 
 export interface UploadedDocumentInterface {
-    uploaded_document_id: string;
-    uploaded_document_name: string;
+    document_id: string;
+    document_name: string;
     uploaded_file?: string; 
     file_url?: string;
     uploaded_file_date?: string;

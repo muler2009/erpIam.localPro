@@ -6,7 +6,7 @@ import { FlexBox, FlexBoxInner } from '../../../../components/common/StyledCompo
 const RequestDashboard = () => {
   return (
    <FlexBox className='h-full'>
-      <UnApprovedByOwner />
+      {/* <UnApprovedByOwner /> */}
       <RequestTabNavigation /> 
    </FlexBox>
   

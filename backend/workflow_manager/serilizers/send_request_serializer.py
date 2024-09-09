@@ -4,7 +4,7 @@ from workflow_manager.models.request_model import RequestInWorkFlowModel, UnAppr
 from iam.models import UserAccountsModel
 from workflow_manager.models.workflow_state_model import WorkFlowStateModel
 from workflow_manager.models.workflow_protocol_model import WorkFlowProtocolModel
-from dmsmodule.file_mangement.models.document_uploads_models import UploadedDocumentModel
+from dmsmodule.file_mangement.models.document_uploads_models import DocumentVersion
 from dmsmodule.helper.file_extension_validator import FileExtensionValidator
 
 class RequestSendSerializer(serializers.ModelSerializer):
@@ -40,7 +40,7 @@ class RequestSendSerializer(serializers.ModelSerializer):
 
     def get_file_name(self, obj):
         if obj.file_for_approval:
-            return obj.file_for_approval.uploaded_document_name
+            return obj.file_for_approval.document_name
         return None
 
     def create(self, validated_data):
@@ -49,8 +49,8 @@ class RequestSendSerializer(serializers.ModelSerializer):
 
         if file_for_approval:
             # Directly use file_for_approval to get the file attributes
-            file_instance = UploadedDocumentModel.objects.create(
-                uploaded_document_name=file_for_approval.name,  # Use file name here
+            file_instance = DocumentVersion.objects.create(
+                document_name=file_for_approval.name,  # Use file name here
                 uploaded_file=file_for_approval
             )
             validated_data['file_for_approval'] = file_instance
@@ -132,14 +132,5 @@ class ApprovedRequestsByRequestSerializer(RequestSendSerializer):
         return super().to_internal_value(data)
 
      
-    
-    # def create(self, validated_data):
-    #     request_type = validated_data.pop('request_type', None)
-    #     if request_type:
-    #         validated_data['request_type'] = WorkFlowProtocolModel.objects.get(protocol_name=request_type)
-        
-    #     approved_instance = super().create(validated_data)
-    #     return approved_instance
-
 
    

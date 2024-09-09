@@ -3,7 +3,7 @@ import os
 from workflow_manager.models.request_model import RequestInWorkFlowModel, ApprovedRequestByRequestOwnerModel, UnApprovedRequestByOwnerModel, ApprovedRequestsModel
 from workflow_manager.models.workflow_protocol_model import WorkFlowProtocolModel
 from dmsmodule.helper.file_extension_validator import FileExtensionValidator
-from dmsmodule.file_mangement.models.document_uploads_models import UploadedDocumentModel
+from dmsmodule.file_mangement.models.document_uploads_models import DocumentVersion
 
    
 class GetRequestInWorkFlowModelSerializer(serializers.ModelSerializer):
@@ -26,7 +26,7 @@ class GetRequestInWorkFlowModelSerializer(serializers.ModelSerializer):
 
     def get_file_name(self, obj):
         if obj.file_for_approval:
-            return obj.file_for_approval.uploaded_document_name
+            return obj.file_for_approval.document_name
         return None
 
 

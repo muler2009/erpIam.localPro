@@ -41,13 +41,12 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
   );
 
   return (
-    <FlexBox className="py-1">
-     
-      <FlexBoxInner className="pl-5" >
+    <FlexBox className="">
+      <FlexBoxInner className="pl-5 " >
             {
               listItem.path
               ? ( 
-                  <Link to={listItem.path} className="flex items-center space-x-2 cursor-pointer font-Poppins text-sm px-3" onClick={() => handleToggleChildren(listItem.label)}>
+                  <Link to={listItem.path} className="flex items-center space-x-2 py-2 cursor-pointer font-Poppins text-sm px-3 hover:bg-gray-100" onClick={() => handleToggleChildren(listItem.label)}>
                     {
                       listItem.label === 'Dashboard' ? 
                         (
@@ -57,9 +56,24 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
                           listItem && listItem.children && listItem.children.length ? (
                                 <div className="">
                                    {
-                                      displayChildrens[listItem.label]  
-                                        ? <GiIcons.GiOpenFolder size={17} className="text-gray-600" /> 
-                                        : <PiIcons.PiFolderSimplePlusFill size={17} className="text-gray-600" />
+                                      displayChildrens[listItem.label] 
+                                        ? (
+                                            <>
+                                              {
+                                                listItem.icon ? (<>{listItem.icon}</>) : <GiIcons.GiOpenFolder size={17} className="text-gray-600" />
+
+                                              }
+                                            </>
+                                          )
+                                        : (
+                                            <>
+                                            {
+                                              listItem.icon ? (<>{listItem.icon}</>) : <PiIcons.PiFolderSimplePlusFill size={17} className="text-gray-600" />
+
+                                            }
+                                          </>
+                                        )
+                                        
                                     }
                                 </div>
                             ): (
@@ -82,12 +96,9 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
             {
               listItem.children && listItem.children.length > 0 && displayChildrens[listItem.label] && (
                 <SideMenuList list={listItem.children} />
-              
               )
             }
-      </FlexBoxInner>
-        
-      
+      </FlexBoxInner>      
     </FlexBox>
   );
 };

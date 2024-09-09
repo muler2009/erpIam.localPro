@@ -57,7 +57,7 @@ const useFileColumns = () => {
                         <FlexBox className="flex space-x-2">
                              <BsFiletypePdf size={40} color='green' />
                              <FlexBoxInner className="flex flex-col items-start justify-center">
-                                <Text className="font-semibold"> {row.original.uploaded_document_name}</Text>
+                                <Text className="font-semibold"> {row.original.document_name}</Text>
                                 <P className="text-[10px] text-[#333] text-opacity-50">12kb</P>
 
                              </FlexBoxInner>

@@ -77,11 +77,11 @@ const FolderContent = ({ folder_data, handleItemClick, openStates, toggleItem, h
                     {/* Display files */}
                     {Array.isArray(item.uploaded_file) && item.uploaded_file.length > 0 && (
                         item.uploaded_file.map(file => (
-                            <FlexBox className='w-20 h-20' key={file.uploaded_document_id}>
+                            <FlexBox className='w-20 h-20' key={file.document_id}>
                                 <FlexBoxInner className='flex flex-col justify-center items-center pb-5'>
                                     <BsFiletypePdf size={60} color='#ff4d4d' />
                                     <Text className='text-[#333] text-[12px] whitespace-pre-wrap break-words w-[100px] text-center'>
-                                        {file.uploaded_document_name}
+                                        {file.document_name}
                                     </Text>
                                 </FlexBoxInner>
                             </FlexBox>

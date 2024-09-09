@@ -12,16 +12,16 @@ class Command(BaseCommand):
             group_name="active",
             group_posix_Id=0,
             group_abbreviation="ACD001",
-            group_description="Default Users members"
+            group_description="Default Users Group"
         )
         active_group.members.set([])  # Assign members if any
 
         # Create 'student' group
         student_group = PosixGroupUserModel.objects.create(
-            group_name="student",
+            group_name="directors",
             group_posix_Id=0,
-            group_abbreviation="STD001",
-            group_description="Student Users members"
+            group_abbreviation="DI001",
+            group_description="Directors Users Groups"
         )
         student_group.members.set([])
 
@@ -36,10 +36,10 @@ class Command(BaseCommand):
 
         # Create 'Directors' group
         directors_group = PosixGroupUserModel.objects.create(
-            group_name="Directors",
+            group_name="client",
             group_posix_Id=0,
-            group_abbreviation="DI001",
-            group_description="Directors Users members"
+            group_abbreviation="CL001",
+            group_description="Client Users members"
         )
         directors_group.members.set([])
 

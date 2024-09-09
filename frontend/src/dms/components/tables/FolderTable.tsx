@@ -135,7 +135,7 @@ const FolderTable = ({data, columns}: FolderTableProps) => {
                                                                                         <aside className="pr-4 flex items-center">
                                                                                             <FaFilePdf />
                                                                                             <span className="pl-4">
-                                                                                                {file.uploaded_document_name}
+                                                                                                {file.document_name}
                                                                                             </span>
                                                                                         </aside>
                                                                                        

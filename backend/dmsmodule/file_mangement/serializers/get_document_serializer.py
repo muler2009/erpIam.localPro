@@ -1,13 +1,22 @@
 from rest_framework import serializers
-from dmsmodule.file_mangement.models.document_uploads_models import UploadedDocumentModel
+from dmsmodule.file_mangement.models.document_uploads_models import DocumentVersion
 
 
 class GetDocumentSerializer(serializers.ModelSerializer): 
     file_url = serializers.SerializerMethodField()
    
     class Meta:
-        model = UploadedDocumentModel
-        fields = ['uploaded_document_id','uploaded_document_name', 'uploaded_file', 'file_url', 'uploaded_file_date', 'updated_file_date', 'folder']
+        model = DocumentVersion
+        fields = [
+            'document_id',
+            'document_name', 
+            'uploaded_file', 
+            'file_url',
+            'uploaded_file_date', 
+            'updated_file_date', 
+            'folder', 
+            'version_number', 
+        ]
 
     def get_file_url(self, obj):
         request = self.context.get('request')

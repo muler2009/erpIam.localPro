@@ -3,4 +3,5 @@ export interface NavigationMenuProps {
     icon?: React.ReactElement;
     path?: string;
     miniWindow?: boolean;
+    notify?: any;
 }

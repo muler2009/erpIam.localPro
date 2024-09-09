@@ -1,17 +1,18 @@
 import React, { useMemo } from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
-import { RequestColumnInterface, RequestDataInterface } from '../../models/request-model'
+import { RequestDataInterface } from '../../models/request-model'
 import * as BiIcons from 'react-icons/bi'
-import { Text } from '../../../components/common/StyledComponent'
-import { HiCheckCircle } from "react-icons/hi2";
-import { MdPendingActions, MdCancel } from "react-icons/md";
-import { OpenFileForReview } from './column-mini-component'
+import { FlexBox, Text } from '../../../components/common/StyledComponent'
 import { ReadFileForReview } from './column-mini-component/OpenFileForReview'
+import useUtils from '../../hooks/useUtils'
+import DocumentMetaData from '../../views/document-management/modals/DocumentMetaData'
+import { ApprovalActionCell } from './column-mini-component'
+import * as IoIcons from "react-icons/io";
+import BottomTooltip from '../../../components/common/BottomTooltip'
 
 const requestColumnHandler = createColumnHelper<RequestDataInterface>()
 
 const useRequestColumns = () => {
-  
     const requestColumn = useMemo(
         () => [
             requestColumnHandler.display({
@@ -90,9 +91,12 @@ const useRequestColumns = () => {
             requestColumnHandler.display({
                 id: "status",
                 header: () => <span className="flex justify-end pr-10"><BiIcons.BiDotsVerticalRounded /></span>,
-                cell: props => {
+                cell: ({row}) => {
+                    const rowMetaData = row.original
                     return(
-                        <div className=''>Metadata</div>
+                       <Metadata 
+                            rowMetaData={rowMetaData}
+                       />
                     )
                 }
             }),
@@ -101,6 +105,26 @@ const useRequestColumns = () => {
     )
     
     return {requestColumn}
+}
+
+export const Metadata = ({rowMetaData}: {rowMetaData: RequestDataInterface}) => {
+    const { handleIsOpenCloseMenuModal, open} = useUtils() 
+    return(
+        <>
+            <FlexBox className='' onClick={handleIsOpenCloseMenuModal}>
+                <BottomTooltip content='See details'>
+                    <IoIcons.IoIosEye size={20} />
+                </BottomTooltip>
+            </FlexBox>
+            <DocumentMetaData
+                open={open} 
+                title={`Metadata`}
+                handleIsOpenCloseMenuModal={handleIsOpenCloseMenuModal}
+                rowMetaData={rowMetaData}
+            />
+        
+        </>
+    )
 }
 
 export default useRequestColumns

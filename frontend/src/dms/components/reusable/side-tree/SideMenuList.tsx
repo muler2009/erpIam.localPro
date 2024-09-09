@@ -9,7 +9,7 @@ interface SideMenuListProps {
 
 const SideMenuList = ({ list = [] }: SideMenuListProps) => {
   return (
-    <FlexBox className="flex flex-col gap-1 py-1">
+    <FlexBox className="flex flex-col">
       {list.length > 0
         ? list.map((listItem, index) => (
             <SideMenuItem key={index} listItem={listItem} />

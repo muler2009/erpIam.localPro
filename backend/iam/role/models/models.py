@@ -11,7 +11,7 @@ class IamRoleModel(models.Model):
         Iactive = "inactive", "inactive"
         Deprecated = "deprecated", "deprecated"
       
-    role_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    role_id = models.UUIDField(db_index=True, default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     role_name = models.CharField(max_length=100)
     users = models.ManyToManyField(UserAccountsModel, related_name='roles')
     role_description = models.TextField(max_length=255, null=True, blank=True)

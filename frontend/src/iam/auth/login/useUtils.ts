@@ -6,8 +6,8 @@ interface GroupBasedPaths {
 
 const avaialabelGroups: GroupBasedPaths = {
   admin: '/iam',
-  active: '/dms',
-  director: '/dms',
+  client: '/client',
+  directors: '/dms',
   default: 'defaultboard'
 }
 

@@ -14,8 +14,5 @@ class FileExtensionValidator:
             raise PostExceptionHandler(message="Unsupported File format")
         
     def deconstruct(self):
-        return (
-            'dmsmodule.helper.file_extension_validator.FileExtensionValidator',
-            (),
-            {'extensions': self.extensions},
-        )
+        return ('dmsmodule.helper.file_extension_validator.FileExtensionValidator',(),{'extensions': self.extensions},
+    )

@@ -38,15 +38,13 @@ const PerformTransition = ({ rowData, approvalStatus, comments }: SendRequestCel
         const status = approvalStatus ?? "Waiting for Approval"; // Default to "Waiting for Approval"
         const actionName = statusToActionMap[status];
         // const comments = statusToActionMap[status]
-        if(actionName && rowData.request?.request_id && comments ){
+        if(actionName && rowData.request?.request_id ){
             const formData = new FormData();
+            // check if there is comment if not empty send comment vale ele the default
+            const defaultComments = comments && comments.trim() !== '' ? comments : 'No comments provided'; 
             formData.append('request_id', rowData.request?.request_id);
             formData.append('action_name', actionName);
-          
-            // Append the comment to the form data
-            // const comments = rowData.comments || "No comment provided"; // Add default if no comment exists
-            // formData.append('comment', comments);
-            formData.append('comments', comments); 
+            formData.append('comments', defaultComments); 
 
             if (rowData.request?.file_for_approval) {
                 formData.append('file_for_approval', rowData.request?.file_for_approval);

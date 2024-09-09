@@ -1,7 +1,4 @@
 import React from "react";
-
-
-
 export interface FileAPIResponseInterface {
     status_code?: number;
     status_text?: string;

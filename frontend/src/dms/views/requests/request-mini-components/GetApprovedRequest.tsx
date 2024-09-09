@@ -15,7 +15,6 @@ const GetApprovedRequest = () => {
       {
         data?.length ? (
           <FlexBoxInner className='request'>
-            
             <SharedTable 
               data={data || []}
               columns={requestColumn}

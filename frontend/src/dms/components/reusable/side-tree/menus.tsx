@@ -4,19 +4,22 @@ import * as IoIcons from "react-icons/io5";
 import * as MdIcons from "react-icons/md";
 import * as FaIcons from "react-icons/fa";
 import * as Fa6Icons from "react-icons/fa6";
+import * as BsIcons from "react-icons/bs";
+
 
 export const sidear_link: MenuItemInterface[] = [
     {
-      label: "All Files",
+      label: "Dashboard",
       path: ".",
       icon: <Fa6Icons.FaRegFolder size={17} />
     },
     {
-      label: "My Devices",
+      label: "My Drive",
       path: ".",
+      icon: <FaIcons.FaGoogleDrive />,
       children: [
         {
-          label: "Library",
+          label: "Files and Folders",
           path: ".",
           children: [
             {
@@ -66,16 +69,18 @@ export const sidear_link: MenuItemInterface[] = [
       ]
     },
     {
-      label: "Work Flow",
-      path: "work-flow",
+      label: "Requests",
+      path: "request",
       children: [
         {
           label: "Requests",
-          path: "request"
+          path: "request",
+          icon: <FaIcons.FaGoogleDrive />,
         },
         {
-           label: "Approvals",
-          path: "requested-approvals"
+          label: "Sent Requests",
+          path: "requested-sent",
+          icon: <BsIcons.BsSendCheckFill />
         }
       ]
     } ,

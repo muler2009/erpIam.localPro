@@ -15,6 +15,12 @@ import RequestList from '../views/requests/request-mini-components/RequestList';
 import RequestTabNavigation from '../views/requests/request-mini-components/RequestTabNavigation';
 import RequestDashboard from '../views/requests/request-mini-components/RequestDashboard';
 import AllFileandFolderView from '../views/document-management/folders/folder-mini-reusable-components/AllFileandFolderView';
+import RequestSent from '../views/requests/request-mini-components/RequestSent';
+import DMSReuesterLayout from '../layout/DMSReuesterLayout';
+import ClientDashboard from '../views/requests/client-mini-components/ClientDashboard';
+import ClientPendingRequest from '../views/requests/client-mini-components/ClientPendingRequest';
+import { GetApprovedRequest } from '../views/requests/request-mini-components';
+import ClientApproved from '../views/requests/client-mini-components/ClientApproved';
 
 
 
@@ -44,12 +50,35 @@ const Routes = () => {
                 { path: '', element: <RequestDashboard /> },
                 { path: 'test_request', element: <h1>Test Request</h1> },
             ]
-         },
-
+        },
+        { path: 'requested-sent', element: <RequestSent /> },
+        { path: 'client', element: <RequestSent /> },
     ];
 
     return useRoutes(dmsRoutes);
 };
+
+
+
+export const ClientRoutesConf = () => {
+    const clientRoutes: (Route | RouteWithChildren)[] = [
+        { path: '/', element: <ClientDashboard /> },
+        { path: '_approved', element: <ClientApproved /> },
+
+        { path: '_pending', element: <ClientPendingRequest /> },
+
+    ];
+
+    return useRoutes(clientRoutes)
+}
+
+
+
+
+
+
+
+
 
 export const DocumentRoutes = () => {
     const routes: (Route | RouteWithChildren)[] = [

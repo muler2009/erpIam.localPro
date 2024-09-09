@@ -25,7 +25,11 @@ const RequestList = () => {
                 </div>
               ) : (
                
-                <FlexBox className='flex justify-center items-center pt-5'>
+                <FlexBox className='flex flex-col justify-center items-center request border h-full'>
+                  <SharedTable
+                        columns={requestColumn}
+                        data={data || []}                        
+                    />
                   <Text className='text-[#333] text-opacity-70 font-semibold'> No Pending requests</Text>
               </FlexBox>
               )

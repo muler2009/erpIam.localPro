@@ -246,13 +246,6 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
                 current_state=pending
             )
 
-            # NotificationModel.objects.create(
-            #     notification_recepient=next_stage.user,
-            #     notification_message=f"Request '{approved_request.title}' has been rejected and sent back for your review.",
-            #     notification_type="In_app",
-            #     notification_metadata={'request': str(approved_request.request_id)}
-            # )
-
         else:
             approved_request.current_stage = None
             approved_request.current_state = WorkFlowStateModel.objects.get(state_name="approved")  # Indicate that the process is completed
