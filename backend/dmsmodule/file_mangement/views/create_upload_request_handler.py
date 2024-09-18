@@ -1,9 +1,6 @@
 from rest_framework import views, status, generics
 from rest_framework.response import Response
-from dmsmodule.file_mangement.serializers.get_document_serializer import GetDocumentSerializer
-from dmsmodule.file_mangement.serializers.create_uploads_serialzier import DocumentVersionSerializer 
-
-
+from dmsmodule.file_mangement.serializers.document_version_serialzier import DocumentVersionSerializer 
 
 class UploadDocumentView(generics.GenericAPIView):
     def post(self, request):

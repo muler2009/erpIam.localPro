@@ -7,12 +7,14 @@ import * as CiIcons from 'react-icons/ci'
 import ConfirmDelete from '../../../../components/confirmations/ConfirmDelete';
 import { PiCheckBold } from "react-icons/pi";
 import { IoCloseSharp } from "react-icons/io5";
+import useUtils from '../../../hooks/useUtils';
 
 
 interface SendRequestCellProps {
     rowData: IntermediateAPIResponse;
     approvalStatus: string | undefined;
     comments: string | undefined;
+    handleIsOpenCloseMenuModal: () => void;
 
 }
 
@@ -24,14 +26,11 @@ const statusToActionMap: Record<string, string> = {
     "Submit": 'submit'
 };
 
-const PerformTransition = ({ rowData, approvalStatus, comments }: SendRequestCellProps) => {
-
-    // const [confirm, setConfirm] = useState<boolean>(false)
-    // const [deleteInstance, setDeleteInstance] = useState<RequestColumnInterface | null>(null)
-    
+const PerformTransition = ({ rowData, approvalStatus, comments, handleIsOpenCloseMenuModal }: SendRequestCellProps) => {  
 
     const [performTransitionRequest] = usePerformTransitionRequestMutation()
     const [deleteUnapprovedRequest] = useDeleteUnapprovedRequestMutation()
+    const [localStatus, setLocalStaus] = useState(approvalStatus)
 
     const onTransitionRequestSend = async() => {
        
@@ -52,31 +51,16 @@ const PerformTransition = ({ rowData, approvalStatus, comments }: SendRequestCel
 
             try {
                 const response = await performTransitionRequest(formData);
-                console.log('Request successful:', response);
+                if (response.data?.status_code === 201){
+                    handleIsOpenCloseMenuModal()
+                    setLocalStaus("")
+                }
             } catch (error) {
                 console.log('Request failed:', error);
             }
             console.log(formData)
-        }
-
-        
+        }        
     }
-
-
-    // const onDeleteUnapprovedRequest = ({deleteInstance}: any) => {
-    //     setDeleteInstance(deleteInstance)
-    //     setConfirm(prevState => !prevState)
-    //   }
-    
-    //   const onDeleteConfirmed = async() => {
-    //     try {
-    //       await deleteUnapprovedRequest(rowData.request_id)
-    //     }catch(error){
-    //       console.log(error)
-    //     }finally{
-    //       setConfirm(false)
-    //     }
-    //   }
 
     return (
         <FlexBox className=''>

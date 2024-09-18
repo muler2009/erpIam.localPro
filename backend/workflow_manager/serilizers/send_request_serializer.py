@@ -6,24 +6,23 @@ from workflow_manager.models.workflow_state_model import WorkFlowStateModel
 from workflow_manager.models.workflow_protocol_model import WorkFlowProtocolModel
 from dmsmodule.file_mangement.models.document_uploads_models import DocumentVersion
 from dmsmodule.helper.file_extension_validator import FileExtensionValidator
+from dmsmodule.file_mangement.serializers.document_version_serialzier import DocumentVersionSerializer
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 class RequestSendSerializer(serializers.ModelSerializer):
-    file_url = serializers.SerializerMethodField()
-    file_name = serializers.SerializerMethodField()
-    file_for_approval = serializers.FileField(write_only=True, required=False)
-
+  
     class Meta:
         # Use the specific model, not the abstract one
-        abstract = True
+        # abstract =True
+        model = UnApprovedRequestByOwnerModel
         fields = [
             'request_id', 
             'title', 
             'request_sent_at', 
             'request_updated_at', 
-            'file_for_approval', 
-            'file_url', 
-            'file_name',
-            
         ]
         
         extra_kwargs = {
@@ -32,31 +31,35 @@ class RequestSendSerializer(serializers.ModelSerializer):
             'request_updated_at': {'read_only': True}
         }
 
-    def get_file_url(self, obj):
-        request = self.context.get('request')
-        if request and obj.file_for_approval and hasattr(obj.file_for_approval.uploaded_file, 'url'):
-            return request.build_absolute_uri(obj.file_for_approval.uploaded_file.url)
-        return None
 
-    def get_file_name(self, obj):
-        if obj.file_for_approval:
-            return obj.file_for_approval.document_name
-        return None
+    
+    # def create(self, validated_data):
+    #     # Assuming the document version has already been created and passed into this method
+    #     document_version = validated_data.pop('file_for_approval', None)
 
-    def create(self, validated_data):
-        # Extract the file_for_approval directly from validated_data
-        file_for_approval = validated_data.pop('file_for_approval', None)
+    #     if document_version:
+    #         # Link the created DocumentVersion instance
+    #         validated_data['file_for_approval'] = document_version
 
-        if file_for_approval:
-            # Directly use file_for_approval to get the file attributes
-            file_instance = DocumentVersion.objects.create(
-                document_name=file_for_approval.name,  # Use file name here
-                uploaded_file=file_for_approval
-            )
-            validated_data['file_for_approval'] = file_instance
+    #     # Create the UnApprovedRequest instance
+    #     return super().create(validated_data)
 
-        # Create the request instance using the parent class's create method
-        return super().create(validated_data)
+    # def create(self, validated_data):
+    #     file_to_approval = validated_data.pop('file_for_approval', None)
+
+    #     if file_to_approval:
+    #         # Create the DocumentVersion instance
+    #         document_version = DocumentVersion.objects.create(
+    #             document_name=file_to_approval.name,
+    #             uploaded_file=file_to_approval,
+    #             version_number=1.0  # Set the version number
+    #         )
+    #         document_version.save()
+
+    #         validated_data['file_for_approval'] = document_version
+
+    #     # Create the UnApprovedRequest instance
+    #     return super().create(validated_data)
 
 
 class UnApprovedRequestSerializer(RequestSendSerializer):

@@ -32,7 +32,7 @@ const SelectComponent = ({label, icon, options=[], name, valueKey='id', labelKey
                 value={value}
                 onChange={onChange}        
             >
-                <option className='text-[#333] text-opacity-50'><p className='text-[#333] text-opacity-50'>--Select--</p></option>
+                <option className='text-[#333] text-opacity-50 bg-gray-100'><p className='text-[#333] text-opacity-50'>--Select {label}--</p></option>
                 {
                     options?.map((option, index) => (
                         <option className='text-[12px]' key={index}  value={(option as any)[labelKey]}>

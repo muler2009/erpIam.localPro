@@ -120,7 +120,7 @@ const SendRequest = ({handleIsOpenCloseMenuModal, title, open}: SendRequestModal
                                     </FlexBoxInner>
                                 </FlexBoxInner>
 
-                                <SelectComponent
+                                {/* <SelectComponent
                                     label='Approval assigned to:'
                                     options={users || []}
                                     valueKey='user_account_id'
@@ -128,7 +128,7 @@ const SendRequest = ({handleIsOpenCloseMenuModal, title, open}: SendRequestModal
                                     name='request_assigned_to_user'
                                     value={requestData?.request_assigned_to_user}
                                     onChange={handleRequestInputHandler}
-                                />
+                                /> */}
                                 <>
                                     <Input 
                                         label='Upload Document for Aprroval'

@@ -118,6 +118,7 @@ const ApprovalAction = ({open, handleIsOpenCloseMenuModal, requestData} : Approv
                                     rowData={requestData} 
                                     approvalStatus={approvalStatus[requestData.request?.request_id] }
                                     comments={comments}
+                                    handleIsOpenCloseMenuModal={handleIsOpenCloseMenuModal}
                                     
                                  />
 

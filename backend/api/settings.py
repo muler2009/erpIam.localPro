@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'dmsmodule',
     'dmsmodule.folder',
     'dmsmodule.file_mangement',
+    'dmsmodule.document_repository',
     'workflow_manager',  
     'notification',
 ]

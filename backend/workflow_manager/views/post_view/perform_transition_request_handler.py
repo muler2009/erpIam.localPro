@@ -176,7 +176,11 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
                     action_name=action_name
                 )
             else:
-                pass
+                self.handle_rejected_requests(
+                    approved_request=approved_request,
+                    current_stage=current_stage,
+                    comments=comments
+                )
 
         
         except PostExceptionHandler as exc:
@@ -258,7 +262,7 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
 
 
     def handle_rejected_requests(self, approved_request, current_stage, comments):
-        # Get the previous stage that approved this request
+        # Get the previous approval stage
         previous_approval = IntermediateRequestModel.objects.filter(
             request=approved_request,
             action_taken="approved"
@@ -266,18 +270,17 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
 
         if previous_approval:
             try:
-                # Retrieve the corresponding ApprovalStageModel instance
+                # Get the previous approval stage
                 previous_stage = ApprovalStageModel.objects.get(stage_name=previous_approval.stage_name, request=approved_request)
-                print(previous_stage)
             except ApprovalStageModel.DoesNotExist:
-                raise PostExceptionHandler(message="Approval Stage Doen't exist", error_type="DoesNotExist")
+                raise PostExceptionHandler(message="Approval Stage doesn't exist", error_type="DoesNotExist")
 
-            # Update the approved_request to point to the previous_stage
+            # Update the current request to reflect the rejection and revert to the previous stage
             approved_request.current_stage = previous_stage
             approved_request.current_state = WorkFlowStateModel.objects.get(state_name="pending for approval")
             approved_request.save()
 
-            # Keep the record in IntermediateRequestModel but mark it as rejected
+            # Mark the previous approval as rejected with comments
             previous_approval.action_taken = "rejected"
             previous_approval.comments = comments
             previous_approval.save()
@@ -289,14 +292,23 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
                 notification_type="In_app",
                 notification_metadata={'request': str(approved_request.request_id)}
             )
+
+            # Notify the initiator about the rejection and the user who rejected it
+            initiator = approved_request.requesting_user
+            NotificationModel.objects.create(
+                notification_recepient=initiator,
+                notification_message=f"Your request '{approved_request.title}' has been rejected by {previous_approval.user.username}.",
+                notification_type="In_app",
+                notification_metadata={'request': str(approved_request.request_id), 'rejected_by': previous_approval.user.username}
+            )
         else:
-            # If no previous approval is found, send rejection to initiator
+            # If no previous approval exists, handle the rejection and notify the initiator
             initiator = approved_request.requesting_user
             approved_request.current_stage = None
             approved_request.current_state = WorkFlowStateModel.objects.get(state_name="rejected")
             approved_request.save()
 
-            # Keep the record in IntermediateRequestModel
+            # Create a rejection record in IntermediateRequestModel
             IntermediateRequestModel.objects.create(
                 request=approved_request,
                 stage_name=current_stage.stage_name,
@@ -307,26 +319,13 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
                 current_state=approved_request.current_state,
             )
 
-            # Notify the initiator
+            # Notify the initiator about the rejection
             NotificationModel.objects.create(
                 notification_recepient=initiator,
                 notification_message=f"Your request '{approved_request.title}' has been rejected.",
                 notification_type="In_app",
                 notification_metadata={'request': str(approved_request.request_id)}
             )
-
-        
-        ApprovalStageModel.objects.filter(request=approved_request).delete()
-        # Prevent further rejection attempts on already rejected requests
-        rejected_request = IntermediateRequestModel.objects.filter(
-            request=approved_request,
-            action_taken="rejected"
-        ).exclude(request_id=previous_approval.intermediate_request_id).delete()
-
-        if not rejected_request:
-            raise PostExceptionHandler({'message': "Request rejected"})
-        
-        return rejected_request
 
     def handle_rejected_requests_for_modification(self, rejected_request, current_stage, comments, action_name):
         rejected_state = WorkFlowStateModel.objects.get(state_name="pending for approval")
@@ -493,11 +492,6 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
 #             file_for_approval=approved_request.file_for_approval
 #         )
 #         ApprovalStageModel.objects.filter(request=approved_request).delete()
-
-
-
-
-
 # try:
 #                # Retrieve the previous stage with the highest level below the current stage
 #                 logger.info(f"Current stage is : {current_stage.stage_level}")
