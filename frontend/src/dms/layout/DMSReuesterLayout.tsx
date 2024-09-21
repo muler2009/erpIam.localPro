@@ -9,7 +9,7 @@ const DMSReuesterLayout = () => {
       <header className='border-b shadow-sm bg-gray-50 font-Poppins sticky top-0 z-50'>
         <DocumentManagmentHeader />
       </header>
-      <main className='h-[90vh]'>
+      <main className='h-[90vh]  bg-white bg-opacity-50'>
         <ClientNavigation />
       </main>
       <footer className='grid content-center bottom-0'>

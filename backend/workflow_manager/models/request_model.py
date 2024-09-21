@@ -6,14 +6,15 @@ from .workflow_state_model import WorkFlowStateModel
 from .workflow_protocol_model import WorkFlowProtocolModel
 from .workflow_action_model import WorkFlowActionsModel
 from dmsmodule.file_mangement.models.document_uploads_models import DocumentVersion
+from dmsmodule.document_repository.models.document_version_control import DocumentVersionModel
 
 
-class RequestInWorkFlowModel(models.Model):
+class RequestModel(models.Model):
     request_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     title = models.CharField(max_length=150, null=False, blank=False)
     request_sent_at = models.DateTimeField(auto_now_add=True)
     request_updated_at = models.DateTimeField(auto_now=True)
-    file_for_approval = models.ForeignKey(DocumentVersion, on_delete=models.SET_NULL, null=True, blank=True)
+    file_for_approval = models.ForeignKey(DocumentVersionModel, on_delete=models.CASCADE)
     current_stage = models.ForeignKey('ApprovalStageModel', on_delete=models.SET_NULL, null=True, blank=True)
     approved_by = models.ForeignKey(UserAccountsModel, on_delete=models.CASCADE, null=True, blank=True )
    
@@ -22,13 +23,13 @@ class RequestInWorkFlowModel(models.Model):
 
 
 # A model to store  UnApprovedRequestByOwnerModel
-class UnApprovedRequestByOwnerModel(RequestInWorkFlowModel):
+class UnApprovedRequestByOwnerModel(RequestModel):
     '''
         A model to store unapproved request in the requesting user side 
     '''
     approval_status = models.ForeignKey(WorkFlowStateModel, on_delete=models.CASCADE, related_name='owner_approved', null=True, blank=True)
     requesting_user = models.ForeignKey(UserAccountsModel, on_delete=models.CASCADE, related_name='requests_unapproved')
-    request_assigned_to_user = models.ForeignKey(UserAccountsModel, on_delete=models.SET_NULL, null=True, blank=True, related_name='to_requests_unapproved')
+    request_assigned_to_user = models.ForeignKey(UserAccountsModel, on_delete=models.CASCADE, null=True, blank=True, related_name='to_requests_unapproved')
     request_type = models.ForeignKey(WorkFlowProtocolModel, on_delete=models.CASCADE, related_name='requests_unapproved')
 
     def __str__(self) -> str:
@@ -54,7 +55,7 @@ class UnApprovedRequestByOwnerModel(RequestInWorkFlowModel):
 
 
 # Model three --> for storing only approved request by the owner
-class ApprovedRequestByRequestOwnerModel(RequestInWorkFlowModel):
+class ApprovedRequestByRequestOwnerModel(RequestModel):
     '''
         A model to store approved request by the request initiator i.e requests in pending approval 
     '''
@@ -90,7 +91,7 @@ class ApprovedRequestByRequestOwnerModel(RequestInWorkFlowModel):
      
 
 
-class ApprovedRequestsModel(RequestInWorkFlowModel):
+class ApprovedRequestsModel(RequestModel):
     '''
         A model to store approved request in the requesting user side 
     '''

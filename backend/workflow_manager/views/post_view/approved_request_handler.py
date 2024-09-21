@@ -1,4 +1,4 @@
-from rest_framework import generics, status, permissions
+from rest_framework import generics, status, permissions, mixins, serializers
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -16,6 +16,9 @@ from ...serilizers.get_state_serializer import GetStateModelSerializer
 from ...models.approval_processes import ApprovalStageTemplateModel
 from ...models.intermediate_request import IntermediateRequestModel
 import logging
+from dmsmodule.document_repository.models.document_version_control import DocumentVersionModel
+from django.db import transaction
+from rest_framework.parsers import FormParser, MultiPartParser
 # from workflow_manager.models.workflow_action_model import WorkFlowActionsModel
 
 # Configure logging
@@ -24,6 +27,7 @@ logger = logging.getLogger(__name__)
 
 
 class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
+    # parser_classes = [MultiPartParser, FormParser]
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UnApprovedRequestSerializer
@@ -54,36 +58,43 @@ class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
             return Response({"detail": "Transition not allowed for this action."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Perform the actual transition
-        unapproved_request.approval_status = transition.to_state
+        # unapproved_request.approval_status = transition.to_state
 
-        # Create the Approved request
-        approved_request = ApprovedRequestByRequestOwnerModel.objects.create(
-            title=unapproved_request.title,
-            requesting_user=unapproved_request.requesting_user,
-            request_type=unapproved_request.request_type,
-            current_state=transition.to_state,  # Set the state from transition
-            file_for_approval=unapproved_request.file_for_approval
-        )
+         # Start a transaction to ensure atomic operations
+        with transaction.atomic():
+            unapproved_request.approval_status = transition.to_state
+            
+            # Ensure file_for_approval is valid
+            file_for_approval_instance = unapproved_request.file_for_approval
 
-        # Save the Approved request
-        approved_request.save()
+            if not file_for_approval_instance or not isinstance(file_for_approval_instance, DocumentVersionModel):
+                raise serializers.ValidationError({"file_for_approval": "Invalid file for approval."})
 
-        # Create or update an entry in the IntermediateRequestModel
-        IntermediateRequestModel.objects.create(
-            request=approved_request,
-            user=request.user,
-            current_state=transition.to_state,
-            stage_name='Initial Approval',  # Set the appropriate stage name
-            role=request.user.roles.first() if request.user.roles.exists() else None,  # Handle case where no roles exist
-            action_taken=action_name,
-            comments=request.data.get('comments', '')
-        )
+            # Create the approved request
+            approved_request = ApprovedRequestByRequestOwnerModel.objects.create(
+                title=unapproved_request.title,
+                requesting_user=unapproved_request.requesting_user,
+                request_type=unapproved_request.request_type,
+                current_state=transition.to_state,
+                file_for_approval=file_for_approval_instance
+            )
 
-        # Delete the UnApproved request
-        unapproved_request.delete()
+            # Create or update an entry in the IntermediateRequestModel
+            IntermediateRequestModel.objects.create(
+                request=approved_request,
+                user=request.user,
+                current_state=transition.to_state,
+                stage_name='Initial Approval',
+                role=request.user.roles.first() if request.user.roles.exists() else None,
+                action_taken=action_name,
+                comments=request.data.get('comments', '')
+            )
 
-        # Create approval stages for the approved request
-        self.initiate_approval_workflow(approved_request)
+            # Delete the unapproved request
+            unapproved_request.delete()
+
+            # Initiate approval workflow
+            self.initiate_approval_workflow(approved_request)
 
         # Serialize and return the approved request
         serializer = ApprovedRequestsByRequestSerializer(approved_request)
@@ -119,138 +130,116 @@ class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
        
 
 
+# class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
+#     parser_classes = [MultiPartParser, FormParser]
+#     authentication_classes = [JWTAuthentication]
+#     permission_classes = [permissions.IsAuthenticated]
+#     serializer_class = UnApprovedRequestSerializer
 
+#     @transaction.atomic
+#     def post(self, request, *args, **kwargs):
+#         logger.info("Starting approval process")
+#         request_id = request.data.get('request_id')
+#         action_name = request.data.get('action_name')
 
+#         if not request_id or not action_name:
+#             logger.error("Missing request_id or action_name")
+#             raise PostExceptionHandler("Request ID and action name are required.", error_type="invalid_data", status_code=400)
 
+#         try:
+#             unapproved_request = UnApprovedRequestByOwnerModel.objects.get(request_id=request_id)
+#             logger.info(f"Unapproved request found: {unapproved_request}")
+#         except UnApprovedRequestByOwnerModel.DoesNotExist:
+#             logger.error(f"Unapproved request with ID {request_id} not found")
+#             return Response({"detail": "Request not found."}, status=status.HTTP_404_NOT_FOUND)
 
+#         try:
+#             action = WorkFlowActionsModel.objects.get(action_name=action_name)
+#             logger.info(f"Action found: {action}")
+#         except WorkFlowActionsModel.DoesNotExist:
+#             logger.error(f"Action '{action_name}' not found")
+#             return Response({"detail": f"Action '{action_name}' not found."}, status=status.HTTP_404_NOT_FOUND)
 
+#         transition = WorkFlowTransitionModel.objects.filter(
+#             from_state=unapproved_request.approval_status,
+#             action_name=action
+#         ).first()
 
+#         if not transition:
+#             logger.error("Transition not allowed for this action.")
+#             return Response({"detail": "Transition not allowed for this action."}, status=status.HTTP_400_BAD_REQUEST)
 
+#         logger.info(f"Transition found: {transition}")
 
-       
+#         # Ensure file_for_approval is a valid DocumentVersionModel instance
+#         file_for_approval_instance = unapproved_request.file_for_approval
+#         if not isinstance(file_for_approval_instance, DocumentVersionModel):
+#             logger.error(f"Invalid file_for_approval instance: {file_for_approval_instance}")
+#             raise PostExceptionHandler("Invalid file_for_approval instance.", error_type="invalid_file", status_code=400)
 
-    # def initiate_approval_workflow(self, approved_request):
-    #     """
-    #     Initiate the approval stages and transitions based on the ProcessModel.
-    #     """
-    #     process = approved_request.request_type.protocol_id  # Assuming request_type is linked to WorkFlowProtocolModel
+#         logger.info(f"file_for_approval instance: {file_for_approval_instance}, Type: {type(file_for_approval_instance)}")
 
-    #     # Fetch all stages for the process, ordered by the defined sequence
-    #     stages = ApprovalStageTemplateModel.objects.filter(process=process).order_by('stage_order')
-    #     # You might want to order by a specific field if available
+#         try:
+#             # Create the Approved request
+#             approved_request = ApprovedRequestByRequestOwnerModel.objects.create(
+#                 title=unapproved_request.title,
+#                 requesting_user=unapproved_request.requesting_user,
+#                 request_type=unapproved_request.request_type,
+#                 current_state=transition.to_state,  # Set state based on transition
+#                 file_for_approval=file_for_approval_instance  # Maintain the same file_for_approval
+#             )
 
-    #     previous_stage = None
-    #     for stage_template in stages:
-    #         # Create each stage for the approved request
-    #         stage = ApprovalStageModel.objects.create(
-    #             request=approved_request,
-    #             stage_name=stage_template.stage_name,
-    #             role=stage_template.role,
-    #             stage_level=stage_template.stage_order,
-    #             comments="",
-    #         )
+#             logger.info(f"Approved request created: {approved_request}")
 
-    #         if previous_stage:
-    #             # Create a transition from the previous stage to the current stage
-    #             transition = WorkFlowTransitionModel.objects.create(
-    #                 from_state=previous_stage,
-    #                 to_state=stage,
-    #                 action=None,  # Action will be defined later when moving to the next stage
-    #             )
+#             # Create or update an entry in the IntermediateRequestModel
+#             IntermediateRequestModel.objects.create(
+#                 request=approved_request,
+#                 user=request.user,
+#                 current_state=transition.to_state,
+#                 stage_name='Initial Approval',
+#                 role=request.user.roles.first() if request.user.roles.exists() else None,
+#                 action_taken=action_name,
+#                 comments=request.data.get('comments', '')
+#             )
 
-    #             previous_stage.transition = transition
-    #             previous_stage.save()
+#             logger.info("IntermediateRequestModel entry created")
 
-    #         previous_stage = stage
+#             # Delete the UnApproved request
+#             unapproved_request.delete()
+#             logger.info(f"Unapproved request deleted: {unapproved_request}")
 
-    #         first_stage = approved_request.request_approval_stages.order_by('stage_level').first()
-            
-    #         if first_stage:
-               
-    #             approved_request.current_stage = first_stage
-    #             approved_request.current_state = WorkFlowStateModel.objects.get(state_name='pending for approval')
-    #             approved_request.save()
-    #         else:
-    #             raise PostExceptionHandler(message="No stages were created, unable to set the current stage", error_type="error")
+#             # Create approval stages for the approved request
+#             self.initiate_approval_workflow(approved_request)
 
+#             # Serialize and return the approved request
+#             serializer = ApprovedRequestsByRequestSerializer(approved_request)
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+#         except Exception as e:
+#             logger.exception("Error during approval process")
+#             raise PostExceptionHandler(f"Error during approval process: {str(e)}", error_type="server_error", status_code=500)
 
+#     def initiate_approval_workflow(self, approved_request):
+#         logger.info("Initiating approval workflow")
+#         process = approved_request.request_type.protocol_id
+#         stage_templates = ApprovalStageTemplateModel.objects.filter(process=process).order_by('stage_order')
 
+#         first_stage = None
+#         for template in stage_templates:
+#             stage = ApprovalStageModel.objects.create(
+#                 request=approved_request,
+#                 stage_name=template.stage_name,
+#                 stage_level=template.stage_order,
+#                 role=template.role,
+#                 transition=None,
+#             )
+#             if first_stage is None:
+#                 first_stage = stage
 
-
-
-    # def initiate_approval_workflow(self, created_request):
-    #     logger.debug("Starting approval workflow initiation for request: %s", created_request.request_id)
-        
-    #     # Fetch the 'approved' action
-    #     action = WorkFlowActionsModel.objects.get(action_name='approved') 
-        
-    #     # Fetch the workflow protocol based on the request type
-    #     request_type = created_request.request_type.protocol_id
-    #     try:
-    #         workflow_protocol = WorkFlowProtocolModel.objects.get(protocol_id=request_type)
-    #         logger.debug("Workflow protocol found: %s", workflow_protocol.protocol_name)
-    #     except WorkFlowProtocolModel.DoesNotExist:
-    #         logger.error("Workflow protocol not found for request type: %s", request_type)
-    #         raise PostExceptionHandler(message="Workflow protocol not found", error_type="error")
-
-    #     # Fetch all stages for the process, ordered by the defined sequence
-    #     stages_sequence = ApprovalStageTemplateModel.objects.filter(process=request_type).order_by('stage_order')
-        
-    #     previous_stage_instance = None  # This will hold the last created stage to establish transitions
-
-    #     for stage_template in stages_sequence:
-    #         stage_name = stage_template.stage_name
-    #         logger.debug("Processing stage: %s", stage_name)
-
-    #         try:
-    #             # Fetch the role associated with the current stage
-    #             role = IamRoleModel.objects.get(role_name=stage_name)
-    #             logger.debug("Role found for stage: %s", role.role_name)
-    #         except IamRoleModel.DoesNotExist:
-    #             logger.error("Role '%s' not found", stage_name)
-    #             raise PostExceptionHandler(message=f"Role '{stage_name}' not found", error_type="error")
-            
-    #         # Create the stage
-    #         stage_instance = ApprovalStageModel.objects.create(
-    #             request=created_request,
-    #             stage_name=stage_name,
-    #             role=role,
-    #             stage_level=stage_template.stage_order,
-    #         )
-            
-    #         logger.info("Approval stage created: %s for request: %s", stage_name, created_request.request_id)
-
-    #         if previous_stage_instance:
-    #             # Create a transition from the previous stage to the current stage
-    #             from_state = WorkFlowStateModel.objects.get_or_create(state_name=previous_stage_instance.stage_name)[0]
-    #             to_state = WorkFlowStateModel.objects.get_or_create(state_name=stage_instance.stage_name)[0]
-                
-    #             transition = WorkFlowTransitionModel.objects.create(
-    #                 from_state=from_state,
-    #                 to_state=to_state,
-    #                 action=action  # Action can be approved, reject, etc.
-    #             )
-                
-    #             # Link the transition to the previous stage
-    #             previous_stage_instance.transition = transition
-    #             previous_stage_instance.save()
-
-    #         previous_stage_instance = stage_instance
-
-    #         # Set the first approval stage as the current stage
-    #         first_stage = created_request.request_approval_stages.order_by('stage_level').first()
-
-    #         if first_stage:
-    #             created_request.current_stage = first_stage
-    #             created_request.current_state = WorkFlowStateModel.objects.get(state_name='pending for approval')
-    #             created_request.save()
-    #         else:
-    #             raise PostExceptionHandler(message="No stages were created, unable to set the current stage", error_type="error")
-
-
-
-
+#         if first_stage:
+#             approved_request.current_stage = first_stage
+#             approved_request.save()
+#             logger.info(f"First approval stage set: {first_stage}")
 
 
 

@@ -19,7 +19,7 @@ class DocumentVersionModel(models.Model):
         return f"{self.document.document_name}"
     
     def __str__(self) -> str:
-        return f"{self.document.document_name}"
+        return f"{self.document.document_name} Version {self.version_number}"
     
     class Meta:
         base_manager_name = "objects" # ORM manager t

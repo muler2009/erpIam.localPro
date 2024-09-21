@@ -3,7 +3,7 @@ from .models.workflow_state_model import WorkFlowStateModel
 from .models.workflow_action_model import WorkFlowActionsModel
 from .models.workflow_protocol_model import WorkFlowProtocolModel
 from .models.workflow_transition_model import WorkFlowTransitionModel
-from .models.request_model import RequestInWorkFlowModel, ApprovedRequestByRequestOwnerModel,UnApprovedRequestByOwnerModel, ApprovedRequestsModel
+from .models.request_model import RequestModel, ApprovedRequestByRequestOwnerModel,UnApprovedRequestByOwnerModel, ApprovedRequestsModel
 from .models.approval_level import ApprovalStageModel
 from .models.approval_processes import ApprovalStageTemplateModel
 from .models.intermediate_request import IntermediateRequestModel

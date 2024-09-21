@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'iam.ldap_integration.apps.LdapIntegrationConfig',
     'dmsmodule',
     'dmsmodule.folder',
-    'dmsmodule.file_mangement',
+    # 'dmsmodule.file_mangement',
     'dmsmodule.document_repository',
     'workflow_manager',  
     'notification',

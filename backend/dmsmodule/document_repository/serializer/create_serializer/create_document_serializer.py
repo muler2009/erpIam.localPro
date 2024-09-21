@@ -5,6 +5,7 @@ from ...models.document_version_control import DocumentVersionModel
 from ...serializer.create_serializer.create_document_version_serializer import CreateDocumentVersionSerializer 
 from dmsmodule.folder.models.models import FolderModel
 from decimal import Decimal
+
 class DocumentMetadataSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocumentMetadataModel

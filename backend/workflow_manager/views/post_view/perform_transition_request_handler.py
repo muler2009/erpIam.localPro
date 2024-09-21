@@ -5,7 +5,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from utils.custom_exception_handler import PostExceptionHandler
-from ...models.request_model import RequestInWorkFlowModel, ApprovedRequestByRequestOwnerModel, ApprovedRequestsModel
+from ...models.request_model import ApprovedRequestByRequestOwnerModel, ApprovedRequestsModel
 from ...models.workflow_state_model import WorkFlowStateModel
 from ...models.workflow_action_model import WorkFlowActionsModel
 from ...models.workflow_transition_model import WorkFlowTransitionModel

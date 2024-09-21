@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from workflow_manager.models.request_model import RequestInWorkFlowModel, ApprovedRequestByRequestOwnerModel
+from workflow_manager.models.request_model import RequestModel, ApprovedRequestByRequestOwnerModel
 from workflow_manager.models.intermediate_request import IntermediateRequestModel
 from iam.models import UserAccountsModel
 from notification.models.core_notification_model import NotificationModel

@@ -5,79 +5,75 @@ import useLogin from '../../iam/auth/login/useLogin'
 import erp from '../../assets/images/erp.png'
 import { LoginErrorMessageModal } from '../../iam/components/errors/LoginError'
 import { ErrorResponseInterface } from '../../iam/models/error.model'
+import { Div, FlexBox, FlexBoxInner, Text } from '../../components/common/StyledComponent'
 
 
 const LoginInputs = () => {
   const { loginData, handleInputLoginChanges, onLoginButtonClicked, loginErrorMessage, loginFailed, setLoginFailed} = useLogin()
 
   return (
-    <div className='flex-1 h-full bg-[#013243] bg-opacity-5 flex justify-center items-center py-5'>
-      <div className='w-[30%] shadow-lg bg-[#fff]  border-gray-200 pt-10 py-5 my-5'>
-          <div className='py-5 border-b flex flex-col items-center border-1 px-5'>
-            <div className='flex justify-center'>
-              <img src={erp} className='object-center object-cover w-1/2' />
-            </div>
-            <div className=''>
-            <h6 className="pb-5 font-Oswald text-[35px] text-center">Identity & Access Management 
-              <span className='text-[30px] ml-3 text-[#02e079]'>(IAM)</span>
-            </h6>
-            </div>
-          </div>
+    <FlexBox className='h-full pt-5 pb-5 w-[75%] shadow-md'>
+      <FlexBoxInner className='flex flex-col items-start h-full '>
+        <Div className='px-10'>
+          <Text className='text-[24px] font-IBMPlexSans font-semibold'> Login to System</Text>
+          <hr className="my-5 h-[1px] border-t-0 bg-gray-100 w-full" />
 
-          <form className='flex flex-col gap-6 pb-10 w-[80%] mx-auto' onSubmit={(event) => event.preventDefault()}>
-            {/* Username Field */}
-            <div className='mt-10 flex flex-col gap-5 px-10'>
-              <div className="relative font-Poppins">
-                <label className='relative cursor-pointer py-2 flex flex-row items-center'>
-                    <input 
-                      id='username'
-                      type='text' 
-                      name='username'
-                      placeholder='username'
-                      className='px-6 pt-4 text-black input-md border-opacity-50 focus:outline-none focus:border-green-600 focus:bg-inherit placeholder-gray-300 placeholder-opacity-0 transition duration-200 focus:border-inherit'  
-                      value={loginData.username}
-                      onChange={handleInputLoginChanges}
-                    />
-                    <FaUserAlt color="gray" className="absolute right-2 mr-3 "/>
-                    <span className='text-black text-[15px] bg-white text-opacity-80 absolute left-5 top-5 px-1 transition duration-200 input-text'>Username</span>
-                </label>  
-              </div>
-              {/* Password Field */}
-              <div className="relative font-Poppins">
-                <label className='relative cursor-pointer py-2 flex flex-row items-center'>
-                    <input 
-                      id='password'
-                      type='password' 
-                      name='password'
-                      placeholder='password'
-                      className='px-6 pt-4 text-black input-md border-opacity-50 focus:outline-none focus:border-green-600 focus:bg-inherit placeholder-gray-300 placeholder-opacity-0 transition duration-200 focus:border-inherit'    
-                      value={loginData.password}
-                      onChange={handleInputLoginChanges} 
-                    />
-                    <FaLock color="gray" className="absolute right-2 mr-3"/>
-                    <span className='text-black text-[15px] bg-white text-opacity-80 absolute left-5 top-5 px-1 transition duration-200 input-password'>Password</span>
-                </label>  
-              </div>
-            </div>
-            <div className='flex space-x-5 px-10'>
-              <Button 
-                  label="OK" 
-                  className='btn-sm bg-gray-300 font-Poppins rounded-sm px-10 hover:bg-[#00bdff] hover:text-white hover:ring-2 hover:ring-white hover:rounded-sm' 
-                  onClick={onLoginButtonClicked}
+        </Div>
+
+        <div className='px-10 w-[50%] flex flex-col gap-4  h-[90%] pb-10'>
+          <div className="relative font-Poppins">
+            <label className='relative cursor-pointer py-2 flex flex-row items-center'>
+                <input 
+                  id='username'
+                  type='text' 
+                  name='username'
+                  placeholder='username'
+                  className='px-6 pt-4 text-black input-md border-opacity-50 focus:outline-none focus:border-green-600 focus:bg-inherit placeholder-gray-300 placeholder-opacity-0 transition duration-200 focus:border-inherit'  
+                  value={loginData.username}
+                  onChange={handleInputLoginChanges}
                 />
-            </div>
-        </form>
-      </div>
+                <FaUserAlt color="gray" className="absolute right-2 mr-3 "/>
+                <span className='text-black text-[15px] bg-white text-opacity-80 absolute left-5 top-5 px-1 transition duration-200 input-text'>Username</span>
+            </label>  
+          </div>
+          {/* Password Field */}
+          <div className="relative font-Poppins">
+            <label className='relative cursor-pointer py-2 flex flex-row items-center'>
+                <input 
+                  id='password'
+                  type='password' 
+                  name='password'
+                  placeholder='password'
+                  className='px-6 pt-4 text-black input-md border-opacity-50 focus:outline-none focus:border-green-600 focus:bg-inherit placeholder-gray-300 placeholder-opacity-0 transition duration-200 focus:border-inherit'    
+                  value={loginData.password}
+                  onChange={handleInputLoginChanges} 
+                />
+                <FaLock color="gray" className="absolute right-2 mr-3"/>
+                <span className='text-black text-[15px] bg-white text-opacity-80 absolute left-5 top-5 px-1 transition duration-200 input-password'>Password</span>
+            </label>  
+          </div>
+          <div className='flex space-x-5'>
+            <Button 
+                label="Login" 
+                className='btn-sm bg-gray-300 font-Poppins rounded-sm px-10 hover:bg-[#00bdff] hover:text-white hover:ring-2 hover:ring-white hover:rounded-sm' 
+                onClick={onLoginButtonClicked}
+              />
+          </div>
+        </div>
+      </FlexBoxInner>
+        <LoginErrorMessageModal 
+          loginErrorMessage={loginErrorMessage}
+          loginFailed={loginFailed} 
+          setLoginFailed={setLoginFailed} 
+        />
 
-      <LoginErrorMessageModal 
-        loginErrorMessage={loginErrorMessage}
-        loginFailed={loginFailed} 
-        setLoginFailed={setLoginFailed} 
-      />
-
-    </div>
+    </FlexBox>
   )
 }
+      
+         
+    
+
 
 export default LoginInputs
 

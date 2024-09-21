@@ -1,2 +1,2 @@
-from .document_uploads_models import *
-from .document_information import *
+# from .document_uploads_models import *
+# from .document_information import *

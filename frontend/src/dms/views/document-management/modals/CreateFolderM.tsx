@@ -56,9 +56,6 @@ const CreateFolderM = ({isOpen, setIsOpen, title, folderAttributes, handleFolder
     // console.log(folderAttributes)
   }
 
-
-
-
   return (
     isOpen ? (
       <ModalWrapper>
@@ -75,7 +72,6 @@ const CreateFolderM = ({isOpen, setIsOpen, title, folderAttributes, handleFolder
               <ModalBody className='p-5'>
 
                 <FlexOuterContainer className='py-1 px-2'>
-
                 
                     <Input 
                         // label='Folder Name'
@@ -105,7 +101,7 @@ const CreateFolderM = ({isOpen, setIsOpen, title, folderAttributes, handleFolder
                       <Button 
                         label={`create`}  
                         className='px-5 rounded-none text-sm text-white btn-sm disabled:bg-gray-100 disabled:cursor-auto bg-[#f2f2f2]' 
-                        // disabled={!canSave}
+                        disabled={!canSave}
                         onClick={onFolderSaveClicked}
                       />
                   </ModalFooter>

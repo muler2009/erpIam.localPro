@@ -6,13 +6,7 @@ import { LiaPowerOffSolid } from "react-icons/lia";
 import useLogout from "../../../iam/auth/logout/useLogout";
 import { useSelector } from "react-redux";
 import { username } from "../../../iam/api/auth";
-
-{/* <Tooltip content={`Go Back`}>
-<MdIcons.MdOutlineArrowBackIos />
-</Tooltip>
-<Tooltip content={`Go forward`}>
-<MdIcons.MdOutlineArrowForwardIos />
-</Tooltip>  */}
+import logo from '../../../assets/images/logo.png'
 
 const DocumentManagmentHeader = () => {
 
@@ -23,10 +17,11 @@ const DocumentManagmentHeader = () => {
     
       <FlexInnerContainer className="flex justify-between items-center mx-8">
           <FlexBox className="flex space-x-3 items-center cursor-pointer">
-              <Text className="text-[30px] text-primary-green">edms</Text>
+              {/* <Text className="text-[30px] text-primary-green">edms</Text> */}
+              <img src={logo}  className='w-12 h-12' />
               <FlexBoxInner className="flex flex-col">
-                <Text className="text-[10px] text-[#333] font-semibold text-opacity-50 pt-1">Electronic document management</Text>   
-                <Text className="text-[10px] text-[#333] font-semibold text-opacity-50">System</Text>                
+                <Text className="text-[20px] text-[#5e2f05] font-semibold pt-1"> Oromia Land Bureau</Text>   
+                <Text className="text-[10px] text-[#333]">Electronic document management</Text>                
               </FlexBoxInner>
           </FlexBox>
   

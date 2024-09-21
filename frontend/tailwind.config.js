@@ -11,12 +11,15 @@ module.exports = {
         MonaSans: ["Mona-Sans", "sans"],
         Oswald: ["Oswald", "sans-serif"],
         IBMPlexSans: ["IBMPlexSans-Regular", "sans-serif"],
-
-        
       },
       colors: {
         'primary-green': '#26cc86',
         'text-primary': '#0f172a'
+      },
+      backgroundImage: {
+        'watermark-logo': "url('/src/assets/images/watermark-logo.png')",
+        'logo': "url('/src/assets/images/logo.png')"
+        
       }
       
     },

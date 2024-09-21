@@ -16,7 +16,7 @@ const Input = ({ id, type, name, placeholder, onChange, value, label, className,
   
   return (
     <div className="flex flex-col gap-2 text-sm w-full">
-      <label htmlFor={name} className="text-[13px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80">
+      <label htmlFor={name} className="text-[13px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80 relative">
         {label}
       </label>
       <input
