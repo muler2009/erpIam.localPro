@@ -7,7 +7,7 @@ const useRequests = () => {
         title: "",
         request_type: "",
         request_assigned_to_user: "",
-        file_for_approval: null as File | null,
+        file: null as File | null,
         description: ""
     })
 
@@ -31,7 +31,7 @@ const useRequests = () => {
       if (event.target.files) {
         setRequestData({
           ...requestData,
-          file_for_approval: event.target.files[0],
+          file: event.target.files[0],
         });
       }
     };

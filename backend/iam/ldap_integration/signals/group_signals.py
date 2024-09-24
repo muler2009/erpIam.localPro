@@ -36,6 +36,40 @@ def create_group_in_ldap_server(sender, instance, created, *args, **kwargs):
             connection.unbind()
 
 # a signal for adding a user to the ldap user organizational unit        
+# @receiver(post_save, sender=UserAccountsModel)
+# def add_user_to_ldap_group(sender, instance, created, **kwargs):
+#     if created:
+#         ldap_uri = settings.LDAP_URI
+#         ldap_bind_dn = settings.LDAP_BIND_DN
+#         ldap_bind_password = settings.LDAP_PASSWORD
+
+#         try:
+#             connection = ldap.initialize(ldap_uri)
+#             connection.bind(ldap_bind_dn, ldap_bind_password)
+            
+#             member_uid = instance.username.encode('utf-8')  # Assuming username is the attribute to be used as memberUid
+
+#             if instance.group:
+#                 group_dn = f"cn={instance.group.group_name},ou=groups,ou=iam,dc=erpIam,dc=local"
+#                 mod_attrs = [
+#                     (ldap.MOD_ADD, 'memberUid', [member_uid]),
+#                 ]
+#                 connection.modify_s(group_dn, mod_attrs)
+#             else:
+#                 group_dn = f"cn=active,ou=groups,ou=iam,dc=erpIam,dc=local"
+                
+#                 mod_attrs = [(ldap.MOD_ADD, 'memberUid', [member_uid])]
+#                 connection.modify_s(group_dn, mod_attrs)    
+
+#         except ldap.LDAPError as e:
+#             raise ValueError(f'Failed to add user to LDAP group: {str(e)}')
+
+#         finally:
+#             connection.unbind()
+
+
+
+
 @receiver(post_save, sender=UserAccountsModel)
 def add_user_to_ldap_group(sender, instance, created, **kwargs):
     if created:
@@ -46,21 +80,36 @@ def add_user_to_ldap_group(sender, instance, created, **kwargs):
         try:
             connection = ldap.initialize(ldap_uri)
             connection.bind(ldap_bind_dn, ldap_bind_password)
-            
+
             member_uid = instance.username.encode('utf-8')  # Assuming username is the attribute to be used as memberUid
 
             if instance.group:
                 group_dn = f"cn={instance.group.group_name},ou=groups,ou=iam,dc=erpIam,dc=local"
-                mod_attrs = [
-                    (ldap.MOD_ADD, 'memberUid', [member_uid]),
-                ]
-                connection.modify_s(group_dn, mod_attrs)
             else:
-                group_dn = f"cn=active,ou=groups,ou=iam,dc=erpIam,dc=local"
-                
-                mod_attrs = [(ldap.MOD_ADD, 'memberUid', [member_uid])]
-                connection.modify_s(group_dn, mod_attrs)    
+                group_dn = "cn=active,ou=groups,ou=iam,dc=erpIam,dc=local"
 
+            # Check if the user is already in the group
+            try:
+                result = connection.search_s(
+                    group_dn,
+                    ldap.SCOPE_BASE,
+                    '(memberUid={})'.format(instance.username)
+                )
+                
+                # If the user is already in the group, skip adding them
+                if result and 'memberUid' in result[0][1] and member_uid in result[0][1]['memberUid']:
+                    print(f"User {instance.username} already exists in the group {group_dn}, skipping add operation.")
+                else:
+                    # If user not in the group, proceed with the add operation
+                    mod_attrs = [
+                        (ldap.MOD_ADD, 'memberUid', [member_uid]),
+                    ]
+                    connection.modify_s(group_dn, mod_attrs)
+
+            except ldap.NO_SUCH_OBJECT:
+                print(f"Group {group_dn} does not exist.")
+                raise ValueError(f"Group {group_dn} does not exist in LDAP.")
+            
         except ldap.LDAPError as e:
             raise ValueError(f'Failed to add user to LDAP group: {str(e)}')
 

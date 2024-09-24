@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { useRoutes } from 'react-router-dom';
-import MainScreeen, { Home } from '../public/login/MainScreeen';
+import MainScreeen, { Home } from '../public/public-mini-component/MainPublicLayout';
 import Login from '../public/login/Login';
+import UserRegistration from '../public/registerationn/UserRegistration';
 
 interface Route {
     path: string;
@@ -17,6 +18,7 @@ const Mainroutes = () => {
   const routes: (Route | RouteWithChildren)[] = [
     { path: '/',  element: <Home /> },
     { path: 'login',  element: <Login /> }, 
+    { path: 'register',  element: <UserRegistration /> }, 
   ]
 
   return useRoutes(routes)

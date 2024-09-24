@@ -5,11 +5,11 @@ from dmsmodule.file_mangement.serializers.get_document_serializer import GetDocu
 class GetFolderSerializer(serializers.ModelSerializer):
     subfolder = serializers.SerializerMethodField()
     parent_folder = serializers.SerializerMethodField()
-    uploaded_file = serializers.SerializerMethodField()
+    # uploaded_file = serializers.SerializerMethodField()
 
     class Meta:
         model = FolderModel
-        fields = ['folder_identifier', 'folder_name', 'parent_folder', 'subfolder', 'folder_created_date', 'folder_updated_date', 'uploaded_file']
+        fields = ['folder_identifier', 'folder_name', 'parent_folder', 'subfolder', 'folder_created_date', 'folder_updated_date']
         extra_kwargs = {
             'folder_identifier': {'read_only': True},
         } 
@@ -26,7 +26,7 @@ class GetFolderSerializer(serializers.ModelSerializer):
         subfolder = obj.subfolder.all()
         return GetFolderSerializer(subfolder, many=True, context=self.context).data
     
-    def get_uploaded_file(self, obj):
-        uploaded_file = obj.documents.all()
-        print(f"Folder: {obj.folder_name}, Documents: {uploaded_file}") 
-        return GetDocumentSerializer(uploaded_file, many=True, context=self.context).data
+    # def get_uploaded_file(self, obj):
+    #     uploaded_file = obj.documents.all()
+    #     print(f"Folder: {obj.folder_name}, Documents: {uploaded_file}") 
+    #     return GetDocumentSerializer(uploaded_file, many=True, context=self.context).data

@@ -4,11 +4,18 @@ from workflow_manager.models.request_model import ApprovedRequestByRequestOwnerM
 from workflow_manager.models.workflow_protocol_model import WorkFlowProtocolModel
 from dmsmodule.helper.file_extension_validator import FileExtensionValidator
 from dmsmodule.file_mangement.models.document_uploads_models import DocumentVersion
+from dmsmodule.document_repository.models.document_version_control import DocumentVersionModel
+
+class DocSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= DocumentVersionModel
+        fields = '__all__'
 
    
 class GetRequestInWorkFlowModelSerializer(serializers.ModelSerializer):
     file_url = serializers.SerializerMethodField()
     file_for_approval = serializers.FileField(write_only=True, required=False, validators=[FileExtensionValidator()])
+    file_for_approval = DocSerializer()
     file_name = serializers.SerializerMethodField()
     
     class Meta:

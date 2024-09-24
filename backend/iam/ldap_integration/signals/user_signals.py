@@ -9,6 +9,9 @@ from iam.groups.models import PosixGroupUserModel
 import logging
 import argon2
 from ldap import modlist
+import environ
+
+
 
 logger = logging.getLogger(__name__)
 
@@ -24,9 +27,9 @@ def update_user_group(sender, instance, action, reverse, model, pk_set, **kwargs
 
 @receiver(post_save, sender=UserAccountsModel)
 def user_post_save_handler(sender, instance, created, *args, **kwargs):
-    ldap_uri = settings.LDAP_URI
-    ldap_bind_dn = settings.LDAP_BIND_DN
-    ldap_bind_password = settings.LDAP_PASSWORD
+    ldap_uri = settings.AUTH_LDAP_SERVER_URI
+    ldap_bind_dn = settings.AUTH_LDAP_BIND_DN
+    ldap_bind_password = settings.AUTH_LDAP_BIND_PASSWORD
 
     connection = ldap.initialize(ldap_uri)
     connection.bind(ldap_bind_dn, ldap_bind_password)

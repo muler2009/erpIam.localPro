@@ -29,8 +29,7 @@ const ApprovalAction = ({open, handleIsOpenCloseMenuModal, requestData} : Approv
         setApprovalStatus(prev => ({ ...prev, [rowId]: status }));
     };
     const date = requestData.request?.request_sent_at || new Date()
-
-  
+    console.log(requestData.request?.file_for_approval?.version_number)
   return (
     open ? (
         <ModalWrapper>
@@ -66,7 +65,7 @@ const ApprovalAction = ({open, handleIsOpenCloseMenuModal, requestData} : Approv
                                     </tr>
                                     <tr className='flex space-x-5'>
                                         <th>Request Type: </th>
-                                        <td className='text-[11px]'> {requestData.request?.request_type}</td>
+                                        <td className='text-[11px]'> {requestData.request?.file_for_approval?.version_number}</td>
                                     </tr>
                                     <tr className='flex space-x-5'>
                                         <th>Status</th>

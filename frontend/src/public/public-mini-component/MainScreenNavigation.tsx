@@ -17,11 +17,10 @@ const MainScreenNavigation = () => {
 
         <FlexBoxInner className='flex justify-between items-center pr-20 py-2 cursor-pointer shadow-sm'>
             <Text className='font-IBMPlexSans font-semibold px-10  text-primary-green flex space-x-3'>
-                <img src={logo}  className='w-20 h-20' />
+                <img src={logo}  className='w-14 h-14' />
                 <Div className='flex flex-col pt-2'>
                     <Text className='font-Poppins font-normal text-xl text-[#5e2f05]'> Biiroo Lafa Oromiyaa</Text>
                     <Text className='font-Poppins font-normal'> Oromia Land Bureau</Text>
-
 
                 </Div>
             </Text>

@@ -5,7 +5,7 @@ import Login from '../public/login/Login'
 import Dashboard from '../iam/layout/Dashboard'
 import RequireAuth from '../components/auth/RequiredAuth'
 import DMSDashboard from '../dms/layout/DMSDashboard'
-import MainScreeen from '../public/login/MainScreeen'
+import MainScreeen from '../public/public-mini-component/MainPublicLayout'
 import DMSMainLayout from '../dms/layout/DMSMainLayout'
 import DMSReuesterLayout from '../dms/layout/DMSReuesterLayout'
 

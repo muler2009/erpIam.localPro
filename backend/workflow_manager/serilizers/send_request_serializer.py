@@ -6,9 +6,11 @@ from workflow_manager.models.workflow_state_model import WorkFlowStateModel
 from workflow_manager.models.workflow_protocol_model import WorkFlowProtocolModel
 from dmsmodule.file_mangement.models.document_uploads_models import DocumentVersion
 from dmsmodule.helper.file_extension_validator import FileExtensionValidator
-from dmsmodule.file_mangement.serializers.document_version_serialzier import DocumentVersionSerializer
+# from dmsmodule.file_mangement.serializers.document_version_serialzier import DocumentVersionSerializer
 from dmsmodule.document_repository.serializer.create_serializer.create_document_serializer import CreateDocumentSerializer
 from dmsmodule.document_repository.models.document_version_control import DocumentVersionModel
+from ..views.post_view.save_request import FileUploadSerializer
+from ..views.post_view.save_request import DocumentVersionSerializer
 
 import logging
 
@@ -42,10 +44,28 @@ logger = logging.getLogger(__name__)
     #     # Create the UnApprovedRequest instance
     #     return super().create(validated_data)
 
+# def create(self, validated_data):
+    #     file_for_approval = validated_data.pop('file_for_approval', None)
+    #     # Check that file_for_approval is actually included in validated_data
+    #     if not file_for_approval:
+    #         raise serializers.ValidationError({"file_for_approval": "This field is required."})
+        
+    #     # Create the DocumentVersion instance
+    #     file_instance = DocumentVersionModel.objects.create(
+    #         uploaded_file=file_for_approval['uploaded_file'],
+    #         uploaded_by=self.context['request'].user
+    #         # Include any other necessary fields...
+    #     )
+    #     validated_data['file_for_approval'] = file_instance
+        
+    #     return super().create(validated_data)
+
+
 class RequestSendSerializer(serializers.ModelSerializer):
     file_url = serializers.SerializerMethodField()
     file_name = serializers.SerializerMethodField()
     file_for_approval = serializers.FileField(required=True)
+    # file_for_approval = DocumentVersionSerializer(many=True, read_only=True)
 
     class Meta:
         model = UnApprovedRequestByOwnerModel  # Use the concrete model here
@@ -74,31 +94,12 @@ class RequestSendSerializer(serializers.ModelSerializer):
         if obj.file_for_approval:
             return obj.file_for_approval.document.document_name if obj.file_for_approval.uploaded_file else None
         return None
-   
-
-    # def create(self, validated_data):
-    #     file_for_approval = validated_data.pop('file_for_approval', None)
-    #     # Check that file_for_approval is actually included in validated_data
-    #     if not file_for_approval:
-    #         raise serializers.ValidationError({"file_for_approval": "This field is required."})
-        
-    #     # Create the DocumentVersion instance
-    #     file_instance = DocumentVersionModel.objects.create(
-    #         uploaded_file=file_for_approval['uploaded_file'],
-    #         uploaded_by=self.context['request'].user
-    #         # Include any other necessary fields...
-    #     )
-    #     validated_data['file_for_approval'] = file_instance
-        
-    #     return super().create(validated_data)
-        
-
-
-
+    
 class UnApprovedRequestSerializer(RequestSendSerializer):
     requesting_user = serializers.SerializerMethodField()
     request_assigned_to_user = serializers.SerializerMethodField()
     request_type = serializers.SerializerMethodField()
+    # file_for_approval = FileUploadSerializer(write_only=True)
 
     class Meta(RequestSendSerializer.Meta): 
         model = UnApprovedRequestByOwnerModel  # Specify the concrete model here
@@ -126,6 +127,20 @@ class UnApprovedRequestSerializer(RequestSendSerializer):
             except WorkFlowProtocolModel.DoesNotExist:
                 raise serializers.ValidationError({"request_type_name": "Invalid request type name"})
         return super().to_internal_value(data)  
+    
+    # def create(self, validated_data):
+    #     files = validated_data.pop('file_for_approval', [])
+    #     request_type = validated_data.pop('request_type', None)
+
+    #     # Create the unapproved request
+    #     unapproved_request = UnApprovedRequestByOwnerModel.objects.create(**validated_data)
+
+    #     # Create document versions and link to the request
+    #     document_versions = FileUploadSerializer(data={'file_for_approval': files}, context=self.context)
+    #     if document_versions.is_valid():
+    #         unapproved_request.file_for_approval.add(*document_versions.save())
+
+    #     return unapproved_request
 
 
 class ApprovedRequestsByRequestSerializer(RequestSendSerializer):

@@ -97,8 +97,6 @@ input[type="checkbox"]:checked {
   font-size: 1rem;  
   border: 2px double rgb(32, 64, 204);
 }
-
-
 .watermark {
   position: absolute;
   color: #0A9928;
@@ -109,4 +107,24 @@ input[type="checkbox"]:checked {
   text-align: center;
   z-index: 0;
   transform: rotate(-35deg);
+}
+
+.custom-bg-color {
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,101,121,1) 36%, rgba(0,212,255,1) 100%);
+}
+
+/* When the login is clicked, add this animation */
+.login-animate {
+  animation: zoomOut 1.7s ease forwards;
+}
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
 }

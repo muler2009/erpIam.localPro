@@ -3,27 +3,28 @@ from pathlib import Path
 from datetime import timedelta
 from django_auth_ldap.config import LDAPSearch, LDAPSearchUnion, LDAPGroupQuery, PosixGroupType
 import ldap
-# from ..utils.LDAPBackendAuthenticator import ERPBackendAuthenticator
+import environ
 
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#(7+4q331*zwy*w88%j8@%fczhg*9po5=j&zug)6)pt6l_@4*w'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
 BASE_URL = 'http://127.0.0.1:8000'
-
-
 
 # Application definition
 
@@ -159,13 +160,9 @@ MEDIA_URL = '/media/'  # it’s the URL that should be used to serve media.
 AUTH_USER_MODEL = 'iam.UserAccountsModel'
 
 # app use LDAP for authenticating users by default
-
-
-from iam.ldap_integration.ldap_config import *
-
-AUTH_LDAP_SERVER_URI = LDAP_URI 
-AUTH_LDAP_BIND_DN = LDAP_BIND_DN
-AUTH_LDAP_BIND_PASSWORD = LDAP_PASSWORD
+AUTH_LDAP_SERVER_URI = env('LDAP_URI')
+AUTH_LDAP_BIND_DN = env('LDAP_BIND_DN')
+AUTH_LDAP_BIND_PASSWORD = env('LDAP_PASSWORD')
 
 # LDAP user search configuration
 AUTH_LDAP_USER_SEARCH = LDAPSearchUnion(
@@ -212,7 +209,9 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',   
 ]
 
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000", ]
+CORS_ORIGIN_WHITELIST = ["http://mysoftwareapp:3000", ]
+# CORS_ORIGIN_WHITELIST = env('CORS_ORIGIN_WHITELIST')
+
 
 
 # Django REST_FRAMEWORK Configuration 
@@ -224,10 +223,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ], 
     'EXCEPTION_HANDLER': 'utils.custom_exception_handler.custom_exception_handler'
-}
-
-CUSTOM_PERMISSION_EXCEPTIONS = {
-    'PermissionDenied': 'utils.permissions_exception_handler',
 }
 
 # Project Configuration for JWT Authentication

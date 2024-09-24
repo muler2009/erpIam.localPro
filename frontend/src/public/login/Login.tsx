@@ -4,10 +4,10 @@ import { Div, FlexBox, FlexBoxInner, Text } from '../../components/common/Styled
 import watermark_logo from '../../assets/images/watermark-logo.png'
 import LoginInstruction from './LoginInstruction'
 
+
 const Login = () => {
   return (
-    <FlexBox className='w-full h-full flex space-x-3'>
-      <LoginInstruction />
+    <FlexBox className='w-[50%] mx-auto h-full'>
       <LoginInputs />     
     </FlexBox>
   )

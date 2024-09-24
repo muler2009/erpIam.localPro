@@ -22,6 +22,7 @@ const useLogin = () => {
   const [loginErrorMessage, setLoginErrorMessage] = useState<ErrorResponseInterface | null>(null);
   const [loginError, setLoginError] = useState<boolean>(false);
   const [loginFailed, setLoginFailed] = useState<boolean>(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
 
   const handleInputLoginChanges = (event: ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +38,7 @@ const useLogin = () => {
       // Function the handles when the login button clicked
   const onLoginButtonClicked = async() => {  
     try {
+      setIsLoggingIn(true); // Start the animation
       const response = await userLogin(loginData).unwrap()
       // destructure the access and refresh token
       const { access, refresh, username, group } = response
@@ -47,7 +49,13 @@ const useLogin = () => {
       const userRoutePath = routeToDashboard(group) 
       navigate(userRoutePath)
 
+      // Wait for the animation to finish before navigating (animation duration is 700ms)
+      setTimeout(() => {
+        navigate(userRoutePath);
+      }, 2000); // Match this with the animation duratio
+
     } catch (error: any) {
+      setIsLoggingIn(false);
         if (!error) {
           console.log(error);
         } else if (error.data.status_code === 401) {
@@ -83,6 +91,8 @@ const useLogin = () => {
     setLoginData,
     handleInputLoginChanges,
     onLoginButtonClicked,
+    isLoggingIn,
+    setIsLoggingIn,
     isError,
     error,
     loginError,

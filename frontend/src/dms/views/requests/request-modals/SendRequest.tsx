@@ -35,8 +35,8 @@ const SendRequest = ({handleIsOpenCloseMenuModal, title, open}: SendRequestModal
         formData.append('request_type', requestData.request_type);
         formData.append('title', requestData.title);
       
-        if (requestData.file_for_approval) {
-            formData.append('file_for_approval', requestData.file_for_approval);
+        if (requestData.file) {
+            formData.append('file_for_approval', requestData.file);
         }
       
         try {

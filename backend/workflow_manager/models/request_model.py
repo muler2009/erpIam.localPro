@@ -8,19 +8,21 @@ from .workflow_action_model import WorkFlowActionsModel
 from dmsmodule.file_mangement.models.document_uploads_models import DocumentVersion
 from dmsmodule.document_repository.models.document_version_control import DocumentVersionModel
 
+    
 
 class RequestModel(models.Model):
     request_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     title = models.CharField(max_length=150, null=False, blank=False)
     request_sent_at = models.DateTimeField(auto_now_add=True)
     request_updated_at = models.DateTimeField(auto_now=True)
-    file_for_approval = models.ForeignKey(DocumentVersionModel, on_delete=models.CASCADE)
     current_stage = models.ForeignKey('ApprovalStageModel', on_delete=models.SET_NULL, null=True, blank=True)
     approved_by = models.ForeignKey(UserAccountsModel, on_delete=models.CASCADE, null=True, blank=True )
+
+    # file_for_approval = models.ManyToManyField(DocumentVersionModel, blank=True)
+    file_for_approval = models.ForeignKey(DocumentVersionModel, on_delete=models.CASCADE, blank=True)
    
     class Meta:
         abstract = True
-
 
 # A model to store  UnApprovedRequestByOwnerModel
 class UnApprovedRequestByOwnerModel(RequestModel):
@@ -87,9 +89,6 @@ class ApprovedRequestByRequestOwnerModel(RequestModel):
                 raise ValueError("Default approval state 'pending for approval' not found in the database.")
             self.current_state = default_state
         super().save(*args, **kwargs)
-
-     
-
 
 class ApprovedRequestsModel(RequestModel):
     '''

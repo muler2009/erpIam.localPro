@@ -16,7 +16,7 @@ class DocumentRepositoryModel(models.Model):
     
     class Meta:
         ordering = ['repository_name']
-        db_table = 'Repository'
-        app_label = 'dmsmodule'
+        db_table = 'Repository_name'
+        # app_label = 'dmsmodule'
 
 

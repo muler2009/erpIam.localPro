@@ -9,6 +9,8 @@ from workflow_manager.models.workflow_protocol_model import WorkFlowProtocolMode
 from rest_framework.parsers import FormParser, MultiPartParser
 from dmsmodule.document_repository.models import *
 from decimal import Decimal
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
 
 
 import logging
@@ -238,14 +240,51 @@ class RequestSubmissionHandler(generics.GenericAPIView):
             request_type = self.get_request_type(data)
 
             file_to_approve = self.check_duplicate_data(request)
-            
             # Save the request
             self.save_request(serializer, request.user, request_type, file_to_approve)
+
         except PostExceptionHandler as exc:
             return Response({"message": exc.message, "error_code": exc.error_type, "status_code": exc.status_code}, status=400)
         else:
             return Response({'status_code': 201, 'statusText': "Request successfully submitted", 'data': serializer.data}, status=status.HTTP_201_CREATED)
         
+    # def check_duplicate_data(self, files, user):
+    #     file_versions = []
+
+    #     for file_to_approve in files:
+    #         if not isinstance(file_to_approve, InMemoryUploadedFile):
+    #             raise ValueError("Invalid file upload.")
+
+    #         file_name = file_to_approve.name
+            
+    #         # Check for existing document by name
+    #         existing_document = DocumentModel.objects.filter(document_name=file_name).first()
+
+    #         if existing_document:
+    #             document = existing_document
+    #         else:
+    #             # Create a new document if it doesn't exist
+    #             document = DocumentModel.objects.create(
+    #                 document_name=file_name,
+    #                 created_by=user
+    #             )
+
+    #         # Create a new version for the uploaded file
+    #         current_version = DocumentVersionModel.objects.create(
+    #             document=document,
+    #             version_number=(DocumentVersionModel.objects.filter(document=document).count() + 1),
+    #             uploaded_file=file_to_approve,
+    #             uploaded_by=user,
+    #             is_current=True
+    #         )
+
+    #         file_versions.append(current_version)
+
+    #     return file_versions  # Return the list of DocumentVersionModel instances
+
+
+
+
     def check_duplicate_data(self, request):
         file_to_approve = request.FILES.get('file_for_approval')
         if not file_to_approve:
@@ -273,7 +312,6 @@ class RequestSubmissionHandler(generics.GenericAPIView):
             if latest_version:
                 latest_version.is_current = False
                 latest_version.save()
-           
             
             current_version = DocumentVersionModel.objects.create(
                 document=document,
@@ -290,8 +328,55 @@ class RequestSubmissionHandler(generics.GenericAPIView):
             current_version = latest_version  # Use the latest version if the file hasn't changed
 
         return current_version  # Return the DocumentVersionModel instance
+    
+    
+    
+    def validate_request_data(self, data, request):
+        # Ensure you're passing the mutable 'data'
+        serializer = self.serializer_class(data=data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        return serializer
 
-    # def check_duplicate_data(self, request):
+    def get_request_type(self, data):
+        # Safely fetch request_type from the mutable 'data'
+        protocol_name = data.get('request_type')
+        if not protocol_name:
+            raise PostExceptionHandler("Request type is required")
+        return WorkFlowProtocolModel.objects.filter(protocol_id=protocol_name).first()
+
+
+    # def save_request(self, serializer, requesting_user, request_type, file_versions):
+    #     # Save the main request object
+    #     request_instance = serializer.save(
+    #         requesting_user=requesting_user,
+    #         request_type=request_type,
+    #     )
+
+    #     # Associate all file versions with the request
+    #     for file_version in file_versions:
+    #         request_instance.file_for_approval.add(file_version)
+
+
+
+
+    def save_request(self, serializer, requesting_user, request_type, file_to_approve):
+        # Save using mutable 'data'
+        serializer.save(
+            requesting_user=requesting_user,
+            request_type=request_type,
+            file_for_approval=file_to_approve
+        )
+
+                    
+
+
+
+
+
+
+
+
+   # def check_duplicate_data(self, request):
     #     file_to_approve = request.FILES.get('file_for_approval')
     #     if not file_to_approve:
     #         raise PostExceptionHandler(message="No file uploaded", error_type="no_file", status_code=402)
@@ -318,38 +403,6 @@ class RequestSubmissionHandler(generics.GenericAPIView):
     #         print(f"Document Version created: {document_version}")
 
     #     return document_version
-    
-    def validate_request_data(self, data, request):
-        # Ensure you're passing the mutable 'data'
-        serializer = self.serializer_class(data=data, context={'request': request})
-        serializer.is_valid(raise_exception=True)
-        return serializer
-
-    def get_request_type(self, data):
-        # Safely fetch request_type from the mutable 'data'
-        protocol_name = data.get('request_type')
-        if not protocol_name:
-            raise PostExceptionHandler("Request type is required")
-        return WorkFlowProtocolModel.objects.filter(protocol_id=protocol_name).first()
-
-    def save_request(self, serializer, requesting_user, request_type, file_to_approve):
-        # Save using mutable 'data'
-        serializer.save(
-            requesting_user=requesting_user,
-            request_type=request_type,
-            file_for_approval=file_to_approve
-        )
-            
-                    
-
-
-
-
-
-
-
-
-
 
                     
 

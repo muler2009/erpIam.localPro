@@ -45,8 +45,8 @@ const PerformTransition = ({ rowData, approvalStatus, comments, handleIsOpenClos
             formData.append('action_name', actionName);
             formData.append('comments', defaultComments); 
 
-            if (rowData.request?.file_for_approval) {
-                formData.append('file_for_approval', rowData.request?.file_for_approval);
+            if (rowData.request?.file) {
+                formData.append('file', rowData.request?.file);
             }
 
             try {

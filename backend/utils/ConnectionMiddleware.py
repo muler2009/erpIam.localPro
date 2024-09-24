@@ -1,6 +1,7 @@
 from django.conf import settings
 import ldap
 
+
 class LDAPConnectionMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -9,9 +10,9 @@ class LDAPConnectionMiddleware:
     def __call__(self, request):
         try:
             # Read LDAP configuration from Django settings
-            ldap_uri = settings.LDAP_URI
-            ldap_bind_dn = settings.LDAP_BIND_DN
-            ldap_bind_password = settings.LDAP_PASSWORD
+            ldap_uri = settings.AUTH_LDAP_SERVER_URI
+            ldap_bind_dn = settings.AUTH_LDAP_BIND_DN
+            ldap_bind_password = settings.AUTH_LDAP_BIND_PASSWORD
 
             # Initialize and bind to the LDAP server
             connection = ldap.initialize(ldap_uri)
