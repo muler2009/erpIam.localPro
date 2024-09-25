@@ -1,4 +1,4 @@
-from rest_framework import generics, status
+from rest_framework import generics, status, serializers
 from rest_framework.response import Response
 from rest_framework.request import Request
 from utils.custom_exception_handler import PostExceptionHandler
@@ -17,11 +17,15 @@ class RegisterViewRequestHandler(generics.GenericAPIView):
                 raise PostExceptionHandler(message="Not valid data", error_type="ERROR")
             
             user_serialzier.save()
+
+        except serializers.ValidationError as validation_error:
+            raise PostExceptionHandler(message=str(validation_error), error_type="VALIDATION_ERROR", status_code=401)
             
         except PostExceptionHandler as exception: 
             return Response({
                 "message": exception.message,
-                "error_type": exception.error_type
+                "error_type": exception.error_type,
+                "status_code": exception.status_code
             })
 
         else:

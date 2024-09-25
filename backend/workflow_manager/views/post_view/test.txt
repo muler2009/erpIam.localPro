@@ -1,0 +1,67 @@
+   # Path to the final document
+            file_name = self.sanitize_filename(str(approved_request.file_for_approval))
+            document_path = os.path.join(settings.MEDIA_ROOT, file_name)
+
+            approved_document_path = os.path.join(settings.MEDIA_ROOT, document_path)
+            output_path = f"{approved_document_path}_approved.pdf"
+
+            # Add the stamp and signature to the final document
+            signature = self.request.user.get_username()
+            stamp_text = "Approved"
+            self.merge_stamp_signature_on_document(approved_document_path, signature, stamp_text, output_path)
+
+            # Update the document path in the approved request
+            approved_request.document_path = output_path
+
+
+    def create_stamp_and_signature(self, signature, stamp_text):
+        buffer = BytesIO()
+        c = canvas.Canvas(buffer, pagesize=letter)
+
+        # Example signature
+        c.drawString(100, 500, f"Approved By: {signature}")
+        
+        # Example stamp (You can change coordinates and add more styles)
+        c.drawString(100, 480, f"Stamp: {stamp_text}")
+        
+        c.showPage()
+        c.save()
+
+        buffer.seek(0)
+
+        return buffer
+
+
+    def merge_stamp_signature_on_document(self, approved_document_path, signature, stamp_text, output_path):
+        # Step 1: Generate the stamp and signature PDF
+        stamp_buffer = self.create_stamp_and_signature(signature, stamp_text)
+        # document_path = os.path.join(settings.MEDIA_ROOT, str(approved_request.file_for_approval))
+        
+        # Step 2: Load the approved PDF
+        reader = PdfReader(approved_document_path)
+        writer = PdfWriter()
+        
+        # Step 3: Add all pages from the original document to the writer
+        for page_num in range(len(reader.pages)):
+            page = reader.pages[page_num]
+            
+            # Add original page to writer
+            writer.add_page(page)
+
+        # Step 4: Overlay the stamp/signature on the last page
+        if reader.pages:
+            last_page = reader.pages[-1]
+            
+            # Create a reader for the stamp/signature
+            stamp_reader = PdfReader(stamp_buffer)
+            stamp_page = stamp_reader.pages[0]
+
+            # Merge the last page with the stamp/signature
+            last_page.merge_page(stamp_page)
+
+            # Replace the last page with the merged one
+            writer.pages[-1] = last_page
+
+        # Step 5: Save the final document with the stamp and signature
+        with open(output_path, 'wb') as output_file:
+            writer.write(output_file)

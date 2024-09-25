@@ -14,9 +14,9 @@ logger = logging.getLogger(__name__)
 @receiver(post_save, sender=PosixGroupUserModel)
 def create_group_in_ldap_server(sender, instance, created, *args, **kwargs):
     if created:
-        ldap_uri = settings.LDAP_URI
-        ldap_bind_dn = settings.LDAP_BIND_DN
-        ldap_bind_password = settings.LDAP_PASSWORD
+        ldap_uri = settings.AUTH_LDAP_SERVER_URI
+        ldap_bind_dn = settings.AUTH_LDAP_BIND_DN
+        ldap_bind_password = settings.AUTH_LDAP_BIND_PASSWORD
         group_dn = f"cn={instance.group_name},ou=groups,ou=iam,dc=erpIam,dc=local"
         
         group_attrs = [
@@ -73,9 +73,9 @@ def create_group_in_ldap_server(sender, instance, created, *args, **kwargs):
 @receiver(post_save, sender=UserAccountsModel)
 def add_user_to_ldap_group(sender, instance, created, **kwargs):
     if created:
-        ldap_uri = settings.LDAP_URI
-        ldap_bind_dn = settings.LDAP_BIND_DN
-        ldap_bind_password = settings.LDAP_PASSWORD
+        ldap_uri = settings.AUTH_LDAP_SERVER_URI
+        ldap_bind_dn = settings.AUTH_LDAP_BIND_DN
+        ldap_bind_password = settings.AUTH_LDAP_BIND_PASSWORD
 
         try:
             connection = ldap.initialize(ldap_uri)
@@ -121,9 +121,9 @@ def add_user_to_ldap_group(sender, instance, created, **kwargs):
 @receiver(m2m_changed, sender=PosixGroupUserModel.members.through)
 def update_group_members_in_ldap(sender, instance, action, **kwargs):
     if action in ["post_add", "post_remove", "post_clear"]:
-        ldap_uri = settings.LDAP_URI
-        ldap_bind_dn = settings.LDAP_BIND_DN
-        ldap_bind_password = settings.LDAP_PASSWORD
+        ldap_uri = settings.AUTH_LDAP_SERVER_URI
+        ldap_bind_dn = settings.AUTH_LDAP_BIND_DN
+        ldap_bind_password = settings.AUTH_LDAP_BIND_PASSWORD
         group_dn = f"cn={instance.group_name},ou=groups,ou=iam,dc=erpIam,dc=local"
         member_uids = instance.members.all()
         member_uids_bytes = [user.username.encode('utf-8') for user in member_uids]

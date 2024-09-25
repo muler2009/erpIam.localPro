@@ -18,7 +18,14 @@ from ...models.approval_level import ApprovalStageModel
 from ...models.intermediate_request import IntermediateRequestModel
 from ...serilizers.get_intermediate_request_serializer import ApprovalStageSerializer
 from django.shortcuts import get_object_or_404
+import os
+from django.conf import settings
 from notification.models.core_notification_model import NotificationModel
+from PyPDF2 import PdfReader, PdfWriter
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+from io import BytesIO
+
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)  # You can adjust the level to INFO or WARNING based on your needs
@@ -226,19 +233,109 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
         except ValueError:
             return False
         
+    def merge_signature_with_document(self, original_pdf_path, signature_image_path, request, watermark_text):
+        # Read the original PDF file from the original path
+        original_pdf = PdfReader(original_pdf_path)
+        writer = PdfWriter()
+
+        pages_count = len(original_pdf.pages)
+        # Prepare in-memory canvas for signature overlay
+        packet = BytesIO()
+        stamp = canvas.Canvas(packet, pagesize=A4)
+
+        # Read the dimensions of the first page of the original PDF
+        page_width, page_height = A4
+
+        # Draw the signature image centered on the page
+        image_width, image_height = 150, 150  # Adjust the size of the image here
+        x_centered = (page_width - image_width) / 2.5
+        y_centered = (page_height - image_height) / 2.5
+        stamp.drawImage(signature_image_path, x_centered, y_centered, width=image_width, height=image_height, mask='auto')
+
+        x_centered_information = (page_width - image_width) / 2
+        y_centered_information = (page_height - image_height) / 2
+
+        # Add additional information (e.g., user name, approval date, stage) below the image
+        stamp.drawString(x_centered_information + 160, y_centered_information - 170, f"Approved by: {request.user}")
+        stamp.drawString(x_centered_information + 160, y_centered_information - 190, f"Date: {datetime.now().date()} ")
+        stamp.drawString(x_centered_information + 160, y_centered_information - 210, "Signature: Stage 1")
+
+        # Finalize the signature canvas
+        stamp.save()
+
+        # Move the buffer to the beginning so we can read from it
+        packet.seek(0)
+
+        # Create a PDF reader from the canvas-generated overlay
+        signature_pdf = PdfReader(packet)
+
+
+         # Create watermark overlay
+        watermark_packet = BytesIO()
+        watermark_canvas = canvas.Canvas(watermark_packet, pagesize=A4)
+        watermark_canvas.setFont("Helvetica", 40)
+        watermark_canvas.setFillAlpha(0.3)  # Transparency of watermark
+
+        # Set watermark in the center of the page
+        watermark_x = A4[0] / 2
+        watermark_y = A4[1] / 2
+
+        watermark_canvas.drawCentredString(watermark_x, watermark_y, watermark_text)
+        watermark_canvas.save()
+
+        # Move watermark buffer to the beginning
+        watermark_packet.seek(0)
+        watermark_pdf = PdfReader(watermark_packet)
+
+        # Merge the overlay (signature) onto the original document
+        for i, page in enumerate(original_pdf.pages):
+            # Only apply signature to the first page (or adjust as needed)
+            if i == pages_count - 1:
+                # Merge signature page onto the original content
+                page.merge_page(signature_pdf.pages[0])
+            writer.add_page(page)
+
+        # Overwrite the original PDF file with the merged content
+        with open(original_pdf_path, 'wb') as output_file:
+            writer.write(output_file)
+
+        logger.info(f"Merged document saved and original document at {original_pdf_path} overwritten successfully.")
+
+    
     def handle_approved_request(self, approved_request, current_stage, transition, comments, request, action_name):
         # Move to the next stage or mark as fully approved if it's the last stage
         pending = WorkFlowStateModel.objects.get(state_name='pending for approval')
         next_stage = ApprovalStageModel.objects.filter(
             request=approved_request,
             stage_level__gt=current_stage.stage_level
-        ).order_by('stage_level').first()             
+        ).order_by('stage_level').first()       
+
+        # Construct the document path
+        document_path = os.path.join(settings.MEDIA_ROOT, str(approved_request.file_for_approval.uploaded_file))
+        logger.info(f"Document path: {document_path}")
+
+        # Check if the document exists
+        if not os.path.exists(document_path):
+            logger.error(f"File not found: {document_path}")
+            raise FileNotFoundError(f"File not found: {document_path}")      
 
         if next_stage:
             # Update the approved request to the next stage and state
             approved_request.current_stage = next_stage
             approved_request.current_state = pending  # Set the state to 'pending approval'
             approved_request.save()
+
+            user_name = self.request.user.username
+            approval_date = datetime.now().strftime("%Y-%m-%d")
+           # Path to the signature image
+            signature_image_path = os.path.join(settings.MEDIA_ROOT, "image_files/stamp.png")
+
+            # Merge the signature with the original document
+            self.merge_signature_with_document(document_path, signature_image_path, request, watermark_text="CONFIDENTIAL")
+
+            # No need to change the uploaded_file as it is already merged in the original path
+            # You can optionally log or set a status indicating the document is ready for the next stage
+            logger.info(f"Document sent to the next stage: {next_stage.stage_name}")
            
             IntermediateRequestModel.objects.create(
                 request=approved_request,
@@ -257,6 +354,18 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
             IntermediateRequestModel.objects.filter(request=approved_request).delete()
             # Remove all stages after the final approval
             ApprovalStageModel.objects.filter(request=approved_request).delete()
+
+        #     user_name = self.request.user.username
+        #     approval_date = datetime.now().strftime("%Y-%m-%d")
+        #    # Path to the signature image
+        #     signature_image_path = os.path.join(settings.MEDIA_ROOT, "image_files/image.png")
+
+        #     # Merge the signature with the original document
+        #     self.merge_signature_with_document(document_path, signature_image_path, request)
+
+        #     # No need to change the uploaded_file as it is already merged in the original path
+        #     # You can optionally log or set a status indicating the document is ready for the next stage
+        #     logger.info(f"Document sent to the next stage: {next_stage.stage_name}")
 
         approved_request.save()
 
@@ -327,6 +436,7 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
                 notification_metadata={'request': str(approved_request.request_id)}
             )
 
+    
     def handle_rejected_requests_for_modification(self, rejected_request, current_stage, comments, action_name):
         rejected_state = WorkFlowStateModel.objects.get(state_name="pending for approval")
         
@@ -360,8 +470,6 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
             # )
 
    
-   
-
 
 
 # class PerformTransitionRequestHandler(generics.GenericAPIView):
@@ -523,41 +631,6 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
 #             except IntermediateRequestModel.DoesNotExist:
 #                 logger.error("Error retrieving previous approver")
 #                 previous_approver = None
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

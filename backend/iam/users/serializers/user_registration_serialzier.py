@@ -21,7 +21,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         username = attrs.get('username', '')
 
         if password != confirm_password:
-            raise PostExceptionHandler(message="Passord must match")
+            raise serializers.ValidationError("Passord must match")
 
         return attrs
     

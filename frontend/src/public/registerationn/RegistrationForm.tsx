@@ -1,9 +1,24 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { FlexBoxInner, FlexBox, Div, Text } from '../../components/common/StyledComponent'
 import RegistrationInstruction from './RegistrationInstruction'
 import InputWithDesc from '../../components/common/InputWithDesc'
+import useRegistration from '../../iam/hooks/useRegistration'
+import { useUserSelfRegistrationMutation } from '../../iam/features/userAPI'
+import { ErrorResponseInterface } from '../../iam/models/error.model'
+import { LoginErrorMessageModal } from '../../iam/components/errors/LoginError'
 
 const RegistrationForm = () => {
+
+    const {
+        registeration, 
+        handleRegistrationInputs, 
+        canSave, setLoginFailed, 
+        loginFailed, loginErrorMessage, 
+        onRegisterEventClicked
+    } = useRegistration()
+   
+
+
   return (
     <FlexBox className='w-[80%] mx-auto shadow-md h-[95%] mt-2 mb-10 border'>
         <FlexBoxInner className='flex space-x-2 justify-start items-start p-1 h-full'>
@@ -22,8 +37,10 @@ const RegistrationForm = () => {
                                 id='firstname_input'
                                 placeholder='First Name'
                                 className='input-md'
-                                name='firstname'
                                 desc="enter your name"
+                                name='first_name'
+                                value={registeration?.first_name}
+                                onChange={handleRegistrationInputs}
                             />
                             <InputWithDesc 
                                 label='Last Name'
@@ -31,8 +48,10 @@ const RegistrationForm = () => {
                                 id='lastname_input'
                                 placeholder='Last name'
                                 className='input-md'
-                                name='lastname'
                                 desc="Enter Last name"
+                                name='last_name'
+                                value={registeration?.last_name}
+                                onChange={handleRegistrationInputs}
                             />
 
                         </Div>
@@ -42,8 +61,10 @@ const RegistrationForm = () => {
                             id='email_input'
                             placeholder='Email address'
                             className='input-md'
-                            name='email'
                             desc="example: email@domain.com"
+                            name='email'
+                            value={registeration?.email}
+                            onChange={handleRegistrationInputs}
                         />
                         <InputWithDesc 
                             label='Username'
@@ -51,8 +72,10 @@ const RegistrationForm = () => {
                             id='username_input'
                             placeholder='Username'
                             className='input-md'
-                            name='username'
                             desc="Username: required to get access the system"
+                            name='username'
+                            value={registeration?.username}
+                            onChange={handleRegistrationInputs}
                         />
                         <Div className='flex space-x-3'>
                             <InputWithDesc 
@@ -61,8 +84,10 @@ const RegistrationForm = () => {
                                 id='password_input'
                                 placeholder='Password'
                                 className='input-md'
-                                name='password'
                                 desc=' Must include uppercase and lowercase letters, a number and a special character. symbol, number underscore'
+                                name='password'
+                                value={registeration?.password}
+                                onChange={handleRegistrationInputs}
                             />
                             <InputWithDesc 
                                 label='Confirm Password'
@@ -70,20 +95,33 @@ const RegistrationForm = () => {
                                 id='confirm_password_input'
                                 placeholder='Confirm Password'
                                 className='input-md'
-                                name='confirm_password'
                                 desc="Re-enter the password"
+                                name='confirm_password'
+                                value={registeration?.confirm_password}
+                                onChange={handleRegistrationInputs}
                             />
-
                         </Div>
                         <Div className='block pt-5'>
-                            <button className='bg-blue-900 font-Poppins text-white w-1/2'>Create Account</button>
+                            <button 
+                                className='bg-blue-900 font-Poppins text-white w-1/2 disabled:bg-gray-50' 
+                                disabled={!canSave}
+                                onClick={onRegisterEventClicked}
+                            >
+                                Create Account
+                            </button>
 
                         </Div>
                     </Div>
                 </Div>
             </Div>
             <RegistrationInstruction />
-        </FlexBoxInner>       
+        </FlexBoxInner> 
+
+         <LoginErrorMessageModal 
+            loginErrorMessage={loginErrorMessage}
+            setLoginFailed={setLoginFailed} 
+            loginFailed={loginFailed} 
+        />      
     </FlexBox>
   )
 }

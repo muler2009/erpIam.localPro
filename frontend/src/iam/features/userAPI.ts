@@ -18,11 +18,21 @@ const userAPI = erpAPISlice.injectEndpoints({
                 body: userData
             }),
             invalidatesTags: [API_TAGS.USER]
+        }),
+        userSelfRegistration: builder.mutation<UserAPIResponse, UserAccountInterfacee>({
+            query: (registration_data) => ({
+                url: `iam/account/register_user/`,
+                method: `POST`,
+                body: registration_data
+            })
         })
     })
 })
 
 export const { 
     useGetAllUsersQuery,
+    useUserSelfRegistrationMutation,
     useCreateUserAccountMutation
 } = userAPI
+
+

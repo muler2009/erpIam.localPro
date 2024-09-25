@@ -95,9 +95,9 @@ def user_post_save_handler(sender, instance, created, *args, **kwargs):
 
 # @receiver(pre_save, sender=UserAccountsModel)
 def update_pre_save_handler(sender, instance, raw, **kwargs):
-    ldap_uri = settings.LDAP_URI
-    ldap_bind_dn = settings.LDAP_BIND_DN    
-    ldap_bind_password = settings.LDAP_PASSWORD
+    ldap_uri = settings.AUTH_LDAP_SERVER_URI
+    ldap_bind_dn = settings.AUTH_LDAP_BIND_DN
+    ldap_bind_password = settings.AUTH_LDAP_BIND_PASSWORD
 
     try:
         # Check if the instance exists in the database
@@ -161,9 +161,9 @@ def update_pre_save_handler(sender, instance, raw, **kwargs):
 
     
 def delete_form_ldap(username):
-    ldap_uri = settings.LDAP_URI
-    ldap_bind_dn = settings.LDAP_BIND_DN    
-    ldap_bind_password = settings.LDAP_PASSWORD
+    ldap_uri = settings.AUTH_LDAP_SERVER_URI
+    ldap_bind_dn = settings.AUTH_LDAP_BIND_DN
+    ldap_bind_password = settings.AUTH_LDAP_BIND_PASSWORD
 
     try:
         connection = ldap.initialize(ldap_uri)

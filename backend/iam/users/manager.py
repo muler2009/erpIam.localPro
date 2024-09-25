@@ -10,9 +10,9 @@ from utils.set_default_password import set_default_password
 # UserAccountsModel = get_user_model()
 class UserAccountsManager(BaseUserManager):
     def create_user_in_ldap(self, username, first_name, last_name, email, password):
-        ldap_uri = settings.LDAP_URI
-        ldap_bind_dn = settings.LDAP_BIND_DN
-        ldap_bind_password = settings.LDAP_PASSWORD
+        ldap_uri = settings.AUTH_LDAP_SERVER_URI
+        ldap_bind_dn = settings.AUTH_LDAP_BIND_DN
+        ldap_bind_password = settings.AUTH_LDAP_BIND_PASSWORD
 
         user_dn = f'cn={username},ou=admin,dc=erpIam,dc=local'
         user_attrs = [
