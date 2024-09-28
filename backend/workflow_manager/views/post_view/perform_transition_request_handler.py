@@ -25,7 +25,9 @@ from PyPDF2 import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from io import BytesIO
-
+import qrcode
+from reportlab.lib.utils import ImageReader
+from PIL import Image
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)  # You can adjust the level to INFO or WARNING based on your needs
@@ -232,19 +234,55 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
             return True
         except ValueError:
             return False
+
+    def qr_code_for_approved_doc(self, approved_request, request):
+        # Prepare QR data
+        user = self.request.user
+        qr_data = {
+            "Invester": f"{approved_request.requesting_user.first_name} {approved_request.requesting_user.first_name}",
+            "approval_date": str(datetime.now().date()),
+            "approved_by": f"{user.first_name} {user.last_name}",
+            "approver_role": approved_request.current_stage.role.role_name,
+        }
+
+        # Create a QR code instance
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=2,
+        )
+        qr.add_data(qr_data)
+        qr.make(fit=True)
+
+        # Create image from QR code
+        img = qr.make_image(fill='black', back_color='white')
+
+        # Define the path to save the QR code (same place as your signature image)
+        qr_code_path = os.path.join(settings.MEDIA_ROOT, "qr_codes", f"qr_code_{request.user}.png")
+
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(qr_code_path), exist_ok=True)
+
+        # Save the QR code image
+        img.save(qr_code_path)
+
+        # Return the path where the QR code was saved
+        return qr_code_path
         
-    def merge_signature_with_document(self, original_pdf_path, signature_image_path, request, watermark_text):
+    def merge_signature_with_document(self, original_pdf_path, signature_image_path, request, approved_request):
         # Read the original PDF file from the original path
         original_pdf = PdfReader(original_pdf_path)
         writer = PdfWriter()
 
-        pages_count = len(original_pdf.pages)
         # Prepare in-memory canvas for signature overlay
         packet = BytesIO()
         stamp = canvas.Canvas(packet, pagesize=A4)
 
         # Read the dimensions of the first page of the original PDF
         page_width, page_height = A4
+        signature_approver = os.path.join(settings.MEDIA_ROOT, "image_files/signature.png")
+        
 
         # Draw the signature image centered on the page
         image_width, image_height = 150, 150  # Adjust the size of the image here
@@ -252,13 +290,18 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
         y_centered = (page_height - image_height) / 2.5
         stamp.drawImage(signature_image_path, x_centered, y_centered, width=image_width, height=image_height, mask='auto')
 
+
         x_centered_information = (page_width - image_width) / 2
         y_centered_information = (page_height - image_height) / 2
 
         # Add additional information (e.g., user name, approval date, stage) below the image
-        stamp.drawString(x_centered_information + 160, y_centered_information - 170, f"Approved by: {request.user}")
-        stamp.drawString(x_centered_information + 160, y_centered_information - 190, f"Date: {datetime.now().date()} ")
-        stamp.drawString(x_centered_information + 160, y_centered_information - 210, "Signature: Stage 1")
+        # stamp.drawString(x_centered_information + 160, y_centered_information - 170, f"Approved by: {request.user}")
+        # stamp.drawString(x_centered_information + 160, y_centered_information - 190, f"Date: {datetime.now().date()} ")
+        # stamp.drawString(x_centered_information + 160, y_centered_information - 210, "Signature: Stage 1")
+
+        stamp.drawString(400, 140, f"Approved by: {request.user}")
+        stamp.drawString(400, 120, f"Date: {datetime.now().date()} ")
+        stamp.drawImage(signature_approver, 400, 60, width=100, height=50, mask='auto')
 
         # Finalize the signature canvas
         stamp.save()
@@ -269,38 +312,44 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
         # Create a PDF reader from the canvas-generated overlay
         signature_pdf = PdfReader(packet)
 
+        # Generate QR code and save it to an in-memory canvas
+        qr_code_path = self.qr_code_for_approved_doc(approved_request, request)
+       
+        qr_image_reader = ImageReader(qr_code_path)
 
-         # Create watermark overlay
-        watermark_packet = BytesIO()
-        watermark_canvas = canvas.Canvas(watermark_packet, pagesize=A4)
-        watermark_canvas.setFont("Helvetica", 40)
-        watermark_canvas.setFillAlpha(0.3)  # Transparency of watermark
-
-        # Set watermark in the center of the page
-        watermark_x = A4[0] / 2
-        watermark_y = A4[1] / 2
-
-        watermark_canvas.drawCentredString(watermark_x, watermark_y, watermark_text)
-        watermark_canvas.save()
-
-        # Move watermark buffer to the beginning
-        watermark_packet.seek(0)
-        watermark_pdf = PdfReader(watermark_packet)
+        # Adjust QR code position (bottom-left corner, footer)
+        qr_x = 100
+        qr_y = 100
+        qr_size = 50  # Size of the QR code
 
         # Merge the overlay (signature) onto the original document
         for i, page in enumerate(original_pdf.pages):
-            # Only apply signature to the first page (or adjust as needed)
-            if i == pages_count - 1:
+            if i == len(original_pdf.pages) - 1:
                 # Merge signature page onto the original content
                 page.merge_page(signature_pdf.pages[0])
-            writer.add_page(page)
+            
+             # Prepare an in-memory canvas for QR code on every page
+            qr_packet = BytesIO()
+            qr_canvas = canvas.Canvas(qr_packet, pagesize=A4)
 
+            qr_x, qr_y = 50, 50  # Position of QR code on the page
+            qr_size = 50  # Adjust size of the QR code
+
+            # Draw the QR code on the canvas using ImageReader
+            qr_canvas.drawImage(qr_image_reader, qr_x, qr_y, width=qr_size, height=qr_size)
+            qr_canvas.save()
+
+            # Reset buffer for the QR code
+            qr_packet.seek(0)
+            qr_pdf = PdfReader(qr_packet)
+
+            # Merge the QR code onto every page
+            page.merge_page(qr_pdf.pages[0])
+
+            writer.add_page(page)
         # Overwrite the original PDF file with the merged content
         with open(original_pdf_path, 'wb') as output_file:
             writer.write(output_file)
-
-        logger.info(f"Merged document saved and original document at {original_pdf_path} overwritten successfully.")
-
     
     def handle_approved_request(self, approved_request, current_stage, transition, comments, request, action_name):
         # Move to the next stage or mark as fully approved if it's the last stage
@@ -329,9 +378,10 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
             approval_date = datetime.now().strftime("%Y-%m-%d")
            # Path to the signature image
             signature_image_path = os.path.join(settings.MEDIA_ROOT, "image_files/stamp.png")
+            # qr_image_path = os.path.join(settings.MEDIA_ROOT, "image_files/stamp.png")
 
             # Merge the signature with the original document
-            self.merge_signature_with_document(document_path, signature_image_path, request, watermark_text="CONFIDENTIAL")
+            self.merge_signature_with_document(document_path, signature_image_path, request, approved_request=approved_request)
 
             # No need to change the uploaded_file as it is already merged in the original path
             # You can optionally log or set a status indicating the document is ready for the next stage
