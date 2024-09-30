@@ -9,6 +9,9 @@ const useFolderAndFileExplorerActions = () => {
     const [currentPath, setCurrentPath] = useState<any[]>([]); 
     const [forwardStack, setForwardStack] = useState<any[]>([]);
     const [selectedItem, setSelectedItem] = useState<string | null>(null); 
+    const [isSearching, setIsSearching] = useState(false);
+    const [search, setSearch] = useState('')
+
 
     // const handleBackClick = () => {
     //     if (currentPath.length > 0) {
@@ -46,26 +49,32 @@ const useFolderAndFileExplorerActions = () => {
         setForwardStack(remainingForwardStack);
       }
     };
+
+    const handleFolderDoubleClick= (folder: any) => {    
+      if (folder.subfolder || folder.uploaded_file) {
+        const newFolderContent = [
+          ...(folder.subfolder || []),
+          ...(folder.uploaded_file || [])
+        ];
     
-      // const handleForwardClick = () => {
-      //   if (forwardStack.length > 0) {
-      //     const nextFolder = forwardStack.pop();
-      //     setCurrentFolder(nextFolder);
-      //     setCurrentPath([...currentPath, nextFolder]);
-      //     setOpenStates(new Array(nextFolder.length).fill(false));
-      //     setForwardStack([...forwardStack]); // Update the forward stack state
-      //   }
-      // };
-  
-    // a function that update the currently clicked folder 
-    // const handleItemClick = (folder: any) => {
-    //     if (folder.subfolder) {
-    //       setCurrentFolder(folder.subfolder);
-    //       setCurrentPath([...currentPath, folder]);
-    //       setOpenStates(new Array(folder.subfolder.length).fill(false));
-    //       setForwardStack([]); // Clear forward stack on new navigation
-    //     }
-    //   };
+        setCurrentFolder(newFolderContent);
+        setCurrentPath([...currentPath, folder]);
+        setOpenStates(new Array(newFolderContent.length).fill(false));
+        setForwardStack([]);
+        
+        // Clear search state when navigating into a folder
+        setSearch(''); // Clear the search input
+        setIsSearching(false); // Reset searching state
+      }
+    };
+    
+      
+
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value;
+      setSearch(value);
+      setIsSearching(value.length > 0); // Update search state based on input
+    };
 
     const handleItemClick = (folder: any) => {
       if (folder.subfolder || folder.uploaded_file) {
@@ -102,6 +111,7 @@ const useFolderAndFileExplorerActions = () => {
     openStates,
     handleBackClick,
     handleItemClick,
+    handleFolderDoubleClick,
     handleForwardClick,
     toggleItem,
     setCurrentFolder,
@@ -109,8 +119,34 @@ const useFolderAndFileExplorerActions = () => {
     setOpenStates,
     currentPath,
     forwardStack,
-    getLastPathName
+    getLastPathName,
+    search,
+    handleSearchChange,
+    isSearching
   }
 }
 
 export default useFolderAndFileExplorerActions;
+
+
+
+
+// const handleForwardClick = () => {
+      //   if (forwardStack.length > 0) {
+      //     const nextFolder = forwardStack.pop();
+      //     setCurrentFolder(nextFolder);
+      //     setCurrentPath([...currentPath, nextFolder]);
+      //     setOpenStates(new Array(nextFolder.length).fill(false));
+      //     setForwardStack([...forwardStack]); // Update the forward stack state
+      //   }
+      // };
+  
+    // a function that update the currently clicked folder 
+    // const handleItemClick = (folder: any) => {
+    //     if (folder.subfolder) {
+    //       setCurrentFolder(folder.subfolder);
+    //       setCurrentPath([...currentPath, folder]);
+    //       setOpenStates(new Array(folder.subfolder.length).fill(false));
+    //       setForwardStack([]); // Clear forward stack on new navigation
+    //     }
+    //   };

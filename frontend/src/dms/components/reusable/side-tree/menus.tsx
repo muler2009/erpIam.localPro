@@ -7,6 +7,7 @@ import * as Fa6Icons from "react-icons/fa6";
 import * as BsIcons from "react-icons/bs";
 
 
+
 export const sidear_link: MenuItemInterface[] = [
     {
       label: "Dashboard",
@@ -34,7 +35,7 @@ export const sidear_link: MenuItemInterface[] = [
             },
             {
               label: "Archived",
-              path: "document/library/archive",
+              path: 'library/archvied',
               icon: <MdIcons.MdOutlineFolderZip size={15} />
             },
             {
@@ -69,6 +70,12 @@ export const sidear_link: MenuItemInterface[] = [
       ]
     },
     {
+      label: "User Record",
+      path: "recent",
+      icon: <BsIcons.BsFillDatabaseFill size={17} />
+      
+    },
+    {
       label: "Requests",
       path: "request",
       children: [
@@ -83,18 +90,7 @@ export const sidear_link: MenuItemInterface[] = [
           icon: <BsIcons.BsSendCheckFill />
         }
       ]
-    } ,
-    {
-      label: "Recents",
-      path: "recent",
-      icon: <FaIcons.FaRegClock size={17} />
-      
-    },
-    {
-      label: "Important",
-      path: "important",
-      icon: <MdIcons.MdOutlineStarOutline size={18} />
-    },     
+    } 
   ];
 
 export const category: CategoryInterface[] = [

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useGetAllRolesQuery } from '../../../../../iam/features/roleAPI';
 import { FolderDataInterface, UploadedDocumentInterface } from '../../../../models/folder-models';
-import { FlexBox, FlexBoxInner, Text } from '../../../../../components/common/StyledComponent';
+import { FlexBox, FlexBoxInner, Text, Div } from '../../../../../components/common/StyledComponent';
 import useFolderExplorerActions from '../../../../hooks/useFolderExplorerActions';
 import { FaFilePdf } from 'react-icons/fa';
 import PdfReader from '../../../../components/common/PDFReader';
@@ -31,47 +31,32 @@ const FolderContent = ({ folder_data, handleItemClick, openStates, toggleItem, h
 
   return (
     
-    <FlexBoxInner className='flex flex-col relative mx-1'>
+    <FlexBoxInner className='flex flex-col relative'>
         {
             folder_data.map((item, index) => (
                 <React.Fragment key={item.folder_identifier}>
                     {/* Display folders */}
                     {
                         item.folder_name && (
-                            <div className="mx-5 border-b hover:bg-gray-100 cursor-pointer" onDoubleClick={() => handleItemClick(item)}>
-                                <FlexBox className='flex justify-between items-center py-[5px] pr-10'>
-                                
-                                    <FlexBoxInner className='flex items-center space-x-4 cursor-pointer'>
+                            <FlexBox className="mx-5 border-b hover:bg-gray-100 cursor-pointer" onDoubleClick={() => handleItemClick(item)}>
+                                <FlexBoxInner className='flex justify-between items-center py-[5px] pr-10'>
+                                    <Div className='flex items-center space-x-4 cursor-pointer w-[20%]'>
                                         <AiFillFolder size={50} color='#f8d775' />
                                         <Text className='text-[#333] text-[12px] whitespace-pre-wrap text-nowrap text-center'>
                                             {item.folder_name}
                                         </Text>
-                                    </FlexBoxInner>
-                                
-                                    <FlexBox className='flex justify-start'>
+                                    </Div>
+                                    <Div className='flex justify-start w-[20%]'>
                                         <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>
                                             {item.subfolder?.length} items
                                         </Text>
-                                    </FlexBox>
-                                    <FlexBox>
-                                        <FlexBoxInner className='flex space-x-5'>
-                                            <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Size</Text>
-                                            <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Modified Date</Text>
-                                        </FlexBoxInner>
-                                    </FlexBox>
-                                </FlexBox>
-                                {/* Render subfolders recursively */}
-                                {/* {item.subfolder && item.subfolder.length > 0 && (
-                                    <FolderContent
-                                        folder_data={item.subfolder}
-                                        handleItemClick={handleItemClick}
-                                        openStates={openStates}
-                                        toggleItem={toggleItem}
-                                        handleBackClick={handleBackClick}
-                                        handleForwardClick={handleForwardClick}
-                                    />
-                                )} */}
-                            </div>
+                                    </Div>
+                                    <Div className='flex space-x-5'>
+                                        <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Size</Text>
+                                        <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Modified Date</Text>
+                                    </Div>
+                                </FlexBoxInner>
+                            </FlexBox>
                         )}
 
                     {/* Display files */}

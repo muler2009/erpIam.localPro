@@ -4,7 +4,7 @@ from dmsmodule.document_repository.views.get.get_document_req_handler import Get
 
 
 urlpatterns = [
-    path("create/", CreateDocumentRequestHandler.as_view()),
+    path("upload_document/", CreateDocumentRequestHandler.as_view(), name="upload_new_document"),
     path("get/", GetDocumentRequestHandler.as_view())
 
 ]

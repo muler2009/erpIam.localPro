@@ -1,6 +1,6 @@
 import { RoleDataAPIResponse } from "../../iam/models/role.models";
 import { UserAccountColumnsInterface } from "../../iam/models/user.model";
-import { DocumentInterface, DocumentVersionInterface } from "./file-models.";
+import { DocumentInterface, DocumentVersionInterface } from "./document-models.";
 
 export interface SendRequestModalProps {
     open: boolean;

@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
 import { FolderDataInterface, UploadedDocumentInterface } from '../../../../models/folder-models';
 import { FlexBox, FlexBoxInner, Text, P } from '../../../../../components/common/StyledComponent';
+import { format } from 'date-fns';
 
 import { AiFillFolder, AiFillFile } from 'react-icons/ai';
-
-
 
 interface FolderProps {
   folder_data: any;
@@ -19,15 +18,35 @@ interface FolderProps {
 const Folder = ({ folder_data, handleItemClick, openStates, toggleItem, handleBackClick, handleForwardClick }: FolderProps) => {
   return (
     <FlexBox className='pt-2'>
-      <FlexBoxInner className='flex flex-col relative mb-5 mx-5'>        
+      <FlexBoxInner className='flex flex-col relative mx-5'>        
         {
             folder_data?.map((folder: FolderDataInterface, index: number) => {
+              const created_at = folder.folder_created_date || new Date()
+              const updated_at = folder.folder_updated_date || new Date()
+
               return(
-                <FlexBox className='flex justify-start items-center border-b hover:bg-gray-100' key={index} onDoubleClick={() =>handleItemClick(folder)}>
-                  <FlexBoxInner className='flex items-center cursor-pointer py-[5px]'>
-                    <AiFillFolder size={50} color='#f8d775' />
-                    <Text className='text-[#333] text-[12px] whitespace-nowrap break-words w-[100px] pl-2'>{folder.folder_name}</Text>
-                  </FlexBoxInner>
+                <FlexBox className='border-b hover:bg-gray-100 cursor-pointer' key={index} onDoubleClick={() =>handleItemClick(folder)}>
+                  <FlexBox className='flex justify-between items-center py-[5px] pr-10'>                       
+                    <FlexBoxInner className='flex items-center space-x-4 cursor-pointer w-[20%]'>
+                        <AiFillFolder size={50} color='#f8d775' />
+                        <Text className='text-[#333] text-[12px] whitespace-pre-wrap text-nowrap text-center'>
+                          {folder.folder_name}
+                        </Text>
+                    </FlexBoxInner>
+  
+                    <FlexBox className='w-[20%] flex justify-start'>
+                        <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>
+                            { folder.subfolder?.length } items
+                            
+                        </Text>
+                    </FlexBox>
+                   
+                      <FlexBoxInner className='flex space-x-5'>
+                          <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>{format(created_at, 'EE dd yyyy')}</Text>
+                          <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>{format(updated_at, 'EE dd yyyy')}</Text>
+                      </FlexBoxInner>
+                    
+                </FlexBox>
                 </FlexBox>
               )
             }    
@@ -36,6 +55,17 @@ const Folder = ({ folder_data, handleItemClick, openStates, toggleItem, handleBa
       </FlexBoxInner>
     </FlexBox>
   )}
+
+// <FlexBoxInner className='flex items-center cursor-pointer py-[5px]'>
+//                     <AiFillFolder size={50} color='#f8d775' />
+//                     <Text className='text-[#333] text-[12px] whitespace-nowrap break-words w-[100px] pl-2'>{folder.folder_name}</Text>
+//                   </FlexBoxInner>
+
+  
+
+
+
+
 
 // const FolderItem = () => {
 //   return(

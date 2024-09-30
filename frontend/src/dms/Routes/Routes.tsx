@@ -9,18 +9,14 @@ import LibraryMain from '../views/document-management/LibraryMain';
 import SharedMainDashboard from '../views/shared/SharedMainDashboard';
 import Dashboard from '../views/dashboard/Dashboard';
 import LibraryList from '../views/document-management/LibraryList';
-import MainFolderLibrary from '../views/document-management/folders/MainFolderLibrary';
 import RequestMainPage from '../views/requests/RequestMainPage';
-import RequestList from '../views/requests/request-mini-components/RequestList';
-import RequestTabNavigation from '../views/requests/request-mini-components/RequestTabNavigation';
 import RequestDashboard from '../views/requests/request-mini-components/RequestDashboard';
 import AllFileandFolderView from '../views/document-management/folders/folder-mini-reusable-components/AllFileandFolderView';
 import RequestSent from '../views/requests/request-mini-components/RequestSent';
-import DMSReuesterLayout from '../layout/DMSReuesterLayout';
 import ClientDashboard from '../views/requests/client-mini-components/ClientDashboard';
 import ClientPendingRequest from '../views/requests/client-mini-components/ClientPendingRequest';
-import { GetApprovedRequest } from '../views/requests/request-mini-components';
 import ClientApproved from '../views/requests/client-mini-components/ClientApproved';
+import GetAllDocument from '../views/files-view/GetAllDocument';
 
 
 
@@ -44,6 +40,8 @@ const Routes = () => {
             ]
         },
         { path: 'library/shared', element: <SharedMainDashboard/> },
+        { path: 'library/archvied', element: <GetAllDocument /> },
+
        
         { path: 'request', element: <RequestMainPage/>,
             children: [

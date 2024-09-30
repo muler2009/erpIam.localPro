@@ -24,7 +24,7 @@ const CreateFolderM = ({isOpen, setIsOpen, title, folderAttributes, handleFolder
 
   const {errorMessage, triggerMessageModal, setErrors, setErrorMessage, setTriggerMessageModal} = useErrorState()
 
-  // const {canSave} = useCreareFolder()
+  const {canSave} = useCreareFolder()
  
   const [createFolder,  { isError, error } ] = useCreateFolderMutation()
 
@@ -98,12 +98,15 @@ const CreateFolderM = ({isOpen, setIsOpen, title, folderAttributes, handleFolder
                 </ModalBody>
 
                   <ModalFooter className='flex justify-end pr-5 pt-3 pb-5 space-x-3'>
-                      <Button 
-                        label={`create`}  
-                        className='px-5 rounded-none text-sm text-white btn-sm disabled:bg-gray-100 disabled:cursor-auto bg-[#f2f2f2]' 
-                        // disabled={!canSave}
+                      <button
+                        className='px-5 rounded-none text-sm   text-white btn-sm disabled:bg-gray-100 disabled:cursor-auto bg-[#3335a0]' 
+                        
                         onClick={onFolderSaveClicked}
-                      />
+                      
+                      >
+                        Create
+                      </button> 
+                     
                   </ModalFooter>
 
                   <>

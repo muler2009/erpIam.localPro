@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
-import { FileUploadColumnInterface } from "../../models/file-models.";
+import { FileUploadColumnInterface } from "../../models/document-models.";
 import { FlexBox, FlexBoxInner, P, Text } from "../../../components/common/StyledComponent";
 import {BsFiletypePdf} from 'react-icons/bs'
 import { format } from "date-fns";

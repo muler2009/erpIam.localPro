@@ -6,4 +6,4 @@ from ...models.document_information import DocumentInformation
 
 class GetDocumentVerisonRequestHandler(generics.ListAPIView):
     queryset = DocumentInformation.objects.all()
-    serializer_class = DocumentInformationSerializer
+    serializer_class = DocumentInformationSerializer 

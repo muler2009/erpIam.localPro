@@ -12,6 +12,16 @@ export const dmsAPI = erpAPISlice.injectEndpoints({
             }),
             providesTags: [API_TAGS.FOLDERS]
         }),
+        searchFolder: builder.query<FolderDataInterface[], {folder_name?: string }>({
+            query: ({folder_name}) => {
+               let url = `dms/folder/search_folder/?search=${folder_name}`
+                return{
+                    url: url,
+                    method: `GET`
+                }
+            },
+            providesTags: [API_TAGS.FOLDERS]
+        }),
         createFolder: builder.mutation<FolderAPIResponseInterface, FolderCreateInterface>({
             query: (folderAttributes) => ({
                 url: `dms/folder/create_folder/`,
@@ -26,7 +36,8 @@ export const dmsAPI = erpAPISlice.injectEndpoints({
 
 export const {
     useGetFolderQuery,
-    useCreateFolderMutation
+    useCreateFolderMutation,
+    useSearchFolderQuery,
 } = dmsAPI
 
 

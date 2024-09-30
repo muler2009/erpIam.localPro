@@ -83,14 +83,12 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
                             )                         
                         )
                     }
-                    <div className={`flex text-[12px] ${!listItem.children && 'hover:underline hover:text-blue-500'}`}>
-                      {
-                        listItem.label 
-                      }
+                    <div className={`flex text-[12px]`}>
+                      {listItem.label}
                     </div>
                   </Link>
               ) : (
-                <P className="text-[12px] hover:underline hover:text-blue-500 hover:bg-gray-50">{listItem.label}</P>
+                <P className="text-[12px] hover:bg-gray-50">{listItem.label}</P>
               )}
 
             {

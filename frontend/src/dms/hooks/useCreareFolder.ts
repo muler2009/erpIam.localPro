@@ -15,7 +15,6 @@ const useCreareFolder = () => {
 
     const handleFolderCreationInputChanges = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
-    
         setFolderAttributes({
             ...folderAttributes,
             [name]: value

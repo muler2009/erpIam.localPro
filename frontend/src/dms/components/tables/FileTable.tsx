@@ -26,7 +26,7 @@ import { TfiLayoutGrid2Alt } from "react-icons/tfi";
 import { BsFileEarmark } from "react-icons/bs";
 import { GiOpenFolder } from "react-icons/gi";
 import useSharedColumns, { SharedColumn } from "../../constants/columns/useSharedColumns";
-import { FileUploadColumnInterface } from "../../models/file-models.";
+import { FileUploadColumnInterface } from "../../models/document-models.";
 
 interface SharedTableProps {
     data: UploadedDocumentInterface[];

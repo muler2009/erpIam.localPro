@@ -1,12 +1,15 @@
-from rest_framework import status, generics, mixins
+from rest_framework import status, generics, mixins, permissions
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from ...models import *
 from ...serializer.create_serializer.create_document_serializer import CreateDocumentSerializer
 
 class CreateDocumentRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
-    queryset = DocumentModel.objects.all()
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = CreateDocumentSerializer
+    queryset = DocumentModel.objects.all()
     parser_classes =[MultiPartParser]
 
     def post(self, request, *args, **kwargs):
@@ -16,10 +19,13 @@ class CreateDocumentRequestHandler(generics.GenericAPIView, mixins.CreateModelMi
 
         # Save the document and automatically associate the created_by field
         self.perform_create(serializer)
+       
+        return Response({
+                "status_code": 201,
+                "status_text": "Document Uploaded Successfully",
+                "data": serializer.data
+            }, status=status.HTTP_201_CREATED)
 
-        # Prepare the response data
-        # headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_create(self, serializer):
         # The request context is available via self.request
