@@ -1,3 +1,5 @@
+import { ModalComponentPropsInterface } from "./common-models";
+
 export interface FileUploadColumnInterface {
     document_id: string;
     document_name: string;
@@ -32,8 +34,11 @@ export interface DocumentUploadInterface {
     file: File | null
 }
 
-
 export interface DocumentAPIInterface extends DocumentInterface {
     status_code: number;
     status_text: string;
 }
+
+export interface DocumentUploadModalInterface extends ModalComponentPropsInterface {
+    fileInFolder: string | null
+} 

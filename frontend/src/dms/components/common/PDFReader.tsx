@@ -17,7 +17,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   interface PdfReaderInterface {
     pdfURL: string,
     openPdfs: boolean;
-    setOpenPdfs: React.Dispatch<React.SetStateAction<boolean>>,
+    setOpenPdfs: React.Dispatch<React.SetStateAction<boolean>>;
     title?: string
   }
 

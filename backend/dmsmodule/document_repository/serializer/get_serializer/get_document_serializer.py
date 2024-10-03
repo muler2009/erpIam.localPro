@@ -5,7 +5,6 @@ from .get_doc_version_serializer import DocumentVersionSerializer
 class DocumentSerializerModel(serializers.ModelSerializer):
     current_version = DocumentVersionSerializer()
     folder = serializers.SerializerMethodField()
-    # file_url = serializers.SerializerMethodField()
 
     def get_folder(self, obj):
         return obj.folder.folder_name if obj.folder else None
@@ -21,3 +20,4 @@ class DocumentSerializerModel(serializers.ModelSerializer):
             'current_version',
                 # Use current version related field
         ]
+

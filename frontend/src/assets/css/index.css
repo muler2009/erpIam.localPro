@@ -186,7 +186,7 @@
     .request  .table > tbody > tr > td:last-child { @apply w-[10%]}
 
 
-    .request-recieved .table-border > thead { @apply border-t-[1px] border-b-[3px] }
+    .request-recieved .table-border > thead { @apply border-t-[1px] border-b-[2px] border-b-green-300 font-normal}
     .request-recieved .table > tbody > tr > td:first-child { @apply w-[3%]}
     .request-recieved .table > tbody > tr > td:nth-child(2) { @apply w-[25%]}
     .request-recieved .table > tbody > tr > td:nth-child(3) { @apply w-[15%]}
@@ -194,11 +194,6 @@
     .request-recieved .table > tbody > tr > td:nth-child(5) { @apply w-[20%]}
     .request-recieved .table > tbody > tr > td:nth-child(6) { @apply w-[20%]}
     .request-recieved .table > tbody > tr > td:nth-child(7) { @apply w-[20%]}
-
-
-
-
-
 
 
     .custom-td {

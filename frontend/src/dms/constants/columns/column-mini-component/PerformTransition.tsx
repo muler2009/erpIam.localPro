@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { IntermediateAPIResponse, RequestColumnInterface } from '../../../models/request-model';
 import { usePerformTransitionRequestMutation, useDeleteUnapprovedRequestMutation } from '../../../services/requestAPISlice';
-import { FlexBox, FlexBoxInner } from '../../../../components/common/StyledComponent';
+import { FlexBox, FlexBoxInner, Div } from '../../../../components/common/StyledComponent';
 import BottomTooltip from '../../../../components/common/BottomTooltip';
 import * as CiIcons from 'react-icons/ci'
 import ConfirmDelete from '../../../../components/confirmations/ConfirmDelete';
@@ -63,28 +63,35 @@ const PerformTransition = ({ rowData, approvalStatus, comments, handleIsOpenClos
     }
 
     return (
-        <FlexBox className=''>
-            {
-                approvalStatus === 'Approved' && (
-                    <FlexBoxInner className="text-[12px] bg-primary-green py-[7px] px-2 rounded-full" onClick={onTransitionRequestSend}>
-                        <PiCheckBold size={15} color='white'/>
-                    </FlexBoxInner>
-                )
-            }
-            {
-                approvalStatus === 'Reject' && (
-                    <FlexBoxInner className="text-[12px] bg-red-700 py-[7px] px-2 rounded-full" onClick={onTransitionRequestSend}>
-                        <IoCloseSharp size={15} color='white'/>
-                    </FlexBoxInner>
-                )
-            }
-            {
-                approvalStatus === 'Reject with modification' && (
-                    <FlexBoxInner className="text-[12px] bg-[#48a4df] py-[7px] px-2 rounded-full" onClick={onTransitionRequestSend}>
-                        <IoCloseSharp size={15} color='white'/>
-                    </FlexBoxInner>
-                )
-            }
+        <FlexBox className='flex justify-end space-x-4'>
+            <Div className='py-2'>
+                <button className='btn-sm text-[12px] bg-red-500 px-5 text-white' onClick={handleIsOpenCloseMenuModal}>Close</button>
+            </Div>
+            <Div className='py-2'>
+                {
+                    approvalStatus === 'Approved' && (
+                        <button className="text-[12px] bg-primary-green px-5 text-white btn-sm" onClick={onTransitionRequestSend}>
+                            {approvalStatus}
+                        </button>
+                    )
+                }
+                {
+                    approvalStatus === 'Reject' && (
+                        <button className="text-[12px] bg-red-600 px-5 text-white btn-sm" onClick={onTransitionRequestSend}>
+                            {approvalStatus}
+                        </button>
+                    )
+                }
+                {
+                    approvalStatus === 'Reject with modification' && (
+                        <button className="text-[12px] bg-blue-600 px-5 text-white btn-sm" onClick={onTransitionRequestSend}>
+                            {approvalStatus}
+                        </button>
+                    )
+                }
+
+            </Div>
+               
 
         </FlexBox>
     );

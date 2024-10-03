@@ -3,7 +3,8 @@ import { DocumentUploadInterface } from '../models/document-models.';
 
 
 const useFiles = () => {
-  const [file, setFile] = useState<File | null>();
+  
+  const [fileUpload, setFileUpload] = useState<File | null>();
   const [fileExtension, seFileExtension]= useState<string | null>(null)
   const [fileSize, setFileSize] = useState<number | null>(null)
   const [uploadProgress, setUploadProgress] = useState<number>(0);
@@ -12,7 +13,6 @@ const useFiles = () => {
   const [uploadDocumentState, setUploadDocumentState] = useState<DocumentUploadInterface>({
     file: null as File | null,
     folder_name: ""
-
   })
 
   const simulateUpload = () => {
@@ -31,10 +31,7 @@ const useFiles = () => {
     const {files} = event.target;
     if(files && files.length > 0){
        const uploaded_file = files[0]
-       setUploadDocumentState({
-        ...uploadDocumentState,
-        file: uploaded_file
-       })
+       setFileUpload(uploaded_file)
 
        const fileName = uploaded_file.name
        const extension = fileName.split('.').pop()?.toLocaleLowerCase() // get the file extension 
@@ -46,21 +43,27 @@ const useFiles = () => {
        simulateUpload();
 
     } else {
-       setFile(null)
-       seFileExtension(null)
+      // Reset file and extension if no file is selected
+      setUploadDocumentState({
+        ...uploadDocumentState,
+        file: null,
+      });
+      seFileExtension(null);
     }
-     // Simulate the upload process
   }
 
 
   return {
-    file,
+    fileUpload,
     fileExtension,
     fileSize,
     uploadDocumentState,
     uploadProgress,
     uploading,
+    setFileUpload,
+    setUploadDocumentState,
     handleUploadedFile,
+
   }
 }
 

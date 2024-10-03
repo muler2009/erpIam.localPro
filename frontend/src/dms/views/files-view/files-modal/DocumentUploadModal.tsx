@@ -8,18 +8,24 @@ import * as AiIcons from 'react-icons/ai'
 import useFiles from '../../../hooks/useFiles'
 import { BsFileEarmarkPdf } from "react-icons/bs";
 import { useUploadDocumentMutation } from '../../../services/fileAPISlice'
+import { DocumentUploadModalInterface } from '../../../models/document-models.'
 
 
-const DocumentUploadModal = ({open, handleIsOpenCloseMenuModal, title}: ModalComponentPropsInterface) => {
+const DocumentUploadModal = ({open, handleIsOpenCloseMenuModal, title, fileInFolder}: DocumentUploadModalInterface) => {
   
-  const { file, fileExtension, handleUploadedFile, fileSize, uploadProgress, uploading, uploadDocumentState } = useFiles()
+  const { fileUpload, fileExtension, handleUploadedFile, fileSize, uploadProgress, uploading, setUploadDocumentState } = useFiles()
   const [uploadDocument, {isError, error}] = useUploadDocumentMutation()
+  // const { uploadDocumentState } = useFiles()
+
 
   const onUploadClicked = async() => {
     const formData = new FormData()
-    if (uploadDocumentState?.file) {
-      formData.append('current_version.uploaded_file', uploadDocumentState?.file);
-    }
+
+    console.log("Folder for upload:", fileInFolder);
+    console.log("File being uploaded:", fileUpload);
+
+    if (fileInFolder) { formData.append('folder', fileInFolder); }
+    if (fileUpload) { formData.append('current_version.uploaded_file', fileUpload); }
 
     try{
       const response = await uploadDocument(formData).unwrap()
@@ -29,9 +35,9 @@ const DocumentUploadModal = ({open, handleIsOpenCloseMenuModal, title}: ModalCom
     }catch(error){
       console.log(error)
     }
-
-    console.log(`file uploaded: ${file?.name}`)
   }
+
+
 
   return (
     open ? (
@@ -51,12 +57,12 @@ const DocumentUploadModal = ({open, handleIsOpenCloseMenuModal, title}: ModalCom
                 <FlexInnerContainer className='py-1 px-2'>
                   <Input 
                       // label='Folder Name'
-                      id='parent_folder_input'
+                      id='uppload_folder_input'
                       type='hidden'
-                      name="parent_folder"
+                      name="folder_name"
                       className='input-md'
                       placeholder='sadsad'
-                      // value={folderAttributes.parent_folder || ""} 
+                      value={fileInFolder || ""} 
                       
                   />
                   <FlexBox className="flex w-full max-w-xl text-center flex-col gap-1">
@@ -82,12 +88,12 @@ const DocumentUploadModal = ({open, handleIsOpenCloseMenuModal, title}: ModalCom
                             ):(
                               <> 
                                 {
-                                  file ? (
+                                  fileUpload ? (
                                     fileExtension === 'pdf' && (
                                         <FlexBoxInner className="flex justify-start space-x-3 ">
                                           <BsFileEarmarkPdf size={40} />
                                           <Div className='flex flex-col gap-1 items-start'>
-                                            <P className="text-blue-600 text-sm font-medium">{file.name}</P>
+                                            <P className="text-blue-600 text-sm font-medium">{fileUpload.name}</P>
                                             <small className="text-xs text-gray-500">File size: {fileSize?.toFixed(2)} KB</small>
                                           </Div>
                                         </FlexBoxInner>

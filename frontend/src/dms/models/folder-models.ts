@@ -1,3 +1,5 @@
+import { DocumentInterface } from "./document-models.";
+
 export interface FolderColumn {
     folder_identifier: string
     folder_name: string,
@@ -31,7 +33,8 @@ export interface FolderDataInterface {
     subfolder?: FolderDataInterface[] | undefined,
     folder_created_date?: string;
     folder_updated_date?: string;  
-    uploaded_file?: UploadedDocumentInterface[] | undefined 
+    uploaded_file?: UploadedDocumentInterface[] | undefined ;
+    documents?: DocumentInterface[] | undefined;
    
 }
 

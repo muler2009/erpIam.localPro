@@ -13,8 +13,7 @@ import FolderContent from './FolderContent';
 import { useSearchFolderQuery } from '../../../../services/folderAPISlice';
 import DocumentUploadModal from '../../../files-view/files-modal/DocumentUploadModal';
 import { useGetDocumentQuery } from '../../../../services/fileAPISlice';
-import GetAllDocuemnt from '../../../files-view/GetAllDocument';
-import GetAllDocument from '../../../files-view/GetAllDocument';
+import useFiles from '../../../../hooks/useFiles';
 
 
 const AllFileandFolderView = () => {
@@ -35,10 +34,11 @@ const AllFileandFolderView = () => {
     } = useFolderAndFileExplorerActions()
 
     const {data: document} = useGetDocumentQuery()
-
+    const [fileInFolder, setFileInFolder] = useState<string | null>('')
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const {open, handleIsOpenCloseMenuModal} = useUtils()
     const {setFolderAttributes, folderAttributes, handleFolderCreationInputChanges} = useCreareFolder()
+    const { setUploadDocumentState, uploadDocumentState } = useFiles()
 
     const {data: searchFolderResult, isSuccess, isError} = useSearchFolderQuery(
         {folder_name: search},
@@ -57,14 +57,22 @@ const AllFileandFolderView = () => {
     const openCreateFolderModal = () => {
         // Ensure currentFolder is correctly representing the currently displayed folder
         const parent_folder = currentFolder && currentPath.length > 0 
-          ? currentPath[currentPath.length - 1].folder_identifier : "";
-      
+          ? currentPath[currentPath.length - 1].folder_identifier : "";     
         console.log("Opening modal with parent_folder:", parent_folder);
         setFolderAttributes(prevState => ({
             ...prevState,
             parent_folder: parent_folder
           }));
         setIsOpen(true);
+      };
+
+      const openUploadDocumentModal = () => {
+        // Ensure currentFolder is correctly representing the currently displayed folder
+        const folder = currentFolder && currentPath.length > 0 
+          ? currentPath[currentPath.length - 1].folder_name : "";     
+        console.log("Opening modal with parent_folder:", folder);
+        setFileInFolder(folder);
+        handleIsOpenCloseMenuModal();
       };
 
 
@@ -93,7 +101,7 @@ const AllFileandFolderView = () => {
                 <FlexBox className='flex space-x-1 cursor-pointer pr-5 p-[5px]'>
                     <FlexBoxInner className='flex justify-center items-center space-x-3 '>
                         <Text className='text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={openCreateFolderModal}>Create Folder</Text>
-                        <Text className='text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={handleIsOpenCloseMenuModal}>Upload</Text>
+                        <Text className='text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={openUploadDocumentModal}>Upload</Text>
                     </FlexBoxInner>
                     <FlexBoxInner className={`w-10 h-10 flex justify-center items-center hover:rounded-full hover:bg-gray-200`}>
                         <Tooltip content={`List View`}>
@@ -163,11 +171,6 @@ const AllFileandFolderView = () => {
                                             handleForwardClick={handleForwardClick}
                                         />
 
-                                        <GetAllDocument />
-
-                                       
-
-
                                     </Div>
                                 ) 
                             }
@@ -192,7 +195,7 @@ const AllFileandFolderView = () => {
                 open={open}
                 handleIsOpenCloseMenuModal={handleIsOpenCloseMenuModal}
                 title={`Upload Document`}
-            
+                fileInFolder={fileInFolder}
             />
 
         </>

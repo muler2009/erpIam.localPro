@@ -77,17 +77,19 @@ const useFolderAndFileExplorerActions = () => {
     };
 
     const handleItemClick = (folder: any) => {
-      if (folder.subfolder || folder.uploaded_file) {
+      if (folder.subfolder || folder.documents) {
         const newFolderContent = [
           ...(folder.subfolder || []),
-          ...(folder.uploaded_file || [])
+          ...(folder.documents || [])
         ];
         setCurrentFolder(newFolderContent);
         setCurrentPath([...currentPath, folder]);
-        setOpenStates(new Array(newFolderContent.length).fill(false));
+        setOpenStates(new Array(folder.subfolder.length + folder.documents.length).fill(false));
+        // setOpenStates(new Array(newFolderContent.length).fill(false));
         setForwardStack([]); // Clear forward stack on new navigation
       }
     };
+
   
     const toggleItem = (index: number) => {
       setOpenStates(prevState => {

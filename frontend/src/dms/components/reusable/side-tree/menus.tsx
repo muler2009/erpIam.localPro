@@ -5,6 +5,7 @@ import * as MdIcons from "react-icons/md";
 import * as FaIcons from "react-icons/fa";
 import * as Fa6Icons from "react-icons/fa6";
 import * as BsIcons from "react-icons/bs";
+import * as IoIoIcons from "react-icons/io";
 
 
 
@@ -20,12 +21,17 @@ export const sidear_link: MenuItemInterface[] = [
       icon: <FaIcons.FaGoogleDrive />,
       children: [
         {
-          label: "Files and Folders",
+          label: "My Documents",
           path: ".",
           children: [
             {
-              label: "Main",
+              label: "Folder",
               path: "library/main",
+              icon: <IoIoIcons.IoIosFolder size={15} />
+            },
+            {
+              label: "Files",
+              path: "library/files",
               icon: <MdIcons.MdLibraryBooks size={15} />
             },
             {
@@ -38,34 +44,34 @@ export const sidear_link: MenuItemInterface[] = [
               path: 'library/archvied',
               icon: <MdIcons.MdOutlineFolderZip size={15} />
             },
-            {
-              label: "Deleted Files",
-              path: "document/library/trash",
-              icon: <IoIcons.IoTrashOutline size={15} />
-            }
           ]  
         },
         {
-          label: "Uploads",
-          path: ".",
-          children: [
-            {
-              label: "Word File",
-              path: "document/file/doc",
-              icon: <FaIcons.FaFileWord size={15} color="blue" />
-            },
-            {
-              label: "Spreedsheet",
-              path: "document/file/xlsx",
-              icon: <FaIcons.FaFileExcel size={15} color="green"/>
-            },
-            {
-              label: "Pdf",
-              path: "document/file/other",
-              icon: <FaIcons.FaFilePdf size={15} color="red" />
-            }
-          ]  
+          label: "Deleted Files",
+          path: "document/library/trash",
+          icon: <IoIcons.IoTrashOutline size={15} />
         },
+        // {
+        //   label: "Uploads",
+        //   path: ".",
+        //   children: [
+        //     {
+        //       label: "Word File",
+        //       path: "document/file/doc",
+        //       icon: <FaIcons.FaFileWord size={15} color="blue" />
+        //     },
+        //     {
+        //       label: "Spreedsheet",
+        //       path: "document/file/xlsx",
+        //       icon: <FaIcons.FaFileExcel size={15} color="green"/>
+        //     },
+        //     {
+        //       label: "Pdf",
+        //       path: "document/file/other",
+        //       icon: <FaIcons.FaFilePdf size={15} color="red" />
+        //     }
+        //   ]  
+        // },
         
       ]
     },

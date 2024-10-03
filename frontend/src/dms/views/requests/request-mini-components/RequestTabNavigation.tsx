@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { request_tab_menu } from '../../../constants/menu-items/requestMenu';
-import { FlexBox, FlexBoxInner, P } from '../../../../components/common/StyledComponent';
+import { Div, FlexBox, FlexBoxInner, P } from '../../../../components/common/StyledComponent';
 
 const RequestTabNavigation = () => {
     // const {data} = useGetAllUsersQuery()
@@ -9,14 +9,15 @@ const RequestTabNavigation = () => {
         setActiveTabIndex(index)
       }
   
-    return ( 
+    return (  
       <>
-        <FlexBox className='relative w-full font-Poppins text-[14px] bg-white mt-[2px]'>
-          <FlexBoxInner className='flex justify-between items-center bg-opacity-50 border-b mx-5'>
-            <FlexBoxInner className='flex justify-start space-x-2 flex-grow pt-3 pb-3'>
+        <FlexBox className='relative font-IBMPlexSans font-semibold w-full text-[14px]'>
+          <FlexBoxInner className='flex justify-between items-center bg-opacity-50 border-b-[2px] ' >
+            <Div className='flex justify-start space-x-3 px-3 pl-5 flex-grow '>
               {
                   request_tab_menu?.map((request_tab, index) => (
-                    <div key={index} onClick={() => changeTabIndex(index)}  className={`relative cursor-pointer rounded-[3px] border-[1px] py-1 px-3 bg-gray-50 ${activeTabIndex === index && 'border-primary-green  bg-white text-[#333]'}`}>
+                    <div key={index} onClick={() => changeTabIndex(index)}  
+                    className={`relative cursor-pointer px-1 text-[#333] text-opacity-50 divide-x-[1px] ${activeTabIndex === index ? "text-opacity-100 border-b-[2px] border-black pt-5 pb-[2.5px] duration-500 transition ease-in-out": "pt-5 pb-1"}`}>
                       {/* {
                         request_tab.total && (
                           <div className={`absolute -right-[25%] -top-2 z-10 w-7 h-7 px-5 bg-gray-500 text-white flex justify-center items-center ${activeTabIndex === index ? 'bg-primary-green text-white': ''}`} >
@@ -30,9 +31,9 @@ const RequestTabNavigation = () => {
                     </div>
                   ))
               }
-            </FlexBoxInner>                  
+            </Div>                  
           </FlexBoxInner>
-          <FlexBoxInner className="my-2 bg-white">
+          <FlexBoxInner className="my-2 bg-white font-Poppins">
             {request_tab_menu[activeTabIndex].tabContent}
           </FlexBoxInner>     
         </FlexBox>

@@ -17,6 +17,7 @@ import ClientDashboard from '../views/requests/client-mini-components/ClientDash
 import ClientPendingRequest from '../views/requests/client-mini-components/ClientPendingRequest';
 import ClientApproved from '../views/requests/client-mini-components/ClientApproved';
 import GetAllDocument from '../views/files-view/GetAllDocument';
+import AllFilesOnly from '../views/document-management/folders/folder-mini-reusable-components/AllFilesOnly';
 
 
 
@@ -39,7 +40,9 @@ const Routes = () => {
                 {path: 'create', element: <h1>Test Docuemtn</h1>},
             ]
         },
+        { path: 'library/files', element: <AllFilesOnly/> },
         { path: 'library/shared', element: <SharedMainDashboard/> },
+
         { path: 'library/archvied', element: <GetAllDocument /> },
 
        

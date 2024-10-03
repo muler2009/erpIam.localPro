@@ -3,6 +3,8 @@ import { FileMenuItemInterface } from '../../models/file-menu-models'
 import { PiFolderSimplePlusFill } from "react-icons/pi";
 import * as MdIcons from "react-icons/md";
 import * as AiIcons from "react-icons/ai";
+import { TabComponentPropsInterface } from '../../models/common-models';
+import GetAllDocument from '../../views/files-view/GetAllDocument';
 
 
 export const file_menu: FileMenuItemInterface[] = [
@@ -35,4 +37,26 @@ export const file_menu: FileMenuItemInterface[] = [
         label: "Other file",
         path: 'create'
     }
+]
+
+
+export const sort_menu = [
+    { 
+        label: "A-Z",
+    },
+    { 
+        label: "Z-A",
+    },
+    { 
+        label: "Last Modified",
+    },
+    { 
+        label: "First Modified",
+    },
+    { 
+        label: 'Size',
+    },
+    { 
+        label: "Type",
+    },
 ]

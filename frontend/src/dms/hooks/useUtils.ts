@@ -6,6 +6,7 @@ const useUtils = () => {
     const [isOpen, setIsOpen] = useState<{[key: string]: boolean}>({})  
     const [open, setOpen] = useState<boolean>(false)     
     const [activeLabel, setActiveLabel] = useState<string | null>(null);
+    const [dropdown, setDropDown] = useState<boolean>(false)
 
 
     const handleIsOpenCloseMenu = (label: string) => {
@@ -17,6 +18,10 @@ const useUtils = () => {
 
     const handleIsOpenCloseMenuModal = useCallback(() => {
       setOpen(prevOpen => !prevOpen)
+    }, [])
+
+    const handledropdownMenu = useCallback(() => {
+      setDropDown(prevDropDown => !prevDropDown)
     }, [])
 
     // const handleDropdownToggle = (label: string) => {
@@ -93,9 +98,11 @@ const useUtils = () => {
   return {
     isOpen,
     open,
+    dropdown,
+    activeLabel,
     setIsOpen,
     handleDropdownToggle,
-    activeLabel,
+    handledropdownMenu,
     handleIsOpenCloseMenu,
     handleIsOpenCloseMenuModal,
     setActiveLabel,
