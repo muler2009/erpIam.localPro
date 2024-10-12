@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from iam.models import UserAccountsModel
 
 # Create your models here.
 class FolderModel(models.Model):
@@ -8,6 +9,7 @@ class FolderModel(models.Model):
     parent_folder = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name="subfolder")
     folder_created_date = models.DateTimeField(auto_now_add=True)
     folder_updated_date = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(UserAccountsModel, on_delete=models.SET_NULL, null=True, blank=True)
 
 
     @property

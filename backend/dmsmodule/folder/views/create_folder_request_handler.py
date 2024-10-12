@@ -1,29 +1,37 @@
-from rest_framework import views, status, serializers
+from rest_framework import views, status, generics, mixins, permissions
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.request import Request
 from rest_framework.response import Response
 from dmsmodule.folder.models.models import FolderModel
 from dmsmodule.folder.serializers.create_folder_serializer import CreateFolderSerializer
-from utils.custom_exception_handler import AlreadyExists, AlreadyExistAPIException
+from utils.custom_exception_handler import CustomExceptionForError, AlreadyExistAPIException
+from ..access_policies import FolderViewAccessPolicy
 
 
-class CreateFolderRequestHandler(views.APIView):
+class CreateFolderRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [FolderViewAccessPolicy]
+    serializer_class = CreateFolderSerializer
+
     def post(self, request:Request):
         folder_data = request.data
         try: 
-            folder_serializer = CreateFolderSerializer(data=folder_data)
+            folder_serializer = self.serializer_class(data=folder_data, context={'request': request})
             folder_serializer.is_valid(raise_exception=True)
 
             if FolderModel.objects.filter(folder_name=request.data.get('folder_name')).exists():
-                raise AlreadyExistAPIException(message="folder already exist", status_code=400)
+                raise CustomExceptionForError(message="Folder already exist", error_type="Already exist", status_code=402)
             
             folder_serializer.create(folder_serializer.validated_data)
-
-        except AlreadyExistAPIException as exc:
-             return Response({
-                "error_type": str(exc.error_type),
+            
+        
+        except CustomExceptionForError as exc:
+            return Response({
+                'message': exc.message,  # Accessing detail for the message
+                "error_type": exc.error_type,  # Accessing default_code for error type
                 'status_code': exc.status_code,
-                'message': f'{request.data.get("folder_name")} {exc.message}' , 
-            }, status=status.HTTP_400_BAD_REQUEST)
+            }, status=exc.status_code)  # Use the status code from the exception
+        
         else:
             return Response({
                 "status_code": 201,

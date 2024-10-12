@@ -1,5 +1,5 @@
 import React from 'react'
-import { SideBar, sidebarItems } from "../../submodules/managment/constants/iam-menu-items/sidebar";
+import { SideBar, sidebarItems } from "../../views/managment/constants/iam-menu-items/sidebar";
 import MenuItem from './MenuItem';
 
 interface SideBarProps {

@@ -3,7 +3,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from workflow_manager.models.request_model import ApprovedRequestByRequestOwnerModel
-from utils.custom_exception_handler import EmptyExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 from workflow_manager.serilizers.get_request_serializer import GetApprovedRequestModelSerializer
 from workflow_manager.serilizers.send_request_serializer import ApprovedRequestsByRequestSerializer
 

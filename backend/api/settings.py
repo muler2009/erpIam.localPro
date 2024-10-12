@@ -45,22 +45,22 @@ INSTALLED_APPS = [
     'iam.user_profile',
     'iam.groups',
     'iam.role',
+    'iam.policy',
     'iam.ldap_integration.apps.LdapIntegrationConfig',
     'dmsmodule',
     'dmsmodule.folder',
-    # 'dmsmodule.file_mangement',
     'dmsmodule.document_repository',
     'workflow_manager',  
     'notification',
+    'rest_access_policy'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'rest_framework_simplejwt.middleware.JWTAuthenticationMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -179,6 +179,7 @@ AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
     "(objectClass=posixGroup)"      # Filter for posixGroup object class
 )
 
+AUTH_LDAP_ALWAYS_UPDATE_USER = False 
 # Set the group type to PosixGroupType
 AUTH_LDAP_GROUP_TYPE = PosixGroupType()
 

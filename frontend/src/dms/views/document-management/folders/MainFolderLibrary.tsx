@@ -6,7 +6,7 @@ import { FolderDataInterface } from '../../../models/folder-models'
 import FolderL from './FolderL'
 import { FlexBoxInner } from '../../../../components/common/StyledComponent'
 import { AiFillFolder } from 'react-icons/ai'
-import UserTabNavigation from '../../../../iam/submodules/managment/user/views/user-mini-components/UserTabNavigation'
+import UserTabNavigation from '../../../../iam/views/managment/user/views/user-mini-components/UserTabNavigation'
 import FolderTabNavigation from './folder-mini-reusable-components/FolderTabNavigation'
 import useUtils from '../../../hooks/useUtils'
 

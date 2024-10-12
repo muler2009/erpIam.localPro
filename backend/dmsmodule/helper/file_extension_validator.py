@@ -1,5 +1,5 @@
 import os
-from utils.custom_exception_handler import PostExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 
 class FileExtensionValidator:
     def __init__(self, extensions=None):
@@ -11,7 +11,7 @@ class FileExtensionValidator:
         file_path = file_upload.name  # Use .name to get the file name
         file_extension = os.path.splitext(file_path)[1].lower()
         if file_extension not in self.extensions:
-            raise PostExceptionHandler(message="Unsupported File format")
+            raise CustomExceptionForError(message="Unsupported File format")
         
     def deconstruct(self):
         return ('dmsmodule.helper.file_extension_validator.FileExtensionValidator',(),{'extensions': self.extensions},

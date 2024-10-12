@@ -2,7 +2,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from utils.custom_exception_handler import EmptyExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 from ...models.intermediate_request import IntermediateRequestModel
 from ...serilizers.get_intermediate_request_serializer import GetIntermediateRequestModelSerializer
 
@@ -16,9 +16,9 @@ class GetIntermediateRequestHandler(generics.GenericAPIView):
         data = self.get_queryset()
         try:
             if not data:
-                raise EmptyExceptionHandler(message="No Request in this Intermediate", error_type="NO REQUEST")
+                raise CustomExceptionForError(message="No Request in this Intermediate", error_type="NO REQUEST")
             serializer = self.serializer_class(data, many=True, context={'request': request})
-        except EmptyExceptionHandler as exc:
+        except CustomExceptionForError as exc:
             return Response({
                 "status_text": exc.message,
                 "error": exc.error_type

@@ -2,7 +2,7 @@ from rest_framework import generics, status, permissions, mixins, serializers
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from utils.custom_exception_handler import PostExceptionHandler, EmptyExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 from ...models.approval_level import ApprovalStageModel
 from ...models.request_model import UnApprovedRequestByOwnerModel, ApprovedRequestByRequestOwnerModel, ApprovedRequestsModel
 from ...models.workflow_action_model import WorkFlowActionsModel
@@ -37,7 +37,7 @@ class ApprovedByRequestOwnerHandler(generics.GenericAPIView):
         action_name = request.data.get('action_name')
 
         if not request_id or not action_name:
-            raise PostExceptionHandler("Request ID and action name are required.", error_type="invalid_data", status_code=400)
+            raise CustomExceptionForError(detail="Request ID and action name are required.", error_type="invalid_data", status_code=400)
 
         try:
             unapproved_request = UnApprovedRequestByOwnerModel.objects.get(request_id=request_id)

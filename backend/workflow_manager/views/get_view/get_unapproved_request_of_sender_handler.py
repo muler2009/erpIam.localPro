@@ -5,7 +5,7 @@ from ...models.request_model import UnApprovedRequestByOwnerModel
 from ...serilizers.get_request_serializer import GetUnapprovedRequestModelSerializer
 from rest_framework.request import Request
 from rest_framework.response import Response
-from utils.custom_exception_handler import EmptyExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 import uuid
 from ...models.workflow_state_model import WorkFlowStateModel
 from ...serilizers.send_request_serializer import UnApprovedRequestSerializer
@@ -25,11 +25,11 @@ class GetUnapprovedRequestOfSender(generics.GenericAPIView):
         try: 
             unapproved_request = UnApprovedRequestByOwnerModel.objects.filter(requesting_user=user)
             if not unapproved_request:
-                raise EmptyExceptionHandler(message="No Approved request Found", error_type='ERROR')
+                raise CustomExceptionForError(message="No Approved request Found", error_type='ERROR')
             unapproved_requests_seriallizer = self.serializer_class(unapproved_request, many=True, context={'request': request})
             return Response(unapproved_requests_seriallizer.data, status=status.HTTP_200_OK)
 
-        except EmptyExceptionHandler as exc:
+        except CustomExceptionForError as exc:
             # Catch the custom EmptyExceptionHandler and return a response with the error message
             return Response({
                 'Error': exc.message,

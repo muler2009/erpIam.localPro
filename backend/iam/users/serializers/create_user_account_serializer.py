@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from iam.models import UserAccountsModel
-from utils.custom_exception_handler import AlreadyExists
 from rest_framework.validators import UniqueValidator
 from rest_framework.exceptions import ValidationError 
 from rest_framework.response import Response
@@ -26,7 +25,7 @@ class UsernameAndEmailUniqueValidator(UniqueValidator):
         
 
 class CreateLDAPUserSerializer(serializers.ModelSerializer):  
-    is_staff = serializers.BooleanField(default=False)
+    is_staff = serializers.BooleanField()
     group = serializers.PrimaryKeyRelatedField(queryset=PosixGroupUserModel.objects.all(), required=False)
     
     class Meta:
@@ -62,14 +61,10 @@ class CreateLDAPUserSerializer(serializers.ModelSerializer):
                 if not model_field.blank:
                     error_dict[key] = f"{key} is Required Field"
                     break
-            # elif key == 'password':
-            #     # Check if value is a valid primary key
-            #     if not isinstance(value, int):
-            #         error_dict[key] = f"{key} must be of type int"
             elif key == 'password':
                 if validate_data == "":
                     data[key] = set_default_password()
-            elif not isinstance(validate_data, str):
+            elif not isinstance(validate_data, (str, bool)):
                 error_dict[key] = f"{key} must be type {value.__class__.__name__}"
                 break
                 
@@ -101,6 +96,7 @@ class CreateLDAPUserSerializer(serializers.ModelSerializer):
             user.set_password(set_default_password())
         # user.set_password(password)  # This will set the plain password and hash it
         print(f"Plain password in serializer: {user._plain_password}")
+
         user.save()
         return user
     

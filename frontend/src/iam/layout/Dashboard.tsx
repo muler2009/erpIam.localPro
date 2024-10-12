@@ -8,6 +8,8 @@ import menus from '../constants/data'
 import SidebarMenu from '../components/reusable/SidebarMenu'
 import { ThemeContextProvider } from '../../context/ThemeContext'
 import { ThemeContext } from '../../context/ThemeContext'
+import { iamSidebarItems } from '../components/reusable/Tree/iam-side-meniItems'
+import MainTree from '../components/reusable/Tree/MainTree'
 
 
 
@@ -16,8 +18,9 @@ const Dashboard = () => {
   return (
     <ThemeContextProvider>
       <div className='bg-[#fff]'>
-        <div className='flex flex-1 h-screen'>
-            <Sidebar />
+        <div className='flex flex-1 h-screen z-10'>
+            {/* <Sidebar /> */}
+            <MainTree  iamSidebarItems={iamSidebarItems}/>
             {/* <SidebarMenu /> */}
             {/* <TreeView menu={menus} /> */}
             <div className='w-full flex flex-col'>

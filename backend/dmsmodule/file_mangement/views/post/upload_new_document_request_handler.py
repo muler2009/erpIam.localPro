@@ -3,7 +3,6 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework.request import Request
-from utils.custom_exception_handler import PostExceptionHandler
 from ...models.document_uploads_models import DocumentVersion
 from ...models.document_information import DocumentInformation
 from ...serializers.document_info_serializer import DocumentInformationSerializer, CreateDocumentInformationSerializer

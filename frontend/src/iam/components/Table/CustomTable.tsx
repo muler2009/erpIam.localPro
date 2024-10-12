@@ -1,7 +1,7 @@
 import React, {useState, useContext, createContext} from 'react'
 import { GroupAPIResponse, GroupInterface } from '../../models/group.model'
 import { useGetGroupsQuery } from '../../features/groupsAPI'
-import { useUserAccountContext } from '../../submodules/managment/user/context/useUserAccountContext'
+import { useUserAccountContext } from '../../views/managment/user/context/useUserAccountContext'
 import { v4 as isUUID } from 'uuid'; 
 import { FlexBox } from '../reusable/StyledComponent';
 

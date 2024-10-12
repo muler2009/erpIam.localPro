@@ -59,19 +59,25 @@ const CreateFolderM = ({isOpen, setIsOpen, title, folderAttributes, handleFolder
   return (
     isOpen ? (
       <ModalWrapper>
-          <ModalContainer className={`w-[30%] mx-auto bg-[#fff] flex flex-col relative top-[25%] shadow-2xl rounded-md`}>
-              <ModalHeader className='flex justify-between items-center px-5 py-3 border-b-[1px] bg-[#efefef] bg-opacity-50 font-Poppins rounded-md'>
-                  <Text className='font-Poppins text-center pr-5 text-[#333] text-opacity-60 text-[13px]'>
+          <ModalContainer className={`w-[30%] mx-auto bg-[#fff] flex flex-col relative top-[25%] shadow-2xl rounded-[3px]`}>
+              <ModalHeader className='flex justify-between items-center p-2 border-b-[1px] bg-[#efefef] bg-opacity-50 font-Poppins rounded-md'>
+                  <button className='px-5 text-[12px] btn-sm disabled:bg-gray-100 disabled:cursor-auto bg-gray-600 text-slate-200 text rounded-[4px] hover:bg-red-600 hover:text-white' onClick={() => setIsOpen(prev => !prev)} >
+                    Cancel
+                  </button>
+                  <Text className='font-semibold font-IBMPlexSans text-center pr-5 text-[#333] text-opacity-60 text-[14px] flex-grow'>
                       {title}
                   </Text>
+                  <button 
+                    className='px-5 rounded-[4px] text-[12px] text-white btn-sm disabled:bg-gray-100 disabled:cursor-auto bg-primary-green' 
+                    onClick={onFolderSaveClicked}
+                    disabled={!canSave}
+                    > Create </button> 
 
-                  <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-red-400 hover:text-white" onClick={() => setIsOpen(prev => !prev)} > 
-                      <VscIcons.VscClose size={15} />
-                  </div>
+                  
               </ModalHeader>
               <ModalBody className='p-5'>
 
-                <FlexOuterContainer className='py-1 px-2'>
+                <FlexOuterContainer className='py-2 px-2'>
                 
                     <Input 
                         // label='Folder Name'
@@ -96,18 +102,6 @@ const CreateFolderM = ({isOpen, setIsOpen, title, folderAttributes, handleFolder
 
                 </FlexOuterContainer>
                 </ModalBody>
-
-                  <ModalFooter className='flex justify-end pr-5 pt-3 pb-5 space-x-3'>
-                      <button
-                        className='px-5 rounded-none text-sm   text-white btn-sm disabled:bg-gray-100 disabled:cursor-auto bg-[#3335a0]' 
-                        
-                        onClick={onFolderSaveClicked}
-                      
-                      >
-                        Create
-                      </button> 
-                     
-                  </ModalFooter>
 
                   <>
                     <ErrorNotifierModal 

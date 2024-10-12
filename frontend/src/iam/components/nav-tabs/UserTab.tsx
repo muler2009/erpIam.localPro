@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { TabItem, user_add } from '../../submodules/managment/constants/nav-links/useLink';
+import { TabItem, user_add } from '../../views/managment/constants/nav-links/useLink';
 import { FaUsb } from 'react-icons/fa';
 
 interface UserTabProps {

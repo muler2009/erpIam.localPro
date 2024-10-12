@@ -1,15 +1,19 @@
-import React, {useState} from 'react'
-import * as AiIcons from 'react-icons/ai'
-import * as MdIcons from 'react-icons/md'
-import * as RxIcons from 'react-icons/rx'
+import React, {useState, useMemo} from 'react'
+import { useLocation } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { iconNotify, dropdownItems } from '../../constants/dropdown'
 import Tooltip from './Tooltip'
 import { Input } from '../../../components/common'
 import useLogout from '../../auth/logout/useLogout'
-import { Text } from './StyledComponent'
+import { FlexBox, Text } from './StyledComponent'
 import { useSelector } from 'react-redux'
 import { username } from '../../api/auth'
+import { headerAvatorMenus, headerIconsMenus } from '../../constants/menu-items/header-items'
+import BottomTooltip from '../../../components/common/BottomTooltip'
+import userphoto from '../../../assets/images/user-picture.png'
+import { findLabelByPath } from '../../helpers/findLabel'
+import { sidebarItems } from '../../views/managment/constants/iam-menu-items/sidebar'
+
 
 
 const Header = () => {
@@ -18,6 +22,14 @@ const Header = () => {
     const { onUserLogoutClicked } = useLogout()
     const user = useSelector(username)
 
+    const location = useLocation();
+
+    // Get the current path
+    const currentPath = location.pathname.split('/').pop(); // Get the last part of the path (e.g., "request" or "requested-sent")
+
+    // Memoize the label for performance
+    const currentLabel = useMemo(() => findLabelByPath(sidebarItems, currentPath || ''), [currentPath]);
+
     console.log(user)
 
 
@@ -25,50 +37,39 @@ const Header = () => {
     <header className='bg-gray-100 border-b border-[#333] border-opacity-20 sticky text-[#333] z-50'>
         <nav className='flex justify-between items-center text-[#000] py-2'>
             <div className=''>
-                <h1 className='font-Poppins text-sm pl-5'>Dashboard</h1>
+                <h1 className='font-Poppins text-sm pl-5'>{currentLabel ? currentLabel : "Dashboard"}</h1>
             </div>
-            {/* <div className='flex-grow px-10'>
-                <input 
-                    type='text'
-                    placeholder='Search anything here'
-                    className='input-md bg-[#fff] font-Poppins text-[13px]'        
-                />
-            </div> */}
-            <div className='flex space-x-4 bg-inherit '>
-                <div className='flex space-x-5 pl-4 text-[20px] cursor-pointer'>
+            <FlexBox className='flex space-x-4 bg-inherit '>
+                <div className='flex items-center justify-center pl-4 text-[20px] text-[#333] text-opacity-75 cursor-pointer'>
                     {
-                        iconNotify?.map((icon_notify, index) => {
+                        headerIconsMenus?.map((icon_notify, index) => {
                             return(
-                                <div className='w-10 h-10 rounded-full shadow-md flex justify-center items-center text-[16px]' key={index}>
-                                    <Tooltip content={icon_notify.content}>
-                                        {
-                                            icon_notify?.bool ? (
-                                                <Link to={icon_notify.path || ""}>{icon_notify.icons}</Link>
-                                            ): (
-                                                <div className=''>{icon_notify.icons}</div>
-                                            )
-                                        }  
-                                    </Tooltip>
+                                <div className='w-10 h-10 hover:rounded-full hover:bg-gray-200 flex justify-center items-center text-[20px]' key={index}>
+                                    <BottomTooltip content={`${icon_notify.label}`}>
+                                        {icon_notify.icon}
+                                    </BottomTooltip>
                                 </div>
                             )
                         })
                     }
                 </div>
 
-                <div className='flex gap-0 cursor-pointer pr-4' onClick={() => setDrop(prev => !prev)}>
+
+                <div className='flex gap-0 cursor-pointer pr-6' onClick={() => setDrop(prev => !prev)}>
                     <div className={`text-[#333] flex space-x-1`}>
-                        <Text className='font-Poppins text-[13px] leading-4 flex items-center space-x-6'>{user}
-                            <span>{ drop ? <MdIcons.MdArrowDropUp size={20} /> : <MdIcons.MdArrowDropDown size={20} /> }</span>
+                        <Text className='font-Poppins text-[13px] leading-4 flex items-center space-x-6'>
+                            <img src={userphoto} alt='User profile picture' className='w-7 h-7 ring-2 ring-text-primary rounded-full object-cover object-center' />
+                            {/* <span className='flex items-baseline'>{ drop ? <MdIcons.MdArrowDropUp size={20} /> : <MdIcons.MdArrowDropDown size={20} /> }</span> */}
                         </Text>
                     </div>
 
-                    <div className='absolute  bg-white top-full mt-1 right-2 whitespace-nowrap w-[15%] z-50'>
+                    <div className='absolute  bg-white top-full mt-1 right-2 whitespace-nowrap w-[200px] z-50 px-3'>
                         {
                             drop && (
                                 <div className='relative shadow-md text-black flex flex-col gap-1 pt-0 pb-5 border'>
                                     
                                     {
-                                        dropdownItems?.map((dropdown, index) => {
+                                        headerAvatorMenus?.map((dropdown, index) => {
                                             if(dropdown.label === 'Logout'){
                                                 return (
                                                     <div className='font-Poppins py-2 text-[13px] flex justify-start items-center space-x-3 px-3 hover:bg-[#f5f3f3]' key={index} onClick={onUserLogoutClicked}>
@@ -79,7 +80,7 @@ const Header = () => {
                                             } else {
 
                                                 return(
-                                                    <Link to={dropdown.path || ""} className='font-Poppins py-2 text-[13px] flex justify-start items-center space-x-3 px-3 hover:bg-[#f5f3f3]' key={index} >
+                                                    <Link to={dropdown.path || ""} className='font-Poppins py-2 text-[13px] flex justify-start items-center border-b space-x-3 px-3 hover:bg-[#f5f3f3]' key={index} >
                                                         <span className='mr-2'>{dropdown.icon}</span>
                                                         {dropdown.label}
                                                     </Link>
@@ -92,7 +93,7 @@ const Header = () => {
                         }
                     </div>
                 </div>
-            </div>
+            </FlexBox>
         </nav>
     </header>
   )

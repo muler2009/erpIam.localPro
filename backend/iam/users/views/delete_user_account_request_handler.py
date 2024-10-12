@@ -1,7 +1,7 @@
 from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 from iam.models import UserAccountsModel
-from utils.custom_exception_handler import EmptyExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 
 
 class DeleteUserAccountRequestHandler(generics.RetrieveDestroyAPIView):
@@ -20,11 +20,11 @@ class DeleteUserAccountRequestHandler(generics.RetrieveDestroyAPIView):
         try:
             instance_deleted = self.get_object()    
             if instance_deleted is None:
-                raise EmptyExceptionHandler(message="Data not found", error_type="NOT_FOUND")
+                raise CustomExceptionForError(message="Data not found", error_type="NOT_FOUND")
             self.perform_destroy(instance_deleted)   
             return Response({'message': "Successfully deleted"}, status=status.HTTP_204_NO_CONTENT)
 
-        except EmptyExceptionHandler as exc:
+        except CustomExceptionForError as exc:
             return Response({
                 "message": exc.detail.get('message'),
                 "error_type": exc.detail.get('error_type')

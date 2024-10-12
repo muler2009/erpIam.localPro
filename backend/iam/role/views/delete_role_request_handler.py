@@ -2,7 +2,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from iam.role.models.models import IamRoleModel
 from django.shortcuts import get_object_or_404
-from utils.custom_exception_handler import EmptyExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 
 
 class DeleteIamModelInstanceRequestHandler(generics.GenericAPIView):

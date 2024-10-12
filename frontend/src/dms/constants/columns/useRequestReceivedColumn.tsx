@@ -198,7 +198,7 @@ export const ApprovalSelect: React.FC<ApprovalSelectProps> = ({ rowId, onApprova
             <select 
                 id={`approve_input_${rowId}`}
                 name={`approve`} 
-                className="select-md rounded-sm font-Poppins py-1 w-full text-[12px]"   
+                className="select-md rounded-sm font-Poppins py-1  text-[12px]"   
                 onChange={handleChange}
                 value={currentStatus}
             >

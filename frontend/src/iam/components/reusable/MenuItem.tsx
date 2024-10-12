@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // import MenuList from './MenuList'
 import { Link } from 'react-router-dom'
-import { SideBar } from '../../submodules/managment/constants/iam-menu-items/sidebar'
+import { SideBar } from '../../views/managment/constants/iam-menu-items/sidebar'
 import * as PiIcons from "react-icons/pi";
 
 interface MenuItemProps {

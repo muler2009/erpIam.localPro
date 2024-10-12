@@ -186,7 +186,7 @@ const AllFileandFolderView = () => {
             <CreateFolderM 
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                title={'Create Folder'}
+                title={'New Folder'}
                 folderAttributes={folderAttributes}
                 handleFolderCreationInputChanges={handleFolderCreationInputChanges}
             />

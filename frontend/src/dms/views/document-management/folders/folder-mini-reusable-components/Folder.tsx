@@ -3,6 +3,7 @@ import { FolderDataInterface, UploadedDocumentInterface } from '../../../../mode
 import { FlexBox, FlexBoxInner, Text, P } from '../../../../../components/common/StyledComponent';
 import { format } from 'date-fns';
 
+
 import { AiFillFolder, AiFillFile } from 'react-icons/ai';
 
 interface FolderProps {
@@ -16,10 +17,14 @@ interface FolderProps {
 }
 
 const Folder = ({ folder_data, handleItemClick, openStates, toggleItem, handleBackClick, handleForwardClick }: FolderProps) => {
+
+  console.log(folder_data)
   return (
     <FlexBox className='pt-2'>
       <FlexBoxInner className='flex flex-col relative mx-5'>        
         {
+          folder_data.length ? (
+
             folder_data?.map((folder: FolderDataInterface, index: number) => {
               const created_at = folder.folder_created_date || new Date()
               const updated_at = folder.folder_updated_date || new Date()
@@ -51,22 +56,37 @@ const Folder = ({ folder_data, handleItemClick, openStates, toggleItem, handleBa
               )
             }    
           )
+
+          ) : (
+            <div className='flex justify-center items-center h-[50%]'>
+              {folder_data.message}
+            </div>
+          )
         }        
       </FlexBoxInner>
     </FlexBox>
   )}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 // <FlexBoxInner className='flex items-center cursor-pointer py-[5px]'>
 //                     <AiFillFolder size={50} color='#f8d775' />
 //                     <Text className='text-[#333] text-[12px] whitespace-nowrap break-words w-[100px] pl-2'>{folder.folder_name}</Text>
 //                   </FlexBoxInner>
 
   
-
-
-
-
-
 // const FolderItem = () => {
 //   return(
 //     <FlexBox className='flex flex-col gap-3 relative mb-5 mx-1 mt-5'>

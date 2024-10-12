@@ -4,7 +4,7 @@ import React, {useState} from 'react'
 // import { RowDataType } from '../../submodules/managment/user/context/AssignGroupIdentityContext';
 import { useGetGroupsQuery } from '../../features/groupsAPI';
 import { group } from 'console';
-import useAccountProps from '../../submodules/managment/user/context/useAccountProps';
+import useAccountProps from '../../views/managment/user/context/useAccountProps';
 
 
 // interface UserToGroupTableProps {

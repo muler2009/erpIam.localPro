@@ -22,7 +22,7 @@ class UserAccountsModel(AbstractBaseUser):
     home_directory = models.CharField(max_length=255, null=True, blank=True)
     account_created_at = models.DateTimeField(auto_now_add=True)
     account_modified_at = models.DateTimeField(auto_now=True)
-    is_staff = models.BooleanField(default=False, blank=True)  # does the instance can login
+    is_staff = models.BooleanField(default=False)  # does the instance can login
     is_active = models.BooleanField(default=True)  # simple user in the system application
     is_superuser = models.BooleanField(default=False) # a super or admin user 
     

@@ -2,7 +2,7 @@ from rest_framework import status, generics, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.request import Request
 from rest_framework.response import Response
-from utils.custom_exception_handler import EmptyExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 from ...models.request_model import ApprovedRequestsModel, ApprovedRequestByRequestOwnerModel
 from ...models.workflow_state_model import WorkFlowStateModel
 from django.db.models import Q
@@ -22,7 +22,7 @@ class PendingApprovalsRequestHandler(generics.GenericAPIView):
               # Serialize the pending requests
             serializer = self.get_serializer(pending_requests, many=True, context={'request': request})
             return Response(serializer.data, status=status.HTTP_200_OK)
-        except EmptyExceptionHandler as exc:
+        except CustomExceptionForError as exc:
             return Response({
                 "message": exc.message,
                 "error": exc.error_type
@@ -32,12 +32,12 @@ class PendingApprovalsRequestHandler(generics.GenericAPIView):
     def get_authenticated_user(self, request):
         user = request.user
         if not user:
-            raise EmptyExceptionHandler(message="No User Found", error_type="NO USER")
+            raise CustomExceptionForError(message="No User Found", error_type="NO USER")
         # Check if the user is the initiator of any request
         initiated_requests = ApprovedRequestByRequestOwnerModel.objects.filter(requesting_user=user)
         
         if not initiated_requests.exists():
-            raise EmptyExceptionHandler(message="User is not a request initiator", error_type="NOT_INITIATOR")
+            raise CustomExceptionForError(message="User is not a request initiator", error_type="NOT_INITIATOR")
 
         return user
    
@@ -53,7 +53,7 @@ class PendingApprovalsRequestHandler(generics.GenericAPIView):
         )
 
         if not pending_or_rejected_requests.exists():
-            raise EmptyExceptionHandler(message="No Pending or Rejected Requests", error_type="NO_PENDING_OR_REJECTED")
+            raise CustomExceptionForError(message="No Pending or Rejected Requests", error_type="NO_PENDING_OR_REJECTED")
         
         return pending_or_rejected_requests
 
@@ -70,7 +70,7 @@ class GetFinalApprovedRequestHandler(generics.GenericAPIView):
            user = self.get_authenticated_user(request)
            approved_requests = self.get_only_final_approved_requests(request, user)
 
-        except EmptyExceptionHandler as exc:
+        except CustomExceptionForError as exc:
             return Response({
                 'Error': exc.message,
                 'error_type': exc.error_type
@@ -81,7 +81,7 @@ class GetFinalApprovedRequestHandler(generics.GenericAPIView):
     def get_authenticated_user(self, request):
         user = request.user
         if not user:
-            raise EmptyExceptionHandler(message="No User Found", error_type="NO USER")
+            raise CustomExceptionForError(message="No User Found", error_type="NO USER")
         return user
     
     def get_only_final_approved_requests(self, request, user):
@@ -89,7 +89,7 @@ class GetFinalApprovedRequestHandler(generics.GenericAPIView):
         state = WorkFlowStateModel.objects.get(state_name=state_name)
         approved_request= ApprovedRequestByRequestOwnerModel.objects.filter(current_state=state, requesting_user = user)
         if not approved_request:
-            raise EmptyExceptionHandler(message="No Approved request Found", error_type='ERROR')
+            raise CustomExceptionForError(message="No Approved request Found", error_type='ERROR')
         approved_requests_seriallizer = self.serializer_class(approved_request, many=True, context={'request': request})
         return approved_requests_seriallizer.data
     

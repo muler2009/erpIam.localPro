@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from iam.groups.models import PosixGroupUserModel
-from utils.custom_exception_handler import CustomExceptionHandler
 import re
 from iam.models import UserAccountsModel
 from iam.users.serializers.create_user_account_serializer import CreateLDAPUserSerializer

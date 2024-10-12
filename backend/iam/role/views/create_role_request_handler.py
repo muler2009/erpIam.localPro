@@ -5,7 +5,7 @@ from iam.role.models import IamRoleModel
 from iam.role.serializers.create_role_serializers import CreateIamRoleModelSerializer
 from utils.custom_exception_handler import AlreadyExistAPIException
 from iam.models import UserAccountsModel
-from utils.custom_exception_handler import PostExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 
 class CreateRoleModelInstanceRequestHandler(generics.GenericAPIView):
     queryset = IamRoleModel.objects.all()
@@ -31,7 +31,7 @@ class CreateRoleModelInstanceRequestHandler(generics.GenericAPIView):
                 "error_type": f"{exception.error_type}",
                 "status_code": f"{exception.default_code}"
             }, status=status.HTTP_409_CONFLICT)
-        except PostExceptionHandler as exception:
+        except CustomExceptionForError as exception:
             return Response({
                 "message": f"{exception.message}",
                 "error_type": f"{exception.error_type}",
@@ -52,7 +52,7 @@ class CreateRoleModelInstanceRequestHandler(generics.GenericAPIView):
     def validate_request_data(self, request):
         serializer = self.serializer_class(data=request.data, context={'request': request})
         if not serializer.is_valid(raise_exception=False):  # Allow serializer to raise exceptions
-            raise PostExceptionHandler(message="Invalid data", error_type="ERROR")
+            raise CustomExceptionForError(message="Invalid data", error_type="ERROR")
         return serializer
     
     def create_role_instance(self, role_instance, request):
@@ -62,7 +62,7 @@ class CreateRoleModelInstanceRequestHandler(generics.GenericAPIView):
                 user = UserAccountsModel.objects.get(username=username)
                 role_instance.users.add(user)
             except UserAccountsModel.DoesNotExist:
-                raise PostExceptionHandler(message=f"User {username} does not exist", error_type="USER_NOT_FOUND")
+                raise CustomExceptionForError(message=f"User {username} does not exist", error_type="USER_NOT_FOUND")
         role_instance.save()  # Save the role instance with associated users
     
     def save_role_instance(self, serializer):

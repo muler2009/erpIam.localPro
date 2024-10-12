@@ -1,7 +1,7 @@
 from rest_framework import views, status
 from rest_framework.request import Request
 from rest_framework.response import Response
-from utils.custom_exception_handler import CustomExceptionHandler, AlreadyExists
+from utils.custom_exception_handler import CustomExceptionForError
 from iam.groups.models import PosixGroupUserModel
 from iam.models import UserAccountsModel
 from iam.groups.serializers.create_group_serializer import CreateGroupSerializer
@@ -14,7 +14,7 @@ class CreateGroupRequestHandler(views.APIView):
             create_group_serializer.is_valid(raise_exception=True)  
 
             if PosixGroupUserModel.objects.filter(group_name=request.data.get('group_name')).exists():
-                raise AlreadyExists    
+                raise CustomExceptionForError(message="Group already exist", error_type="ALREADY EXIST", status_code=400)    
             
             group_instance = create_group_serializer.create(create_group_serializer.validated_data)
 
@@ -26,18 +26,13 @@ class CreateGroupRequestHandler(views.APIView):
                     
             group_instance.save()
 
-        except CustomExceptionHandler as exc:
+        except CustomExceptionForError as exc:
             return Response({
-                "ERROR_TYPE": f"{request.data['group_posix_Id']} {exc.error_type}",
-                "ERROR_MESSAGE": exc.message,
-                "STATUS_CODE": exc.status_code
+                "error_type": f"{request.data['group_posix_Id']} {exc.error_type}",
+                "message": exc.message,
+                "status_code": exc.status_code
             })                
-        except AlreadyExists as exc:
-            return Response({
-                f'group {request.data.get("group_name")}': str(exc.default_code),
-                'status_code': exc.status_code,
-                'Error': exc.detail, 
-            })
+
         else:   
             response_data = {
                         'status': status.HTTP_201_CREATED,

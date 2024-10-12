@@ -94,7 +94,7 @@ export interface UserAccountInterfacee {
   home_directory?: string;
   account_created_at?: string | undefined; 
   account_modified_at?: string | undefined; 
-  is_staff?: boolean;
+  is_staff?: boolean ;
   is_active?: boolean; 
   is_superuser?: boolean;
   gChecked?: boolean;

@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from ...models.core_notification_model import NotificationModel
 from ...serializer.get_serializer.show_notification_serializer import ShowNotificationSerializer
 from rest_framework.pagination import PageNumberPagination
-from utils.custom_exception_handler import EmptyExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 
 class NotificationPagination(PageNumberPagination):
     page_size = 5  # Default number of notifications per page
@@ -25,7 +25,7 @@ class ShowNotificationRequestHandler(generics.GenericAPIView):
         try: 
             notifications =  NotificationModel.objects.filter(notification_recepient=user)
             if not notifications:
-                raise EmptyExceptionHandler(message="No Associated request Found", error_type='ERROR')
+                raise CustomExceptionForError(message="No Associated request Found", error_type='ERROR')
             notifications =  NotificationModel.objects.filter(notification_recepient=user)
             paginator = self.pagination_class()
             paginated_notification = paginator.paginate_queryset(notifications, request)
@@ -35,7 +35,7 @@ class ShowNotificationRequestHandler(generics.GenericAPIView):
             
             return Response(serializer.data)
 
-        except EmptyExceptionHandler as exc:
+        except CustomExceptionForError as exc:
             return Response({
                 'Error': exc.message,
                 'error_type': exc.error_type

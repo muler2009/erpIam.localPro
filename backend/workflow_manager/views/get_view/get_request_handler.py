@@ -5,7 +5,7 @@ from ...models.request_model import ApprovedRequestByRequestOwnerModel, UnApprov
 from ...serilizers.get_request_serializer import GetApprovedRequestModelSerializer, GetUnapprovedRequestModelSerializer, GetFinalApprovedRequestModelSerializer
 from rest_framework.request import Request
 from rest_framework.response import Response
-from utils.custom_exception_handler import EmptyExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 import uuid
 from ...models.workflow_state_model import WorkFlowStateModel
 from ...serilizers.send_request_serializer import UnApprovedRequestSerializer
@@ -26,11 +26,11 @@ class GetRequestSendByUserHandler(generics.GenericAPIView):
         try: 
             requests = UnApprovedRequestByOwnerModel.objects.filter(requesting_user=user)
             if not requests:
-                raise EmptyExceptionHandler(message="No Associated request Found", error_type='ERROR')
+                raise CustomExceptionForError(message="No Associated request Found", error_type='ERROR')
             serializer = self.serializer_class(requests, many=True)
             return Response(serializer.data)
 
-        except EmptyExceptionHandler as exc:
+        except CustomExceptionForError as exc:
             return Response({
                 'Error': exc.message,
                 'error_type': exc.error_type
@@ -49,7 +49,7 @@ class GetRequestsReceivedForApprovalRequestHandler(generics.GenericAPIView):
             # Serialize the pending requests
             serializer = self.get_serializer(pending_requests, many=True, context={'request': request})
             return Response(serializer.data, status=status.HTTP_200_OK)
-        except EmptyExceptionHandler as exc:
+        except CustomExceptionForError as exc:
             return Response({
                 "message": exc.message,
                 "error": exc.error_type
@@ -58,13 +58,13 @@ class GetRequestsReceivedForApprovalRequestHandler(generics.GenericAPIView):
     def get_authenticated_user(self, request):
         user = request.user
         if not user:
-            raise EmptyExceptionHandler(message="No User Found", error_type="NO_USER")
+            raise CustomExceptionForError(message="No User Found", error_type="NO_USER")
         return user
 
     def get_pending_request_for_approval(self, user):
         state_name = self.request.query_params.get("current_state")
         if not state_name:
-            raise EmptyExceptionHandler(message="State name parameter missing", error_type="MISSING_STATE_NAME")
+            raise CustomExceptionForError(message="State name parameter missing", error_type="MISSING_STATE_NAME")
 
         # Get the pending state for the current workflow state
         pending_state = get_object_or_404(WorkFlowStateModel, state_name=state_name)
@@ -73,7 +73,7 @@ class GetRequestsReceivedForApprovalRequestHandler(generics.GenericAPIView):
         user_roles = user.roles.all().values_list('role_name', flat=True)
 
         if not user_roles:
-            raise EmptyExceptionHandler(message="User roles not found", error_type="NO_ROLES")
+            raise CustomExceptionForError(message="User roles not found", error_type="NO_ROLES")
 
         # Fetch requests where the current stage is pending for the user's role
         pending_requests = IntermediateRequestModel.objects.filter(
@@ -84,7 +84,7 @@ class GetRequestsReceivedForApprovalRequestHandler(generics.GenericAPIView):
         ).select_related('request', 'request__current_stage').order_by('request_id' ,'-request_updated_at')
 
         if not pending_requests.exists():
-            raise EmptyExceptionHandler(message="No Pending Requests Found", error_type="NO_PENDING_REQUESTS")
+            raise CustomExceptionForError(message="No Pending Requests Found", error_type="NO_PENDING_REQUESTS")
 
         # Deduplicate the requests based on `request_id`
         unique_requests = {}

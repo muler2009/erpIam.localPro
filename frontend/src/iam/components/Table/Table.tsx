@@ -11,13 +11,13 @@ import {
   import Search from '../common/Search';
   import useUserAccount from '../../hooks/useUserAccount';
   import GroupTableHeader from './GroupTableHeader';
-  import useGroupColumn from '../../submodules/managment/constants/columns/useGroupColumn';
+  import useGroupColumn from '../../views/managment/constants/columns/useGroupColumn';
   import RowDetailedView from './RowDetailedView';
-  import useUserColumn from '../../submodules/managment/constants/columns/useUserColumn';
+  import useUserColumn from '../../views/managment/constants/columns/useUserColumn';
   import React from 'react';
   import { FlexBox, FlexBoxInner } from '../reusable/StyledComponent';
-  import GroupChart from '../../submodules/managment/groups/groupviews/GroupChart';
-  import useNestedColumnForGroupTable from '../../submodules/managment/constants/columns/useNestedColumnForGroupTable';
+  import GroupChart from '../../views/managment/groups/groupviews/GroupChart';
+  import useNestedColumnForGroupTable from '../../views/managment/constants/columns/useNestedColumnForGroupTable';
   
   
   interface TableProps {

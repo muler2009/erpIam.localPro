@@ -63,7 +63,7 @@ const PerformTransition = ({ rowData, approvalStatus, comments, handleIsOpenClos
     }
 
     return (
-        <FlexBox className='flex justify-end space-x-4'>
+        <FlexBox className='flex justify-start space-x-4'>
             <Div className='py-2'>
                 <button className='btn-sm text-[12px] bg-red-500 px-5 text-white' onClick={handleIsOpenCloseMenuModal}>Close</button>
             </Div>
@@ -91,8 +91,6 @@ const PerformTransition = ({ rowData, approvalStatus, comments, handleIsOpenClos
                 }
 
             </Div>
-               
-
         </FlexBox>
     );
     

@@ -4,7 +4,7 @@ from rest_framework import generics, permissions, status, serializers
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from utils.custom_exception_handler import PostExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 from ...models.request_model import ApprovedRequestByRequestOwnerModel, ApprovedRequestsModel
 from ...models.workflow_state_model import WorkFlowStateModel
 from ...models.workflow_action_model import WorkFlowActionsModel
@@ -123,7 +123,7 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
                 raise serializers.ValidationError({"detail": "Invalid request ID format. It should be a UUID."})
 
             if not request_id or not action_name:
-                raise PostExceptionHandler({"detail": "Request ID and action name are required."}, status=status.HTTP_400_BAD_REQUEST)
+                raise CustomExceptionForError(detail="Request ID and action name are required.", error_type="ID required" ,status=status.HTTP_400_BAD_REQUEST)
 
             approved_request = self.get_request_instance(request_id)
 
@@ -192,7 +192,7 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
                 )
 
         
-        except PostExceptionHandler as exc:
+        except CustomExceptionForError as exc:
             return Response({
                'message': exc.message,
                'error': exc.error_type
@@ -205,13 +205,13 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
         try:
             return ApprovedRequestByRequestOwnerModel.objects.select_related('current_stage__transition').get(pk=request_id)
         except ApprovedRequestByRequestOwnerModel.DoesNotExist:
-            raise PostExceptionHandler(message="Request not found", error_type="error")
+            raise CustomExceptionForError(detail="Request not found", error_type="error")
         
         
     def validate_user_permission(self, request_instance, user):
         # Check if the current stage exists
         if not request_instance.current_stage:
-            raise PostExceptionHandler(message="Request does not have a current stage", error_type="error")
+            raise CustomExceptionForError(detail="Request does not have a current stage", error_type="error")
         
         # Get the roles associated with the user
         user_roles = user.roles.all().values_list('role_name', flat=True)
@@ -239,10 +239,10 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
         # Prepare QR data
         user = self.request.user
         qr_data = {
-            "Invester": f"{approved_request.requesting_user.first_name} {approved_request.requesting_user.first_name}",
+            "Document Owner": f"{approved_request.requesting_user.first_name} {approved_request.requesting_user.last_name}",
             "approval_date": str(datetime.now().date()),
             "approved_by": f"{user.first_name} {user.last_name}",
-            "approver_role": approved_request.current_stage.role.role_name,
+            # "approver_role": approved_request.current_stage.role.role_name,
         }
 
         # Create a QR code instance
@@ -289,15 +289,6 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
         x_centered = (page_width - image_width) / 2.5
         y_centered = (page_height - image_height) / 2.5
         stamp.drawImage(signature_image_path, x_centered, y_centered, width=image_width, height=image_height, mask='auto')
-
-
-        x_centered_information = (page_width - image_width) / 2
-        y_centered_information = (page_height - image_height) / 2
-
-        # Add additional information (e.g., user name, approval date, stage) below the image
-        # stamp.drawString(x_centered_information + 160, y_centered_information - 170, f"Approved by: {request.user}")
-        # stamp.drawString(x_centered_information + 160, y_centered_information - 190, f"Date: {datetime.now().date()} ")
-        # stamp.drawString(x_centered_information + 160, y_centered_information - 210, "Signature: Stage 1")
 
         stamp.drawString(400, 140, f"Approved by: {request.user}")
         stamp.drawString(400, 120, f"Date: {datetime.now().date()} ")
@@ -358,15 +349,7 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
             request=approved_request,
             stage_level__gt=current_stage.stage_level
         ).order_by('stage_level').first()       
-
-        # Construct the document path
-        document_path = os.path.join(settings.MEDIA_ROOT, str(approved_request.file_for_approval.uploaded_file))
-        logger.info(f"Document path: {document_path}")
-
-        # Check if the document exists
-        if not os.path.exists(document_path):
-            logger.error(f"File not found: {document_path}")
-            raise FileNotFoundError(f"File not found: {document_path}")      
+  
 
         if next_stage:
             # Update the approved request to the next stage and state
@@ -374,17 +357,7 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
             approved_request.current_state = pending  # Set the state to 'pending approval'
             approved_request.save()
 
-            user_name = self.request.user.username
-            approval_date = datetime.now().strftime("%Y-%m-%d")
-           # Path to the signature image
-            signature_image_path = os.path.join(settings.MEDIA_ROOT, "image_files/stamp.png")
-            # qr_image_path = os.path.join(settings.MEDIA_ROOT, "image_files/stamp.png")
-
-            # Merge the signature with the original document
-            self.merge_signature_with_document(document_path, signature_image_path, request, approved_request=approved_request)
-
-            # No need to change the uploaded_file as it is already merged in the original path
-            # You can optionally log or set a status indicating the document is ready for the next stage
+           
             logger.info(f"Document sent to the next stage: {next_stage.stage_name}")
            
             IntermediateRequestModel.objects.create(
@@ -401,21 +374,28 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
             approved_request.current_stage = None
             approved_request.current_state = WorkFlowStateModel.objects.get(state_name="approved")  # Indicate that the process is completed
             
+             # Construct the document path
+            document_path = os.path.join(settings.MEDIA_ROOT, str(approved_request.file_for_approval.uploaded_file))
+            logger.info(f"Document path: {document_path}")
+
+            # Check if the document exists
+            if not os.path.exists(document_path):
+                logger.error(f"File not found: {document_path}")
+                raise FileNotFoundError(f"File not found: {document_path}")  
+
+            user_name = self.request.user.username
+            approval_date = datetime.now().strftime("%Y-%m-%d")
+           # Path to the signature image
+            signature_image_path = os.path.join(settings.MEDIA_ROOT, "image_files/stamp.png")
+            # qr_image_path = os.path.join(settings.MEDIA_ROOT, "image_files/stamp.png")
+
+            # Merge the signature with the original document
+            self.merge_signature_with_document(document_path, signature_image_path, request, approved_request=approved_request)
+
             IntermediateRequestModel.objects.filter(request=approved_request).delete()
             # Remove all stages after the final approval
             ApprovalStageModel.objects.filter(request=approved_request).delete()
 
-        #     user_name = self.request.user.username
-        #     approval_date = datetime.now().strftime("%Y-%m-%d")
-        #    # Path to the signature image
-        #     signature_image_path = os.path.join(settings.MEDIA_ROOT, "image_files/image.png")
-
-        #     # Merge the signature with the original document
-        #     self.merge_signature_with_document(document_path, signature_image_path, request)
-
-        #     # No need to change the uploaded_file as it is already merged in the original path
-        #     # You can optionally log or set a status indicating the document is ready for the next stage
-        #     logger.info(f"Document sent to the next stage: {next_stage.stage_name}")
 
         approved_request.save()
 
@@ -432,7 +412,7 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
                 # Get the previous approval stage
                 previous_stage = ApprovalStageModel.objects.get(stage_name=previous_approval.stage_name, request=approved_request)
             except ApprovalStageModel.DoesNotExist:
-                raise PostExceptionHandler(message="Approval Stage doesn't exist", error_type="DoesNotExist")
+                raise CustomExceptionForError(detail="Approval Stage doesn't exist", error_type="DoesNotExist")
 
             # Update the current request to reflect the rejection and revert to the previous stage
             approved_request.current_stage = previous_stage

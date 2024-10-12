@@ -3,7 +3,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework.request import Request
-from utils.custom_exception_handler import PostExceptionHandler
+from utils.custom_exception_handler import CustomExceptionForError
 from ...models.document_uploads_models import DocumentVersion
 from ...models.document_information import DocumentInformation
 from ...serializers.document_version_serialzier import DocumentVersionSerializer
@@ -31,7 +31,7 @@ class DocumentVersionRequestHandler(generics.GenericAPIView, mixins.CreateModelM
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        except PostExceptionHandler as exception:
+        except CustomExceptionForError as exception:
             return Response(
                 {
                     "message": exception.message,
@@ -44,7 +44,7 @@ class DocumentVersionRequestHandler(generics.GenericAPIView, mixins.CreateModelM
         # Ensure that the data is validated with the correct serializer
         serializer = self.serializer_class(data=request.data, context={'request': request})
         if not serializer.is_valid():
-            raise PostExceptionHandler(message="Invalid data provided", error_type="NOT_VALID_DATA")
+            raise CustomExceptionForError(message="Invalid data provided", error_type="NOT_VALID_DATA")
         return serializer
 
     def create_document(self, serializer, document, request):
