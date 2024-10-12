@@ -10,6 +10,8 @@ export const API_TAGS = {
     REQUESTS: "requests",
     NOTIFICATION: "notification",
     INTERMEDIATE_REQUEST: "intermediate request",
+    POLICY: "Policy",
+
 
 
 

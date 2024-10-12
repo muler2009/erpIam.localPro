@@ -63,7 +63,7 @@ const Header = () => {
                         </Text>
                     </div>
 
-                    <div className='absolute  bg-white top-full mt-1 right-2 whitespace-nowrap w-[200px] z-50 px-3'>
+                    <div className='absolute  bg-white top-full mt-1 right-2 whitespace-nowrap w-[200px] z-50'>
                         {
                             drop && (
                                 <div className='relative shadow-md text-black flex flex-col gap-1 pt-0 pb-5 border'>

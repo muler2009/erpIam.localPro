@@ -196,6 +196,15 @@
     .request-recieved .table > tbody > tr > td:nth-child(7) { @apply w-[20%]}
 
 
+    .policy  .table > thead > tr > th { @apply border-none py-3 font-Poppins font-semibold whitespace-nowrap leading-[1.2] text-[#333] text-opacity-70 bg-gray-50 text-[13.5px]}
+    .policy  .table > tbody > tr, .policy-recieved .table > tbody > tr { @apply cursor-pointer}
+    .policy  .table > tbody > tr > td { @apply pl-5 py-2 text-[#333] text-opacity-80 text-[13px]}
+    .policy  .table > thead > tr > th:first-child { @apply w-[2%] }
+    .policy  .table > thead > tr > th:nth-child(2) { @apply w-[10%] }
+    .policy  .table > thead > tr > th:nth-child(3) { @apply w-[5%] }
+    .policy  .table > tbody > tr > td:last-child { @apply w-[20%]}
+
+
     .custom-td {
       padding: 0 !important;
       margin: 0 !important;

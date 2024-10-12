@@ -8,15 +8,6 @@ import { UserAccountContextProvider } from '../../context/UserAccountContext'
 const UserNavigationHeader = () => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    // const [dropdown, setDropItems] = useState<boolean>(false)
-    // const [activeTabIndex, setActiveTabIndex] = useState(0);
-    
-    // const handleDropdownItemClick = (index: number) => {
-    //   setActiveTabIndex(index);
-    //   setDropItems(false)
-    //   setIsOpen(prevIsOpen => !prevIsOpen);
-    // }
-
     const openCreateIdentity = useCallback(() => { setIsOpen(prev => !prev) }, [isOpen])
 
   return (

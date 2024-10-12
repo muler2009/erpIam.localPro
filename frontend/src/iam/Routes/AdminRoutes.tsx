@@ -7,6 +7,8 @@ import Dashboard from '../views/dashboard-view/Dashboard';
 import GroupDashboard from '../views/managment/groups/groupviews/GroupDashboard';
 import RoleDashboard from '../views/managment/roles/views/RoleDashboard';
 import UserDashboard from '../views/managment/user/views/UserDashboard';
+import PolicyDashboard from '../views/managment/policy/PolicyDashboard';
+import GetAllPoliciesComponent from '../views/managment/policy/policy-mini-component/GetAllPoliciesComponent';
 
 interface Route {
     path: string;
@@ -24,7 +26,15 @@ const AdminRoutes = () => {
     { path: 'users',  element: <UserDashboard /> },
     { path: 'groups',  element: <GroupDashboard /> },
     { path: 'roles',  element: <RoleDashboard /> },
-    { path: 'perm_management',  element: <PermissionLayout /> },
+    { 
+      path: 'policies',  element: <PolicyDashboard />,
+      children: [
+        { path: '',  element: <GetAllPoliciesComponent /> },
+        { path: 'create_policy',  element: <h1>New Policy</h1> },
+
+      ] 
+    },
+
   ]
 
   return useRoutes(routes)

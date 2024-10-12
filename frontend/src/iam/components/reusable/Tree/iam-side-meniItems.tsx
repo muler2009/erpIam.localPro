@@ -39,8 +39,8 @@ export const iamSidebarItems = [
             },
               
             {
-                path: 'perm_management',
-                label: 'Policy Mangement ',
+                path: 'policies',
+                label: 'Policies ',
                 icon: <MdIcons.MdPolicy />
             },
         ] 
