@@ -1,12 +1,13 @@
-from rest_framework import generics, status, serializers
+from rest_framework import generics, status, serializers, mixins
 from rest_framework.response import Response
 from rest_framework.request import Request
 from utils.custom_exception_handler import CustomExceptionForError
 from ...serializers.user_registration_serialzier import UserRegistrationSerializer
+from iam.models import UserAccountsModel
 
 
-
-class RegisterViewRequestHandler(generics.GenericAPIView):
+class RegisterViewRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
+    # queryset = UserAccountsModel.objects.all()
     serializer_class = UserRegistrationSerializer
 
     def post(self, request: Request):

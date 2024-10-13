@@ -9,10 +9,13 @@ import RoleDashboard from '../views/managment/roles/views/RoleDashboard';
 import UserDashboard from '../views/managment/user/views/UserDashboard';
 import PolicyDashboard from '../views/managment/policy/PolicyDashboard';
 import GetAllPoliciesComponent from '../views/managment/policy/policy-mini-component/GetAllPoliciesComponent';
+import NewPolicyComponent from '../views/managment/policy/policy-mini-component/NewPolicyComponent';
+import NewPermissionCreationOnResourceComponent from '../views/managment/policy/policy-mini-component/NewPermissionCreationOnResourceComponent';
 
 interface Route {
     path: string;
     element: React.ReactElement;
+    children?: Route[]
 }
 
 interface RouteWithChildren {
@@ -30,7 +33,15 @@ const AdminRoutes = () => {
       path: 'policies',  element: <PolicyDashboard />,
       children: [
         { path: '',  element: <GetAllPoliciesComponent /> },
-        { path: 'create_policy',  element: <h1>New Policy</h1> },
+        { 
+          path: 'create_policy', 
+          element: <NewPolicyComponent />,
+          children: [
+            { path: 'just',  element: <NewPermissionCreationOnResourceComponent /> },
+
+          ]
+         },
+
 
       ] 
     },

@@ -24,8 +24,8 @@ export const authSlice = createSlice({
             state.refresh = refresh;
             state.isAuthenticated = true;
             state.username = username
-            // localStorage.setItem("token", access)
-            // localStorage.setItem("refresh", refresh)
+            localStorage.setItem("token", access)
+            localStorage.setItem("refresh", refresh)
             localStorage.setItem("isAuthenticated", JSON.stringify(true))      
         },
         clearAuthData: (state, action) => {

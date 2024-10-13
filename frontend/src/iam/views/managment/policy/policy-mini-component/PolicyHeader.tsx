@@ -1,12 +1,17 @@
 import React from 'react'
 import { FlexBox, FlexBoxInner, Text } from '../../../../components/reusable/StyledComponent'
-import { Link } from 'react-router-dom'
+import { Link , useLocation} from 'react-router-dom'
 import { LuUser2 } from 'react-icons/lu'
 import { useGetAllPoliciesQuery } from '../../../../features/policiesAPI'
+import { RxCaretLeft } from "react-icons/rx";
 
 
 export const PolicyHeader = () => {
     const {data: total_policies} = useGetAllPoliciesQuery()
+    const location = useLocation()
+    const currentPath = location.pathname === '/iam/policies'
+    console.log(currentPath)
+
     return (
         <FlexBox className='flex justify-between items-start pt-4 px-4 mx-4 bg-gradient-to-b from-white to-gray-300'>
             <FlexBox className='flex flex-col gap-4 px-2'>
@@ -19,10 +24,10 @@ export const PolicyHeader = () => {
                     </Text>
                 </FlexBoxInner>
             </FlexBox>
-            <FlexBox className='flex justify-center items-center divide-x-[1px] space-x-4 mr-10'>
-                <h6 className='font-Rubik font-semibold text-sm'>
-                    <Link to={`./`}>Home</Link>
-                </h6>
+            <FlexBox className='flex justify-center items-center divide-x-[1px] divide-black divide-opacity-50 space-x-4 mr-10'>
+                    <Link to={`./`}>
+                        <button className='font-semibold text-sm flex items-center text-[#5e2f05]'><RxCaretLeft size={20} />Back</button>
+                    </Link>
                 <FlexBoxInner>
                     <Link to={`create_policy`}>
                         <button className='btn-sm bg-green-500 text-white px-5 rounded-[3px] btn-sm text-[12px] ml-4 hover:bg-green-600 border ring-opacity-50 cursor-pointer'>
@@ -30,16 +35,7 @@ export const PolicyHeader = () => {
                         </button>
                     </Link>
                 </FlexBoxInner> 
-            </FlexBox>
-    
-            {/* {
-                isOpen && ( 
-                    <UserAccountContextProvider>
-                        <CreateUserIdentity isOpen={isOpen} openCreateIdentity={openCreateIdentity} title="New identity" /> 
-                    </UserAccountContextProvider>
-                )
-            } */}
-              
+            </FlexBox>              
         </FlexBox>
       )
 }

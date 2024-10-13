@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from iam.users.serializers.create_user_account_serializer import CreateLDAPUserSerializer
 from utils.custom_exception_handler import CustomSerializerValidationError
 from django.contrib.auth.hashers import make_password
+from iam.models import UserAccountsModel
 
 # class CreateUserAccountRequestHandler(views.APIView):
 #     def post(self, request):
@@ -41,9 +42,12 @@ from django.contrib.auth.hashers import make_password
 #             }, status=status.HTTP_201_CREATED)  
 
 class CreateUserAccountRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
+    queryset = UserAccountsModel.objects.all()
+    serializer_class = CreateLDAPUserSerializer
+
 
     def post(self, request): 
-        user_serializer = CreateLDAPUserSerializer(data=request.data)
+        user_serializer = self.serializer_class(data=request.data)
         try:
             user_serializer.is_valid(raise_exception=True)
             user = user_serializer.save()
