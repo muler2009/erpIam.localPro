@@ -30,7 +30,7 @@ export const PolicyHeader = () => {
                     </Link>
                 <FlexBoxInner>
                     <Link to={`create_policy`}>
-                        <button className='btn-sm bg-green-500 text-white px-5 rounded-[3px] btn-sm text-[12px] ml-4 hover:bg-green-600 border ring-opacity-50 cursor-pointer'>
+                        <button className='btn-sm bg-green-900 text-white px-5 rounded-[3px] btn-sm text-[12px] ml-4 hover:bg-green-800 border ring-opacity-50 cursor-pointer'>
                             New Policy
                         </button>
                     </Link>

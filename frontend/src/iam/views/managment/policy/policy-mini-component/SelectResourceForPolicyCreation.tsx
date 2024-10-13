@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FlexBox, FlexOuterContainer,P } from '../../../../../components/common/StyledComponent'
 import { FaSortDown } from "react-icons/fa6";
 import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { PolicyContextProvider } from '../context/PolicyContext';
 
 const SelectResourceForPolicyCreation = () => {
     const navigate = useNavigate();
@@ -21,31 +22,34 @@ const SelectResourceForPolicyCreation = () => {
     };
 
   return (
-    <FlexOuterContainer className='flex flex-col pt-3'>
-        {showSelect && ( // Render the select dropdown only if showSelect is true
-            <FlexBox className='flex space-x-2'>
+    <PolicyContextProvider>
+        <FlexOuterContainer className='flex flex-col pt-3'>
+            {showSelect && ( // Render the select dropdown only if showSelect is true
+                <FlexBox className='flex space-x-2'>
+                    <FaSortDown />
+                        <select value={selectedResource??""} onChange={handleSelectChange} className="border rounded p-1">
+                            <option value="" disabled>Select a resource</option>
+                            <option value="just">FileDatabase</option>
+                            <option value="just">Other Resource</option>
+                            {/* Add more options as needed */}
+                        </select>
+                        </FlexBox>
+                    )}
+
+
+            {/* <FlexBox className='flex space-x-2'>
                 <FaSortDown />
-                    <select value={selectedResource??""} onChange={handleSelectChange} className="border rounded p-1">
+                    <select value={selectedResource} onChange={handleSelectChange} className="border rounded p-1">
                         <option value="" disabled>Select a resource</option>
-                        <option value="just">FileDatabase</option>
-                        <option value="just">Other Resource</option>
-                        {/* Add more options as needed */}
+                        <option value="just">Just</option>
+                        <option value="/other-resource">Other Resource</option>
+                        
                     </select>
-                    </FlexBox>
-                )}
+            </FlexBox> */}
+            <Outlet context={{ selectedResource }}  />
+        </FlexOuterContainer>
 
-
-        {/* <FlexBox className='flex space-x-2'>
-            <FaSortDown />
-                <select value={selectedResource} onChange={handleSelectChange} className="border rounded p-1">
-                    <option value="" disabled>Select a resource</option>
-                    <option value="just">Just</option>
-                    <option value="/other-resource">Other Resource</option>
-                    
-                </select>
-        </FlexBox> */}
-        <Outlet context={{ selectedResource }}  />
-    </FlexOuterContainer>
+    </PolicyContextProvider>
   )
 }
 

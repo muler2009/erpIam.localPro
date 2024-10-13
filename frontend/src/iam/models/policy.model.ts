@@ -1,9 +1,8 @@
 
 export interface PolicyAPIInterface {
-    
-    policy_verison: string;
+    policy_verison: number;
     policy_name: string;
-    statements: Statements[];
+    statements?: Statements[];
 }
 
 export interface Statements {
@@ -18,3 +17,18 @@ export interface PolicyActionInterface {
 export interface PolicyColumnInterface extends PolicyAPIInterface {
     policy?: string;
 }
+
+export interface PolicyContextPropsInterface {
+    policyData: PolicyAPIInterface;
+    setPolicyData: React.Dispatch<React.SetStateAction<PolicyAPIInterface>>;
+    canSave: boolean;
+    page: number;
+    setPage: React.Dispatch<React.SetStateAction<number>>;
+    policyCreationStep: { [key: number]: string };
+    disableNext: boolean;
+    disablePrev: boolean;
+    prevHide?: string | boolean;
+    nextHide: string | boolean;
+    submitHide: string | boolean;
+    canSubmit: boolean;
+  }

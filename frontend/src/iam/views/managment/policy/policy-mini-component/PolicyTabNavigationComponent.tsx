@@ -23,7 +23,7 @@ const PolicyTabNavigationComponent = ({tabs}: TabNavigationInterfce) => {
             <FlexBoxInner className='flex justify-end space-x-2 flex-grow pt-3 pb-3'>
               {
                   tabs?.map((request_tab, index) => (
-                    <div key={index} onClick={() => changeTabIndex(index)}  className={`relative cursor-pointer rounded-[3px] py-[2px] bg-gray-50 ${activeTabIndex === index && 'bg-[#5e2f05] text-white'}`}>
+                    <div key={index} onClick={() => changeTabIndex(index)}  className={`relative cursor-pointer rounded-[3px] py-[2px] bg-gray-50 ${activeTabIndex === index && 'bg-green-900 text-white'}`}>
                      <div className={`flex justify-start items-center space-x-1 whitespace-nowrap py-1 px-4`}>
                          <h1 className='text-[13px]'>{request_tab.label}</h1>
                      </div>
