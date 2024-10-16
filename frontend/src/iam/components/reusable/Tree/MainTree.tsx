@@ -8,10 +8,10 @@ import { username } from '../../../api/auth'
 import { FlexBox, Text } from '../StyledComponent'
 
 interface SideMenuInterface {
-  iamSidebarItems: TreeMenuItemInterface[] | undefined
+  menu: TreeMenuItemInterface[] | undefined
 }
 
-const MainTree = ({iamSidebarItems = []}: SideMenuInterface) => {
+const MainTree = ({menu = []}: SideMenuInterface) => {
 
   const [controller, setController] = useState<boolean>(true)
   const handleOpenCloseSideBar = useCallback(() => {setController(prev => ! prev)}, [])
@@ -48,7 +48,7 @@ const MainTree = ({iamSidebarItems = []}: SideMenuInterface) => {
                 <FlexBox className={`flex justify-start pl-10 pb-4  ${!controller && 'opacity-0 translate-x-28 overflow-hidden'}`}>
                     <Text className='font-IBMPlexSans font-semibold text-white text-opacity-65'>Main Menu</Text>
                 </FlexBox>
-              <TreeMenuList list={iamSidebarItems} controller={controller} />
+              <TreeMenuList list={menu} controller={controller} />
             </div>
         </div>
       </div>

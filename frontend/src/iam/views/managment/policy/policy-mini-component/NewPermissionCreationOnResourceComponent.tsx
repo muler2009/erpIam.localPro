@@ -8,6 +8,7 @@ import { usePolicyContext } from '../context/usePolicyContext';
 import { PolicyContextProvider } from '../context/PolicyContext';
 import PolicyInformationComponent from './PolicyInformationComponent';
 import Stepper from '@keyvaluesystems/react-vertical-stepper'
+import SelectPolicyActionComponent from './SelectPolicyActionComponent';
 
 
 interface OutletContextType {
@@ -37,7 +38,7 @@ const NewPermissionCreationOnResourceComponent = () => {
 
      const display: {[key: number]: React.ReactNode} = {
       0: <PolicyInformationComponent />,
-      1: <h1>1</h1>,
+      1: <SelectPolicyActionComponent />,
   }
 
   const handlePrev = () => setPage(prev => prev - 1);
@@ -72,7 +73,7 @@ const NewPermissionCreationOnResourceComponent = () => {
           )
         }
 
-        <FlexBox className='h-full flex gap-10'>
+        <FlexBox className='h-[50vh] flex gap-10 overflow-y-scroll'>
           <FlexBox className={`mt-5 mb-3`}>
             <Stepper
                 steps={displayComponent}
@@ -94,28 +95,28 @@ const NewPermissionCreationOnResourceComponent = () => {
        
      
         <>
-        <div className="flex justify-end space-x-5 pr-5 ">
-                            <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] text-[#333] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
-                                <div className='flex justify-start items-center'>
-                                    <GrIcons.GrFormPrevious  size={15}/>
-                                    <p className='font-Poppins text-[13px]'>Prev</p>
-                                </div>
-                            </button>
+          <div className="flex justify-start ml-10 mt-2 space-x-5 pr-5 ">
+            <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] text-[#333] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
+              <div className='flex justify-start items-center'>
+                  <GrIcons.GrFormPrevious  size={15}/>
+                  <p className='font-Poppins text-[13px]'>Previous</p>
+              </div>
+            </button>
 
-                            <button  className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${nextHide}`} onClick={handleNext} disabled={disableNext}>
-                                <div className='flex justify-start items-center '>
-                                    <p className='font-Poppins text-[13px]'>Next</p>
-                                    <GrIcons.GrFormNext size={15} />
-                                </div>
-                            </button>
+            <button  className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${nextHide}`} onClick={handleNext} disabled={disableNext}>
+              <div className='flex justify-start items-center '>
+                  <p className='font-Poppins text-[13px]'>Next</p>
+                  <GrIcons.GrFormNext size={15} />
+              </div>
+            </button>
 
-                            <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${submitHide}`}>
-                                <div className='flex justify-start items-center '>
-                                    <p className='font-Poppins text-[13px]'>Create account</p>
-                        
-                                </div>
-                            </button>
-                        </div>
+            <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${submitHide}`}>
+              <div className='flex justify-start items-center space-x-2'>
+                <GrIcons.GrAdd  size={12}/>
+                <p className='font-Poppins text-[13px]'>Add permissions</p>
+              </div>
+            </button>
+          </div>
         </>
     
     </>

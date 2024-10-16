@@ -20,7 +20,7 @@ const Dashboard = () => {
       <div className='bg-[#fff]'>
         <div className='flex flex-1 h-screen z-10'>
             {/* <Sidebar /> */}
-            <MainTree  iamSidebarItems={iamSidebarItems}/>
+            <MainTree  menu={iamSidebarItems}/>
             {/* <SidebarMenu /> */}
             {/* <TreeView menu={menus} /> */}
             <div className='w-full flex flex-col'>

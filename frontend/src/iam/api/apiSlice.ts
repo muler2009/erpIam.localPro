@@ -9,8 +9,6 @@ interface ArgsProps {
   body?: unknown;
 }
 
-
-
 // creating a type for tag defined
 type TagType = typeof API_TAGS[keyof typeof API_TAGS]
 const tagTypes: TagType[] = Object.values(API_TAGS);
@@ -29,7 +27,6 @@ const baseQuery = fetchBaseQuery({
        return headers; 
     },
 })
-
 
   
 const baseQueryForReauthentication: BaseQueryFn<string | FetchArgs , any, FetchBaseQueryError> = async (args, api, extraOptions) => {

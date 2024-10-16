@@ -18,6 +18,13 @@ export interface PolicyColumnInterface extends PolicyAPIInterface {
     policy?: string;
 }
 
+export interface PolicyActionAPInterface {
+    status_code: number;
+    status_text: string;
+    policy_data: PolicyActionInterface[]
+}
+
+
 export interface PolicyContextPropsInterface {
     policyData: PolicyAPIInterface;
     setPolicyData: React.Dispatch<React.SetStateAction<PolicyAPIInterface>>;

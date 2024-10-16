@@ -70,7 +70,7 @@ const CreateFolderM = ({isOpen, setIsOpen, title, folderAttributes, handleFolder
                   <button 
                     className='px-5 rounded-[4px] text-[12px] text-white btn-sm disabled:bg-gray-100 disabled:cursor-auto bg-primary-green' 
                     onClick={onFolderSaveClicked}
-                    disabled={!canSave}
+                    // disabled={!canSave}
                     > Create </button> 
 
                   
