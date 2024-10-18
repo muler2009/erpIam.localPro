@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from iam.models import UserAccountsModel
+from iam.policy.models.policy_mocel_modified import OromiaLandPolicy
 
 # Create your models here.
 
@@ -19,6 +20,8 @@ class IamRoleModel(models.Model):
     role_status = models.CharField(max_length=150, choices=RoleStatus.choices, default=RoleStatus.Active)
     role_created_at = models.DateTimeField(auto_now=True)
     role_modified_date = models.DateTimeField(auto_now_add=True)
+
+    policies = models.ManyToManyField(OromiaLandPolicy, null=True, blank=True, related_name='roles')
     # role_expired_date = models.DateTimeField(auto_now_add=True)
     # role_owner = models.CharField(max_length=100)
 

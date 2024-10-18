@@ -3,11 +3,14 @@ from rest_framework.response import Response
 from iam.role.models import IamRoleModel
 from iam.role.serializers.get_role_serializers import GetIamRoleModelSerializer
 from utils.custom_exception_handler import CustomExceptionForError
+from iam.permissions import EnforcePolicyPermisson, PolicyPermission
 
 
 
 class GetIamRoleInstanceRequestHandler(generics.GenericAPIView):
+    queryset = IamRoleModel.objects.all()
     serializer_class =GetIamRoleModelSerializer
+    permission_classes = [PolicyPermission]
 
     def get_queryset(self):
         return IamRoleModel.objects.all()

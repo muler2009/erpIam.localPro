@@ -1,14 +1,14 @@
 from rest_framework import generics, mixins, status
 from rest_framework.response import Response
 from utils.custom_exception_handler import CustomExceptionForError
-from ...models.actions_model import PolicyAction
+from ...models.policy_mocel_modified import OromiaLandPolicy
 from ...serializers.get.get_policy_action_serialzier import PolicyActionSerializer
+from ...serializers.get.get_policy_serializer import PolicySerializer
 
 
 class GetAllPolicyActionRequestHandler(generics.GenericAPIView, mixins.ListModelMixin):
-    queryset = PolicyAction.objects.all()
-    serializer_class = PolicyActionSerializer
-
+    queryset = OromiaLandPolicy.objects.all()
+    serializer_class = PolicySerializer
 
     def get(self, request, *args, **kwarsg):
         try: 

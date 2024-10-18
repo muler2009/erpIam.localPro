@@ -11,11 +11,11 @@ export interface Statements {
 }
 
 export interface PolicyActionInterface {
-    policy_action_name: string;
+    policy_action_name?: string;
 }
 
-export interface PolicyColumnInterface extends PolicyAPIInterface {
-    policy?: string;
+export interface PolicyColumnInterface extends PolicyAPIinterface {
+    policy_oromia_id?: string;
 }
 
 export interface PolicyActionAPInterface {
@@ -25,12 +25,32 @@ export interface PolicyActionAPInterface {
 }
 
 
+export interface PolicyDataInterface extends PolicyActionInterface{
+    policy_name: string; 
+    policy_description: string;  
+    policy_version: string; 
+    statements: Statement[];  
+}
+
+
+export interface Statement {
+  effect: 'allow' | 'deny';  // Limit effect to "allow" or "deny"
+  action: string[];  // An array of actions (e.g., ["ListAccount", "WriteAccount"])
+  resource: string[];  // An array of resources (e.g., ["X", "Y"])
+}
+
+// interface for an API response 
+export interface PolicyAPIinterface extends PolicyDataInterface {
+    policy_ormomia_id: string;
+    status_code: number;
+    status_text: string;
+}
+
+// context type for policy creation
 export interface PolicyContextPropsInterface {
-    policyData: PolicyAPIInterface;
-    setPolicyData: React.Dispatch<React.SetStateAction<PolicyAPIInterface>>;
+    policyData: PolicyDataInterface;
     canSave: boolean;
     page: number;
-    setPage: React.Dispatch<React.SetStateAction<number>>;
     policyCreationStep: { [key: number]: string };
     disableNext: boolean;
     disablePrev: boolean;
@@ -38,4 +58,19 @@ export interface PolicyContextPropsInterface {
     nextHide: string | boolean;
     submitHide: string | boolean;
     canSubmit: boolean;
-  }
+    setPage: React.Dispatch<React.SetStateAction<number>>;
+    setPolicyData: React.Dispatch<React.SetStateAction<PolicyDataInterface>>;
+    handlePolicyInputFieldChange: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
+    handleCheckboxChange: (action: string) => void
+
+}
+
+// project model reterival interface
+export interface ProjectModelAPIinterface extends ProjectModelInterface {
+    app_name: string;
+    models: ProjectModelAPIinterface[]
+}
+
+export interface ProjectModelInterface {
+    model_name: string;
+}

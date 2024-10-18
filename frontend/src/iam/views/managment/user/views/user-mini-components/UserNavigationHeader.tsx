@@ -11,7 +11,7 @@ const UserNavigationHeader = () => {
     const openCreateIdentity = useCallback(() => { setIsOpen(prev => !prev) }, [isOpen])
 
   return (
-    <FlexBox className='flex justify-between items-start pt-4'>
+    <FlexBox className='flex justify-between items-start pt-4 px-4 bg-gradient-to-b mx-1 from-white to-gray-300'>
 
         <FlexBox className='flex flex-col gap-4 px-2'>
             <FlexBoxInner className='flex space-x-2 items-start'>

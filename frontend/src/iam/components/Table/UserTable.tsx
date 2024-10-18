@@ -15,7 +15,6 @@ import { useTableContext } from "./TableContext"
 import { UserAccountInterfacee, UserCoulumn } from "../../models/user.model";
 import {Search, ShowEntries, PaginationController, FilterBy} from "../common";
 import UserTableHeader from "./UserTableHeader";
-import { table } from "console";
 import { FlexBox, FlexBoxInner } from "../reusable/StyledComponent";
 
 interface UserTableProps {

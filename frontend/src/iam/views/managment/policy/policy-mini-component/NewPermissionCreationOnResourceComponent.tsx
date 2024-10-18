@@ -1,14 +1,16 @@
 import React from 'react'
 import { useOutletContext, Link, useNavigate } from 'react-router-dom'
 import * as MdIcons from 'react-icons/md'
-import { FlexOuterContainer, Text, FlexBox, Div, P } from '../../../../../components/common/StyledComponent';
+import { FlexOuterContainer, Text, FlexBox, Div, P, FlexBoxInner } from '../../../../../components/common/StyledComponent';
 import * as FaIcons from "react-icons/fa6";
 import * as GrIcons from 'react-icons/gr'
 import { usePolicyContext } from '../context/usePolicyContext';
-import { PolicyContextProvider } from '../context/PolicyContext';
 import PolicyInformationComponent from './PolicyInformationComponent';
 import Stepper from '@keyvaluesystems/react-vertical-stepper'
 import SelectPolicyActionComponent from './SelectPolicyActionComponent';
+import { useCreateNewPolicyMutation } from '../../../../features/policiesAPI';
+import useErrorState from '../../../../../components/errors/useErrorState';
+import ErrorNotifierModal from '../../../../../components/errors/ErrorNotifierModal';
 
 
 interface OutletContextType {
@@ -18,6 +20,16 @@ interface OutletContextType {
 
 const NewPermissionCreationOnResourceComponent = () => {
     const { selectedResource } = useOutletContext<OutletContextType>();
+    const [createNewPolicy, {isError, error}] = useCreateNewPolicyMutation()
+    const {
+      errorMessage,
+      errors,
+      triggerMessageModal,
+      setErrorMessage,
+      setErrors,
+      setTriggerMessageModal
+     } = useErrorState()
+    
 
     const {
       policyData,
@@ -32,14 +44,15 @@ const NewPermissionCreationOnResourceComponent = () => {
       policyCreationStep,
       setPage,
       setPolicyData
-
      } = usePolicyContext()
    
+    const navigate = useNavigate()
 
-     const display: {[key: number]: React.ReactNode} = {
+
+    const display: {[key: number]: React.ReactNode} = {
       0: <PolicyInformationComponent />,
       1: <SelectPolicyActionComponent />,
-  }
+    }
 
   const handlePrev = () => setPage(prev => prev - 1);
     const handleNext = () => setPage(prev => prev + 1);
@@ -49,6 +62,38 @@ const NewPermissionCreationOnResourceComponent = () => {
       // label: groupCreationStep[key],
       component: display[key]
     }));
+
+    const onPolicyAddClicked = async(event: React.MouseEvent<HTMLButtonElement>) => {
+        try {
+          const response = await createNewPolicy(policyData).unwrap()
+          if(response?.status_code === 201){
+            navigate('../../')
+          }
+
+        }catch(error: any){
+          if(!error) {
+            console.log(error)
+          } else if(error.data.status_code === 409 ){
+            setErrorMessage({
+              error_type: error.data?.error_type,
+              message: error.data?.message,
+              status_code: error.status_code
+            });
+            setErrors(true);
+            setTriggerMessageModal(prev => !prev);
+          } else if(error.data.status_code === 400 ){
+            setErrorMessage({
+              error_type: error.data?.error_type,
+              message: error.data?.message,
+              status_code: error.status_code
+            });
+            setErrors(true);
+            setTriggerMessageModal(prev => !prev);
+          }
+        }
+        
+        // console.log(folderAttributes)
+      }
 
   
   return (
@@ -61,7 +106,7 @@ const NewPermissionCreationOnResourceComponent = () => {
                     <MdIcons.MdPolicy size={20} />
                     <Text className='text-[16px] font-semibold text-[#5e2f05] ml-2 relative'>
                       {selectedResource}
-                      <span className='ml-8 w-10 h-5 bg-primary-green flex justify-center items-center absolute -top-2 left-[75%] rounded-[4px]'>
+                      <span className='ml-8 w-10 h-5 bg-primary-green flex justify-center items-center absolute -top-2 left-[75%] rounded-[4px] '>
                           <p className='px-3 text-white text-[12px]'>Allow</p>
                       </span>
                     </Text> 
@@ -73,51 +118,64 @@ const NewPermissionCreationOnResourceComponent = () => {
           )
         }
 
-        <FlexBox className='h-[50vh] flex gap-10 overflow-y-scroll'>
-          <FlexBox className={`mt-5 mb-3`}>
-            <Stepper
-                steps={displayComponent}
-                currentStepIndex={page}
-                labelPosition="bottom"
-                styles={{
-                    LineSeparator: (step: any, index: any) => ({ height: "300px"}),
-                    Bubble: (step: any, index: any) => ({ height: "40px", width: "40px", backgroundColor: "gray" }),
-                    ActiveBubble:  (step: any, index: any) => ({ backgroundColor: "#5e2f05"}),
-                    InactiveLineSeparator: (step: any, stepIndex: any) => ({color: "blue"})
-                }}
-            />
-         </FlexBox>
-          <Div className='flex-grow '>
-            {displayComponent[page].component}
+        <FlexBox className='flex flex-col gap-5'>
+          <FlexBoxInner className='flex gap-10'>
+            <Div className={`mt-5 mb-3`}>
+              <Stepper
+                  steps={displayComponent}
+                  currentStepIndex={page}
+                  labelPosition="bottom"
+                  styles={{
+                      LineSeparator: (step: any, index: any) => ({ height: "300px"}),
+                      Bubble: (step: any, index: any) => ({ height: "40px", width: "40px", backgroundColor: "gray" }),
+                      ActiveBubble:  (step: any, index: any) => ({ backgroundColor: "#5e2f05"}),
+                      InactiveLineSeparator: (step: any, stepIndex: any) => ({color: "blue"})
+                  }}
+              />
+            </Div>
+            <Div className='flex-grow h-[500px] overflow-y-scroll'>
+              {displayComponent[page].component}
+            </Div>
+          </FlexBoxInner>
+          
 
-          </Div>
-        </FlexBox>
-       
-     
-        <>
-          <div className="flex justify-start ml-10 mt-2 space-x-5 pr-5 ">
-            <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] text-[#333] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
+          <FlexBoxInner className="flex justify-end ml-10 space-x-5 pr-5 border-t py-2">
+            <button className={`btn-sm text-[12px] px-3 py-1 bg-green-800 text-white hover:bg-green-900 hover:text-white transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
               <div className='flex justify-start items-center'>
-                  <GrIcons.GrFormPrevious  size={15}/>
+                   <GrIcons.GrFormPrevious  size={15}/>
                   <p className='font-Poppins text-[13px]'>Previous</p>
               </div>
             </button>
 
-            <button  className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${nextHide}`} onClick={handleNext} disabled={disableNext}>
-              <div className='flex justify-start items-center '>
+            <button  className={`btn-sm text-[12px] px-3 py-1 bg-green-800 text-white hover:bg-green-900 hover:text-white transition duration-500 ease-in-out ${nextHide}`} onClick={handleNext} disabled={disableNext}>
+              <div className='flex justify-start items-center'>
                   <p className='font-Poppins text-[13px]'>Next</p>
                   <GrIcons.GrFormNext size={15} />
               </div>
             </button>
 
-            <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${submitHide}`}>
+            <button className={`btn-sm text-[12px] px-3 py-1 bg-green-800 text-white hover:bg-green-900 hover:text-white transition duration-500 ease-in-out ${submitHide}`} onClick={onPolicyAddClicked}>
               <div className='flex justify-start items-center space-x-2'>
                 <GrIcons.GrAdd  size={12}/>
-                <p className='font-Poppins text-[13px]'>Add permissions</p>
+                <p className='font-Poppins text-[13px]'>Save policy</p>
               </div>
             </button>
-          </div>
+          </FlexBoxInner>
+        </FlexBox>
+       
+     
+        
+        
+        <>
+          <ErrorNotifierModal 
+            triggerMessageModal={triggerMessageModal} 
+            errorMessage={errorMessage}
+            setTriggerMessageModal={setTriggerMessageModal}
+          
+          />
+        
         </>
+
     
     </>
   )

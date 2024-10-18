@@ -1,6 +1,7 @@
-from django.urls import get_resolver
+from django.urls import get_resolver, URLPattern, URLResolver
 from rest_framework.response import Response
 from ...helper.base_class import BaseViewList
+
 
 class ViewListGet(BaseViewList):
     def get(self, request, *args, **kwargs):
@@ -25,3 +26,4 @@ class ViewListDelete(BaseViewList):
         urlpatterns = get_resolver().url_patterns
         actions = self.extract_actions(urlpatterns, 'DELETE')
         return Response(actions)
+

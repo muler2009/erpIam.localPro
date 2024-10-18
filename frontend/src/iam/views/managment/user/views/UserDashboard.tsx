@@ -5,10 +5,10 @@ import UserTabNavigation from './user-mini-components/UserTabNavigation'
 
 const UserDashboard = () => {
   return (
-    <FlexOuterContainer className='pl-5'>
+    <>
         <UserNavigationHeader />
         <UserTabNavigation />
-    </FlexOuterContainer>
+    </>
   )
 }
 

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { PolicyAPIInterface, PolicyContextPropsInterface } from "../../../../models/policy.model";
+import { PolicyAPIInterface, PolicyContextPropsInterface, PolicyDataInterface } from "../../../../models/policy.model";
 
 interface ChildrenContext {
     children: React.ReactNode | undefined
@@ -12,13 +12,54 @@ export const PolicyContextProvider = ({children}: ChildrenContext) => {
     const policyCreationStep = {
         0: "Account Detail",
         1: "Assign Group"    
-    }     
+    }  
+
     const [page, setPage] = useState(0)
 
-    const [policyData, setPolicyData] = useState<PolicyAPIInterface>({
-        policy_name: "",
-        policy_verison: 0,
+    const [policyData, setPolicyData] = useState<PolicyDataInterface>({
+        policy_name: '',
+        policy_description: '',
+        policy_version: '',  // Default version
+        statements: [
+          {
+            effect: 'allow',
+            action: [],  // Empty array initially, will be updated by checkboxes
+            resource: ['X', 'Y']
+          }
+        ]
     })
+    
+    const handlePolicyInputFieldChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+        const {name, value} = event.target
+        setPolicyData({
+            ...policyData,
+            [name]:value
+        })
+    }
+
+    // Handle changes to the statements, especially checkboxes for actions
+    const handleCheckboxChange = (action: string) => {
+        setPolicyData(prevPolicy => {
+          const currentActions = prevPolicy.statements[0].action;
+      
+          // If the action is already selected, remove it; otherwise, add it
+          const updatedActions = currentActions.includes(action)
+            ? currentActions.filter(a => a !== action) // Remove action if already present
+            : [...currentActions, action]; // Add new action
+      
+          // Return the updated policy with the modified actions array
+          return {
+            ...prevPolicy,
+            statements: [
+              {
+                ...prevPolicy.statements[0],
+                action: updatedActions
+              }
+            ]
+          };
+        });
+      };
+
 
     const canSave = Object.values(policyData).every(value => Boolean(value));
 
@@ -49,7 +90,9 @@ export const PolicyContextProvider = ({children}: ChildrenContext) => {
             canSubmit,
             policyCreationStep,
             setPage,
-            setPolicyData
+            setPolicyData,
+            handlePolicyInputFieldChange,
+            handleCheckboxChange           
         }}>
             {children}
         </PolicyContext.Provider>

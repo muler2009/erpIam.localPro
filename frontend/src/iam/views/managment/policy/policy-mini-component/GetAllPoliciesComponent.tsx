@@ -1,30 +1,40 @@
 import React from 'react'
-import { useGetAllPoliciesQuery } from '../../../../features/policiesAPI'
+import { useGetAllPoliciesQuery, useGetAllCustomManagedPolicesQuery } from '../../../../features/policiesAPI'
 import { PolicyAPIInterface } from '../../../../models/policy.model'
 import SharedTable from '../../../../../dms/components/tables/SharedTable'
 import usePolicyColumn from '../../constants/columns/usePolicyColumn'
-import { FlexBox } from '../../../../components/reusable/StyledComponent'
-import { Div } from '../../../../../components/common/StyledComponent'
+import { Div, FlexBox, Text } from '../../../../../components/common/StyledComponent'
+import PolicyTable from '../../../../components/Table/PolicyTable'
 
 const GetAllPoliciesComponent = () => {
-    const {data: policies, isSuccess, isError} = useGetAllPoliciesQuery()
+    const {data: custom_policies, isSuccess, isError} = useGetAllCustomManagedPolicesQuery()
     const {policyColumn} = usePolicyColumn()
     
-    console.log(policies)
   return (
-    <FlexBox className='mx-4 mt-2 h-full '>
+    <FlexBox className='mx-4 mt-2 h-full'>
+    
       {
         isSuccess && (
-          policies.length > 0 ? (
+          custom_policies.length > 0 ? (
             <Div className='policy'>
-              <SharedTable 
-                  data={policies || []}
+              <PolicyTable 
+                  data={custom_policies || []}
                   columns={policyColumn}       
               />
-
             </Div>
 
-          )  : null
+          )  : (
+            <>
+              <Div className='policy '>
+                <PolicyTable 
+                    data={[] || "No data found"}
+                    columns={policyColumn}       
+                />
+              <Text className='flex justify-center items-center text-[20px] text-red-800 font-IBMPlexSans font-semibold'>Policy not found</Text> 
+              </Div>
+            
+            </>
+          )
         )
       }
 

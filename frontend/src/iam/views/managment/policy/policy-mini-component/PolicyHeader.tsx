@@ -2,18 +2,18 @@ import React from 'react'
 import { FlexBox, FlexBoxInner, Text } from '../../../../components/reusable/StyledComponent'
 import { Link , useLocation} from 'react-router-dom'
 import { LuUser2 } from 'react-icons/lu'
-import { useGetAllPoliciesQuery } from '../../../../features/policiesAPI'
+import { useGetAllCustomManagedPolicesQuery } from '../../../../features/policiesAPI'
 import { RxCaretLeft } from "react-icons/rx";
 
 
 export const PolicyHeader = () => {
-    const {data: total_policies} = useGetAllPoliciesQuery()
+    const {data: total_policies} = useGetAllCustomManagedPolicesQuery()
     const location = useLocation()
     const currentPath = location.pathname === '/iam/policies'
     console.log(currentPath)
 
     return (
-        <FlexBox className='flex justify-between items-start pt-4 px-4 mx-4 bg-gradient-to-b from-white to-gray-300'>
+        <FlexBox className='flex justify-between items-start pt-4 px-4 mx-1 bg-gradient-to-b from-white to-gray-300'>
             <FlexBox className='flex flex-col gap-4 px-2'>
                 <FlexBoxInner className='flex space-x-2 items-start'>
                     <LuUser2 size={25} className='text-primary-green' />

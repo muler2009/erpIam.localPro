@@ -18,7 +18,7 @@ const MainTree = ({menu = []}: SideMenuInterface) => {
   const loggedUser = useSelector(username)
 
   return (
-      <div className={`font-IBMPlexSans flex flex-col h-[100vh] border-t border-b border-gray-100 border-opacity-40 shadow-md z-10 cursor-pointer overflow-x-hidden text-white ${controller ? 'w-[22rem] bg-[#232e31]': 'w-[70px] bg-[#232e31] text-white'}`}>
+      <div className={`font-IBMPlexSans flex flex-col h-screen border-t border-b border-gray-100 border-opacity-40 shadow-md z-10 cursor-pointer overflow-x-hidden text-white ${controller ? 'w-[22rem] bg-[#232e31]': 'w-[70px] bg-[#232e31] text-white'}`}>
         <div className={`relative pt-5 px-1`}>
             <div className={`${controller ? 'flex justify-between items-center pr-5 text-black border-b border-gray-50 border-opacity-20' : 'block pt-5'  } `}>
                 <div className={`pb-[3px] ${!controller ? 'hidden': 'flex' }`}>

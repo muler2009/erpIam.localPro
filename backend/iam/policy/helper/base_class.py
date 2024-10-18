@@ -58,6 +58,12 @@ from rest_framework import generics, views
 
 #         return actions
 
+
+
+
+
+
+
 class BaseViewList(generics.GenericAPIView):
     def extract_actions(self, urlpatterns, method):
         """
@@ -79,14 +85,16 @@ class BaseViewList(generics.GenericAPIView):
                         # Check for queryset attribute
                         if hasattr(view, 'queryset') and view.queryset is not None:
                             model = view.queryset.model
+                            # Apply custom model name using the dictionary
 
                         if model:
                             model_name = model._meta.object_name
+                            # display_name = MODEL_DISPLAY_NAMES.get(model_name, model_name)
 
                             # Determine the action based on the HTTP method
                             if method == 'GET' and hasattr(view, 'get'):
                                 actions.append({
-                                    "policy_action_name": view.__name__
+                                    "policy_action_name": f"{view.__name__}- GET"
                                 })
                             elif method == 'POST' and hasattr(view, 'post'):
                                 actions.append({

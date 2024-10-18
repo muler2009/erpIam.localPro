@@ -12,21 +12,7 @@ import {
     ExpandedState,
     getExpandedRowModel
 } from '@tanstack/react-table'
-import { FolderColumn, FolderDataInterface } from "../../models/folder-models";
-import {Search} from "../../../iam/components/common";
-import FolderTableHeader from "./FolderTableHeader";
-import SubFolderView from "../../views/document-management/folders/SubFolderView";
-import useSubFolderColumns from "../../constants/columns/useSubFolderColumns";
-import { FlexBox, FlexBoxInner, Text, P } from "../../../iam/components/reusable/StyledComponent";
-import { FaFilePdf } from "react-icons/fa";
-import { AiFillEye } from "react-icons/ai";
-import { format } from "date-fns";
-import { BsCardList } from "react-icons/bs";
-import { TfiLayoutGrid2Alt } from "react-icons/tfi";
-import { BsFileEarmark } from "react-icons/bs";
-import { GiOpenFolder } from "react-icons/gi";
-import useSharedColumns, { SharedColumn } from "../../constants/columns/useSharedColumns";
-import { RequestColumnInterface } from "../../models/request-model";
+
 
 interface SharedTableProps<T> {
     data: T[];

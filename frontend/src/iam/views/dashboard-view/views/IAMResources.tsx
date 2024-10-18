@@ -4,7 +4,7 @@ import Tooltip from '../../../components/reusable/Tooltip';
 import { useGetGroupsQuery } from '../../../features/groupsAPI';
 import { useGetAllRolesQuery } from '../../../features/roleAPI';
 import { useGetAllUsersQuery } from '../../../features/userAPI';
-import { useGetAllPoliciesQuery } from '../../../features/policiesAPI';
+import { useGetAllPoliciesQuery, useGetAllCustomManagedPolicesQuery } from '../../../features/policiesAPI';
 // import { useGetSubGroupsQuery } from '../../../features/groupsAPI';
 
 
@@ -17,7 +17,7 @@ const IAMResources = () => {
 
     const {data: group} = useGetGroupsQuery()
     const {data: users} = useGetAllUsersQuery()
-    const {data: policies} = useGetAllPoliciesQuery()
+    const {data: policies} = useGetAllCustomManagedPolicesQuery()
     const {data: total_roles} = useGetAllRolesQuery()
     // const {data: subgroup} = useGetSubGroupsQuery()
 

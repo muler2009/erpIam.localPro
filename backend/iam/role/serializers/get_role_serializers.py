@@ -17,7 +17,8 @@ class GetIamRoleModelSerializer(serializers.ModelSerializer):
             'role_created_at', 
             'role_modified_date', 
             'role_status', 
-            'users'
+            'users',
+            'policies'
         ]
 
     def get_users(self, obj):

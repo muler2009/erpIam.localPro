@@ -7,13 +7,9 @@ import { accecc_level } from '../../constants/iam-menu-items/policy'
 
 const SelectPolicyActionComponent = () => {
 
-  const [drop, setDrop] = useState<boolean>(false)
-
-  const {data} = useGetAllActionQuery()
-  console.log(data)
   return (
-    <FlexBox className='flex flex-col gap-5 mt-4'>
-      <FlexBoxInner className='border-b pb-1'>
+    <FlexBox className='flex flex-col gap-5 mt-4 relative'>
+      <FlexBoxInner className='border-b pb-1 sticky top-0 z-20 bg-[#fff]'>
          <Text className='pt-2 font-semibold text-[16px] text-[#5e2f05]'>
             Action Allowed <span className='block font-normal text-[11px] text-[#333] text-opacity-50'>
               Specify action allowed associated with teh policy</span>

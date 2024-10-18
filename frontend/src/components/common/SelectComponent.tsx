@@ -46,7 +46,6 @@ const SelectComponent = ({label, icon, options=[], name, valueKey='id', labelKey
                 <AiIcons.AiOutlineCaretDown  />
             </span>
         </FlexBoxInner>
-        
     </FlexBox> 
   )
 }
