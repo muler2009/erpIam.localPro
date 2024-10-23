@@ -1,11 +1,20 @@
 import React, { useState } from 'react'
+import { useOutletContext } from 'react-router-dom'
 import { useGetAllActionQuery } from '../../../../features/policiesAPI'
 import { FlexBox, Text, Div } from '../../../../../components/common/StyledComponent'
 import { FlexBoxInner } from '../../../../components/reusable/StyledComponent'
 import MultilevelDropdown from '../../../../components/reusable/multilevel-dropdown/MultilevelDropdown'
-import { accecc_level } from '../../constants/iam-menu-items/policy'
+import { app_level_access, model_level_access } from '../../constants/iam-menu-items/policy'
+
+interface OutletContextType {
+  selectedResource: string;
+  selectedApp: string;
+  selectedModel: string;
+}
 
 const SelectPolicyActionComponent = () => {
+
+  const {selectedResource, selectedApp, selectedModel} = useOutletContext<OutletContextType>()
 
   return (
     <FlexBox className='flex flex-col gap-5 mt-4 relative'>
@@ -15,7 +24,9 @@ const SelectPolicyActionComponent = () => {
               Specify action allowed associated with teh policy</span>
           </Text>
       </FlexBoxInner>    
-      <MultilevelDropdown menu={accecc_level} />
+
+      { selectedApp && ( <MultilevelDropdown menu={app_level_access}  /> ) }
+      { selectedModel && ( <MultilevelDropdown menu={model_level_access}  /> ) }  
     </FlexBox>
   )
 }

@@ -20,6 +20,7 @@ class EnforcePolicyPermisson(permissions.BasePermission):
 
 class PolicyPermission(permissions.BasePermission):
     message = "message from policy permission, You are not Authorized"
+    
     def has_permission(self, request, view):
         user = request.user
         role_policies = []

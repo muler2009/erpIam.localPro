@@ -26,10 +26,6 @@ const GetAllPoliciesComponent = () => {
           )  : (
             <>
               <Div className='policy '>
-                <PolicyTable 
-                    data={[] || "No data found"}
-                    columns={policyColumn}       
-                />
               <Text className='flex justify-center items-center text-[20px] text-red-800 font-IBMPlexSans font-semibold'>Policy not found</Text> 
               </Div>
             

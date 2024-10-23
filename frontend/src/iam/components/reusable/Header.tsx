@@ -34,7 +34,7 @@ const Header = () => {
 
 
   return (
-    <header className='bg-gray-100 border-b border-[#333] border-opacity-20 sticky text-[#333] z-50'>
+    <header className='bg-gray-100 border-b border-[#333] border-opacity-20 sticky top-0 text-[#333] z-50 '>
         <nav className='flex justify-between items-center text-[#000] py-2'>
             <div className=''>
                 <h1 className='font-Poppins text-sm pl-5'>{currentLabel ? currentLabel : "Dashboard"}</h1>

@@ -12,9 +12,6 @@ class GetIamRoleInstanceRequestHandler(generics.GenericAPIView):
     serializer_class =GetIamRoleModelSerializer
     permission_classes = [PolicyPermission]
 
-    def get_queryset(self):
-        return IamRoleModel.objects.all()
-
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         try:

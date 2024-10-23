@@ -1,16 +1,8 @@
 from django.apps import apps
 from rest_framework import generics, status, mixins
 from rest_framework.response import Response
+from ...helper.constant import MODEL_DISPLAY_NAMES
 
-MODEL_DISPLAY_NAMES = {
-    'PosixGroupUserModel': 'Group',
-    'IamRoleModel': 'Role',
-    'FolderModel': 'Folder',
-    'DocumentModel': 'Document',
-    'DocumentMetadataModel': 'Document Metadata',
-    'DocumentVersionModel': 'Document Version'
-    # Add more model name mappings as needed
-}
 
 
 class GetProjectModelRequestHandler(generics.GenericAPIView, mixins.ListModelMixin):
@@ -32,7 +24,11 @@ class GetProjectModelRequestHandler(generics.GenericAPIView, mixins.ListModelMix
             # Add the model name to the corresponding app label group
             if app_label not in app_models:
                 app_models[app_label] = []  # Initialize a new list for the app if not already added
-            app_models[app_label].append({"model_name": display_name})
+                
+            app_models[app_label].append({
+                "display_name": display_name,
+                "model_name": model_name
+            })
         
         # Create the final structured response
         structured_response = []
@@ -46,4 +42,3 @@ class GetProjectModelRequestHandler(generics.GenericAPIView, mixins.ListModelMix
         return Response(structured_response)
 
 
-        return Response(model_list)

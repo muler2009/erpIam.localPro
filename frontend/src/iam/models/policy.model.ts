@@ -29,7 +29,9 @@ export interface PolicyDataInterface extends PolicyActionInterface{
     policy_name: string; 
     policy_description: string;  
     policy_version: string; 
-    statements: Statement[];  
+    statements: Statement[];
+    is_app_level: boolean;
+    is_model_level: boolean;  
 }
 
 
@@ -44,6 +46,8 @@ export interface PolicyAPIinterface extends PolicyDataInterface {
     policy_ormomia_id: string;
     status_code: number;
     status_text: string;
+    message: string;
+    error_type: string;
 }
 
 // context type for policy creation
@@ -73,4 +77,5 @@ export interface ProjectModelAPIinterface extends ProjectModelInterface {
 
 export interface ProjectModelInterface {
     model_name: string;
+    display_name: string;
 }

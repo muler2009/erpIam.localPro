@@ -1,7 +1,8 @@
 from django.urls import get_resolver, URLPattern, URLResolver
 from rest_framework.response import Response
 from ...helper.base_class import BaseViewList
-
+from rest_framework import generics
+  
 
 class ViewListGet(BaseViewList):
     def get(self, request, *args, **kwargs):

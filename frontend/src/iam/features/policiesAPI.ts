@@ -69,9 +69,34 @@ const policiesAPI = erpAPISlice.injectEndpoints({
                 method: `GET`
             }),
             providesTags: [API_TAGS.POLICY]
-
-        })
+        }),
+        modelGetViews: builder.query<PolicyAPIinterface[], {modelName: string}>({
+            query: ({modelName}) => ({
+                url: `iam/policy/models/${modelName}/actions/`,
+                method : `GET`
+            }),
+            providesTags: (result, error, { modelName }) => [{ type: API_TAGS.POLICY, id: modelName }] 
+        }),
+        // retriveing all model-level policy 
+        getModelLevelPolicies: builder.query<PolicyAPIinterface[], void>({
+            query: () => ({
+                url: `/iam/policy/model-level/`,
+                method: `GET`
+            }),
+            providesTags: [API_TAGS.POLICY]
+            
+        }),
+        // retriveing all model-level policy 
+        getAppLevelPolicices: builder.query<PolicyAPIinterface[], void>({
+            query: () => ({
+                url: `/iam/policy/app-level/`,
+                method: `GET`
+            }),
+            providesTags: [API_TAGS.POLICY]
+            
+        }),
         
+       
         
 
     })
@@ -89,4 +114,7 @@ export const {
     useCreateNewPolicyMutation,
     useGetAllCustomManagedPolicesQuery,
     useGetAllOrganizationModelQuery,
+    useGetModelLevelPoliciesQuery,
+    useModelGetViewsQuery,
+    useGetAppLevelPolicicesQuery,
 } = policiesAPI

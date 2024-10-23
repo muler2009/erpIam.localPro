@@ -11,6 +11,7 @@ import PolicyDashboard from '../views/managment/policy/PolicyDashboard';
 import GetAllPoliciesComponent from '../views/managment/policy/policy-mini-component/GetAllPoliciesComponent';
 import NewPolicyComponent from '../views/managment/policy/policy-mini-component/NewPolicyComponent';
 import NewPermissionCreationOnResourceComponent from '../views/managment/policy/policy-mini-component/NewPermissionCreationOnResourceComponent';
+import PolicyMain from '../views/managment/policy/policy-mini-component/PolicyMain';
 
 interface Route {
     path: string;
@@ -32,7 +33,7 @@ const AdminRoutes = () => {
     { 
       path: 'policies',  element: <PolicyDashboard />,
       children: [
-        { path: '',  element: <GetAllPoliciesComponent /> },
+        { path: '',  element: <PolicyMain /> },
         { 
           path: 'create_policy', 
           element: <NewPolicyComponent />,

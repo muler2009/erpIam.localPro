@@ -61,9 +61,6 @@ from rest_framework import generics, views
 
 
 
-
-
-
 class BaseViewList(generics.GenericAPIView):
     def extract_actions(self, urlpatterns, method):
         """

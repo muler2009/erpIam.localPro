@@ -1,4 +1,4 @@
-from rest_framework import permissions, status, views, serializers, generics
+from rest_framework import permissions, status, views, serializers, generics, mixins
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django_auth_ldap.backend import LDAPBackend
@@ -8,7 +8,7 @@ from iam.users.serializers.user_tokenObtainPair_serializer import UserTokenObtai
 import ldap
 from rest_framework.request import Request
 
-class AuthenticationRequestHandler(generics.GenericAPIView):
+class AuthenticationRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
     permission_classes = [permissions.AllowAny]  
     serializer_class = LoginUserSerializer
 
@@ -18,7 +18,7 @@ class AuthenticationRequestHandler(generics.GenericAPIView):
         try: 
             if not user_serializer.is_valid(raise_exception=True):
                 raise AuthenticationFailedException(message="User with credentials not Found!", error_type="Authentication Error")
-
+            
             return Response(user_serializer.data, status=status.HTTP_200_OK)
         except AuthenticationFailedException as exc:
             AUTH_REPLY = {

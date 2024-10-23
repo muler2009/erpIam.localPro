@@ -1,13 +1,21 @@
 import React from 'react'
-import { useGetAllChangeViewListQuery } from '../../../../features/policiesAPI'
-import { FlexBox, Text } from '../../../../components/reusable/StyledComponent'
+import { useModelGetViewsQuery } from '../../../../features/policiesAPI'
+import { useOutletContext, Link, useNavigate } from 'react-router-dom'
 import { usePolicyContext } from '../context/usePolicyContext'
+import { FlexBox, Text } from '../../../../../components/common/StyledComponent'
 
+interface OutletContextType {
+    selectedResource: string;
+}
 
-const ViewChangePermissionComponent = () => {
-    const {data, isSuccess, isError} = useGetAllChangeViewListQuery()
+const ViewModelLevelComponent = () => {
+    const { selectedResource } = useOutletContext<OutletContextType>();
+
+    
+    const {data, isSuccess, isError} = useModelGetViewsQuery({modelName: selectedResource})
     const { policyData, handleCheckboxChange } = usePolicyContext()
 
+    console.log(data)
     return (
       <FlexBox className='flex flex-wrap space-y-1'>
           {           
@@ -33,7 +41,7 @@ const ViewChangePermissionComponent = () => {
               )
           }
       </FlexBox>
-  )
+    )
 }
 
-export default ViewChangePermissionComponent
+export default ViewModelLevelComponent

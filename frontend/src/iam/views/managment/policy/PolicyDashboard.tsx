@@ -8,7 +8,7 @@ const PolicyDashboard = () => {
   
 
   return (
-    <FlexBox>
+    <FlexBox className='relative'>
       <PolicyHeader />
       {/* <GetAllPoliciesComponent /> */}
       <Outlet />

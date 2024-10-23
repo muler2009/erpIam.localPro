@@ -20,6 +20,8 @@ export const PolicyContextProvider = ({children}: ChildrenContext) => {
         policy_name: '',
         policy_description: '',
         policy_version: '',  // Default version
+        is_app_level: false,
+        is_model_level: false,
         statements: [
           {
             effect: 'allow',
@@ -30,10 +32,11 @@ export const PolicyContextProvider = ({children}: ChildrenContext) => {
     })
     
     const handlePolicyInputFieldChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-        const {name, value} = event.target
+      const { type, name } = event.target
+      const value = type === 'checkbox' && event.target instanceof HTMLInputElement ? event.target.checked : event.target.value
         setPolicyData({
             ...policyData,
-            [name]:value
+            [name]: value
         })
     }
 
@@ -44,7 +47,7 @@ export const PolicyContextProvider = ({children}: ChildrenContext) => {
       
           // If the action is already selected, remove it; otherwise, add it
           const updatedActions = currentActions.includes(action)
-            ? currentActions.filter(a => a !== action) // Remove action if already present
+            ? currentActions.filter(selected => selected !== action) // Remove action if already present
             : [...currentActions, action]; // Add new action
       
           // Return the updated policy with the modified actions array

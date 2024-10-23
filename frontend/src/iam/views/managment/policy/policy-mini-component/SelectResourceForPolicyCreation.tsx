@@ -8,43 +8,22 @@ import { GrFormAdd } from "react-icons/gr";
 import * as AiIcons from 'react-icons/ai'
 import { BsTable } from "react-icons/bs";
 import RegistrationInstruction from '../../../../../public/registerationn/RegistrationInstruction';
+import { TextDecoderStream } from 'node:stream/web';
+import useSelectPolicyResourceCreation from '../../../../hooks/useSelectPolicyResourceCreation';
 
 const SelectResourceForPolicyCreation = () => {
     const navigate = useNavigate();
-    const [selectedResource, setSelectedResource] = useState<string | null>(null);
-    const [showSelect, setShowSelect] = useState(true); 
-    const {data: project_model} = useGetAllOrganizationModelQuery()
-
-    console.log(project_model)
-
-  
-    // const handleSelectChange2 = (event: any) => {
-    //     const resource = event.target.value;
-    //     // const selectedText = event.target.selectedOptions[0].text;
-    //     console.log(selectedText)
-    //     setSelectedResource(selectedText);
-    //     setShowSelect(false); // Hide the select dropdown when an option is selected
-    //     if (resource) {
-    //         navigate(resource); 
-    //     }
-    // };
-
-    const [activeApp, setActiveApp] = useState<string | null>(null);
-
-    const toggleDropdown = (appName: string) => {
-        setActiveApp(activeApp === appName ? null : appName);
-    };
-
-    const [clickedResource, setClickedResource] = useState<string | null>(null);
-
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedResource(event.target.value);
-    };
-
-    const handleClick = (resource: string) => {
-        setClickedResource(resource); // Set clicked resource (app or model) to display in Outlet
-        setShowSelect(false)
-    };
+    const { data: project_model } = useGetAllOrganizationModelQuery();
+    const { 
+        showSelect,
+        selectedApp,
+        selectedModel,
+        clickedResource,
+        handleAppClick,
+        handleModelClick,
+        handleSelectChange,
+        selectedResource
+    } = useSelectPolicyResourceCreation()
 
 
   return (
@@ -52,9 +31,12 @@ const SelectResourceForPolicyCreation = () => {
         <FlexOuterContainer className='h-full'>
             {showSelect && ( // Render the select dropdown only if showSelect is true
                 <FlexBox className='flex space-x-4 h-full'>
-                    <FlexBoxInner className='flex flex-col w-1/2 h-full'>
+                    <FlexBoxInner className='flex flex-col w-1/2 mx-auto h-full px-5 pt-5'>
                         <Div className='flex flex-col gap-2'>
-                            <label  className='text-[12px] text-[#333] tracking-wide'>Select Resource</label>
+                            <label  className='text-[14px] text-[#333] tracking-wide'>
+                                Select Permission Level
+                                <span className='block text-[11px] text-[#333] text-opacity-50'>select level of permission you want to create for and follow the prompt</span>
+                            </label>
                             <FlexBoxInner className='relative'>
                                 <select 
                                     id={`label_input`}
@@ -77,7 +59,14 @@ const SelectResourceForPolicyCreation = () => {
                         <Div className='mt-6 h-full'>
                             {
                                 !selectedResource && (
-                                    <div className='flex justify-center items-center '>Nothing selected</div>
+                                    <Div className='flex flex-col items-center gap-2 mt-[12%]'>
+                                        <Text className='flex justify-center items-center font-IBMPlexSans font-semibold text-[20px]'>
+                                            No Permission level selected yet!
+                                        </Text>
+                                        <p className='text-[12px] text-[#333] text-opacity-60'>Select level permission to proceed the creation process </p>
+                                       
+                    
+                                    </Div>
                                 )
                             }
                             {selectedResource === "app_level" && (
@@ -87,7 +76,7 @@ const SelectResourceForPolicyCreation = () => {
                                             key={index} 
                                             className='py-1 hover:bg-gray-50 px-4 text-[12px]'
                                             to='just'
-                                            onClick={() => handleClick(app.app_name)}
+                                            onClick={() => handleAppClick(app.app_name)}
                                         >
                                             {app.app_name}
                                         </Link>
@@ -103,10 +92,10 @@ const SelectResourceForPolicyCreation = () => {
                                                     key={index} 
                                                     to={`just`} 
                                                     className='py-1 hover:bg-gray-50 px-4 flex items-center text-[12px]'
-                                                    onClick={() => handleClick(model.model_name)}
+                                                    onClick={() => handleModelClick(model.model_name)} 
                                                 >
                                                     <BsTable className='text-[#333] text-opacity-50' />
-                                                    <span className='pl-2'>{model.model_name}</span>
+                                                    <span className='pl-2'>{model.display_name}</span>
                                                 </Link>
                                             ))
                                         )}
@@ -115,17 +104,12 @@ const SelectResourceForPolicyCreation = () => {
                             )}
                         </Div>   
                     </FlexBoxInner>
-                    <FlexBoxInner className='w-1/2 border h-full mt-5'>
-                        
-                        <Text className=''>Instruction</Text>
-                    </FlexBoxInner>
+                   
 
                 </FlexBox>
             )}
 
-            { clickedResource && ( <Outlet context={{ selectedResource: clickedResource }} /> )}
-
-            {/* <Outlet context={{ selectedResource }}  /> */}
+            { clickedResource && ( <Outlet context={{ selectedResource: clickedResource, selectedApp, selectedModel }} /> )}
         </FlexOuterContainer>
 
     </PolicyContextProvider>

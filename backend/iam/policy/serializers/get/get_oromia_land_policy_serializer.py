@@ -9,6 +9,8 @@ class GetOLBPolicySerailzier(serializers.ModelSerializer):
             'policy_name', 
             'policy_description', 
             'policy_version', 
-            'statements' 
+            'statements',
+            'is_app_level',
+            'is_model_level'
         ]
 

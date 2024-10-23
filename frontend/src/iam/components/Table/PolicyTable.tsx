@@ -64,7 +64,7 @@ const PolicyTable= <T,>({data, columns, watermark}: SharedTableProps<T>) => {
             </Div>
         </FlexBoxInner>
 
-        <FlexBoxInner className="h-[600px] border">
+        <FlexBoxInner className="h-[580px] shadow-sm">
             <table className="table table-sm table-border text-left mb-5 text-[14px] relative">
                 <thead className="font-Poppins font-semibold z-40">
                     {

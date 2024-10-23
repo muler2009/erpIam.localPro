@@ -14,19 +14,19 @@ const policyColumnHelper = createColumnHelper<PolicyColumnInterface>()
 const usePolicyColumn = () => {
    const policyColumn = useMemo(() => [
 
-    policyColumnHelper.display({
-        id: "No",
-        header: () => {
-            return(
-               <div>No</div>
-            )
-        },
-        cell: ({row}) => {
-            return(
-                <span>{row.index + 1}</span> 
-            )
-        }
-    }),
+    // policyColumnHelper.display({
+    //     id: "No",
+    //     header: () => {
+    //         return(
+    //            <div>No</div>
+    //         )
+    //     },
+    //     cell: ({row}) => {
+    //         return(
+    //             <span>{row.index + 1}</span> 
+    //         )
+    //     }
+    // }),
 
         policyColumnHelper.display({
             id: "selection",
@@ -57,8 +57,8 @@ const usePolicyColumn = () => {
             header: () => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r border-l px-2">
-                        <Text className='font-semibold'>Policy name</Text>
-                        <AiOutlineCaretDown />
+                        <Text className='font-normal'>Policy name</Text>
+                        <AiOutlineCaretDown size={10} />
                     </FlexBox>
                 )
             },
@@ -73,15 +73,7 @@ const usePolicyColumn = () => {
 
         policyColumnHelper.accessor(row => row.policy_version, {
             id: "policy_verison",
-            header: () => {
-                return(
-                    <FlexBox className="flex justify-between items-center border-r pr-2">
-                        <Text className='font-semibold'>Version</Text>
-                        <AiOutlineCaretDown />
-
-                    </FlexBox>
-                )
-            },
+            header: () => <Text className='font-noraml'>Version</Text>,
             cell: ({ row }) => {
                 return(
                     <FlexBox className='whitespace-nowrap'>
@@ -95,8 +87,8 @@ const usePolicyColumn = () => {
             header: () => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r pr-2">
-                        <Text className='font-semibold'>Type</Text>
-                        <AiOutlineCaretDown />
+                        <Text className='font-normal'>Type</Text>
+                        <AiOutlineCaretDown size={10} />
 
                     </FlexBox>
                 )
@@ -110,13 +102,37 @@ const usePolicyColumn = () => {
             }
         }),
 
+        policyColumnHelper.accessor(row => row.is_app_level, {
+            id: "is_app_level",
+            header: () => {
+                return(
+                    <FlexBox className="flex justify-between items-center border-r pr-2">
+                        <Text className='font-normal'>level</Text>
+                        <AiOutlineCaretDown size={10} />
+
+                    </FlexBox>
+                )
+            },
+            cell: ({ row }) => {
+                return(
+                    <FlexBox className='whitespace-nowrap'>
+                        <p className='text-[11px] font-semibold text-[#333] text-opacity-50'>
+                            { row.original.is_app_level && (<p>Application level policy</p> )}
+                            { row.original.is_model_level && (<p>Model level policy</p> )}
+
+                        </p>
+                    </FlexBox>
+                )
+            }
+        }),
+
         policyColumnHelper.accessor(row => row.policy_description, {
             id: "policy_verison",
             header: () => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r pr-2">
-                        <Text className='font-semibold'>Policy Description</Text>
-                        <AiOutlineCaretDown />
+                        <Text className='font-normal'>Description</Text>
+                        <AiOutlineCaretDown size={10}/>
 
                     </FlexBox>
                 )

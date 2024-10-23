@@ -11,6 +11,7 @@ import SelectPolicyActionComponent from './SelectPolicyActionComponent';
 import { useCreateNewPolicyMutation } from '../../../../features/policiesAPI';
 import useErrorState from '../../../../../components/errors/useErrorState';
 import ErrorNotifierModal from '../../../../../components/errors/ErrorNotifierModal';
+import useSelectPolicyResourceCreation from '../../../../hooks/useSelectPolicyResourceCreation';
 
 
 interface OutletContextType {
@@ -30,6 +31,7 @@ const NewPermissionCreationOnResourceComponent = () => {
       setTriggerMessageModal
      } = useErrorState()
     
+     const {selectedApp, selectedModel} = useSelectPolicyResourceCreation()
 
     const {
       policyData,
@@ -54,7 +56,7 @@ const NewPermissionCreationOnResourceComponent = () => {
       1: <SelectPolicyActionComponent />,
     }
 
-  const handlePrev = () => setPage(prev => prev - 1);
+    const handlePrev = () => setPage(prev => prev - 1);
     const handleNext = () => setPage(prev => prev + 1);
 
      // Changing the groupCreationStep structure to an array
@@ -64,13 +66,14 @@ const NewPermissionCreationOnResourceComponent = () => {
     }));
 
     const onPolicyAddClicked = async(event: React.MouseEvent<HTMLButtonElement>) => {
-        try {
+
+      try {
           const response = await createNewPolicy(policyData).unwrap()
           if(response?.status_code === 201){
             navigate('../../')
           }
 
-        }catch(error: any){
+      }catch(error: any){
           if(!error) {
             console.log(error)
           } else if(error.data.status_code === 409 ){
@@ -92,7 +95,7 @@ const NewPermissionCreationOnResourceComponent = () => {
           }
         }
         
-        // console.log(folderAttributes)
+    
       }
 
   
@@ -102,16 +105,16 @@ const NewPermissionCreationOnResourceComponent = () => {
         selectedResource && (
             <FlexOuterContainer className='flex justify-between items-center px-4 border-b'>
               <FlexBox className='flex flex-col'>
-                <Div className='flex'>
+                <Div className='flex pt-4 relative'>
                     <MdIcons.MdPolicy size={20} />
-                    <Text className='text-[16px] font-semibold text-[#5e2f05] ml-2 relative'>
+                    <Text className='text-[16px] font-semibold text-[#5e2f05] ml-2'>
                       {selectedResource}
-                      <span className='ml-8 w-10 h-5 bg-primary-green flex justify-center items-center absolute -top-2 left-[75%] rounded-[4px] '>
-                          <p className='px-3 text-white text-[12px]'>Allow</p>
-                      </span>
                     </Text> 
+                    <div className='w-10 h-5 bg-primary-green flex justify-center items-center absolute -top-0 left-[50%] rounded-[4px] '>
+                        <p className='px-3 text-white text-[12px]'>Allow</p>
+                    </div>
                 </Div>
-                <P className='text-[12px] font-IBMPlexSans ml-7 text-[#333] text-opacity-55'>Specify what actions can be performed on selected ressources</P>
+                <P className='text-[12px] font-Poppins ml-7 text-[#333] text-opacity-55'>Specify what actions can be performed on selected ressources</P>
               </FlexBox>
               <FaIcons.FaTrashCan size={16}  onClick={() => window.location.reload()} className='cursor-pointer' />              
             </FlexOuterContainer>
@@ -133,7 +136,7 @@ const NewPermissionCreationOnResourceComponent = () => {
                   }}
               />
             </Div>
-            <Div className='flex-grow h-[500px] overflow-y-scroll'>
+            <Div className='flex-grow h-[520px] overflow-y-scroll'>
               {displayComponent[page].component}
             </Div>
           </FlexBoxInner>
