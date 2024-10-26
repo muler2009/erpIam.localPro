@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
+import React from 'react'
+import useRolePolicyAttachmentColumn from '../../constants/columns/useRolePolicyAttachmentColumn'
+import { FlexBox, FlexBoxInner, Text, Div } from '../../../../../components/common/StyledComponent'
 import { useGetModelLevelPoliciesQuery } from '../../../../features/policiesAPI'
-import usePolicyColumn from '../../constants/columns/usePolicyColumn'
-import { FlexBox, Div, Text } from '../../../../../components/common/StyledComponent'
 import PolicyTable from '../../../../components/Table/PolicyTable'
 
 
@@ -11,14 +11,12 @@ interface ModelLevelPropsInterface {
     showActions?: boolean; 
 }
 
-
-const GetAllModelLevelPolicies = ({showEntries, showSearch, showActions}: ModelLevelPropsInterface ) => {
-
+const GetModelLevelPolicyForRole = ({showEntries, showSearch, showActions}: ModelLevelPropsInterface) => {
     const { data: modelLevelPolicyData, isSuccess, error} = useGetModelLevelPoliciesQuery()
-    const { policyColumn } = usePolicyColumn()
+    const { policyColumn } = useRolePolicyAttachmentColumn()
 
   return (
-    <FlexBox className='mx-4 mt-2 h-full flex flex-col justify-center'>   
+    <FlexBox className='flex flex-col justify-center overflow-y-scroll'>   
         {
         // Check if there is an error and handle it
         error ? (
@@ -28,11 +26,7 @@ const GetAllModelLevelPolicies = ({showEntries, showSearch, showActions}: ModelL
                     {(error as any)?.data?.message || "Error fetching policies!"}
                 </Text>
                 <p className='text-[12px] text-[#333] text-opacity-60'>you can create a new model level permission </p>
-                <Link to={`create_policy`} className='pt-3'>
-                    <button className='bg-blue-500 text-white px-5 rounded-[3px] text-[12px] ml-4 border ring-opacity-50 cursor-pointer'>
-                        Create Policy
-                    </button>
-                </Link>
+
 
             </div>
         ) : (
@@ -57,5 +51,4 @@ const GetAllModelLevelPolicies = ({showEntries, showSearch, showActions}: ModelL
   )
 }
 
-export default GetAllModelLevelPolicies
-
+export default GetModelLevelPolicyForRole

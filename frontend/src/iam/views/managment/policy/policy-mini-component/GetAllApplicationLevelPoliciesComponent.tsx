@@ -5,7 +5,7 @@ import { useGetAppLevelPolicicesQuery } from '../../../../features/policiesAPI'
 import {  FlexBox, Text, Div  } from '../../../../../components/common/StyledComponent'
 import usePolicyColumn from '../../constants/columns/usePolicyColumn'
 
-const GetAllApplicationLevelPoliciesComponent = () => {
+const GetAllApplicationLevelPoliciesComponent = ({showEntries, showSearch}: {showEntries?: boolean; showSearch?: boolean}) => {
     const { data: appLevelPolicyData, error, isSuccess } = useGetAppLevelPolicicesQuery()
     const {policyColumn} = usePolicyColumn()
 
@@ -34,6 +34,8 @@ const GetAllApplicationLevelPoliciesComponent = () => {
                             <PolicyTable 
                                 data={appLevelPolicyData || []}
                                 columns={policyColumn}
+                                showEntries={showEntries}
+                                showSearch={showSearch}
                             />
                         </Div>
                     ) : (

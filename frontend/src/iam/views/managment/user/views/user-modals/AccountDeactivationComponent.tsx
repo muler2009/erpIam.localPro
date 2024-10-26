@@ -7,6 +7,7 @@ import useDeactivation from '../../../constants/columns/useDeactivation';
 import { RiUserForbidFill } from "react-icons/ri";
 import { useSearchUsersQuery } from '../../../../../features/userAPI';
 import AccountActivateDeactivateInformation from './AccountActivateDeactivateInformation';
+import useDeactivationActivation from '../../../../../hooks/useDeactivationActivation';
 
 interface DeactivateAccountInterface {
     title: string;
@@ -16,22 +17,12 @@ interface DeactivateAccountInterface {
 
 const AccountDeactivationComponent = ({title, handleIsOpenCloseMenuModal, open}: DeactivateAccountInterface) => {
 
-    const {data: userData, isSuccess, isError, error} = useGetAllUsersQuery()
-    const [isSearching, setIsSearching] = useState(false);
-    const [search, setSearch] = useState('');
-
-    const handleSearchUserChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setSearch(value);
-        setIsSearching(value.length > 0); // Only search when there's input
-    };
-    
+    const { userData, search, handleSearchUserChange, isSearching} = useDeactivationActivation()    
     const { data: searchUser, isSuccess: isSearchSuccess, isError: isSearchError, error: searchError } = useSearchUsersQuery(
         { first_name: search, last_name: search },
         { skip: !search } // Skip if not searching
     );
 
-    console.log(userData)
 
   return (
     open ? (
@@ -95,10 +86,6 @@ const AccountDeactivationComponent = ({title, handleIsOpenCloseMenuModal, open}:
                                   
                                 )
                             }
-
-                            
-
-                            
                         </FlexBoxInner>
                     </FlexBox>
                 </ModalBody> 

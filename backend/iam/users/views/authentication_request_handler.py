@@ -27,6 +27,8 @@ class AuthenticationRequestHandler(generics.GenericAPIView, mixins.CreateModelMi
                 'status_code': exc.status_code 
             }
             return Response(AUTH_REPLY, status=status.HTTP_400_BAD_REQUEST)
+        
+        
     
           
 

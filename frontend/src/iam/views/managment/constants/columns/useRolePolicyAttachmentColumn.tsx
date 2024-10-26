@@ -11,7 +11,7 @@ import * as CiIcons from 'react-icons/ci'
 
 const policyColumnHelper = createColumnHelper<PolicyColumnInterface>()
 
-const usePolicyColumn = (showActions?: boolean) => {
+const useRolePolicyAttachmentColumn = (showActions?: boolean) => {
    const policyColumn = useMemo(() => [
 
     // policyColumnHelper.display({
@@ -64,7 +64,7 @@ const usePolicyColumn = (showActions?: boolean) => {
             },
             cell: ({ row }) => {
                 return(
-                    <FlexBox className='whitespace-nowrap text-[#5e2f05] font-semibold'>
+                    <FlexBox className='whitespace-nowrap text-[#5e2f05] font-semibold py-2'>
                         {row.original.policy_name}
                     </FlexBox>
                 )
@@ -146,26 +146,7 @@ const usePolicyColumn = (showActions?: boolean) => {
             }
         }),
 
-        policyColumnHelper.display({
-            id: "actions",
-            header: () => <span className="flex justify-end pr-10"><BiIcons.BiDotsVerticalRounded /></span>,
-            cell: ({row }) => {
-                return(
-                    <FlexBox className="flex justify-end items-center pr-20 invisible group-hover:visible">
-                        <BottomTooltip content={`Rename`}>
-                            <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.policy_name} Edit Clicked`)}>
-                                <CiIcons.CiEdit size={17} />
-                            </FlexBoxInner>
-                        </BottomTooltip>
-                        <BottomTooltip content={`Delete`}>
-                            <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.policy_action_name} Delete Clicked`)}>
-                                <CiIcons.CiTrash size={17} />
-                            </FlexBoxInner>
-                        </BottomTooltip>
-                    </FlexBox>
-                )
-            }
-        }),
+       
 
    ],
    
@@ -173,4 +154,4 @@ const usePolicyColumn = (showActions?: boolean) => {
   return {policyColumn}
 }
 
-export default usePolicyColumn
+export default useRolePolicyAttachmentColumn

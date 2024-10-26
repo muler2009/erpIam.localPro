@@ -31,7 +31,7 @@ export const roles: CommonMenuItemsProps[] = [
 
 export const role_tab: CommonMenuItemsProps[] = [
     { 
-        label: "All",
+        label: "All Roles",
         total: true,
         tabContent: <QuickAccessRole />,
       },

@@ -5,7 +5,7 @@ import RoleTabNavigation from '../mini-components/RoleTabNavigation'
 
 const RoleDashboard = () => {
   return (
-    <FlexOuterContainer className='pl-5'>
+    <FlexOuterContainer className=''>
       <RoleNavigationHeader />
       <RoleTabNavigation />
     </FlexOuterContainer>

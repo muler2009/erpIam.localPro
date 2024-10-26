@@ -9,14 +9,20 @@ import useLogin from '../../auth/login/useLogin'
 import { FlexBox, FlexBoxInner, Text } from '../reusable/StyledComponent'
 import { ErrorResponseInterface } from '../../models/error.model'
 import { MdError } from "react-icons/md";
+import { useUserLoginMutation } from '../../auth/login/loginAPI'
 
 interface LoginFailedModalInterface {
     loginErrorMessage: ErrorResponseInterface | null;
     loginFailed: boolean;
     setLoginFailed: React.Dispatch<React.SetStateAction<boolean>>
+    
 }
 
 export const LoginErrorMessageModal = ({loginErrorMessage, loginFailed, setLoginFailed}: LoginFailedModalInterface ) => {
+   
+    const {isActive} = useLogin()
+
+    console.log(isActive)
   
     return (
         loginFailed ? (
@@ -25,8 +31,10 @@ export const LoginErrorMessageModal = ({loginErrorMessage, loginFailed, setLogin
                    <ModalHeader className='py-[10px] px-5 flex justify-between items-center cursor-pointer bg-[#e6e6e6] rounded-t-[10px] border-b border-gray-400 border-opacity-50'>
                         <Text className=' text-[15px] font-Poppins flex justify-center items-center'>
                             <span className='mr-2'>
+                               OLB Error
                             {/* <BiIcons.BiError size={25}/> */}
-                            </span>{loginErrorMessage?.error_type}
+                            {/* {loginErrorMessage?.error_type} */}
+                            </span>
                         </Text>
                         <VscIcons.VscClose size={20} onClick={() => setLoginFailed(prevState => !prevState)} />
 
@@ -39,11 +47,21 @@ export const LoginErrorMessageModal = ({loginErrorMessage, loginFailed, setLogin
                             <FlexBoxInner className='flex flex-col items-start justify-center'>
                                 <Text className='font-semibold'>{loginErrorMessage?.error_type}</Text>
                                 <Text className='text-[14px]'>{loginErrorMessage?.message}</Text>
+                                <Text>{loginErrorMessage?.status_code}</Text>
+
                             </FlexBoxInner>
                         </FlexBox>
                    </ModalBody>
-                   <ModalFooter className='flex justify-end items-center py-3 pr-5 cursor-pointer bg-[#f5f5f5] rounded-b-[10px]'>
+                   <ModalFooter className='flex justify-end items-center space-x-3 py-3 pr-5 cursor-pointer bg-[#f5f5f5] rounded-b-[10px]'>
+                        {
+                            !isActive && (
+                                <button className='btn-sm ring-1 px-10 bg-text-primary text-white' onClick={() => setLoginFailed(prevState => !prevState)}>Send Request for account activation</button>
+
+                            )
+                        }
+
                         <button className='btn-sm ring-1 px-10' onClick={() => setLoginFailed(prevState => !prevState)}>Ok</button>
+
                     </ModalFooter>
                 </ModalContainer>
             </ModalWrapper>

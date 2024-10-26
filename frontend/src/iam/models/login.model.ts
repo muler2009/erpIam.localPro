@@ -7,9 +7,10 @@ export interface LoginFailedModalInterface {
 export interface AuthResponse {
     access: string;
     refresh: string;
-    status: string;
+    status_code: number;
     username: string;
     group: string;
+    is_active: boolean;
 }
 
 export interface LoginRequiredData {

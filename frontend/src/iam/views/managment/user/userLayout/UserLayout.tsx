@@ -35,10 +35,7 @@ const UserLayout = () => {
             </FlexBoxInner>
               <P className='text-[#333] text-opacity-50'>An identity of user with long-term credentials given for the users</P>
           </FlexBox>
-         
-         
         
-
           <FlexBox className='flex justify-center items-center divide-x-[1px] space-x-4 mr-10'>
             <h6 className='font-Rubik font-semibold text-sm'><Link to={`/iam`}>List of Users</Link></h6>
             <FlexBoxInner>

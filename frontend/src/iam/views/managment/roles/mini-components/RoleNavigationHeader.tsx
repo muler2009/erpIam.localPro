@@ -18,7 +18,7 @@ const RoleNavigationHeader = () => {
   }, []);
 
   return (
-    <FlexBox className='flex flex-col gap-4 px-2 p pt-4 pb-3'>
+    <FlexBox className='flex flex-col gap-3 pt-4 pb-3 px-4 bg-gradient-to-b mx-1 from-white to-gray-300'>
       <FlexBoxInner className='flex space-x-2 items-start'>
         <LuUsers2 size={25} className='text-primary-green' />
         <Text className='font-Poppins font-semibold text-2xl'>
@@ -26,13 +26,12 @@ const RoleNavigationHeader = () => {
         </Text>
       </FlexBoxInner>
 
-      <FlexBoxInner className='flex border-b pb-1 pr-4'>
+      <FlexBoxInner className='flex space-x-3 rounded-sm  pb-1 pr-4'>
           {
             roles?.map((role, index) => {
               return(
-                <FlexBoxInner key={role.label} className={`flex space-x-2 justify-start px-2 items-center py-[5px] cursor-pointer hover:bg-gray-100 rounded-t-md`} onClick={() => handleOpenCloseActiononRoleHeader(role.label)}>
-                    <span className='text-[15px]'>{role.icon}</span>
-                    <span className='font-Poppins text-[13px] px-1'>{role.label}</span>
+                <FlexBoxInner key={role.label} className={`flex justify-start px-2 border border-black border-opacity-15 rounded-md items-center py-[8px] cursor-pointer hover:bg-gray-100`} onClick={() => handleOpenCloseActiononRoleHeader(role.label)}>
+                    {role.icon} <span className='font-Poppins text-[13px] px-1'>{role.label}</span>
                 </FlexBoxInner>
               )
             })

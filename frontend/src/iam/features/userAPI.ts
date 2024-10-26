@@ -47,7 +47,14 @@ const userAPI = erpAPISlice.injectEndpoints({
                 method: `POST`
             }),
             invalidatesTags: [API_TAGS.USER]
-        })
+        }),
+        getDeactivatedAccount: builder.query<UserAccountInterfacee[], void>({
+            query: () => ({
+                url: `iam/account/deactivated/`,
+                method: `GET`
+            }),
+            providesTags: [API_TAGS.USER]
+        }),
     })
 })
 
@@ -56,7 +63,8 @@ export const {
     useUserSelfRegistrationMutation,
     useCreateUserAccountMutation,
     useSearchUsersQuery,
-    useToggelActivationAndDeactivationMutation
+    useToggelActivationAndDeactivationMutation,
+    useGetDeactivatedAccountQuery
 } = userAPI
 
 

@@ -15,7 +15,8 @@ export const RoleContextProvider = ({children}: ChildrenContext) => {
 
     const roleCreationStep = {
         0: "Role Basic Information",
-        1: "Assign User"    
+        1: "Assign User",    
+        2: "Attach Policy"
     }    
 
     const [page, setPage] = useState(0)

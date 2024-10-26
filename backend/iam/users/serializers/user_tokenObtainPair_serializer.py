@@ -50,7 +50,7 @@ class LoginUserSerializer(serializers.ModelSerializer):
 
         # Check if the account is deactivated
         if not user.is_active:
-            raise AuthenticationFailedException(message="Account is deactivated. Please contact support.", error_type="Deactivation Error", status_code=403)
+            raise AuthenticationFailedException(message="Please contact system administrator.", error_type="Account Deactivated!", status_code=403)
         
         user_token = user.get_tokens_for_user() 
         

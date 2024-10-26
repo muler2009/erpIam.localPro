@@ -11,6 +11,7 @@ import GetAlLUserListComponent from "../../user/views/GetAllUserListComponent";
 import { data } from "../../../../constants/columns";
 import { UserActionMenuItemsProps, UserDashboardProps } from "../../../../models/user.model";
 import { CommonMenuItemsProps } from "../../../../models/role.models";
+import GetDeactivatedAccountsComponent from "../../user/views/user-mini-components/GetDeactivatedAccountsComponent";
 
 export const userTabLink: UserTabNavigationDef[] = [
     { 
@@ -20,7 +21,7 @@ export const userTabLink: UserTabNavigationDef[] = [
       total: true
     },
     { 
-      tabContent: <h1>Test</h1>,
+      tabContent: <GetDeactivatedAccountsComponent />,
       label: "Deactivated account",
       total: true
     },  

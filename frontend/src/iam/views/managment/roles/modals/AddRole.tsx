@@ -9,6 +9,7 @@ import BasicRoleInformation from './BasicRoleInformation'
 import AttachUserRole from './AttachUserRole'
 import Stepper from '@keyvaluesystems/react-vertical-stepper'
 import { useCreateRoleMutation } from '../../../../features/roleAPI'
+import AttachPolicyToRoleComponent from './AttachPolicyToRoleComponent'
 
 
 const AddRole = ({onRequestClose, title, isOpen, link_identifier}: RoleModalPropsInterface) => {
@@ -30,6 +31,7 @@ const AddRole = ({onRequestClose, title, isOpen, link_identifier}: RoleModalProp
   const display: {[key: number]: React.ReactNode} = {
       0: <BasicRoleInformation />,
       1: <AttachUserRole />,
+      2: <AttachPolicyToRoleComponent />
   }
 
     // Changing the groupCreationStep structure to an array
@@ -56,21 +58,21 @@ const AddRole = ({onRequestClose, title, isOpen, link_identifier}: RoleModalProp
 
   return (
     
-      <ModalContainer className={`w-[50%] mx-auto bg-[#fff] flex flex-col relative top-[6%] shadow-2xl rounded-t-md`} >
+      <ModalContainer className={`w-[60%] mx-auto bg-[#fff] flex flex-col relative top-[6%] shadow-2xl rounded-t-md`} >
           <ModalHeader className='flex justify-between items-center px-5 py-3 border-b'>
               <h1 className='font-Poppins text-black font-semibold text-[15px] text-opacity-50 text-center px-5'>{title}</h1>
               <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-gray-400 hover:text-white" onClick={onRequestClose}>
                   <Vsc.VscClose size={15} />
               </div>
           </ModalHeader>
-          <ModalBody className='h-[45vh] flex space-x-1 pt-4 pr-10'>
+          <ModalBody className='h-[50vh] flex space-x-1 pt-4 pr-10 overflow-y-scroll'>
               <FlexBox className={`my-3`}>
                 <Stepper
                     steps={displayComponent}
                     currentStepIndex={page}
                     labelPosition="bottom"
                     styles={{
-                        LineSeparator: (step: any, index: any) => ({ height: "250px"}),
+                        LineSeparator: (step: any, index: any) => ({ height: "100px"}),
                         Bubble: (step: any, index: any) => ({ height: "40px", width: "40px", backgroundColor: "gray" }),
                         ActiveBubble:  (step: any, index: any) => ({ backgroundColor: "#2b4a6d"}),
                         InactiveLineSeparator: (step: any, stepIndex: any) => ({color: "blue"})
@@ -78,7 +80,7 @@ const AddRole = ({onRequestClose, title, isOpen, link_identifier}: RoleModalProp
                 />
               </FlexBox>
           
-            <FlexBox className='flex-grow'>
+            <FlexBox className='flex-grow px-3'>
               {
                 displayComponent[page].component
               }

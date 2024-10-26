@@ -24,6 +24,7 @@ const useLogin = () => {
   const [loginFailed, setLoginFailed] = useState<boolean>(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
+  const [isActive, setIsActive] = useState<boolean>(false)
 
   const handleInputLoginChanges = (event: ChangeEvent<HTMLInputElement>) => {
       event.preventDefault()
@@ -41,8 +42,8 @@ const useLogin = () => {
       setIsLoggingIn(true); // Start the animation
       const response = await userLogin(loginData).unwrap()
       // destructure the access and refresh token
-      const { access, refresh, username, group } = response
-      console.log(group)
+      const { access, refresh, username, group, is_active } = response
+      setIsActive(is_active)
       // Clear existing auth data before setting new data
       dispatch(clearAuthData({ isAuthenticated: false, access, refresh, username, group}));
       dispatch(setAuthData({isAuthenticated: true, access, refresh, username, group }));
@@ -79,6 +80,7 @@ const useLogin = () => {
             error_type: error.data?.error_type,
             message: error.data?.message,
             status_code: error.status_code
+          
           });
           setLoginError(true);
           setLoginFailed(prev => !prev);
@@ -106,7 +108,9 @@ const useLogin = () => {
     loginError,
     loginErrorMessage,
     loginFailed,
-    setLoginFailed
+    setLoginFailed,
+    isActive, 
+    setIsActive
   }
 }
 
