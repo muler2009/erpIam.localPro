@@ -1,6 +1,6 @@
 import { erpAPISlice } from "../api/apiSlice";
 import { API_TAGS } from "../../config/config";
-import { UserAPIResponse, UserAccountInterfacee } from "../models/user.model"; 
+import { UserAPIResponse, UserAccountInterfacee, UserActivationDeactivationAPIresponse } from "../models/user.model"; 
 
 const userAPI = erpAPISlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -24,7 +24,29 @@ const userAPI = erpAPISlice.injectEndpoints({
                 url: `iam/account/register_user/`,
                 method: `POST`,
                 body: registration_data
-            })
+            }),
+            invalidatesTags: [API_TAGS.USER]
+        }),
+        searchUsers: builder.query<UserAccountInterfacee[],{first_name?: string; last_name?: string}>({
+            query: ({first_name, last_name}) => {
+                let url = `iam/account/search_user/?`;
+                // Append parameters if provided
+                if (first_name) { url += `search=${first_name}&`; }
+                if (last_name) { url += `search=${last_name}`; }
+
+                return {
+                     url: url,
+                     method: `GET`
+                 }
+             },
+             providesTags: [API_TAGS.USER]
+        }),
+        toggelActivationAndDeactivation: builder.mutation<UserActivationDeactivationAPIresponse, string>({
+            query: (user_account_id) => ({
+                url: `iam/account/deactivate/${user_account_id}/`,
+                method: `POST`
+            }),
+            invalidatesTags: [API_TAGS.USER]
         })
     })
 })
@@ -32,7 +54,9 @@ const userAPI = erpAPISlice.injectEndpoints({
 export const { 
     useGetAllUsersQuery,
     useUserSelfRegistrationMutation,
-    useCreateUserAccountMutation
+    useCreateUserAccountMutation,
+    useSearchUsersQuery,
+    useToggelActivationAndDeactivationMutation
 } = userAPI
 
 

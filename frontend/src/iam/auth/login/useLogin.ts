@@ -74,7 +74,15 @@ const useLogin = () => {
           });
           setLoginError(true);
           setLoginFailed(prev => !prev);
-        } else {
+        } else if (error.status === 400) {
+          setLoginErrorMessage({
+            error_type: error.data?.error_type,
+            message: error.data?.message,
+            status_code: error.status_code
+          });
+          setLoginError(true);
+          setLoginFailed(prev => !prev);
+        }else {
           setLoginErrorMessage({
             error_type: error.response?.data?.error_type || "Unknown Error",
             message: error.response?.data?.message || "An error occurred. Please try again.",

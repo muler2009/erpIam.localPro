@@ -3,8 +3,7 @@ import { RequestDataInterface } from "./request-model";
 export interface ModalComponentPropsInterface {
     open: boolean;
     handleIsOpenCloseMenuModal: () => void;
-    title: string;
-    
+    title: string;   
 }
 
 export interface TabComponentPropsInterface {

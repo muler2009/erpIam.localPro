@@ -16,6 +16,9 @@ import { UserAccountInterfacee, UserCoulumn } from "../../models/user.model";
 import {Search, ShowEntries, PaginationController, FilterBy} from "../common";
 import UserTableHeader from "./UserTableHeader";
 import { FlexBox, FlexBoxInner } from "../reusable/StyledComponent";
+import UserActionDropDownComponent from "../../views/managment/user/views/user-mini-components/UserActionDropDownComponent";
+import { Div } from "../../../components/common/StyledComponent";
+import { ModalContextProvider } from "../reusable/custom-modal/context/ModalContext";
 
 interface UserTableProps {
     data: UserAccountInterfacee[];
@@ -52,62 +55,61 @@ const UserTable = ({data, columns}: UserTableProps) => {
   console.log({selectedRows: userTableInstance.getSelectedRowModel()})
 
   return (
-    <FlexBox className="flex flex-col h-full gap-2">
-        <FlexBoxInner className='flex justify-between space-x-3 items-center'>
-          <FlexBox className='flex-grow'>
-            <Search
-                globalFilter={globalFilter}
-                setGlobalFilter = {setGlobalFilter}
-            /> 
-          </FlexBox>
-          <FlexBox className='w-1/3 flex justify-between items-center space-x-3 z-10'>
-            <ShowEntries table={userTableInstance} />
-            <PaginationController table = {userTableInstance} />
-            <FilterBy 
-                columnFilters={columnFilters}
-                setColumnFilters={setColumnFilters}
-            />
-          </FlexBox>
-        </FlexBoxInner>
-        <FlexBoxInner className="user">
-            <table className="table table-sm table-border table-striped text-left text-[14px]">
-                <thead>
-                    {
-                        userTableInstance.getHeaderGroups().map((headerRowElement) => {
-                            return(
-                                <tr id={headerRowElement.id}>
-                                    {
-                                        headerRowElement.headers.map((headerColElement) => {
-                                            return <UserTableHeader headerColElement={headerColElement} />
-                                        })
-                                    }
-                                </tr>
-                            )
-                        })
-                    }
-                </thead>
-                {/* table body for user table  */}
-                <tbody>
-                    {
-                        userTableInstance.getRowModel().rows.map((row) => {
-                            return (
-                                <tr key={row.id} className="group" >
-                                    {row.getVisibleCells().map((cell) => {
-                                    return (
-                                        <td key={cell.id}>
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </td>
-                                    );
-                                    })}
-                                </tr>
-                            );
-                        })
-                    }
-                </tbody>
+    
+        <FlexBox className="flex flex-col h-full space-y-2">
+            <FlexBoxInner className='flex justify-between space-x-3 items-center bg-gradient-to-b from-white to-gray-300 rounded-sm'>
+            <FlexBox className='flex-grow'>
+                <Search
+                    globalFilter={globalFilter}
+                    setGlobalFilter = {setGlobalFilter}
+                /> 
+            </FlexBox>
+            <FlexBox className='w-1/3 flex justify-between items-center space-x-3 z-10'>
+                <ShowEntries table={userTableInstance} />
+                <PaginationController table = {userTableInstance} />
+            <Div className="" />
+            </FlexBox>
+            </FlexBoxInner>
+            <FlexBoxInner className="user mx-2">
+                <table className="table table-sm table-border table-striped text-left text-[14px]">
+                    <thead>
+                        {
+                            userTableInstance.getHeaderGroups().map((headerRowElement) => {
+                                return(
+                                    <tr id={headerRowElement.id}>
+                                        {
+                                            headerRowElement.headers.map((headerColElement) => {
+                                                return <UserTableHeader headerColElement={headerColElement} />
+                                            })
+                                        }
+                                    </tr>
+                                )
+                            })
+                        }
+                    </thead>
+                    {/* table body for user table  */}
+                    <tbody>
+                        {
+                            userTableInstance.getRowModel().rows.map((row) => {
+                                return (
+                                    <tr key={row.id} className="group" >
+                                        {row.getVisibleCells().map((cell) => {
+                                        return (
+                                            <td key={cell.id}>
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </td>
+                                        );
+                                        })}
+                                    </tr>
+                                );
+                            })
+                        }
+                    </tbody>
 
-            </table>
-        </FlexBoxInner>
-    </FlexBox>
+                </table>
+            </FlexBoxInner>
+        </FlexBox>
+   
   )
 }
 

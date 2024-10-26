@@ -1,18 +1,19 @@
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
-import { UserCoulumn } from '../../../../models/user.model'
+import { UserAPIResponse, UserCoulumn } from '../../../../models/user.model'
 import { format } from 'date-fns'
 import * as BiIcons from 'react-icons/bi'
-import * as CiIcons from 'react-icons/ci'
-
 import { useMemo } from 'react'
 import { GroupMembersInterface } from '../../../../models/group.model'
-import BottomTooltip from '../../../../../components/common/BottomTooltip'
-import { FlexBox, FlexBoxInner } from '../../../../../components/common/StyledComponent'
+import useCommonUtils from '../../../../../hooks/useCommonUtils'
+import ActionOnUserComponent from './user-action-modal/ActionOnUserComponent'
+import { useModal } from '../../../../components/reusable/custom-modal/context/useModal'
 
 const userColumn = createColumnHelper<UserCoulumn>()
 const nestedUserColumn = createColumnHelper<GroupMembersInterface>()
 
 const useUserColumn = () => {
+    const {open, handleIsOpenCloseMenuModal} = useCommonUtils()
+
     const userColumns = useMemo(
         () => [
             userColumn.display({
@@ -81,20 +82,10 @@ const useUserColumn = () => {
             userColumn.display({
                 id: "actions",
                 header: () => <span className="flex justify-end pr-10"><BiIcons.BiDotsVerticalRounded /></span>,
-                cell: ({row }) => {
+                cell: ({row}) => {
+                    const rowData: UserAPIResponse = row.original;
                     return(
-                        <FlexBox className="flex justify-end items-center pr-20 invisible group-hover:visible">
-                            <BottomTooltip content={`Rename`}>
-                                <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.first_name} Edit Clicked`)}>
-                                    <CiIcons.CiEdit size={17} />
-                                </FlexBoxInner>
-                            </BottomTooltip>
-                            <BottomTooltip content={`Delete`}>
-                                <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.first_name} Delete Clicked`)}>
-                                    <CiIcons.CiTrash size={17} />
-                                </FlexBoxInner>
-                            </BottomTooltip>
-                        </FlexBox>
+                        <ActionOnUserComponent  rowData={rowData} />
                     )
                 }
             }),
@@ -106,6 +97,8 @@ const useUserColumn = () => {
 }
 
 export default useUserColumn
+
+
 
 
 

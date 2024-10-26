@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { useRoutes } from 'react-router-dom';
 // import Dashboard from '../layout/Dashboard';
 import UserLayout from '../views/managment/user/userLayout/UserLayout';
-import PermissionLayout from '../views/managment/permissions/PermissionLayout';
-import Dashboard from '../views/dashboard-view/Dashboard';
+import Dashboard from '../views/dashboard/views/Dashboard';
 import GroupDashboard from '../views/managment/groups/groupviews/GroupDashboard';
 import RoleDashboard from '../views/managment/roles/views/RoleDashboard';
 import UserDashboard from '../views/managment/user/views/UserDashboard';

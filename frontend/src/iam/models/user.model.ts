@@ -140,6 +140,30 @@ export interface IdentityContextType {
 }
 
 
+export interface UserActionMenuItemsProps {
+  label: string;
+  icon?: React.ReactElement;
+  tabContent?: JSX.Element;
+  total?: boolean;
+  link_identifier?: string;
+  abbrevation?: string;
+}
+
+export interface UserModalActionInterface {
+  onRequestClose: () => void
+  isOpen: boolean
+  title: string;
+  link_identifier?: string | undefined;
+  rowData?:any
+}
+
+export interface UserActivationDeactivationAPIresponse {
+  status_code: number;
+  message: string;
+  is_active: boolean;
+}
+
+
 
 
 

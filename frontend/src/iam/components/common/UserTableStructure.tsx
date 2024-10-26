@@ -12,7 +12,7 @@ import {
 } from '@tanstack/react-table'
 import Search from './Search';
 import * as TbIcons from "react-icons/tb";
-import FilterBy from './FilterBy';
+import FilterBy from '../../views/managment/user/views/user-mini-components/UserActionDropDownComponent';
 import { FilterType } from '../interface/Search.Interface';
 import PaginationController from './PaginationController';
 import ShowEntries from './ShowEntries';
@@ -64,10 +64,10 @@ const UserTableStructure = ({columns, data}: TableProps) => {
           <div className='w-1/3 flex justify-end items-center space-x-3 divide-x-[1px]'>
             <ShowEntries table={table} />
             <PaginationController table = {table} />
-            <FilterBy 
+            {/* <FilterBy 
                 columnFilters={columnFilters}
                 setColumnFilters={setColumnFilters}
-            />
+            /> */}
           </div>
         </div>
         <div className='user'>

@@ -1,6 +1,6 @@
 
 import {ColumnFiltersState} from '@tanstack/react-table'
-import FilterBy from '../common/FilterBy';
+import FilterBy from '../../views/managment/user/views/user-mini-components/UserActionDropDownComponent';
 
 export interface SearchProps {
     value?: string | number;

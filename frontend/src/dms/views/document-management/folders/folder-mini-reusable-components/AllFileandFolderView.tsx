@@ -44,7 +44,7 @@ const AllFileandFolderView = () => {
         {folder_name: search},
         {skip: !search } 
     )
-    
+     
     useEffect(() => {
         if (folder_data && folder_data.length > 0) {
           setCurrentFolder(folder_data);

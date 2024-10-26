@@ -3,21 +3,31 @@ import { UserDropDownDef, UserTabNavigationDef } from "../../../../models/manage
 import * as RiIcons from "react-icons/ri";
 import * as IoIcons from "react-icons/io";
 import * as GrIcons from "react-icons/gr";
-import UserList from "../../user/views/UserList";
+import * as MdIcons from "react-icons/md";
+import * as CiIcons from 'react-icons/ci'
+
+
+import GetAlLUserListComponent from "../../user/views/GetAllUserListComponent";
 import { data } from "../../../../constants/columns";
-import { UserDashboardProps } from "../../../../models/user.model";
+import { UserActionMenuItemsProps, UserDashboardProps } from "../../../../models/user.model";
+import { CommonMenuItemsProps } from "../../../../models/role.models";
 
 export const userTabLink: UserTabNavigationDef[] = [
     { 
-      label: "Available Users",
-      tabContent: <UserList />,
+      label: "All",
+      tabContent: <GetAlLUserListComponent />,
       totalValues: data.length,
       total: true
     },
     { 
       tabContent: <h1>Test</h1>,
-      label: "Trash",
+      label: "Deactivated account",
       total: true
+    },  
+    { 
+        label: "Expired account",
+        tabContent: <h1>Expired acccount</h1>,
+        total: true
     }  
 ] 
 
@@ -60,7 +70,23 @@ export const identityProps: UserDashboardProps[] = [
   },
 ];
 
-
+export const userActionItems: UserActionMenuItemsProps[] = [
+  {
+    abbrevation: "deactivate",
+    label: "Deactivate/Activate Account",
+    icon:  <MdIcons.MdOutlineAirplanemodeActive size={17} />
+  },
+  {
+    label: "Rename",
+    abbrevation: "rename",
+    icon: <CiIcons.CiEdit size={17} />
+  },
+  {
+    label: "Delete",
+    abbrevation: "delete",
+    icon:  <CiIcons.CiTrash size={17} />
+  },
+]
 
 export const userDropDown: UserDropDownDef[] = [
   {

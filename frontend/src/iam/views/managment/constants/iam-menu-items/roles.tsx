@@ -2,7 +2,7 @@ import { CommonMenuItemsProps } from "../../../../models/role.models"
 import * as RiIcons from "react-icons/ri";
 import { LiaDownloadSolid } from "react-icons/lia";
 import { IoIosRefresh } from "react-icons/io";
-import UserList from "../../user/views/UserList";
+import UserList from "../../user/views/GetAllUserListComponent";
 import QuickAccessRole from "../../roles/mini-components/QuickAccessRole";
 
 export const roles: CommonMenuItemsProps[] = [
