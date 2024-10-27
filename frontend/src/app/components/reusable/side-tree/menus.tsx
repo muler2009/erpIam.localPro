@@ -50,31 +50,23 @@ export const sidear_link: MenuItemInterface[] = [
           label: "Deleted Files",
           path: "document/library/trash",
           icon: <IoIcons.IoTrashOutline size={15} />
-        },
-        // {
-        //   label: "Uploads",
-        //   path: ".",
-        //   children: [
-        //     {
-        //       label: "Word File",
-        //       path: "document/file/doc",
-        //       icon: <FaIcons.FaFileWord size={15} color="blue" />
-        //     },
-        //     {
-        //       label: "Spreedsheet",
-        //       path: "document/file/xlsx",
-        //       icon: <FaIcons.FaFileExcel size={15} color="green"/>
-        //     },
-        //     {
-        //       label: "Pdf",
-        //       path: "document/file/other",
-        //       icon: <FaIcons.FaFilePdf size={15} color="red" />
-        //     }
-        //   ]  
-        // },
-        
+        },        
       ]
     },
+    {
+      label: "Tasks",
+      path: ".",
+      icon: <MdIcons.MdAddTask />,
+      children: [
+        {
+          label: "Delegation",
+          path: "delegation",
+          icon: <MdIcons.MdOutlineAssignmentInd size={16} />
+        }
+      ]  
+    },
+
+
     {
       label: "User Record",
       path: "recent",

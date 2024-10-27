@@ -10,6 +10,7 @@ from iam.users.views.post.user_registration_req_handler import RegisterViewReque
 from iam.users.views.get.search_user_request_handler import SearchUserRequestHandler
 from iam.users.views.post.deactivate_account import AccountDeactivationRequestHandler
 from iam.users.views.get.get_deactivated_account_req_handler import GetDeactivatedAccountOnlyRequestHandler
+from iam.users.views.get.last_login_time_request_handler import LastLoginTimeView
 
 urlpatterns = [
     path('login/', AuthenticationRequestHandler.as_view()),
@@ -28,7 +29,9 @@ urlpatterns = [
 
 
     #URL Pattern related to activation and deactivation
+    path('loginTime/', LastLoginTimeView.as_view(), name='last_logged_in'), 
     path('deactivate/<str:user_account_id>/', AccountDeactivationRequestHandler.as_view(), name='deactivate_account'), 
+
     path('deactivated/', GetDeactivatedAccountOnlyRequestHandler.as_view(), name='deactivated_account'), 
 
 

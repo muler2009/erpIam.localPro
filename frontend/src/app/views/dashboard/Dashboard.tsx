@@ -1,4 +1,5 @@
 import {FlexBox, FlexBoxInner } from '../../../components/common/StyledComponent'
+import { WelcomeComponent } from '../../../iam/views/dashboard/dashboard-mini-components'
 import LibraryList from '../document-management/LibraryList'
 import DashboardChart from './dashboard-sub-components/DashboardChart'
 import DashboardRecentActivity from './dashboard-sub-components/DashboardRecentActivity'
@@ -9,22 +10,8 @@ import UserRole from './dashboard-sub-components/UserRole'
 
 const Dashboard = () => {
   return (
-    <FlexBox className='w-full h-full bg-white py-1 flex'>
-      <FlexBoxInner className='mx-1 w-2/3 '>
-        <FlexBoxInner className='flex flex-col gap-2'>
-          <DashboardSystemUsage />
-          <FlexBoxInner className='flex space-x-2'>
-            <DashboardChart />
-            <DashboardStateStastics />
-          </FlexBoxInner>
-          {/* <LibraryList /> */}
-          {/* <DashboardSystemUsage /> */}
-        </FlexBoxInner>
-      </FlexBoxInner>
-      <FlexBoxInner className='flex flex-col w-1/3 mr-1 gap-2'>
-        <DashboardRecentActivity />
-        {/* <UserRole /> */}
-      </FlexBoxInner>
+    <FlexBox className='w-full h-full bg-white m-1'>
+      <WelcomeComponent />
     </FlexBox>
   )
 }
@@ -32,7 +19,20 @@ const Dashboard = () => {
 export default Dashboard
 
 
-
+{/* <FlexBoxInner className='mx-1 w-2/3 '>
+        <FlexBoxInner className='flex flex-col gap-2'>
+          <DashboardSystemUsage />
+          <FlexBoxInner className='flex space-x-2'>
+            <DashboardChart />
+            <DashboardStateStastics />
+          </FlexBoxInner>
+          
+        </FlexBoxInner>
+      </FlexBoxInner>
+      <FlexBoxInner className='flex flex-col w-1/3 mr-1 gap-2'>
+        <DashboardRecentActivity />
+       
+      </FlexBoxInner> */}
 
 //  <FlexOuterContainer className='w-full m-1 flex space-x-1'>
 //       <FlexBox className='w-2/3 flex flex-col '>
