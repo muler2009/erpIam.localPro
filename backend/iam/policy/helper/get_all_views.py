@@ -76,6 +76,7 @@ def extract_views_from_urlpatterns(urlpatterns):
 
                 if issubclass(view, generics.GenericAPIView):  # Check if the view is a subclass of `GenericAPIView`.
                     try:
+
                         model = view.queryset.model if hasattr(view, 'queryset') else None  # Get the associated model.
 
                         if model:
@@ -103,9 +104,10 @@ def extract_views_from_urlpatterns(urlpatterns):
                                 "view_name": view.__name__,
                                 "actions": actions,
                             })
-
                     except AttributeError:
-                        continue  # If there's an error, skip this view.
+                        continue
+
+                    
 
         elif isinstance(pattern, URLResolver):  # If the pattern is an `include()`.
             # Recursively call `extract_views_from_urlpatterns` on the nested URL patterns.

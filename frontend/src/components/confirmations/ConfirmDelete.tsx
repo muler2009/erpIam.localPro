@@ -2,7 +2,7 @@ import React from 'react'
 import { ModalBody, ModalContainer, ModalFooter, ModalWrapper, ModalHeader } from '../../iam/components/reusable'
 import { Text, FlexBox, FlexBoxInner } from '../common/StyledComponent'
 import * as VscIcons from 'react-icons/vsc'
-import { RequestColumnInterface } from '../../dms/models/request-model'
+import { RequestColumnInterface } from '../../app/models/request-model'
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { GiConfirmed } from "react-icons/gi";
 

@@ -18,6 +18,8 @@ import ClientPendingRequest from '../views/requests/client-mini-components/Clien
 import ClientApproved from '../views/requests/client-mini-components/ClientApproved';
 import GetAllDocument from '../views/files-view/GetAllDocument';
 import AllFilesOnly from '../views/document-management/folders/folder-mini-reusable-components/AllFilesOnly';
+import DelegationDashboardComponent from '../views/delegation/DelegationDashboardComponent';
+import DelegationDashboardContent from '../views/delegation/delegation-mini-component/DelegationDashboardContent';
 
 
 
@@ -37,7 +39,7 @@ const Routes = () => {
         { path: 'library/main', element: <AllFileandFolderView />,
             children: [
                 // {path: '', element: <MainFolderLibrary />},
-                {path: 'create', element: <h1>Test Docuemtn</h1>},
+                { path: 'create', element: <h1>Test Docuemtn</h1> },
             ]
         },
         { path: 'library/files', element: <AllFilesOnly/> },
@@ -52,6 +54,14 @@ const Routes = () => {
                 { path: 'test_request', element: <h1>Test Request</h1> },
             ]
         },
+        { path: 'delegation', element: <DelegationDashboardComponent />,
+            children: [ 
+                { path: '', element: <DelegationDashboardContent /> },
+                { path: 'me', element: <h1>Test Request</h1> },
+                { path: 'me2', element: <h1>Second Delegations</h1> },
+
+            ]
+         },
         { path: 'requested-sent', element: <RequestSent /> },
         { path: 'client', element: <RequestSent /> },
     ];

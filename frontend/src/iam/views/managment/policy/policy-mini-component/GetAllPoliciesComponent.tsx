@@ -1,7 +1,5 @@
 import React from 'react'
-import { useGetAllPoliciesQuery, useGetAllCustomManagedPolicesQuery } from '../../../../features/policiesAPI'
-import { PolicyAPIInterface } from '../../../../models/policy.model'
-import SharedTable from '../../../../../dms/components/tables/SharedTable'
+import { useGetAllCustomManagedPolicesQuery } from '../../../../features/policiesAPI'
 import usePolicyColumn from '../../constants/columns/usePolicyColumn'
 import { Div, FlexBox, Text } from '../../../../../components/common/StyledComponent'
 import PolicyTable from '../../../../components/Table/PolicyTable'

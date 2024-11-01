@@ -1,5 +1,5 @@
 import React, { useState }  from 'react'
-import { TabComponentPropsInterface } from '../../../../../dms/models/common-models';
+import { TabComponentPropsInterface } from '../../../../../app/models/common-models';
 import {  FlexBox, FlexBoxInner, Div, Text } from '../../../../../components/common/StyledComponent';
 
 interface TabNavigationInterfce {

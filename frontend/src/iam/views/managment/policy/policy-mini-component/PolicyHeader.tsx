@@ -2,8 +2,8 @@ import React from 'react'
 import { FlexBox, FlexBoxInner, Text } from '../../../../components/reusable/StyledComponent'
 import { Link , useLocation} from 'react-router-dom'
 import { LuUser2 } from 'react-icons/lu'
-import { useGetAllCustomManagedPolicesQuery } from '../../../../features/policiesAPI'
 import { RxCaretLeft } from "react-icons/rx";
+import { useGetAllCustomManagedPolicesQuery } from '../../../../features/policiesAPI'
 
 
 export const PolicyHeader = () => {

@@ -11,7 +11,7 @@ import * as CiIcons from 'react-icons/ci'
 
 const policyColumnHelper = createColumnHelper<PolicyColumnInterface>()
 
-const usePolicyColumn = (showActions?: boolean) => {
+const usePolicyColumn = () => {
    const policyColumn = useMemo(() => [
 
     // policyColumnHelper.display({

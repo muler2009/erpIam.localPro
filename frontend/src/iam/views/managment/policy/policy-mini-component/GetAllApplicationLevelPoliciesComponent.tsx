@@ -44,7 +44,7 @@ const GetAllApplicationLevelPoliciesComponent = ({showEntries, showSearch}: {sho
                     )
                 )
             }
-      </FlexBox>
+        </FlexBox>
       )
 }
 

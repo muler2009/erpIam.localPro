@@ -4,10 +4,10 @@ import { Layout } from '../layout/Layout'
 import Login from '../public/login/Login'
 import Dashboard from '../iam/layout/Dashboard'
 import RequireAuth from '../components/auth/RequiredAuth'
-import DMSDashboard from '../dms/layout/DMSDashboard'
+import DMSDashboard from '../app/layout/DMSDashboard'
 import MainScreeen from '../public/public-mini-component/MainPublicLayout'
-import DMSMainLayout from '../dms/layout/DMSMainLayout'
-import DMSReuesterLayout from '../dms/layout/DMSReuesterLayout'
+import DMSMainLayout from '../app/layout/DMSMainLayout'
+import DMSReuesterLayout from '../app/layout/DMSReuesterLayout'
 
 const Router = () => {
     const router = createBrowserRouter(
@@ -16,7 +16,7 @@ const Router = () => {
                 <Route path='/*' element={<MainScreeen />} />
                 <Route element={<RequireAuth />}  >
                     <Route path="iam/*" element={<Dashboard />} />
-                    <Route path="dms/*" element={<DMSMainLayout />} />
+                    <Route path="app/*" element={<DMSMainLayout />} />
                     <Route path="client/*" element={<DMSReuesterLayout />} />
 
                 </Route>

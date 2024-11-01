@@ -20,3 +20,10 @@ export interface DocumentPropsInterface extends ModalComponentPropsInterface {
     title: string;
     rowMetaData: RequestDataInterface
 }
+
+export interface APIResponseInterface {
+    status_code: number;
+    status_text?: string;
+    message?: string;
+    error_type?: string
+}

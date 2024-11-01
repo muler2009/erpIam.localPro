@@ -43,6 +43,7 @@ const useRegistration = () => {
     }
 
     const canSave = [...Object.values(registeration)].every(Boolean)
+    
     const onRegisterEventClicked = async() => {  
         try {
           const response = await userSelfRegistration(registeration).unwrap()

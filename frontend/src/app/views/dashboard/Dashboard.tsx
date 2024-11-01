@@ -6,12 +6,18 @@ import DashboardRecentActivity from './dashboard-sub-components/DashboardRecentA
 import DashboardStateStastics from './dashboard-sub-components/DashboardStateStastics'
 import DashboardSystemUsage from './dashboard-sub-components/DashboardSystemUsage'
 import NotificationDashboard from './dashboard-sub-components/NotificationDashbord'
+import ProfileAndActivityComponent from './dashboard-sub-components/ProfileAndActivityComponent'
 import UserRole from './dashboard-sub-components/UserRole'
 
 const Dashboard = () => {
   return (
-    <FlexBox className='w-full h-full bg-white m-1'>
-      <WelcomeComponent />
+    <FlexBox className='h-full m-1 flex space-x-2'>
+      <FlexBox className='flex-grow w-[80%]'>
+        <WelcomeComponent />
+      </FlexBox>
+      <FlexBox className='w-[20%] border-l'>
+          <ProfileAndActivityComponent />
+      </FlexBox>
     </FlexBox>
   )
 }

@@ -84,6 +84,7 @@ export interface UserAccountDataInterface {
 
 /** After the document management system  */
 export interface UserAccountInterfacee {
+  user_account_id?: string;
   first_name: string; 
   last_name: string;
   username: string;
@@ -98,7 +99,7 @@ export interface UserAccountInterfacee {
   is_active?: boolean; 
   is_superuser?: boolean;
   gChecked?: boolean;
-}
+} 
 
 export interface UserCoulumn extends UserAccountInterfacee {
   action?: unknown
@@ -107,7 +108,7 @@ export interface UserCoulumn extends UserAccountInterfacee {
 export interface UserAPIResponse extends UserAccountInterfacee{
   status_code?: number,
   statusText?: string,
-  // data: UserAccountInterfacee[]
+  
 }
 
 export interface TableHeaderProps {

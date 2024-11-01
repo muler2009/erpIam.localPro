@@ -128,3 +128,72 @@ input[type="checkbox"]:checked {
     opacity: 0;
   }
 }
+
+/* Customize the background color of the date picker */
+.react-datepicker {
+  background-color: #f0f0f0;
+  font-family: Poppins;
+  float: left;
+ 
+}
+
+/* Customize the font size of the month and year header */
+.react-datepicker__current-month,
+.react-datepicker__current-year {
+  font-size: 1.2rem;
+}
+
+/* Customize the font size of the days of the week */
+.react-datepicker__day-name,
+.react-datepicker__day {
+  font-size: 12px;
+  /* background-color: #fff; */
+}
+
+/* Customize the background color of the selected date */
+.react-datepicker__day--selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Customize the hover color of the dates */
+.react-datepicker__day:hover {
+  background-color: #f0f0f0;
+}
+.react-datepicker-wrapper > input {
+  padding-right: 40px;
+  font-size: 10px;
+}
+
+.react-datepicker-wrapper.relative > input {
+  padding-right: 10px;
+  
+}
+
+.react-datepicker-wrapper .relative:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.react-datepicker-wrapper.relative:before svg {
+  width: 20px;
+  height: 20px;
+}
+
+.react-datepicker-popper {
+  z-index: 1;
+  line-height: 0;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  transform: translate(0px, 38px);
+}

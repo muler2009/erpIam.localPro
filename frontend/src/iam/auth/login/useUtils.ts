@@ -7,7 +7,7 @@ interface GroupBasedPaths {
 const avaialabelGroups: GroupBasedPaths = {
   admin: '/iam',
   client: '/client',
-  directors: '/dms',
+  directors: '/app',
   default: 'defaultboard'
 }
 

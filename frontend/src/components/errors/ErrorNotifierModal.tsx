@@ -20,7 +20,7 @@ const ErrorNotifierModal = ({triggerMessageModal, errorMessage, setTriggerMessag
                         <Text className=' text-[15px] font-Poppins flex justify-center items-center'>
                             <span className='mr-2 text-red-700 font-bold'>
                             {/* <BiIcons.BiError size={25}/> */}
-                                ERROR: <span className='font-normal text-[#333] text-[12px]'>{errorMessage?.error_type}</span>
+                                {errorMessage?.error_type}
                             </span>
                             {/* {loginErrorMessage?.error_type} */}
                         </Text>

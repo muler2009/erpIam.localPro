@@ -1,6 +1,6 @@
 import React from 'react'
 import * as AiIcons from 'react-icons/ai'
-import { ProcessAPIResponse, StateAPIResponse } from '../../dms/models/request-model';
+import { ProcessAPIResponse, StateAPIResponse } from '../../app/models/request-model';
 import { FlexBox, FlexBoxInner } from './StyledComponent';
 import { UserAccountDataInterface, UserAPIResponse } from '../../iam/models/user.model';
 
