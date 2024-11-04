@@ -22,12 +22,13 @@ class NotificationModel(models.Model):
     notification_read = models.BooleanField(default=False)
     notification_type = models.CharField(max_length=50, choices=WORKFLOW_NOTIFICATION_TYPE.choices, default=WORKFLOW_NOTIFICATION_TYPE.IN_APP) # notification type
     notification_priority = models.CharField(max_length=10, choices=WORKFLOW_NOTIFICATION_PRIORITY.choices, default=WORKFLOW_NOTIFICATION_PRIORITY.LOW)
-    notification_sent_at = models.DateTimeField(auto_now_add=True)
+    notification_received_at = models.DateTimeField(auto_now_add=True)
     notification_status = models.CharField(max_length=100, null=True, blank=True)
     notification_metadata = models.JSONField(null=True, blank=True)
     
+    
     class Meta:
-        ordering = ['-notification_sent_at']
+        ordering = ['notification_recepient']
         db_table = 'Notifications'
         app_label = "notification"
 

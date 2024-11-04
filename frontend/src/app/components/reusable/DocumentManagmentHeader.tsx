@@ -1,17 +1,22 @@
 import React from "react";
-import { FlexBox, FlexBoxInner, FlexInnerContainer, FlexOuterContainer, Text } from "../../../components/common/StyledComponent";
-import * as MdIcons from "react-icons/md";
-import Tooltip from "../../../iam/components/reusable/Tooltip";
+import { Link } from "react-router-dom";
+import { FlexBox, FlexBoxInner, FlexInnerContainer, Div, Text } from "../../../components/common/StyledComponent";
 import { LiaPowerOffSolid } from "react-icons/lia";
 import useLogout from "../../../iam/auth/logout/useLogout";
 import { useSelector } from "react-redux";
 import { username } from "../../../iam/api/auth";
 import logo from '../../../assets/images/logo.png'
+import { TfiBell } from "react-icons/tfi";
+import { useGetNotificationQuery } from "../../services/notificationAPISlice";
+import { useGetAllActionQuery } from "../../../iam/features/policiesAPI";
 
 const DocumentManagmentHeader = () => {
 
   const {onUserLogoutClicked} = useLogout()
   const loggedInUser = useSelector(username)
+  const { data: notifications} = useGetNotificationQuery()
+
+  const unreadCount = Array.isArray(notifications) ? notifications.filter(notification => !notification.notification_read).length : 0;
 
   return (
     
@@ -25,12 +30,20 @@ const DocumentManagmentHeader = () => {
               </FlexBoxInner>
           </FlexBox>
   
-          <FlexBox className={`flex justify-between items-center space-x-3`}>
-            <Text className="text-[12px] text-blue-900">{loggedInUser}</Text>
-            <FlexBoxInner className="py-2 flex items-center space-x-2 px-5 cursor-pointer bg-[#26cc86] rounded-md hover:bg-gray-300 hover:text-black text-white" onClick={onUserLogoutClicked}>
-                <Text className="text-[12px]">Signout</Text>
-                <LiaPowerOffSolid />
-              </FlexBoxInner>
+          <FlexBox className={`flex justify-between items-center space-x-5`}>
+            <Link to={`notification`} className="relative">
+              <Div className="text-[20px] w-8 h-8 bg-white flex justify-center items-center rounded-full relative">
+                <TfiBell />
+                <div className="absolute -top-[6px] -right-1 text-[12px] bg-red-500  w-4 h-4 flex justify-center items-center rounded-full text-white">{unreadCount}</div> 
+              </Div>
+            
+            </Link>
+            {/* <Text className="text-[12px] text-blue-900">{loggedInUser}</Text> */}
+            <Div className="py-1 flex items-center hover:bg-[#26559e] hover:text-white hover:border-[#26559e] space-x-2 border-black border-[2px] ml-5 px-5 cursor-pointer" onClick={onUserLogoutClicked}>
+              <LiaPowerOffSolid />
+              <Text className="text-[12px]">Logout</Text>
+          </Div>
+         
           </FlexBox>
       </FlexInnerContainer>
 

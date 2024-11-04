@@ -6,7 +6,6 @@ from ...serializers.deactivation_serialzier import AccountDeacticationSerializer
 
 
 class AccountDeactivationRequestHandler(generics.GenericAPIView):
-  
     lookup_field = "user_account_id"
 
     def get_object(self):

@@ -13,6 +13,7 @@ import { AiFillDashboard } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { username } from "../../../../iam/api/auth";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
+import { useGetNotificationQuery } from "../../../services/notificationAPISlice";
 
 
 interface SideMenuListItemProps {
@@ -26,9 +27,13 @@ interface DisplayChildrensInterface {
 
 
 const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
+  const [active, setActive] = useState(null)
   // a state for handling open and closing
   const loggedInUser = useSelector(username)
   const [displayChildrens, setDisplayCurrentChildren] = useState<DisplayChildrensInterface>({});
+  const {data: notifications} = useGetNotificationQuery()
+  const unreadCount = Array.isArray(notifications) ? notifications.filter(notification => !notification.notification_read).length : 0;
+
 
   // Toggle handler
   const handleToggleChildren = useCallback(
@@ -41,14 +46,18 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
     []
   );
 
+  const handleActiveLink = useCallback((index : any) => {
+    setActive(index)
+  }, [active])
+
   return (
-    <FlexBox className="">
-      <FlexBoxInner className="pl-[15px]" >
+    <FlexBox className="flex flex-col ">
+      <FlexBoxInner className="pl-7" >
             {
               listItem.path
               ? ( 
-                  <Link to={listItem.path} className={`flex justify-between items-center  py-2 cursor-pointer font-Poppins text-sm px-3 hover:bg-gray-100 `} onClick={() => handleToggleChildren(listItem.label)}>
-                    <FlexBoxInner className="flex space-x-[6px]">
+                  <Link to={listItem.path} className={`flex justify-between items-center  py-2 cursor-pointer font-Poppins text-sm px-3 hover:bg-gray-100  `} onClick={() => handleToggleChildren(listItem.label)}>
+                    <FlexBoxInner className="flex space-x-3">
                         {
                           listItem.label === 'Dashboard' ? ( <AiFillDashboard size={20} className="text-gray-600"/> ) : (
 
@@ -75,13 +84,15 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
                                         }
                                     </div>
                                 ): (
-                                  <>{
-                                    listItem.icon ? (<>{listItem.icon}</>) : <VscSymbolFile />
-                                  }</> 
+                                  <div className="flex items-center">
+                                    {
+                                      listItem.icon ? (<>{listItem.icon}</>) : <VscSymbolFile />
+                                    }
+                                  </div> 
                                 )                         
                             )
                         }
-                      <div className={`flex text-[12px]`}>
+                      <div className={`text-[12px]`}>
                         {listItem.label}
                       </div>
                     </FlexBoxInner>
@@ -97,6 +108,11 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
                           </>
                         ) : null
                       }
+                      {
+                        listItem.label === "Notification" && (
+                          <div className="bg-red-500 px-3 text-white text-[12px] rounded-[3px]">{unreadCount} New</div>
+                        )
+                      }
                     </FlexBoxInner>
                   </Link>
               ) : (
@@ -109,7 +125,8 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
                 <SideMenuList list={listItem.children} />
               )
             }
-      </FlexBoxInner>      
+      </FlexBoxInner> 
+       
     </FlexBox>
   );
 };

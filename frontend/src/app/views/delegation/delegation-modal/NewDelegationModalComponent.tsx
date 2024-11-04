@@ -83,7 +83,6 @@ const NewDelegationModalComponent = ({open, handleIsOpenCloseMenuModal, title}: 
   return (
     
       open ? (
-        
           <ModalWrapper>
             <ModalContainer className={`w-[35%] mx-auto bg-gray-50 flex flex-col relative top-[20%] shadow-2xl rounded-[3px]`}>
                 <ModalHeader className='flex justify-between items-center px-2 py-[10px] font-Poppins rounded-t-md border-b'>
@@ -97,21 +96,21 @@ const NewDelegationModalComponent = ({open, handleIsOpenCloseMenuModal, title}: 
                 </ModalBody> 
                 <ModalFooter className='px-4 py-4 flex justify-end space-x-3 border-t mx-1 bg-white'>
                   <div className="flex justify-end space-x-5 pr-5 ">
-                    <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] text-[#333] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
+                    <button className={`btn-sm text-[12px] px-3 py-1 border-[2px] border-text-primary rounded-[3px] transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
                         <div className='flex justify-start items-center'>
                             <GrIcons.GrFormPrevious  size={15}/>
                             <p className='font-Poppins text-[13px]'>Prev</p>
                         </div>
                     </button>
 
-                    <button  className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${nextHide}`} onClick={handleNext} disabled={disableNext}>
+                    <button  className={`btn-sm text-[12px] px-3 py-1 border-[2px] border-text-primary rounded-[3px] transition duration-500 ease-in-out ${nextHide}`} onClick={handleNext} disabled={disableNext}>
                         <div className='flex justify-start items-center '>
                             <p className='font-Poppins text-[13px]'>Next</p>
                             <GrIcons.GrFormNext size={15} />
                         </div>
                     </button>
 
-                    <button className={`btn-sm text-[12px] px-3 py-1 border-[2px] border-text-primary rounded-[3px] transition duration-500 ease-in-out disabled:bg-gray-50 disabled:cursor-default ${submitHide}`}  onClick={onDelegateButtonEventClicked}>
+                    <button className={`btn-sm text-[12px] px-3 py-1 border-[2px] border-text-primary bg-text-primary text-white rounded-[3px] transition duration-500 ease-in-out disabled:bg-gray-50 disabled:cursor-default ${submitHide}`}  onClick={onDelegateButtonEventClicked}>
                         <div className='flex justify-start items-center '>
                           <p className='font-Poppins text-[13px]'>Delegate</p>
                         </div>

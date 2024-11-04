@@ -14,7 +14,9 @@ module.exports = {
       },
       colors: {
         'primary-green': '#26cc86',
-        'text-primary': '#0f172a'
+        'text-primary': '#0f172a',
+        'button-primary': '#3971c2',
+        'button-hover': "#26559e"
       },
       backgroundImage: {
         'watermark-logo': "url('/src/assets/images/watermark-logo.png')",

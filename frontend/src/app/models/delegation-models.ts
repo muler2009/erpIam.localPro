@@ -6,10 +6,11 @@ export interface DelegationDataInterface {
     delegation_start_date?: string | null | undefined;
     delegation_end_date?: string | null | undefined;
     is_delegation_active?: boolean; 
+    delegation_duration?: number;
 }
 
 export interface DelegationColumnInterface extends DelegationDataInterface {
-    delegation_id?: string;
+    delegation_id: string;
 }
 
 export interface DelegationContextPropsInterface {

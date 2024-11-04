@@ -29,6 +29,13 @@ export const delegationAPI = erpAPISlice.injectEndpoints({
             }),
             invalidatesTags: [API_TAGS.DELEGATION]
         }),
+        revokeDelegation: builder.mutation<APIResponseInterface, string>({
+            query: (delegation_id) => ({
+                url: `delegation/revoke/${delegation_id}/`,
+                method: `POST`,
+            }),
+            invalidatesTags: [API_TAGS.DELEGATION]
+        }),
 
 
     })
@@ -39,5 +46,6 @@ export const delegationAPI = erpAPISlice.injectEndpoints({
 export const {
     useGetAllDelegationQuery,
     useGetExpiredDelegationQuery,
-    usePostDelegationMutation
+    usePostDelegationMutation,
+    useRevokeDelegationMutation,
 } = delegationAPI

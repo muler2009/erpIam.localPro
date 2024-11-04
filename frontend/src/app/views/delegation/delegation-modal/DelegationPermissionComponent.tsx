@@ -23,8 +23,8 @@ const DelegationPermissionComponent = () => {
                         // checked={delegationData?.is_delegation_active}  
                         // onChange={handleDelegationInputChange}
                     />
-                    <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>
-                        All Permissions 
+                    <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#000] font-semibold'>
+                        Full Access <span className='text-pretty text-opacity-50 font-normal text-[11px]'>(The delegetee has full permission to do task on behalf of the you)</span>
                     </Text>
                     </label>  
                 </div>   
@@ -38,8 +38,8 @@ const DelegationPermissionComponent = () => {
                         // checked={delegationData?.is_delegation_active}  
                         // onChange={handleDelegationInputChange}
                     />
-                    <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>
-                        Request Approval permission 
+                   <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#000] font-semibold'>
+                        Request Approval Only 
                     </Text>
                     </label>  
                 </div>   
@@ -53,8 +53,8 @@ const DelegationPermissionComponent = () => {
                         // checked={delegationData?.is_delegation_active}  
                         // onChange={handleDelegationInputChange}
                     />
-                    <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>
-                        Read Permission
+                    <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#000] font-semibold'>
+                        Read Only
                     </Text>
                     </label>  
                 </div>   
@@ -68,8 +68,8 @@ const DelegationPermissionComponent = () => {
                         // checked={delegationData?.is_delegation_active}  
                         // onChange={handleDelegationInputChange}
                     />
-                    <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>
-                        Write Permission 
+                    <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#000] font-semibold'>
+                        Write Only 
                     </Text>
                     </label>  
                 </div>   
@@ -83,8 +83,8 @@ const DelegationPermissionComponent = () => {
                         // checked={delegationData?.is_delegation_active}  
                         // onChange={handleDelegationInputChange}
                     />
-                    <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>
-                        Change Permission 
+                    <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#000] font-semibold'>
+                        Change Only 
                     </Text>
                     </label>  
                 </div>  
@@ -98,8 +98,8 @@ const DelegationPermissionComponent = () => {
                         // checked={delegationData?.is_delegation_active}  
                         // onChange={handleDelegationInputChange}
                     />
-                    <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#333] text-opacity-80'>
-                        Delete Permission 
+                    <Text className='text-[12px] whitespace-nowrap font-Poppins text-[#000] font-semibold'>
+                        Delete Only 
                     </Text>
                     </label>  
                 </div>  

@@ -6,16 +6,22 @@ import { FlexBox, Text, Div } from '../../../../components/common/StyledComponen
 
 const GetAllDelegationHistory = () => {
   const { data: expiredDelegationData, isSuccess, error} = useGetExpiredDelegationQuery()
-  const {delegationColumn} = useDelegationColumn()
+  const {delegationColumn} = useDelegationColumn(expiredDelegationData)
 
   return (
-    <FlexBox className="mx-1 mt-1 h-[350px] border-b relative flex flex-col">
-        <div className='after:content-[""] after:absoulte after:w-[50%] after:top-[50%] after:h-[1px]  after:bg-black'>
+    <FlexBox className="mx-1 mt-1 h-full relative flex flex-col">
+        <div className='flex justify-between items-center'>
             <Text className='px-5 py-3 font-Poppins font-semibold text-[#000] text-[15px] '>
                 Delegation History
-                <span className='block font-normal text-[12px] text-[#333] text-opacity-50'>your delegation history </span>
+                <span className='block font-normal text-[12px] text-[#333] text-opacity-50 whitespace-nowrap'>your delegation history</span>
             </Text>
+            <Div className='px-5 w-1/2'>
+                <input 
+                    className='input-md font-Poppins'
+                    placeholder='Search delegation'
+                />
 
+            </Div>  
         </div>
 
         <Div className="policy">

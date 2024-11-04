@@ -10,7 +10,7 @@ export interface NotificationInterface {
     notification_recepient?: string; 
     notification_message: string;
     notification_read: boolean;
-    notification_recieved_at?: string; 
+    notification_received_at?: string; 
     notification_metadata: Record<string, any>;
     notification_type: string;
     current_state?: string;
@@ -19,8 +19,12 @@ export interface NotificationAPIResponse extends NotificationInterface {
     notification_id: string;
 }
 
+export interface NotificationColumn extends NotificationInterface {
+  notification_id: string;
+}
 
-interface NotificationsResponse {
+
+export interface NotificationsResponse extends NotificationInterface {
     notifications: NotificationInterface[];
     total_unread: number;
     user: {
@@ -33,3 +37,4 @@ export interface NotificationItemProps {
   notification: NotificationAPIResponse;
   unreadCount: number | undefined
 }
+

@@ -28,12 +28,12 @@ const NotificationList = ({notification, unreadCount}: NotificationItemProps) =>
       >
         <FlexBoxInner className="flex flex-col gap-1">
           <P className="capitalize font-semibold">{notification.notification_recepient}</P>
-          <P>{format(notification.notification_recieved_at || new Date(), 'EE, dd, yyyy')}</P>
+          <P>{format(notification.notification_received_at || new Date(), 'EE, dd, yyyy')}</P>
         </FlexBoxInner>
       
         <FlexBoxInner className="flex-grow">
           <P>{notification.notification_message} {notification.notification_metadata ? JSON.stringify(notification.notification_metadata) : 'No metadata'}</P> 
-          <P>{notification.notification_recieved_at}</P>                
+          <P>{notification.notification_received_at}</P>                
         </FlexBoxInner>
       
         <FlexBoxInner className="invisible hover:visible group-hover:visible flex items-center">   

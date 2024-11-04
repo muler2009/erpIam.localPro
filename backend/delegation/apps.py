@@ -5,3 +5,6 @@ class DelegationConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'delegation'
     label = 'delegation'
+
+    def ready(self):
+       import delegation.signals.signals

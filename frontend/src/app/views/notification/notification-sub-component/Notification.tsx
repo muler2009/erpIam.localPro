@@ -11,7 +11,7 @@ import NotificationList from "./NotificationList";
 
 export const NotificationDashboard = () => {
     const [params, setParams] = useState({ page: 1, limit: 10 });
-    const {data, isSuccess, error, isLoading} = useGetNotificationQuery(params) 
+    const {data, isSuccess, error, isLoading} = useGetNotificationQuery() 
     const notifications = data || [];  // Adjust based on your API response structure
     const unreadCount = Array.isArray(notifications) ? notifications.filter(notification => !notification.notification_read).length : 0;
   

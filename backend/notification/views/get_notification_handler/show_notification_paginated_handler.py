@@ -11,11 +11,11 @@ class NotificationPagination(PageNumberPagination):
     page_size_query_param = 'limit'
     max_page_size = 10  # Maximum number of notifications per page
 
-class ShowNotificationRequestHandler(generics.GenericAPIView):
+class ShowNotificationRequestHandler_(generics.GenericAPIView):
     authentication_classes = [authentication.JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ShowNotificationSerializer
-    pagination_class = NotificationPagination
+    # pagination_class = NotificationPagination
     
     def get(self, request, *args, **kwargs):
         user = request.user

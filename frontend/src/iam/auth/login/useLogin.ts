@@ -42,11 +42,11 @@ const useLogin = () => {
       setIsLoggingIn(true); // Start the animation
       const response = await userLogin(loginData).unwrap()
       // destructure the access and refresh token
-      const { access, refresh, username, group, is_active } = response
+      const { access, refresh, username, group, is_active, full_name } = response
       setIsActive(is_active)
       // Clear existing auth data before setting new data
       dispatch(clearAuthData({ isAuthenticated: false, access, refresh, username, group}));
-      dispatch(setAuthData({isAuthenticated: true, access, refresh, username, group }));
+      dispatch(setAuthData({isAuthenticated: true, access, refresh, username, group, full_name }));
       const userRoutePath = routeToDashboard(group) 
       navigate(userRoutePath)
 

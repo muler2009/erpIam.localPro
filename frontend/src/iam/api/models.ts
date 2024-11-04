@@ -5,6 +5,7 @@ export interface AuthState {
     refresh: string | null;
     csrftoken: null;
     group: string | null;
+    full_name: string | null;
 }
 
 export interface GetUserGroupAPIinterface {

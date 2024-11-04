@@ -5,7 +5,7 @@ import DashboardChart from './dashboard-sub-components/DashboardChart'
 import DashboardRecentActivity from './dashboard-sub-components/DashboardRecentActivity'
 import DashboardStateStastics from './dashboard-sub-components/DashboardStateStastics'
 import DashboardSystemUsage from './dashboard-sub-components/DashboardSystemUsage'
-import NotificationDashboard from './dashboard-sub-components/NotificationDashbord'
+import NotificationDashboard from '../notification/notification-sub-component/Notification'
 import ProfileAndActivityComponent from './dashboard-sub-components/ProfileAndActivityComponent'
 import UserRole from './dashboard-sub-components/UserRole'
 

@@ -6,6 +6,10 @@ import * as FaIcons from "react-icons/fa";
 import * as Fa6Icons from "react-icons/fa6";
 import * as BsIcons from "react-icons/bs";
 import * as IoIoIcons from "react-icons/io";
+import * as GoIcons from "react-icons/go";
+import * as GrIcons from "react-icons/gr";
+import * as RiIcons from "react-icons/ri";
+
 
 
 
@@ -16,21 +20,17 @@ export const sidear_link: MenuItemInterface[] = [
       icon: <Fa6Icons.FaRegFolder size={17} />
     },
     {
-      label: "My Drive",
+      label: "Documents",
       path: ".",
-      icon: <FaIcons.FaGoogleDrive />,
+      icon: <GrIcons.GrDocumentStore />,
       children: [
         {
-          label: "My Documents",
-          path: ".",
+          label: "Drive",
+          path: "library/files",
+          icon: <FaIcons.FaGoogleDrive />,
           children: [
             {
-              label: "Folder",
-              path: "library/main",
-              icon: <IoIoIcons.IoIosFolder size={15} />
-            },
-            {
-              label: "Files",
+              label: "My Files",
               path: "library/files",
               icon: <MdIcons.MdLibraryBooks size={15} />
             },
@@ -44,7 +44,17 @@ export const sidear_link: MenuItemInterface[] = [
               path: 'library/archvied',
               icon: <MdIcons.MdOutlineFolderZip size={15} />
             },
+            {
+              label: "Trash",
+              path: 'library/archvied',
+              icon: <IoIcons.IoTrashOutline size={15} />
+            },
           ]  
+        },
+        {
+          label: "User Data Manager",
+          path: "library/main",
+          icon: <RiIcons.RiFolder4Fill size={15} />
         },
         {
           label: "Deleted Files",
@@ -53,57 +63,56 @@ export const sidear_link: MenuItemInterface[] = [
         },        
       ]
     },
+  
     {
-      label: "Tasks",
+      label: "Workflow",
       path: ".",
-      icon: <MdIcons.MdAddTask />,
-      children: [
-        {
-          label: "Delegation",
-          path: "delegation",
-          icon: <MdIcons.MdOutlineAssignmentInd size={16} />
-        }
-      ]  
-    },
-
-
-    {
-      label: "User Record",
-      path: "recent",
-      icon: <BsIcons.BsFillDatabaseFill size={17} />
+      icon: <GoIcons.GoWorkflow />,
       
-    },
-    {
-      label: "Requests",
-      path: "request",
       children: [
         {
           label: "Requests",
           path: "request",
-          icon: <FaIcons.FaGoogleDrive />,
+          icon: <BsIcons.BsCardChecklist />,
         },
         {
-          label: "Sent Requests",
-          path: "requested-sent",
-          icon: <BsIcons.BsSendCheckFill />
+          label: "Delegation",
+          path: "delegation",
+          icon: <AiIcons.AiOutlineUserSwitch size={16} />
         }
       ]
     } 
   ];
 
-export const category: CategoryInterface[] = [
+  export const sidearBarLink: MenuItemInterface[] = [
     {
-      label: "Trash",
-      path: "spreedsheet",
-      icon: <IoIcons.IoTrashSharp />
+      label: "Notification",
+      path: "notification",
+      icon: <BsIcons.BsBellFill size={17} />
+      
     },
     {
-      label: "Adchived",
-      path: "compressed",
-      icon: <AiIcons.AiOutlineFileZip />
+      label: "Setting",
+      path: "setting",
+      icon: <IoIcons.IoSettingsOutline size={17} />,
+      children: [
+        {
+          label: "Profile Setting",
+          path: "profile",
+          icon: <FaIcons.FaGoogleDrive />,
+        },
+        {
+          label: "Notification Preference",
+          path: "preference",
+          icon: <MdIcons.MdOutlineAssignmentInd size={16} />
+        }
+      ]
+      
+    },
 
-    },
   ]
+
+
   
   export default sidear_link;
 

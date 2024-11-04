@@ -14,6 +14,8 @@ import { useSearchFolderQuery } from '../../../../services/folderAPISlice';
 import DocumentUploadModal from '../../../files-view/files-modal/DocumentUploadModal';
 import { useGetDocumentQuery } from '../../../../services/fileAPISlice';
 import useFiles from '../../../../hooks/useFiles';
+import { HiMiniFolderPlus } from "react-icons/hi2";
+import { MdCloudUpload } from "react-icons/md";
 
 
 const AllFileandFolderView = () => {
@@ -81,8 +83,8 @@ const AllFileandFolderView = () => {
         <FlexBoxInner className='bg-gray-50'>
           
             <FlexBoxInner className='mx-5 py-3'>
-                <Text className='font-semibold text-primary-green text-opacity-95 text-[23px]'>Record Library</Text>
-                <P className='text-[9px] text-[#333] text-opacity-65'>Document and any attachment the you made with yoou user account </P>
+                <Text className='font-semibold text-text-primary text-opacity-95 text-[23px]'>Folder Management</Text>
+                <P className='text-[11px] text-[#333] text-opacity-65'>Document and any attachment the you made with yoou user account </P>
             </FlexBoxInner>
                           
             <FlexBox className='flex gap-5 justify-between items-center mx-5 py-3'>
@@ -92,7 +94,7 @@ const AllFileandFolderView = () => {
                 </FlexBoxInner>
                 <FlexBoxInner className='flex-grow'>
                     <input 
-                        className='px-2 py-[7px] text-sm font-normal text-gray-700 bg-white border border-solid border-gray-300 transition ease-in-out m-0 focus:text-gray-700 focus:outline-none focus:bg-white rounded-[3px]' 
+                        className='px-2 py-[6px] text-[13px] font-normal text-gray-700 bg-white border border-solid border-gray-300 transition ease-in-out m-0 focus:text-gray-700 focus:outline-none focus:bg-white rounded-[3px]' 
                         placeholder='Search file and folder'
                         value={search}
                         onChange={handleSearchChange}
@@ -100,8 +102,14 @@ const AllFileandFolderView = () => {
                 </FlexBoxInner>
                 <FlexBox className='flex space-x-1 cursor-pointer pr-5 p-[5px]'>
                     <FlexBoxInner className='flex justify-center items-center space-x-3 '>
-                        <Text className='text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={openCreateFolderModal}>Create Folder</Text>
-                        <Text className='text-[12px] border px-3 rounded-[3px] hover:bg-gray-200 py-2' onClick={openUploadDocumentModal}>Upload</Text>
+                        <Text className='flex items-center text-[12px] border-[2px] border-text-primary hover:border-button-primary bg- px-3 rounded-[3px] hover:bg-button-hover hover:text-white py-[6px]' onClick={openCreateFolderModal}>
+                            <HiMiniFolderPlus size={18} />
+                            <span className="pl-1">New Folder</span>
+                        </Text>
+                        <Text className='flex items-center text-[12px] border-[2px] border-button-primary px-3 rounded-[3px] bg-button-primary hover:bg-button-hover text-white py-[6px]' onClick={openUploadDocumentModal}>
+                            <MdCloudUpload size={18} />
+                            <span className="pl-1">Upload Folder</span>
+                        </Text>
                     </FlexBoxInner>
                     <FlexBoxInner className={`w-10 h-10 flex justify-center items-center hover:rounded-full hover:bg-gray-200`}>
                         <Tooltip content={`List View`}>

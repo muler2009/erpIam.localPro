@@ -8,33 +8,38 @@ import {
   FlexOuterContainer,
   P,
   Text,
+  Div
 } from "../../components/common/StyledComponent";
 import DocumentManagmentHeader from "../components/reusable/DocumentManagmentHeader";
 import * as HiIcons from "react-icons/hi2";
 import { FaBars } from "react-icons/fa";
 import Routes from "../Routes/Routes";
+import user from '../../assets/images/user-picture.png'
+import { fullName } from "../../iam/api/auth";
+import { useSelector } from "react-redux";
 
 const DMSDashboard = () => {
 
+  const full_name = useSelector(fullName)
+  
   return (
     <FlexBox className="flex h-full">
-      <FlexBoxInner className="flex space-x-1 my-[1px] w-[18%]">
-        <FlexBox className="flex flex-1 flex-col gap-3 py-5 bg-[#f7f9fb]">
-          <FlexBoxInner className="flex justify-start px-5 items-center ">
-            <div className="flex flex-col items-center">
-              <div className="flex justify-center items-center">
-                <HiIcons.HiClipboardDocumentCheck size={60} className="text-[#26cc86]" />
-                <div className="flex flex-col">
-                  <Text className="font-Oswald tracking-wide text-[2rem] text-[#26cc86] whitespace-nowrap">oDMS</Text>
-                  <P className="float-right font-Poppins text-sm -pt-1"> system</P>
-                </div>
-              </div>
+      <FlexBoxInner className="my-[1px] w-[20%]">
+        <Div className="flex flex-col space-y-3">
+          <div className="flex space-x-3 px-5 pt-4 pb-2">
+            {/* <div className="h-16 w-16 rounded-full border" /> */}
+            <img src={user} alt="user profile picture" className="h-16 w-16 rounded-full border object-cover object-center" />
+            <div className="flex items-center">
+              <p className="text-[14px] font-semibold font-Poppins">
+                {full_name} <span className="block text-[12px] font-normal">position of the user</span> 
+              </p>
             </div>
-          </FlexBoxInner>
-          <FlexBoxInner className="pt-5 flex flex-col flex-grow">
+          </div>
+          <Div className="pt-3 flex flex-col flex-grow">
             <SideBarMain menus={sidebar_link} />
-          </FlexBoxInner>
-        </FlexBox>
+          </Div>
+        </Div>
+
       </FlexBoxInner>
       <FlexBox className="w-full border overflow-y-scroll">
         <Outlet />

@@ -20,6 +20,8 @@ import GetAllDocument from '../views/files-view/GetAllDocument';
 import AllFilesOnly from '../views/document-management/folders/folder-mini-reusable-components/AllFilesOnly';
 import DelegationDashboardComponent from '../views/delegation/DelegationDashboardComponent';
 import DelegationDashboardContent from '../views/delegation/delegation-mini-component/DelegationDashboardContent';
+import NotificationTabNavigation from '../views/notification/notification-sub-component/NotificationTabNavigation';
+import NotificationDashboard from '../views/notification/NotificationDashboard';
 
 
 
@@ -64,6 +66,10 @@ const Routes = () => {
          },
         { path: 'requested-sent', element: <RequestSent /> },
         { path: 'client', element: <RequestSent /> },
+
+
+        { path: 'notification', element: <NotificationDashboard /> },
+
     ];
 
     return useRoutes(dmsRoutes);

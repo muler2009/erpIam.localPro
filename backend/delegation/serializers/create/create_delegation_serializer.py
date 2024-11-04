@@ -8,6 +8,8 @@ class CreateDelegationSerializer(serializers.ModelSerializer):
     delegation_end_date = serializers.DateField(input_formats=["%Y-%m-%d"])
     delegatee_user = serializers.SerializerMethodField()
     
+
+    
     class Meta:
         model = DelegationModel
         fields = [
@@ -15,7 +17,8 @@ class CreateDelegationSerializer(serializers.ModelSerializer):
             'delegatee_user',
             'delegation_start_date', 
             'delegation_end_date', 
-            'is_delegation_active' 
+            'is_delegation_active',
+           
         ]
         extra_kwargs = {
             'delegator': {'read_only': True}, 
@@ -38,7 +41,7 @@ class CreateDelegationSerializer(serializers.ModelSerializer):
         
         # Check if the user already has an active delegation
         if DelegationModel.objects.filter(delegator=self.context['request'].user, is_delegation_active=True).exists():
-            raise serializers.ValidationError("You already has an active delegation.")
+            raise serializers.ValidationError("You already has an active delegation. Revoke the existing to delegate another staff!")
         
         return data
 
