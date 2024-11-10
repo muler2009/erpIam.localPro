@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Link } from "react-router-dom";
 import { FlexBox, FlexBoxInner } from "../../../../components/common/StyledComponent";
 import { useGetNotificationQuery } from "../../../services/notificationAPISlice";
 
@@ -15,6 +16,8 @@ import {
     ExpandedState,
     getExpandedRowModel
 } from '@tanstack/react-table'
+import { NotificationAPIResponse, NotificationInterface } from "../../../models/notification-models";
+import { useMarkAsReadNotificationMutation } from "../../../services/notificationAPISlice";
 
 
 interface SharedTableProps<T> {
@@ -24,12 +27,16 @@ interface SharedTableProps<T> {
     showEntries?: boolean;
     showSearch?: boolean;
     showActions?: boolean; 
+    handleNotificationClick: (notification_id: string) => Promise<void>
+
   }
   
-const NotificationTable= <T,>({data, columns, watermark, showEntries = true, showSearch = true, showActions= false}: SharedTableProps<T>) => {
+const NotificationTable= <T,>({data, columns, watermark, handleNotificationClick, showEntries = true, showSearch = true, showActions= false}: SharedTableProps<T>) => {
    
     const {data: notificationData} = useGetNotificationQuery()
-    const notification = notificationData?.[4]?.notification_read ;
+    // const notification = notificationData?.[4]?.notification_read ;
+    const notification = notificationData?.map(notification => notification.notification_read);
+    
 
     const [globalFilter, setGlobalFilter] = useState<string | number>('')
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -54,8 +61,17 @@ const NotificationTable= <T,>({data, columns, watermark, showEntries = true, sho
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: setPagination,
-
   })
+
+//   const [ markAsReadNotification ] = useMarkAsReadNotificationMutation();
+
+//   const handleNotificationClick = async(notification_id : any) => {
+//     try {
+//       const response = await markAsReadNotification(notification_id).unwrap();
+//     } catch (error) {
+//       console.error('Failed to mark notification as read:', error);
+//     }
+//   };
 
   return (
 
@@ -102,21 +118,26 @@ const NotificationTable= <T,>({data, columns, watermark, showEntries = true, sho
                         )
                     }  
 
+
                     {
                     
                         sharedTableInstance.getRowModel().rows.map((row) => {
                             return (
-                            <React.Fragment key={row.id}>
-                                <tr key={row.id} className={`hover:bg-gray-100 group ${notification ? 'bg-white' : 'bg-sky-100'}`} >
-                                    {row.getVisibleCells().map((cell) => {
-                                    return (
-                                        <td key={cell.id}>
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </td>
-                                    );
-                                    })}
-                                </tr>
-                            </React.Fragment>
+                                    <React.Fragment key={row.id} >
+                                            <tr key={row.id} className="hover:bg-gray-100 group" onClick={() => handleNotificationClick((row.original as NotificationAPIResponse).notification_id)}>
+                                                {/* <Link to="somehwere" className="link" > */}
+                                                        {row.getVisibleCells().map((cell) => {
+                                                        return (
+                                                        
+                                                            <td key={cell.id}>
+                                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                                            </td>
+                                                        );
+                                                        })}
+                                                {/* </Link> */}
+                                            </tr>
+
+                                    </React.Fragment>
                             );
                         })
                         

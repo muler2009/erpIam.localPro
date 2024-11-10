@@ -17,7 +17,7 @@ interface TimeAgoProps {
   
     return (
       <span title={timestamp.toString()}>
-        <p className='font-[500] texxt-[9px] text-blue-500'>
+        <p className='font-[500] texxt-[9px]'>
         &nbsp; {timeAgo}
 
         </p>

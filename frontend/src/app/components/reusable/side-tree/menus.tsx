@@ -102,8 +102,8 @@ export const sidear_link: MenuItemInterface[] = [
           icon: <FaIcons.FaGoogleDrive />,
         },
         {
-          label: "Notification Preference",
-          path: "preference",
+          label: "Preference",
+          path: "preferences",
           icon: <MdIcons.MdOutlineAssignmentInd size={16} />
         }
       ]

@@ -42,16 +42,16 @@ const AllFilesOnly = () => {
                   <p className='text-[11px] text-[#333] text-opacity-65'>Document and any attachment the you made with yoou user account </p>
               </FlexBoxInner>
                             
-              <FlexBox className='flex  justify-start items-center mx-1 shadow-sm py-2 divide-x-[1px] bg-white'>
-                <Link className='px-2 cursor-pointer z-10' to="../">
+              <FlexBox className='flex justify-start items-center shadow-sm py-2 pl-5 pr-10 bg-white'>
+                <Link className='cursor-pointer px-4 z-10' to="../">
                     <BottomTooltip content='Back to Home'>
-                        <IoIcons.IoChevronBackOutline />
+                        <IoIcons.IoHome />
                     </BottomTooltip> 
                 </Link>
 
                 {/* filter drop down in the file */}
                 <Div className='relative px-2'>
-                    <Text className='text-sm flex px-2 py-2 items-center cursor-pointer text-[12px] hover:bg-gray-100' onClick={handledropdownMenu}>
+                    <Text className={`text-sm flex px-2 py-[6px] items-center cursor-pointer text-[12px] hover:bg-button-hover border-[2px] border-button-hover rounded-[4px] ${dropdown && 'bg-button-hover text-white'}`} onClick={handledropdownMenu} >
                         <span><BiSort /></span>Sort Files
                         <span className='pl-3'>
                             { dropdown ? <RxIcons.RxCaretUp/> : <RxIcons.RxCaretDown /> }
@@ -75,8 +75,8 @@ const AllFilesOnly = () => {
                     )}
                     
                 </Div>
-                <Div className='cursor-pointer pl-2' onClick={handleIsOpenCloseMenuModal}>
-                    <Text className='text-[12px] px-3 rounded-[3px] py-2 flex items-center hover:bg-gray-100 '>
+                <Div className='cursor-pointer px-2' onClick={handleIsOpenCloseMenuModal}>
+                    <Text className='text-[12px] px-3 rounded-[4px] py-[7px] flex items-center hover:bg-button-hover border-[2px] border-button-hover bg-button-primary text-white'>
                         <TfiIcons.TfiUpload size={18} className='pr-[5px]' />
                         Upload File
                     </Text>      
@@ -85,8 +85,8 @@ const AllFilesOnly = () => {
 
                 <Div className='flex-grow ml-5'>
                     <input 
-                        className='px-2 py-[7px] text-[12px] font-normal text-gray-700 bg-white border border-solid border-gray-300 transition ease-in-out m-0 focus:text-gray-700 focus:outline-none focus:bg-white rounded-[3px]' 
-                        placeholder='Search file'
+                        className='px-5 py-[8px] text-[12px] rounded-full font-normal text-gray-700 bg-white border border-solid border-gray-300 transition ease-in-out m-0 focus:text-gray-700 focus:outline-none focus:bg-white ' 
+                        placeholder='Search files'
                         
                     />
                 </Div>
@@ -94,15 +94,14 @@ const AllFilesOnly = () => {
               </FlexBox>
           </FlexBoxInner>
   
-          <FlexBox className='border h-full mt-1'>
-              <FlexBoxInner className='flex justify-between pt-2 pb-4 pl-6 pr-20 cursor-pointer border-b'>
+          <FlexBox className='border h-full mt-1 rounded-t-md '>
+                <FlexBoxInner className='flex justify-between pt-2 pb-4 pl-6 pr-20 cursor-pointer border-b bg-gray-100'>
                   <Text className='font-IBMPlexSans text-[#333] text-opacity-75 text-[13px]'>Name</Text>
-                 
                   <Div className='flex space-x-5'>
                       <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Size</Text>
                       <Text className='font-IBMPlexSans  text-[#333] text-opacity-75 text-[13px]'>Modified Date</Text>
                   </Div>
-              </FlexBoxInner>
+                </FlexBoxInner>
 
               <GetAllDocument />
               

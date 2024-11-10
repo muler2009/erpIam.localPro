@@ -202,13 +202,13 @@
     .policy  .table > tbody > tr > td { @apply pl-5 py-[4px] text-[#333] text-opacity-80 text-[13px]}
     .policy  .table > thead > tr > th:first-child { @apply w-[0%] }
    
-    .notification > .table > tbody > tr > tbody > tr { @apply cursor-pointer bg-[#f9f9f9]}
-    .notification  .table > tbody > tr > td { @apply pl-5 py-3 text-[#333] text-opacity-80 text-[13px]}
-    .notification  .table > tbody > tr > td:first-child { @apply w-[0%] }
-    .notification  .table > tbody > tr > td:nth-child(2) { @apply w-[0%] }
-    .notification  .table > tbody > tr > td:nth-child(3) { @apply w-[20%] }
-    .notification  .table > tbody > tr > td:nth-child(4) { @apply w-[5%] }
-    .notification  .table > tbody > tr > td:last-child { @apply w-[0%] }
+    .notification > .table > tbody > tr { @apply cursor-pointer bg-[#f9f9f9]}
+    .notification  .table > tbody > tr  > td { @apply pl-5 py-3 text-[#333] text-opacity-80 text-[13px]}
+    .notification  .table > tbody > tr  > td:first-child { @apply w-[0%] }
+    .notification  .table > tbody > tr  > td:nth-child(2) { @apply w-[0%] }
+    .notification  .table > tbody > tr  > td:nth-child(3) { @apply w-[20%] }
+    .notification  .table > tbody > tr  > td:nth-child(4) { @apply w-[5%] }
+    .notification  .table > tbody > tr  > td:last-child { @apply w-[0%] }
     .notification  .table-striped > tbody > tr:nth-of-type(odd) { @apply  bg-[#eeeeee] }
     .notification  .table-striped > tbody > td:nth-of-type(even) {@apply py-4 }
     .notification  .table-striped > tbody > tr:nth-of-type(even) { @apply bg-[#f9f9f9] py-5}

@@ -11,6 +11,7 @@ import GetAllPoliciesComponent from '../views/managment/policy/policy-mini-compo
 import NewPolicyComponent from '../views/managment/policy/policy-mini-component/NewPolicyComponent';
 import NewPermissionCreationOnResourceComponent from '../views/managment/policy/policy-mini-component/NewPermissionCreationOnResourceComponent';
 import PolicyMain from '../views/managment/policy/policy-mini-component/PolicyMain';
+import NotificationSettingMain from '../views/managment/setting/main/NotificationSettingMain';
 
 interface Route {
     path: string;
@@ -38,13 +39,11 @@ const AdminRoutes = () => {
           element: <NewPolicyComponent />,
           children: [
             { path: 'just',  element: <NewPermissionCreationOnResourceComponent /> },
-
           ]
          },
-
-
       ] 
     },
+    { path: 'notification-setting',  element: <NotificationSettingMain /> },
 
   ]
 

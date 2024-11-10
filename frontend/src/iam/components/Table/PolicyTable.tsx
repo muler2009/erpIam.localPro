@@ -136,7 +136,7 @@ const PolicyTable= <T,>({data, columns, watermark, showEntries = true, showSearc
             </table>
         </FlexBoxInner>
         <FlexBox className='flex justify-center items-center space-x-3 z-10'>
-            <PaginationController table = {sharedTableInstance} />          
+            <PaginationController table={sharedTableInstance} />          
         </FlexBox>
     </FlexBox>
 

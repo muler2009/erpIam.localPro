@@ -102,7 +102,7 @@ const AllFileandFolderView = () => {
                 </FlexBoxInner>
                 <FlexBox className='flex space-x-1 cursor-pointer pr-5 p-[5px]'>
                     <FlexBoxInner className='flex justify-center items-center space-x-3 '>
-                        <Text className='flex items-center text-[12px] border-[2px] border-text-primary hover:border-button-primary bg- px-3 rounded-[3px] hover:bg-button-hover hover:text-white py-[6px]' onClick={openCreateFolderModal}>
+                        <Text className='flex items-center text-[12px] border-[2px] border-text-primary hover:border-button-primary px-3 rounded-[3px] hover:bg-button-hover hover:text-white py-[6px]' onClick={openCreateFolderModal}>
                             <HiMiniFolderPlus size={18} />
                             <span className="pl-1">New Folder</span>
                         </Text>

@@ -10,15 +10,15 @@ class CreateDelegationRequestHandler(generics.GenericAPIView, mixins.CreateModel
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = CreateDelegationSerializer
 
-    def post(self, request:Request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs):
         try:
-            delegation_serialzier = self.validate_request_data(request=request)
+            delegation_serializer = self.validate_request_data(request=request)
             self.check_delegation_role(request=request)
-            self.save_delegation_instance(delegation_serialzier)
+            self.save_delegation_instance(delegation_serializer)
         except CustomExceptionForError as exception:
             return Response({
-                "message": exception.message,
-                "error_type": exception.error_type,
+                "message": str(exception.message),  # Ensure message is string
+                "error_type": str(exception.error_type),  # Ensure error_type is string
                 "status_code": exception.status_code
             }, status=status.HTTP_400_BAD_REQUEST)
         else:
@@ -27,21 +27,25 @@ class CreateDelegationRequestHandler(generics.GenericAPIView, mixins.CreateModel
                 'status_text': 'Delegation successful'
             }, status=status.HTTP_201_CREATED)
 
-    # validating the request data that going to be posted 
+    # Validates the request data that will be posted
     def validate_request_data(self, request):
-        serialzier = self.serializer_class(data=request.data, context={'request': request})
-        if not serialzier.is_valid():  # Allow serializer to raise exceptions
-            raise CustomExceptionForError(message=serialzier.errors, error_type="ERROR", status_code=400)
-        return serialzier
-    
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        if not serializer.is_valid():
+            raise CustomExceptionForError(
+                message=str(serializer.errors), error_type="ERROR", status_code=400
+            )
+        return serializer
+
     def check_delegation_role(self, request):
         user = request.user
-        if not user.roles.filter(
-            Q(role_name="deputy") | Q(role_name="vice")
-        ).exists():
-            raise CustomExceptionForError(message="Delegation is not possible for associated use role", error_type="NOT ALLOWED")
-        
+        if not user.roles.filter(Q(role_name="deputy") | Q(role_name="vice")).exists():
+            raise CustomExceptionForError(
+                message="Delegation is not possible for associated user role",
+                error_type="NOT ALLOWED"
+            )
         return user
 
     def save_delegation_instance(self, serializer):
-        return serializer.save() 
+        delegation_instance = serializer.save()
+        # Optionally return delegation_instance if further processing is required
+        return delegation_instance

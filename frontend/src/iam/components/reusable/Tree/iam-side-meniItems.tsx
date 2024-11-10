@@ -57,9 +57,16 @@ export const iamSidebarItems = [
         
     },
     {
-        path: "config", 
+        path: ".", 
         label: 'System Configuration',
-        icon: <GrIcons.GrConfigure />
+        icon: <GrIcons.GrConfigure />,
+        children: [
+            { 
+                path: "notification-setting", 
+                label: "Notification Setting", 
+                icon: <BiIcons.BiBell />, 
+            },
+        ]
 
     },
 ]

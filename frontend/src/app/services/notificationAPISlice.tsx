@@ -21,7 +21,8 @@ const notificationAPISlice = erpAPISlice.injectEndpoints({
             query: (notification_id) => ({
                 url: `notification/update/${notification_id}/mark-as-read/`,
                 method: `PATCH`,
-            })
+            }),
+            invalidatesTags: [API_TAGS.NOTIFICATION]
         })
     })
 })

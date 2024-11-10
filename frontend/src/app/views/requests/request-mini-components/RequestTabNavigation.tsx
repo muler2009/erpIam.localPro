@@ -11,8 +11,8 @@ const RequestTabNavigation = () => {
   
     return (  
       <>
-        <FlexBox className='relative font-IBMPlexSans font-semibold w-full text-[14px]'>
-          <FlexBoxInner className='flex justify-between items-center bg-opacity-50 border-b-[2px] ' >
+        <FlexBox className='relative font-Poppins font-semibold w-full text-[14px]'>
+          <FlexBoxInner className='flex justify-between items-center bg-opacity-50' >
             <Div className='flex justify-start space-x-3 px-3 pl-5 flex-grow '>
               {
                   request_tab_menu?.map((request_tab, index) => (

@@ -17,7 +17,7 @@ class ShowNotificationRequestHandler(generics.GenericAPIView, mixins.ListModelMi
         try: 
             user = self.get_requesting_user(request)
             notifications =  self.get_notification(user)
-            notification_serializer = self.serializer_class(notifications, many=True)
+            notification_serializer = self.serializer_class(notifications, many=True,  context={'request': request})
 
         except CustomExceptionForError as exc:
             return Response({

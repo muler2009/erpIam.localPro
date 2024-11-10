@@ -13,6 +13,8 @@ export interface NotificationInterface {
     notification_received_at?: string; 
     notification_metadata: Record<string, any>;
     notification_type: string;
+    notification_sender: string;
+
     current_state?: string;
 }
 export interface NotificationAPIResponse extends NotificationInterface {

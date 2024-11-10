@@ -3,10 +3,13 @@ from ...models.core_notification_model import NotificationModel
 
 
 class ShowNotificationSerializer(serializers.ModelSerializer):
-    full_name = serializers.SerializerMethodField() 
+    full_name = serializers.SerializerMethodField()
 
     def get_full_name (self, obj):
         return f"{obj.notification_recepient.first_name} {obj.notification_recepient.last_name}"
+    
+    
+    
 
     class Meta:
         model = NotificationModel
@@ -20,7 +23,8 @@ class ShowNotificationSerializer(serializers.ModelSerializer):
             'notification_priority', 
             'notification_received_at',
             'notification_status',
-            'notification_metadata'   
+            'notification_metadata',
+            'notification_sender'
         ]
         
       

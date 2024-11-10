@@ -31,8 +31,9 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
   // a state for handling open and closing
   const loggedInUser = useSelector(username)
   const [displayChildrens, setDisplayCurrentChildren] = useState<DisplayChildrensInterface>({});
-  const {data: notifications} = useGetNotificationQuery()
-  const unreadCount = Array.isArray(notifications) ? notifications.filter(notification => !notification.notification_read).length : 0;
+  const {data} = useGetNotificationQuery()
+  const notifications = data || []
+  const unread = notifications?.filter(notification => notification.notification_read === false)
 
 
   // Toggle handler
@@ -110,7 +111,8 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
                       }
                       {
                         listItem.label === "Notification" && (
-                          <div className="bg-red-500 px-3 text-white text-[12px] rounded-[3px]">{unreadCount} New</div>
+                          <div className={`px-2 text-white text-[12px] rounded-[3px] ${unread.length > 0 ? 'bg-red-500': 'bg-gray-200'}`}>{unread?.length} New</div>
+                         
                         )
                       }
                     </FlexBoxInner>

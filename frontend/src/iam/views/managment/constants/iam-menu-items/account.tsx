@@ -5,8 +5,6 @@ import * as IoIcons from "react-icons/io";
 import * as GrIcons from "react-icons/gr";
 import * as MdIcons from "react-icons/md";
 import * as CiIcons from 'react-icons/ci'
-
-
 import GetAlLUserListComponent from "../../user/views/GetAllUserListComponent";
 import { data } from "../../../../constants/columns";
 import { UserActionMenuItemsProps, UserDashboardProps } from "../../../../models/user.model";

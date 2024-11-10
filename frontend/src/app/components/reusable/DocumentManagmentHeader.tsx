@@ -14,9 +14,10 @@ const DocumentManagmentHeader = () => {
 
   const {onUserLogoutClicked} = useLogout()
   const loggedInUser = useSelector(username)
-  const { data: notifications} = useGetNotificationQuery()
+  const { data} = useGetNotificationQuery()
+  const notifications = data || []
 
-  const unreadCount = Array.isArray(notifications) ? notifications.filter(notification => !notification.notification_read).length : 0;
+  const unread = notifications?.filter(notification => notification.notification_read === false)
 
   return (
     
@@ -34,7 +35,7 @@ const DocumentManagmentHeader = () => {
             <Link to={`notification`} className="relative">
               <Div className="text-[20px] w-8 h-8 bg-white flex justify-center items-center rounded-full relative">
                 <TfiBell />
-                <div className="absolute -top-[6px] -right-1 text-[12px] bg-red-500  w-4 h-4 flex justify-center items-center rounded-full text-white">{unreadCount}</div> 
+                <div className={`absolute -top-[6px] -right-1 text-[12px] w-4 h-4 flex justify-center items-center rounded-full text-white ${unread.length > 0 ? 'bg-red-500': 'bg-gray-200'}`}>{unread.length}</div> 
               </Div>
             
             </Link>
@@ -42,8 +43,7 @@ const DocumentManagmentHeader = () => {
             <Div className="py-1 flex items-center hover:bg-[#26559e] hover:text-white hover:border-[#26559e] space-x-2 border-black border-[2px] ml-5 px-5 cursor-pointer" onClick={onUserLogoutClicked}>
               <LiaPowerOffSolid />
               <Text className="text-[12px]">Logout</Text>
-          </Div>
-         
+            </Div>
           </FlexBox>
       </FlexInnerContainer>
 

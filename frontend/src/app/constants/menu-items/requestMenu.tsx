@@ -28,16 +28,16 @@ export const requestMenu: NavigationMenuProps[] = [
 
 export const request_tab_menu: RequestTabMenuInterface[] = [
     { 
-      label: "Pending Requests",
-      tabContent: <RequestList /> ,
-      notification: 0,
-      total: true
-    },
-    { 
-        label: "Request Received",
+        label: "Received",
         tabContent: <GetRequestsForApproval />,
         notification: 0,
         total: true
+    },
+    { 
+      label: "Pending",
+      tabContent: <RequestList /> ,
+      notification: 0,
+      total: true
     },
     { 
         label: "Approved",

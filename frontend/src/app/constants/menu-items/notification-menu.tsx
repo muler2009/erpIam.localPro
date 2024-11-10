@@ -13,6 +13,10 @@ export const notification_item: TabMenuInterface[] = [
         tabContent: <h1>Unread Notification</h1>
     },
     {
+        label: "Approval",
+        tabContent: <h1>Unread Notification</h1>
+    },
+    {
         label: "Archived",
         tabContent: <h1>Archived Notification</h1>
     },

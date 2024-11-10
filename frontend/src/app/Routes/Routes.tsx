@@ -22,6 +22,9 @@ import DelegationDashboardComponent from '../views/delegation/DelegationDashboar
 import DelegationDashboardContent from '../views/delegation/delegation-mini-component/DelegationDashboardContent';
 import NotificationTabNavigation from '../views/notification/notification-sub-component/NotificationTabNavigation';
 import NotificationDashboard from '../views/notification/NotificationDashboard';
+import NotificationReadActionComponent from '../constants/columns/notification-column-action-component/NotificationReadActionComponent';
+import { NotificationListComponent } from '../views/notification/notification-sub-component';
+import PreferencesDashboardComponent from '../views/preferences/main/PreferencesDashboardComponent';
 
 
 
@@ -48,7 +51,6 @@ const Routes = () => {
         { path: 'library/shared', element: <SharedMainDashboard/> },
 
         { path: 'library/archvied', element: <GetAllDocument /> },
-
        
         { path: 'request', element: <RequestMainPage/>,
             children: [
@@ -68,7 +70,13 @@ const Routes = () => {
         { path: 'client', element: <RequestSent /> },
 
 
-        { path: 'notification', element: <NotificationDashboard /> },
+        { path: 'notification', element: <NotificationDashboard />,
+            children: [
+                { path: 'somehwere', element: <h1>detail</h1> } 
+            ]
+         },
+
+         { path: 'preferences', element: <PreferencesDashboardComponent /> },
 
     ];
 
