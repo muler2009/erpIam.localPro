@@ -2,7 +2,7 @@ from typing import Iterable
 import uuid
 from django.db import models
 from iam.models import UserAccountsModel
-from .notification_template import NotificationTemplateModel
+from .notification_event_type import NotificationEventTypeModel
 
 # Core Notification Model Service
 class NotificationModel(models.Model):
@@ -12,23 +12,14 @@ class NotificationModel(models.Model):
         SMS = 'sms', 'sms'
         IN_APP = "In_app", "In_app"
 
-    class WORKFLOW_NOTIFICATION_PRIORITY(models.TextChoices):
-        LOW= "low", 'low'
-        MEDIUM = 'medium', 'medium'
-        HIGHT = "high", "high"
-
-    notification_id = models.UUIDField(db_index=True, default=uuid.uuid4, primary_key=True, editable=False, unique=True)
-    notification_sender = models.CharField(max_length=255, null=True, blank=True)
+    notification_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
+    notification_sender = models.ForeignKey(UserAccountsModel, on_delete=models.CASCADE, related_name='sender', null=True, blank=True)
     notification_recepient = models.ForeignKey(UserAccountsModel, on_delete=models.CASCADE, related_name='notification', null=True, blank=True)
-    notification_template = models.ForeignKey(NotificationTemplateModel, on_delete=models.SET_NULL, null=True)
+    notification_template = models.ForeignKey(NotificationEventTypeModel, on_delete=models.SET_NULL, null=True)
+    notification_message = models.TextField(null=True, blank=True)
     notification_read = models.BooleanField(default=False)
     notification_received_at = models.DateTimeField(auto_now_add=True)
     notification_metadata = models.JSONField(null=True, blank=True)
-
-    # notification_message = models.TextField()
-    # notification_type = models.CharField(max_length=50, choices=WORKFLOW_NOTIFICATION_TYPE.choices, default=WORKFLOW_NOTIFICATION_TYPE.IN_APP) # notification type
-    # notification_status = models.CharField(max_length=100, null=True, blank=True)
-    # notification_priority = models.CharField(max_length=10, choices=WORKFLOW_NOTIFICATION_PRIORITY.choices, default=WORKFLOW_NOTIFICATION_PRIORITY.LOW)
     
     class Meta:
         ordering = ['notification_recepient']
@@ -36,9 +27,9 @@ class NotificationModel(models.Model):
         app_label = "notification"
 
     def __str__(self) -> str:
-        return f"{self.notification_id}"
+        return f"{self.notification_sender.username}"
     
-    def save(self, using='erp_db', *args, **kwargs):
+    def save(self, using='erp_db', *args, **kwargs):    
         if self.notification_read is None:
             self.notification_read = False
         super().save(*args, **kwargs)

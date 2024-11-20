@@ -3,11 +3,13 @@ import { NotificationTemplateInterface } from '../models/setting.models'
 
 const useSetting = () => {
     const [notificatonTemplate, setNotificationTemplate] = useState<NotificationTemplateInterface>({
-        template_name: "",
-        template_channel: "",
+        eventType_name: "",
+        default_channel: "",
         subject: "",
-        notification_message: ""
+        default_message: ""
     })
+
+    
     
     const handleNotificationInputChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const {name, value} = event.target

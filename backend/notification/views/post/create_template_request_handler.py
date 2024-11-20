@@ -2,7 +2,7 @@ from rest_framework import status, generics, mixins
 from rest_framework.request import Request
 from rest_framework.response import Response
 from utils.custom_exception_handler import CustomExceptionForError
-from ...models.notification_template import NotificationTemplateModel
+from ...models.notification_event_type import NotificationEventTypeModel
 from ...serializer.create_seriallizer.create_notification_template_serializer import CreateNotificationTemplateSerializer
 
 
@@ -34,13 +34,13 @@ class CreateNotificationTemplateRequestHandler(generics.GenericAPIView, mixins.C
             }, status=status.HTTP_201_CREATED)
 
     def check_for_duplicate_template(self, serializer):
-        template_name = serializer.validated_data.get("template_name")
-        if NotificationTemplateModel.objects.filter(template_name=template_name).exists():
+        eventType_name = serializer.validated_data.get("eventType_name")
+        if NotificationEventTypeModel.objects.filter(eventType_name=eventType_name).exists():
             raise CustomExceptionForError(
-                    message=f"Template with '{template_name}' name already exists in the system.",
+                    message=f"Template with '{eventType_name}' name already exists in the system.",
                     error_type="ALREADY_EXIST", 
                     status_code=409
                 )
-        return template_name
+        return eventType_name
 
 

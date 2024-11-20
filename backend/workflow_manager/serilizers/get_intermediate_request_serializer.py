@@ -33,7 +33,10 @@ class GetIntermediateRequestModelSerializer(serializers.ModelSerializer):
         return obj.role.role_name if obj.role and obj.role.role_name else None
     
     def get_user(self, obj):
-        return obj.user.username if obj.user and obj.user.username else None
+        if obj.user:
+            return f"{obj.user.first_name} {obj.user.last_name}"
+        return None
+        # return obj.user.username if obj.user and obj.user.username else None
     
    
     

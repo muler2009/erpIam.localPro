@@ -1,18 +1,18 @@
 from rest_framework import serializers
-from ...models.notification_template import NotificationTemplateModel
+from ...models.notification_event_type import NotificationEventTypeModel
 
 class CreateNotificationTemplateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = NotificationTemplateModel
+        model = NotificationEventTypeModel
         fields = [  
-            'template_name', 
-            'template_channel', 
+            'eventType_name', 
+            'default_channel', 
             'subject', 
-            'notification_message', 
+            'default_message', 
         ]
 
         extra_kwargs = {
-            'template_id': {'read_only': True}
+            'eventType_id': {'read_only': True}
         }
 
     def validate(self, data):
@@ -22,16 +22,12 @@ class CreateNotificationTemplateSerializer(serializers.ModelSerializer):
         errors = {}
 
         # Check for empty 'policy_name' field
-        if not data.get('template_name'):
-            errors['template_name'] = "Template name is a required field."
+        if not data.get('eventType_name'):
+            errors['eventType_name'] = "Template name is a required field."
 
         # Check for empty 'policy_description' field
-        if not data.get('template_channel'):
-            errors['template_channel'] = "Channel a required field."
-
-        # Check for empty 'policy_description' field
-        if not data.get('notification_message'):
-            errors['notification_message'] = "Message a required field."
+        if not data.get('default_message'):
+            errors['default_message'] = "Message a required field."
 
         if errors:
             raise serializers.ValidationError(errors)

@@ -37,7 +37,7 @@ const GetAllNotificationTemplate = () => {
                     )
                 )
             }
-        </FlexBox>
+    </FlexBox>
   )
 }
 

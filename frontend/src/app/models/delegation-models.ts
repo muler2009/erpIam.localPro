@@ -11,6 +11,7 @@ export interface DelegationDataInterface {
 
 export interface DelegationColumnInterface extends DelegationDataInterface {
     delegation_id: string;
+    notification_id?: string;
 }
 
 export interface DelegationContextPropsInterface {

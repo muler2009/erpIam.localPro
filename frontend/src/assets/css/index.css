@@ -176,8 +176,9 @@
     .file > .table > tbody > tr > td { @apply pl-4 py-3 text-[#333] text-opacity-80 text-[13px] }
 
     .request  .table > thead > tr > th,
+    .request-recieved .table > thead > tr {@apply border-none}
     .request-recieved  .table > thead > tr > th  { 
-        @apply border-none py-3 font-Poppins font-semibold whitespace-nowrap leading-[1.2] text-[#333] text-opacity-70 bg-gray-50 text-[13.5px]
+        @apply border-none py-5 font-Poppins whitespace-nowrap leading-[1.2] text-[#333] text-opacity-70 bg-gray-50 bg-opacity-50 text-[13.5px]
     }
     .request  .table > tbody > tr, .request-recieved .table > tbody > tr { @apply cursor-pointer}
     .request  .table > tbody > tr > td, .request-recieved .table > tbody > tr > td { @apply pl-5 py-1 text-[#333] text-opacity-80 text-[13px]}
@@ -186,7 +187,7 @@
     .request  .table > tbody > tr > td:last-child { @apply w-[10%]}
 
 
-    .request-recieved .table-border > thead { @apply border-t-[1px] border-b-[2px] border-b-green-300 font-normal}
+    .request-recieved .table-border > thead { @apply font-normal}
     .request-recieved .table > tbody > tr > td:first-child { @apply w-[3%]}
     .request-recieved .table > tbody > tr > td:nth-child(2) { @apply w-[25%]}
     .request-recieved .table > tbody > tr > td:nth-child(3) { @apply w-[15%]}
@@ -197,21 +198,35 @@
 
 
     .policy  .table > thead > tr {@apply rounded-t-[10px]}
-    .policy  .table > thead > tr > th { @apply border-none py-4 font-Poppins font-normal bg-gradient-to-b from-gray-200 to-gray-50 whitespace-nowrap leading-[1.2] text-[#333] text-opacity-70  text-[13px]}
+    .policy  .table > thead > tr > th,
+    .notification-preference .table > thead > tr > th { @apply border-none py-4 font-Poppins font-normal bg-gradient-to-b from-gray-200 to-gray-50 whitespace-nowrap leading-[1.2] text-[#333] text-opacity-70  text-[13px]}
     .policy  .table > tbody > tr, .policy-recieved .table > tbody > tr { @apply cursor-pointer}
     .policy  .table > tbody > tr > td { @apply pl-5 py-[4px] text-[#333] text-opacity-80 text-[13px]}
     .policy  .table > thead > tr > th:first-child { @apply w-[0%] }
    
     .notification > .table > tbody > tr { @apply cursor-pointer bg-[#f9f9f9]}
-    .notification  .table > tbody > tr  > td { @apply pl-5 py-3 text-[#333] text-opacity-80 text-[13px]}
+    .notification  .table > tbody > tr  > td,
+    .notification-preference  .table > tbody > tr  > td { @apply pl-5 py-3 text-[#333] text-opacity-80 text-[13px]}
     .notification  .table > tbody > tr  > td:first-child { @apply w-[0%] }
-    .notification  .table > tbody > tr  > td:nth-child(2) { @apply w-[0%] }
-    .notification  .table > tbody > tr  > td:nth-child(3) { @apply w-[20%] }
+    .notification  .table > tbody > tr  > td:nth-child(2) { @apply w-[5%] }
+    .notification  .table > tbody > tr  > td:nth-child(3) { @apply w-[25%] }
     .notification  .table > tbody > tr  > td:nth-child(4) { @apply w-[5%] }
     .notification  .table > tbody > tr  > td:last-child { @apply w-[0%] }
     .notification  .table-striped > tbody > tr:nth-of-type(odd) { @apply  bg-[#eeeeee] }
     .notification  .table-striped > tbody > td:nth-of-type(even) {@apply py-4 }
     .notification  .table-striped > tbody > tr:nth-of-type(even) { @apply bg-[#f9f9f9] py-5}
+
+    .table.configure > thead > tr  {@apply rounded-t-[10px] w-2/3}
+    .table.configure > thead > tr > th  {@apply rounded-t-[10px] border-none bg-gray-100 font-semibold text-[12px]}
+    .table.configure > thead > tr > th:first-child { @apply w-[35%] }
+    .table.configure > thead > tr > th:nth-child(2) { @apply w-[20%] }
+    .table.configure > thead > tr > th:last-child { @apply w-[20%] }
+
+    .table.configure > tbody > tr > td { @apply py-2}
+
+
+
+   
 
 
 

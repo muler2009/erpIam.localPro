@@ -1,7 +1,7 @@
 import React from 'react'
-import { FlexBox, FlexBoxInner, Text } from '../../../../components/common/StyledComponent'
-import TabNavigation from '../../../components/common/TabNavigation'
-import { preferences_tab_menu } from '../../../constants/menu-items/preferences'
+import { FlexBox, FlexBoxInner, Text } from '../../../../../components/common/StyledComponent'
+import TabNavigation from '../../../../components/common/TabNavigation'
+import { preferences_tab_menu } from '../../../../constants/menu-items/preferences'
 
 const PreferencesDashboardComponent = () => {
   return (

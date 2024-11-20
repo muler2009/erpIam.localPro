@@ -14,7 +14,7 @@ export interface NotificationInterface {
     notification_metadata: Record<string, any>;
     notification_type: string;
     notification_sender: string;
-
+    subject?: string;
     current_state?: string;
 }
 export interface NotificationAPIResponse extends NotificationInterface {

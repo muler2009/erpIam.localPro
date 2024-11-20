@@ -10,7 +10,7 @@ const useNotificationSetting = () => {
 
     const notificationTemplateColumn = useMemo(
         () => [
-            notificationTemplateColumnHelper.accessor(row => `${row.template_name}`, {
+            notificationTemplateColumnHelper.accessor(row => `${row.eventType_name}`, {
                 id: 'template_name',
                 header: () => <span>Template Name</span>,
                 cell: (props) => {
@@ -19,7 +19,7 @@ const useNotificationSetting = () => {
                     )
                 }
             }),
-            notificationTemplateColumnHelper.accessor(row => `${row.template_channel}`, {
+            notificationTemplateColumnHelper.accessor(row => `${row.default_channel}`, {
                 id: 'template_channel',
                 header: () => <span>Channel</span>,
                 cell: (props) => {

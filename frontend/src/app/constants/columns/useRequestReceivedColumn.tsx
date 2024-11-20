@@ -27,16 +27,16 @@ const useRequestReceivedColumn = () => {
         () => [
             requestApprovalColumnHandler.display({
                 id: "selection",
-                header: ({table}) => {
-                    return(
-                        <input 
-                            type='checkbox'
-                            onChange={table.getToggleAllPageRowsSelectedHandler()}
-                            checked={table.getIsAllRowsSelected()}
-                            className="w-[14px] h-[14px] rounded-none appearance-auto checked:appearance-none checked:bg-blue-500 before:checked:text-white" 
-                        />
-                    )
-                },
+                // header: ({table}) => {
+                //     return(
+                //         <input 
+                //             type='checkbox'
+                //             onChange={table.getToggleAllPageRowsSelectedHandler()}
+                //             checked={table.getIsAllRowsSelected()}
+                //             className="w-[14px] h-[14px] rounded-none appearance-auto checked:appearance-none checked:bg-blue-500 before:checked:text-white" 
+                //         />
+                //     )
+                // },
 
                 cell: ({row}) => {
                     return(
@@ -52,18 +52,18 @@ const useRequestReceivedColumn = () => {
            
             requestApprovalColumnHandler.accessor(row => row.request?.title, {
                 id: "Title",
-                header: () => <span>Request Informations</span>,
+                header: () => <span>Request Information</span>,
                 cell: ({row}) => {
                     const request_recieved_at = row.original.request?.request_sent_at || new Date()
                     return(
-                        <FlexBox className='flex flex-col gap-2 pb-2'>
+                        <FlexBox className='flex flex-col py-2'>
                             <FlexBoxInner className='flex space-x-1'>
-                                <Text className='font-semibold whitespace-nowrap'>{row.original.request?.title}</Text>
+                                <Text className='whitespace-nowrap'>{row.original.request?.title}</Text>
                                 <TimeAgo timestamp={request_recieved_at} className='' />
                             </FlexBoxInner>
                             <FlexBox>
                             <p className='text-[12px] text-[#333] text-opacity-65'>Date: {format(request_recieved_at, 'EE dd, yyyy')}</p>
-                                {/* {row.original.file_url} */}
+                               
                             </FlexBox>
                         </FlexBox>
                     )
@@ -76,13 +76,6 @@ const useRequestReceivedColumn = () => {
                 cell: ({row}) => {
                     const rowData = row.original
                     return(
-                        // <div>
-                        //     {
-                        //         rowData ? (
-                        //             <p>Attachement available</p>
-                        //         ): null
-                        //     }
-                        // </div>
                         <OpenFileForReview  
                             rowData={rowData}
                         />
@@ -110,19 +103,20 @@ const useRequestReceivedColumn = () => {
                     const current_state = props.row.original.current_state
                     const action_taken = props.row.original.action_taken
                     return (
-                            <div className='whitespace-nowrap'>
-                                {action_taken === "Rejected With Modification" ? (
-                                    <p className='stamp is-rejected'>{action_taken}</p>
-                                ) : current_state === 'pending for approval' ? (
-                                    <p className='stamp is-waiting'>Waiting approval</p>
-                                ) : (
-                                    <p className='stamp is-default'>No action</p> // You can customize this default value
-                                )}
-                                                
-                            </div>
+                            <div className=''>
+                            
+                                {
+                                    action_taken === "Rejected With Modification"
+                                    ? ( <span className='px-5 bg-red-500 bg-opacity-20 text-red-500 py-2 rounded-full'>{action_taken}</span>) 
+                                    : current_state === 'pending for approval' 
+                                    ? (<span className='px-5 bg-yellow-600 bg-opacity-5 text-yellow-500 py-2 rounded-full w-[50%]'>Waiting approval</span>)
+                                    : (<p className='stamp is-default'>No action</p>) // You can customize this default valu                                    
+                                }
+                            </div>                       
                     )
                 }
             }),
+
             requestApprovalColumnHandler.display({
                 id: "actions",
                 header: () => <Text>Action</Text>,
@@ -136,40 +130,7 @@ const useRequestReceivedColumn = () => {
                         />
                     )
                 }
-            
-
             })
-         
-            // requestApprovalColumnHandler.display({
-            //     id: "status",
-            //     header: () => <span className="flex justify-start"><BiIcons.BiDotsVerticalRounded /> Action</span>,
-            //     cell: ({row}) => {
-            //         const rowData = row.original
-            //         const approvalStatusForRow = approvalStatus[rowData.request?.request_id];  
-            //         return(
-            //             <FlexBox className="flex justify-start items-center space-x-3">
-            //                 <BottomTooltip content={`See detail of the request`}>
-            //                     <FlexBoxInner className="flex justify-center items-center hover:bg-gray-200 rounded-full">
-            //                         <RxEyeOpen size={15} />
-            //                     </FlexBoxInner>
-            //                 </BottomTooltip>
-            //                 <FlexBoxInner className='flex justify-start items-center space-x-5' >
-            //                     <ApprovalSelect 
-            //                         rowId={row.original.request?.request_id} 
-            //                         onApprovalChange={handleApprovalChange}
-            //                         currentStatus={approvalStatus[row.original.request?.request_id] }
-            //                         rowData={rowData}
-            //                     />
-                              
-            //                     <PerformTransition 
-            //                         rowData={rowData} 
-            //                         approvalStatus={approvalStatusForRow}
-            //                     />
-            //                 </FlexBoxInner>
-            //           </FlexBox>
-            //         )
-            //     }
-            // }),
         ],
         
         [approvalStatus, requestApprovalColumnHandler]

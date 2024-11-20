@@ -1,8 +1,9 @@
-import NotificationHeader from "./NotificationHeader";
-import NotificationListComponent from "./NotificationListComponent";
 import NotificationDetailComponent from "./NotificationDetailComponent";
+import DelegationNotification from "./DelegationNotification";
+import NotifcationRecievedComponent from "./NotifcationRecievedComponent";
+
 export {
-    NotificationHeader,
-    NotificationListComponent,
-    NotificationDetailComponent
+    NotificationDetailComponent,
+    NotifcationRecievedComponent,
+    DelegationNotification,
 }

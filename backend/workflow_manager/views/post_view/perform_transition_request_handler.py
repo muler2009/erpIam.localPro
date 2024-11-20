@@ -468,8 +468,8 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
 
     
     def handle_rejected_requests_for_modification(self, rejected_request, current_stage, comments, action_name):
-        rejected_state = WorkFlowStateModel.objects.get(state_name="pending for approval")
         
+        rejected_state = WorkFlowStateModel.objects.get(state_name="pending for approval")
         previous_stage = ApprovalStageModel.objects.filter(
             request=rejected_request,
             stage_level__lt=current_stage.stage_level
@@ -491,13 +491,6 @@ class PerformTransitionRequestHandler(generics.GenericAPIView):
                 comments=comments,
                 current_state=rejected_state  # Ensure this is the correct WorkFlowStateModel instance
             )
-            # # Notify the previous approver (Optional: Implement notification logic here)
-            # NotificationModel.objects.create(
-            #     notification_recepient=previous_stage.user,
-            #     notification_message=f"Request '{rejected_request.title}' has been rejected and sent back for your review.",
-            #     notification_type="In_app",
-            #     notification_metadata={'request': str(rejected_request.request_id)}
-            # )
 
    
 

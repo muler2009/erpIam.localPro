@@ -42,6 +42,7 @@ const NotificationDetailComponent = ({handleBackClick, selectedNotification} : N
           </div>
           <div className='pt-4'>
             <p className='font-Poppins text-sm'>{selectedNotification.notification_message}</p>
+            
 
           </div>
 

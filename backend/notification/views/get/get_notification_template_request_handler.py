@@ -2,13 +2,13 @@ from rest_framework import generics, mixins, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from utils.custom_exception_handler import CustomExceptionForError
-from ...models.notification_template import NotificationTemplateModel
-from ...serializer.get_serializer.template_serializer import NotificationTemplateSerializer 
+from ...models.notification_event_type import NotificationEventTypeModel
+from ...serializer.get_serializer.event_type_serializer import NotificationTemplateSerializer 
 
 
 class GetNotificationTemplateRequestHndler(generics.GenericAPIView, mixins.ListModelMixin):
     serializer_class = NotificationTemplateSerializer
-    queryset = NotificationTemplateModel.objects.all()
+    queryset = NotificationEventTypeModel.objects.all()
 
     def get(self, request:Request):
         try:

@@ -15,7 +15,7 @@ const OpenFileForReview = ({rowData}: {rowData: IntermediateAPIResponse }) => {
                 <BottomTooltip content={`Share`}>
                     <FlexBox className='flex items-center space-x-2'>
                         { rowData.request?.file_name && <span><GrAttachment size={15} className='text-[#333] text-opacity-65'/></span> }
-                        <Text className='text-blue-500 hover:underline' onClick={() => setOpenPdfs(prev => !prev)}>{rowData.request?.file_name}</Text>
+                        <Text className='text-blue-500 hover:underline text-nowrap' onClick={() => setOpenPdfs(prev => !prev)}>{rowData.request?.file_name}</Text>
                     </FlexBox>
                 </BottomTooltip>
             </FlexBox>

@@ -45,16 +45,20 @@ export const request_tab_menu: RequestTabMenuInterface[] = [
         notification: 0,
         total: true
       },
-      // { 
-      //   label: "Pending for approvals",
-      //   tabContent: <h1>Pending approvals</h1>,
-      //   notification: 0,
-      //   total: true
-      // },
-      // { 
-      //   label: "Rejected",
-      //   tabContent: <h1>Rejected</h1>,
-      //   notification: 0,
-      //   total: true
-      // }
 ] 
+
+export const request_menu = [
+    { 
+        label: "Received",
+        path: ""
+    },
+    { 
+      label: "Pending",
+      path: "path2"
+    },
+    { 
+        label: "Approved",
+        path: "path3"
+    },
+]
+

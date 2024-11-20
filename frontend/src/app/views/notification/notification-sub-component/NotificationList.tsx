@@ -22,27 +22,29 @@ const NotificationList = ({notification, unreadCount}: NotificationItemProps) =>
   };
 
    const notificationContent = (
-    <FlexBox 
-        className={`flex justify-between space-x-7 px-5 py-4 mb-1 hover:bg-gray-100 ${notification.notification_read ? 'bg-white' : 'bg-sky-100'}`} 
-        onClick={handleNotificationClick}
-      >
-        <FlexBoxInner className="flex flex-col gap-1">
-          <P className="capitalize font-semibold">{notification.notification_recepient}</P>
-          <P>{format(notification.notification_received_at || new Date(), 'EE, dd, yyyy')}</P>
-        </FlexBoxInner>
-      
-        <FlexBoxInner className="flex-grow">
-          <P>{notification.notification_message} {notification.notification_metadata ? JSON.stringify(notification.notification_metadata) : 'No metadata'}</P> 
-          <P>{notification.notification_received_at}</P>                
-        </FlexBoxInner>
-      
-        <FlexBoxInner className="invisible hover:visible group-hover:visible flex items-center">   
-            <FlexBox className='w-10 h-10 rounded-full hover:bg-red-400 text-white flex items-center justify-center' onClick={() => alert(`${notification.notification_id}`)}>
-              <TfiTrash size={20} />
-            </FlexBox>       
-        </FlexBoxInner>
-    </FlexBox>
-   )
+      <FlexBox 
+          className={`flex justify-between space-x-7 px-5 py-4 mb-1 hover:bg-gray-100 ${notification.notification_read ? 'bg-white' : 'bg-sky-100'}`} 
+          onClick={handleNotificationClick}
+        >
+          <FlexBoxInner className="flex flex-col gap-1">
+            <P className="capitalize font-semibold">{notification.notification_recepient}</P>
+            <P>{format(notification.notification_received_at || new Date(), 'EE, dd, yyyy')}</P>
+          </FlexBoxInner>
+        
+          <FlexBoxInner className="flex-grow">
+            <P>{notification.notification_message} {notification.notification_metadata ? JSON.stringify(notification.notification_metadata) : 'No metadata'}</P> 
+            <P>{notification.notification_received_at}</P>    
+            <P>{notification.notification_received_at}</P>                
+
+          </FlexBoxInner>
+        
+          <FlexBoxInner className="invisible hover:visible group-hover:visible flex items-center">   
+              <FlexBox className='w-10 h-10 rounded-full hover:bg-red-400 text-white flex items-center justify-center' onClick={() => alert(`${notification.notification_id}`)}>
+                <TfiTrash size={20} />
+              </FlexBox>       
+          </FlexBoxInner>
+      </FlexBox>
+    )
 
 
   return (

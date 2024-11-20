@@ -27,6 +27,7 @@ export const authSlice = createSlice({
             state.username = username
             state.full_name = full_name;
             localStorage.setItem("token", access)
+            localStorage.setItem("full_name", full_name)
             localStorage.setItem("refresh", refresh)
             localStorage.setItem("isAuthenticated", JSON.stringify(true))      
         },
@@ -35,9 +36,12 @@ export const authSlice = createSlice({
             state.token = null
             state.refresh = null
             state.username = null
+            state.full_name = null
             localStorage.removeItem("token")
             localStorage.removeItem("refresh")
+            localStorage.removeItem("full_name")
             localStorage.removeItem("isAuthenticated")
+
         },
         setGroup: (state, { payload }) => {
             state.group = payload

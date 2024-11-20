@@ -1,12 +1,12 @@
 import { IoIosNotifications } from "react-icons/io";
-import { NotificationPreferenceSetUp } from "../../views/preferences/preferences-mini-component";
+import { NotificationPreference } from "../../views/settings/preferences/preferences-mini-component";
 
 export const preferences_tab_menu = [
     {
         label: "Notification Preferences",
         total: true,
         icon: <IoIosNotifications />,
-        tabContent: <NotificationPreferenceSetUp />
+        tabContent: <NotificationPreference />
     },
     {
         label: "Notification",

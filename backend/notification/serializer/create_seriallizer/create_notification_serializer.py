@@ -9,17 +9,13 @@ class CreateNotificationSerializer(serializers.ModelSerializer):
             'notification_recepient', 
             'notification_message', 
             'notification_read', 
-            'notification_type', 
-            'notification_priority', 
-            'notification_sent_at',
-            'notification_status',
             'notification_metadata',
             'notification_sender'   
         ]
 
         extra_kwargs = {
-            'notification_id': { 'read_onnly': True },
-            'notification_sent_at':  { 'read_onnly': True }
+            'notification_id': { 'read_only': True },
+            'notification_sent_at':  { 'read_only': True }
         }
 
     def create(self, validated_data):
@@ -30,16 +26,15 @@ class CreateNotificationSerializer(serializers.ModelSerializer):
     
     
 class UpdateNotificationSerializer(serializers.ModelSerializer):
+    notification_message = serializers.CharField(source='notification_template.notification_message')
+
     class Meta:
         model = NotificationModel
         fields = [
             'notification_recepient', 
             'notification_message', 
             'notification_read', 
-            'notification_type', 
-            'notification_priority', 
             'notification_received_at',
-            'notification_status',
             'notification_metadata'   
         ]
 

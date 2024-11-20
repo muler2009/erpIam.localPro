@@ -53,14 +53,14 @@ const CreateNewTemplateModalComponent = ({title, open, handleIsOpenCloseMenuModa
                             onChange={handleNotificationInputChange}  
                         />
                         <InputWithDesc
-                            label='Template Name'
-                            id={`template_name_input`}
+                            label='Notification Type'
+                            id={`eventType_name_input`}
                             type={`text`}
                             desc='insert the notification template name'
                             placeholder='Enter name of template'
                             className='input-md text-[12px]'
-                            name={`template_name`}
-                            value={notificatonTemplate?.template_name}
+                            name={`eventType_name`}
+                            value={notificatonTemplate?.eventType_name}
                             onChange={handleNotificationInputChange}
                         />
 
@@ -68,10 +68,10 @@ const CreateNewTemplateModalComponent = ({title, open, handleIsOpenCloseMenuModa
                             <label className='font-Poppins text-[13px] text-text-primary'>Notification Channel</label>
                             <Div className='relative'>
                                 <select 
-                                    id={`template_channel_input`}
+                                    id={`tdefault_channel_input`}
                                     className="select-md rounded-sm font-Poppins py-2 w-full text-[12px]" 
-                                    name={`template_channel`}
-                                    value={notificatonTemplate?.template_channel} 
+                                    name={`default_channel`}
+                                    value={notificatonTemplate?.default_channel} 
                                     onChange={handleNotificationInputChange}         
                                 >
                                     <option className='text-[#333] text-opacity-50 bg-gray-100'><p className='text-[#333] text-opacity-50'>--Select--</p></option>
@@ -93,7 +93,7 @@ const CreateNewTemplateModalComponent = ({title, open, handleIsOpenCloseMenuModa
                             className='input-md text-[12px]'
                             placeholder='Notification message'
                             rows={5}
-                            value={notificatonTemplate?.notification_message}
+                            value={notificatonTemplate?.default_message}
                             onChange={handleNotificationInputChange}
                         />                     
                     </FlexBox>

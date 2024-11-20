@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import { FlexBox, FlexBoxInner, Text } from '../../../../components/common/StyledComponent'
-import NotificationTabNavigation from '../../notification/notification-sub-component/NotificationTabNavigation'
 import { Link } from 'react-router-dom'
 import { IoNotificationsOutline } from "react-icons/io5";
 import { useGetNotificationQuery } from '../../../services/notificationAPISlice';
@@ -31,7 +30,7 @@ const DashboardRecentActivity = () => {
           </FlexBoxInner>
       </FlexBoxInner>
       <FlexBoxInner className=''>
-        <NotificationTabNavigation />
+       
       </FlexBoxInner>    
 </FlexBox>
   )
