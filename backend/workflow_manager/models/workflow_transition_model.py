@@ -22,6 +22,6 @@ class WorkFlowTransitionModel(models.Model):
         ordering = ["transition_name"]
         db_table = "Transition"
         verbose_name = "Transition"
-        app_label = "workflow_manager"
+        app_label = "workflow_manager" 
 
         
