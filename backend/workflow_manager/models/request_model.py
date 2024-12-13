@@ -17,9 +17,9 @@ class RequestModel(models.Model):
     request_updated_at = models.DateTimeField(auto_now=True)
     current_stage = models.ForeignKey('ApprovalStageModel', on_delete=models.SET_NULL, null=True, blank=True)
     approved_by = models.ForeignKey(UserAccountsModel, on_delete=models.CASCADE, null=True, blank=True )
-
-    # file_for_approval = models.ManyToManyField(DocumentVersionModel, blank=True)
     file_for_approval = models.ForeignKey(DocumentVersionModel, on_delete=models.CASCADE, blank=True)
+    
+    # file_for_approval = models.ManyToManyField(DocumentVersionModel, blank=True)
    
     class Meta:
         abstract = True

@@ -1,5 +1,5 @@
 from rest_framework import permissions
-from iam.policy.models.policy_mocel_modified import OromiaLandPolicy
+from iam.policy.models.policy_model import OromiaLandPolicy
 
 class EnforcePolicyPermisson(permissions.BasePermission):
     message = "Allwoed for only for authorized users"

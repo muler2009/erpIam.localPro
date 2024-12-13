@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'dmsmodule.folder',
     'dmsmodule.document_repository',
     'workflow_manager',  
-    'workflow_approval_process',
+    'workflow',
     'notification',
     'rest_access_policy'
 ]

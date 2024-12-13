@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 from iam.models import UserAccountsModel
-from iam.policy.models.policy_mocel_modified import OromiaLandPolicy
+from iam.policy.models.policy_model import OromiaLandPolicy
 
 # Create your models here.
 

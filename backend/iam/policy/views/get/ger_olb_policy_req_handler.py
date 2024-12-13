@@ -1,5 +1,5 @@
 from rest_framework import generics
-from ...models.policy_mocel_modified import OromiaLandPolicy
+from ...models.policy_model import OromiaLandPolicy
 from ...serializers.get.get_oromia_land_policy_serializer import GetOLBPolicySerailzier
 
 class GetAllOLBPolicyRequestHandler(generics.ListAPIView):

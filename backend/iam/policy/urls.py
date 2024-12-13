@@ -1,5 +1,5 @@
 from django.urls import path
-from iam.policy.views.get.get_policy_req_handler import GetAllPolicyRequestHandler
+# from iam.policy.views.get.get_policy_req_handler import GetAllPolicyRequestHandler
 from iam.policy.views.get.get_all_views_req_handler import GetAllViews
 from iam.policy.views.get.get_action_req_handler import GetAllPolicyActionRequestHandler
 from iam.policy.views.get.ger_olb_policy_req_handler import GetAllOLBPolicyRequestHandler
@@ -12,7 +12,7 @@ from iam.policy.views.get.get_appmodel_level_policy_req_handler import GetModelL
 app_name ='policy'
 
 urlpatterns = [
-    path('get_policy/', GetAllPolicyRequestHandler.as_view()),
+    # path('get_policy/', GetAllPolicyRequestHandler.as_view()),
     path('all_views/', GetAllViews.as_view()),
 
     path('actions/', GetAllPolicyActionRequestHandler.as_view()),

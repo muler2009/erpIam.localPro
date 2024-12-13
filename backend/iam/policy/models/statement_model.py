@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from .policy_model import PolicyModel
+from .policy_model import OromiaLandPolicy
 from .actions_model import PolicyAction
 
 class PolicyStatements(models.Model):
@@ -15,7 +15,7 @@ class PolicyStatements(models.Model):
 
 
     statement_id = models.UUIDField(db_index=True, default=uuid.uuid4, primary_key=True, editable=False, unique=True)
-    policy = models.ForeignKey(PolicyModel, related_name='statements_test', on_delete=models.CASCADE)
+    policy = models.ForeignKey(OromiaLandPolicy, related_name='statements_test', on_delete=models.CASCADE)
     effect = models.CharField(max_length=10, choices=EffectChoices)
     actions = models.ManyToManyField(PolicyAction)
 

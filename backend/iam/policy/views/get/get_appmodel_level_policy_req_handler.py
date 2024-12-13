@@ -1,7 +1,7 @@
 from rest_framework import generics, status, mixins
 from rest_framework.response import Response
 from utils.custom_exception_handler import CustomExceptionForError
-from ...models.policy_mocel_modified import OromiaLandPolicy
+from ...models.policy_model import OromiaLandPolicy
 from ...serializers.get.get_oromia_land_policy_serializer import GetOLBPolicySerailzier
 
 

@@ -1,4 +1,4 @@
-EXCLUDED_APPS = ['admin', 'auth', 'contenttypes', 'sessions', 'authtoken', 'iam', 'dmsmodule', 'iam_policy', 'workflow_manager']
+EXCLUDED_APPS = ['admin', 'auth', 'contenttypes', 'sessions', 'authtoken', 'iam', 'dmsmodule', 'iam_policy', 'workflow_manager', 'workflow']
 MODEL_DISPLAY_NAMES = {
     'PosixGroupUserModel': 'Group',
     'IamRoleModel': 'Role',

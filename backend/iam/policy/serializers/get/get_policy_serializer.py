@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ...models.policy_mocel_modified import OromiaLandPolicy
+from ...models.policy_model import OromiaLandPolicy
 from .get_statement_serializer import PolicyStatementSerializer
 
 

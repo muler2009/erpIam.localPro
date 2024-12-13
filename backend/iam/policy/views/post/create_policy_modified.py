@@ -1,7 +1,7 @@
 from rest_framework import generics, mixins, status
 from rest_framework.response import Response
 from utils.custom_exception_handler import CustomExceptionForError
-from ...models.policy_mocel_modified import OromiaLandPolicy
+from ...models.policy_model import OromiaLandPolicy
 from ...serializers.create.create_policy_modified_serializer import PolicySerializer
 
 class CreatePolicyRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
