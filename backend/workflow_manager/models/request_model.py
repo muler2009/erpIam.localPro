@@ -9,7 +9,6 @@ from dmsmodule.file_mangement.models.document_uploads_models import DocumentVers
 from dmsmodule.document_repository.models.document_version_control import DocumentVersionModel
 
     
-
 class RequestModel(models.Model):
     request_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     title = models.CharField(max_length=150, null=False, blank=False)

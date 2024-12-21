@@ -81,7 +81,7 @@ class RequestSendSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'request_id': {'read_only': True},
             'request_sent_at': {'read_only': True},
-            'request_updated_at': {'read_only': True}
+            'request_updated_at': {'read_only': True} 
         }
 
     def get_file_url(self, obj):

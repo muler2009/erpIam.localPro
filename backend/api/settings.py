@@ -35,11 +35,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-   
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
+   
+
+    
     'iam',
     'iam.users',
     'iam.user_profile',
@@ -52,7 +54,7 @@ INSTALLED_APPS = [
     'dmsmodule.folder',
     'dmsmodule.document_repository',
     'workflow_manager',  
-    'workflow',
+    'workflow_service',
     'notification',
     'rest_access_policy'
 ]

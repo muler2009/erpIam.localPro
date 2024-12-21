@@ -12,8 +12,11 @@ urlpatterns = [
     path('dms/', include('dmsmodule.urls')),
     path('work-flows/', include('workflow_manager.urls')),
     path('notification/', include('notification.urls')),
+    path('workflow/', include('workflow_service.urls')),
+
     path('delegation/', include('delegation.urls', namespace='delegation')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
 
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
