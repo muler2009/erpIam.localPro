@@ -15,10 +15,4 @@ export const API_TAGS = {
     SETTING: "setting",
     PREFERENCES: "Preferences"
 
-
-
-
-
-
-
 } as const

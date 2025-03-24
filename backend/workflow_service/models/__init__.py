@@ -1,7 +1,7 @@
 from .workflow_state_model import *
 from .workflow_action_model import *
 from .workflow_transition_model import *
-from .approval_step_model import *
+from .steps_model import *
 from .approval_entry_criteria import *
 from .approval_step_approver import *
 from .approval_process import *
@@ -10,3 +10,4 @@ from .approval_template import *
 from .submitted_request import *
 from .request_state import *
 from .filter_criteria_model import *
+from .template import *

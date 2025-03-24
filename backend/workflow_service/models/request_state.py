@@ -2,13 +2,13 @@ from django.db import models
 from .request_model import ApprovalRequestModel
 from .submitted_request import SubmittedRequestForApprovalModel
 from .approval_step_approver import ApprovalStepApprovers
-from .approval_step_model import ApprovalStepModel
+from .steps_model import ApprovalStageModel
 from .workflow_state_model import WorkflowStateModel
 
 
 class RequestApprovalStateModel(models.Model):
     request = models.ForeignKey(SubmittedRequestForApprovalModel, on_delete=models.CASCADE, related_name="approval_state", help_text="The request being processed in the approval workflow.")
-    current_step = models.ForeignKey(ApprovalStepModel, on_delete=models.CASCADE, related_name="approval_state_step", help_text="The current approval step for this request.")
+    current_step = models.ForeignKey(ApprovalStageModel, on_delete=models.CASCADE, related_name="approval_state_step", help_text="The current approval step for this request.")
     current_state = models.ForeignKey(WorkflowStateModel, on_delete=models.SET_NULL, null=True, blank=True, help_text="The status of the request in the approval process.")
     comments = models.TextField(blank=True, null=True)
     approvers = models.ManyToManyField(ApprovalStepApprovers, related_name="assigned_states", help_text="Approvers assigned to this step in the approval process")

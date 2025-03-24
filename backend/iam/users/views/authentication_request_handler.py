@@ -7,9 +7,10 @@ from utils.custom_exception_handler import AuthenticationFailedException
 from iam.users.serializers.user_tokenObtainPair_serializer import UserTokenObtainPairSerializer, LoginUserSerializer
 import ldap
 from rest_framework.request import Request
+from ...common_access_policy.authenticated_policy import AllowAnyUsers, IsAuthenticatedUserOnly
 
 class AuthenticationRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
-    permission_classes = [permissions.AllowAny]  
+    permission_classes = [AllowAnyUsers]  
     serializer_class = LoginUserSerializer
 
     def post(self, request: Request, *args, **kwargs):

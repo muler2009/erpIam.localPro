@@ -1,10 +1,9 @@
 from django.db import transaction
-from rest_framework import status, generics, mixins, serializers, permissions
+from rest_framework import status, generics, mixins, permissions
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from utils.custom_exception_handler import CustomExceptionForError
-from dmsmodule.document_repository.models.document_version_control import DocumentVersionModel
 from rest_framework.parsers import FormParser, MultiPartParser
 from ...models.workflow_action_model import WorkflowActionModel
 from ...models.workflow_transition_model import WorkflowProcessTransitionModel
@@ -12,7 +11,8 @@ from ...serializers.create.saved_request_serializer import SaveRequestSerializer
 from ...serializers.create.submit_request_serializer import SubmitRequestSerializer
 from ...models.saved_request import SavedRequestModel
 from ...models.submitted_request import SubmittedRequestForApprovalModel
-from .util.submit_request_util_function import *
+from ..helper.submit_request_util_function import *
+from ..helper.file_helper_functions import *
 
 import logging
 logger = logging.getLogger(__name__)
@@ -32,13 +32,11 @@ class SubmitRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
 
             # Ensure required fields are provided
             if not request_id or not action:
-                raise CustomExceptionForError(
-                    message="Request ID or action name is missing.",
-                    error_type="MISSING_FIELDS"
-                )
+                raise CustomExceptionForError(message="Request ID or action name is missing.", error_type="MISSING_FIELDS")
             
             approval_process = saved_request.approval_process
             # Check if user is allowed to submit using the helper function
+            
             check_user_allowed_roles(request.user, approval_process)
 
             transition = WorkflowProcessTransitionModel.objects.filter(
@@ -51,13 +49,10 @@ class SubmitRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
             
             with transaction.atomic():
                 saved_request.saved_request_status = transition.to_state
-            
-                # Ensure file_for_approval is valid
                 file_for_approval_instance = saved_request.file_for_approval
 
-                if not file_for_approval_instance or not isinstance(file_for_approval_instance, DocumentVersionModel):
-                    raise serializers.ValidationError({"file_for_approval": "Invalid file for approval."})
-                
+                check_uploaded_file(file_for_approval_instance)
+                            
                 # Create the approved request
                 submitted_request = SubmittedRequestForApprovalModel.objects.create(
                     request_title=saved_request.request_title,
@@ -69,7 +64,7 @@ class SubmitRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
                 )
 
                 saved_request.delete()
-                 # Initiate approval workflow
+                # Initiate approval workflow
                  
                 initiate_approval_workflow(submitted_request)
 

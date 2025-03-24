@@ -23,10 +23,13 @@ import { ModalContextProvider } from "../reusable/custom-modal/context/ModalCont
 interface UserTableProps {
     data: UserAccountInterfacee[];
     columns: ColumnDef<UserCoulumn, any>[];
+    showSearch?: boolean;
+    tableStyle?: string; // the custom css class
+    
 }
   
 
-const UserTable = ({data, columns}: UserTableProps) => {
+const UserTable = ({data, columns, showSearch, tableStyle}: UserTableProps) => {
     const [globalFilter, setGlobalFilter] = useState<string | number>('')
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [pagination, setPagination] = useState<PaginationState>({
@@ -52,25 +55,31 @@ const UserTable = ({data, columns}: UserTableProps) => {
   })
 
 
-  console.log({selectedRows: userTableInstance.getSelectedRowModel()})
 
   return (
     
         <FlexBox className="flex flex-col h-full space-y-2">
             <FlexBoxInner className='flex justify-between space-x-3 items-center bg-gradient-to-b from-white to-gray-300 rounded-sm'>
-            <FlexBox className='flex-grow'>
-                <Search
-                    globalFilter={globalFilter}
-                    setGlobalFilter = {setGlobalFilter}
-                /> 
-            </FlexBox>
-            <FlexBox className='w-1/3 flex justify-between items-center space-x-3 z-10'>
-                <ShowEntries table={userTableInstance} />
-                <PaginationController table = {userTableInstance} />
-            <Div className="" />
-            </FlexBox>
+            {
+                showSearch && (
+                    <>
+                        <FlexBox className='flex-grow'>
+                            <Search
+                                globalFilter={globalFilter}
+                                setGlobalFilter = {setGlobalFilter}
+                            /> 
+                        </FlexBox>
+                        <FlexBox className='w-1/3 flex justify-between items-center space-x-3 z-10'>
+                            <ShowEntries table={userTableInstance} />
+                            <PaginationController table = {userTableInstance} />
+                        </FlexBox>
+                    
+                    </>
+                )
+            }
+            
             </FlexBoxInner>
-            <FlexBoxInner className="user mx-2">
+            <FlexBoxInner className={`mx-1 ${tableStyle}`}>
                 <table className="table table-sm table-border table-striped text-left text-[14px]">
                     <thead>
                         {

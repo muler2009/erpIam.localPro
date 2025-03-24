@@ -72,7 +72,6 @@ const GroupDetailComponent = () => {
                         /> 
                     </div>
                 </FlexBox>
-                
             </FlexInnerContainer>
             <FlexInnerContainer className='px-10 pt-1 mx-5 relative'>
                 <Text className='font-semibold text-[#26cc86] text-[15px] after:content-[""] after:absolute after:h-[1px] after:bg-gray-200 after:w-[80%] after:top-6 after:right-3'>Attach user to Group</Text>
@@ -110,10 +109,8 @@ const GroupDetailComponent = () => {
                             </span>
                         </button>
                     </Tooltip>
-
                 </FlexBox>       
             </FlexInnerContainer>
-
     </FlexOuterContainer>
   )
 }

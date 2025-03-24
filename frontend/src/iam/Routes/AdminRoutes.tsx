@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { useRoutes } from 'react-router-dom';
 // import Dashboard from '../layout/Dashboard';
-import UserLayout from '../views/managment/user/userLayout/UserLayout';
-import Dashboard from '../views/dashboard/views/Dashboard';
+import Dashboard from '../views/dashboard/main/Dashboard';
 import GroupDashboard from '../views/managment/groups/groupviews/GroupDashboard';
 import RoleDashboard from '../views/managment/roles/views/RoleDashboard';
 import UserDashboard from '../views/managment/user/views/UserDashboard';

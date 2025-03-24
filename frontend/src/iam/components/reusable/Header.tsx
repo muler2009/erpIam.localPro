@@ -21,7 +21,6 @@ const Header = () => {
     const [drop, setDrop] = useState<boolean>(false)
     const { onUserLogoutClicked } = useLogout()
     const user = useSelector(username)
-
     const location = useLocation();
 
     // Get the current path
@@ -30,7 +29,6 @@ const Header = () => {
     // Memoize the label for performance
     const currentLabel = useMemo(() => findLabelByPath(sidebarItems, currentPath || ''), [currentPath]);
 
-    console.log(user)
 
 
   return (

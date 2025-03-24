@@ -19,7 +19,7 @@ class FilterItemModel(models.Model):
     )
     field_name = models.CharField(
         max_length=100,
-        help_text="The name of the field to filter on (e.g., 'document_status')."
+        help_text="The name of the field to filter"
     )
     operator = models.CharField(
         max_length=10,

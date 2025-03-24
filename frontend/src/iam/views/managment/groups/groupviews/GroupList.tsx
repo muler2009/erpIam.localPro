@@ -35,9 +35,9 @@ const GroupList = () => {
 
         </FlexBoxInner>
         {isLoading && <p>please wait it is loading ...</p>}
-        <FlexBoxInner className='flex justify-end'>
+        {/* <FlexBoxInner className='flex justify-end'>
             <GroupChart />
-        </FlexBoxInner>        
+        </FlexBoxInner>         */}
     </FlexBox>  
   
   )

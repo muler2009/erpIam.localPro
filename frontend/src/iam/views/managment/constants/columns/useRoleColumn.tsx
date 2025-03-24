@@ -18,7 +18,8 @@ const useRoleColumn = () => {
                         type='checkbox'
                         onChange={table.getToggleAllPageRowsSelectedHandler()}
                         checked={table.getIsAllRowsSelected()}
-                        className="w-[14px] h-[14px] rounded-none appearance-auto checked:appearance-none checked:bg-blue-500 before:checked:text-white" 
+                        className="w-[13px] h-[13px] rounded-[2px] flex items-center justify-center checked:appearance-none checked:bg-green-900 checked:border checked:border-black before:checked:text-[12px] before:checked:text-white before:checked:content-['']"  
+
                     />
                 )
             },
@@ -28,7 +29,8 @@ const useRoleColumn = () => {
                         type='checkbox'
                         onChange={row.getToggleSelectedHandler()}
                         checked={row.getIsSelected()}
-                        className="w-[14px] h-[14px] rounded-none appearance-auto checked:appearance-none checked:bg-blue-500 before:checked:text-white"  
+                        className="w-[13px] h-[13px] rounded-[2px] flex items-center justify-center checked:appearance-none checked:bg-green-900 checked:border checked:border-black before:checked:text-[12px] before:checked:text-white before:checked:content-['']"  
+  
                     />
                 )
             },

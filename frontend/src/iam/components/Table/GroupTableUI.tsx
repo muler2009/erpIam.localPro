@@ -55,7 +55,7 @@ const GroupTable = ({columns, data}: TableProps) => {
 
     return (
      
-        <FlexBox className='flex flex-col gap-5 px-2 flex-grow'>
+        <FlexBox className='flex flex-col gap-5 px-2 flex-grow font-Poppins'>
           <Search 
             globalFilter={globalFilter}
             setGlobalFilter={setGlobalFilter}

@@ -6,12 +6,10 @@ from iam.role.serializers.create_role_serializers import CreateIamRoleModelSeria
 from utils.custom_exception_handler import AlreadyExistAPIException
 from iam.models import UserAccountsModel
 from utils.custom_exception_handler import CustomExceptionForError
-from iam.permissions import EnforcePolicyPermisson, PolicyPermission
 
 class CreateRoleModelInstanceRequestHandler(generics.GenericAPIView):
     queryset = IamRoleModel.objects.all()
     serializer_class = CreateIamRoleModelSerializer
-    permission_classes= [PolicyPermission]
 
     def post(self, request: Request, **kwargs):
         try:

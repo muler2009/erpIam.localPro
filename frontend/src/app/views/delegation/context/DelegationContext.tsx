@@ -9,7 +9,7 @@ const DelegationContext = createContext<DelegationContextPropsInterface | undefi
 
 export const DelegationContextProvider = ({children}: ChildrenContext) => {
 
-  const delegationStep = {
+  const delegationStep = { 
     0: "Delegation Information",
     1: "Allowed Permission"    
   }  

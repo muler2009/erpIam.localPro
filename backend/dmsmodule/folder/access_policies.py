@@ -12,8 +12,8 @@ logger = logging.getLogger(__name__)
 #             return False
 #         return super().has_permission(request, view)
     
-
 class StaffOnlyAccessPolicy(AccessPolicy):
+
     statements = [
         {
             "principal": "authenticated",
@@ -41,37 +41,44 @@ class StaffOnlyAccessPolicy(AccessPolicy):
 
 class FolderViewAccessPolicy(AccessPolicy):
     statements = [
-        {
-            "principal": ["group:directors", "authenticated"],
+       {
+            "principal": ["*", ],
             "action": ["<method:get>"],
-            "effect": "allow",
-            "condition": ["is_record_goup_member"],
-        },
-        {
-            "principal": ["authenticated" ],
-            "action": ["<method:post>"],
-            "effect": "allow",
-        },
-        {
-            "principal": ["*", ],  
-            "action": ["<method:put>"],
-            "effect": "deny", 
-            "message": "Access restricted: you need director-level permissions to perform this action."
+            "effect": "deny",
+            "message": "Access restricted: only directors can perform this action."
         }
     ]
-  
+    #     {
+    #         "principal": "authenticated",  # Authenticated users can POST
+    #         "action": ["<method:post>"],
+    #         "effect": "allow"
+    #     },
+    #     {
+    #         "principal": "*",  # Applies to all users (including unauthenticated)
+    #         "action": ["<method:put>", "<method:patch>", "<method:delete>, <method:get>"],
+    #         "effect": "deny",
+    #         "message": "Access restricted: you need director-level permissions to perform this action."
+    #     }
+    # ]
 
-    @classmethod
-    def scope_queryset(cls, request, qs):
-        # This method filters the queryset to only include folders created by the user
-        return qs.filter(created_by=request.user)
+    # def is_record_group_member(self, request, view, action):
+    #     """
+    #     Condition to check if the user is in the 'directors' group.
+    #     """
+    #     return (
+    #         request.user.is_authenticated
+    #         and hasattr(request.user, 'group')
+    #         and request.user.group.group_name == "directors"
+    #     )
 
-    def is_record_goup_member(self, request, view, action):
-        if request.user.is_authenticated and request.user.group.group_name == "directors":
-            return True
-        return False
-
-
+    # def get_user_message(self, request, view, action, effect, condition):
+    #     """
+    #     Customize the message shown when access is denied.
+    #     """
+    #     if effect == "deny":
+    #         if action in ["<method:put>", "<method:patch>", "<method:delete>"]:
+    #             return "Access restricted: you need director-level permissions to perform this action."
+    #     return super().get_user_message(request, view, action, effect, condition)
 
 
   

@@ -6,6 +6,12 @@ import { useGetAllRolesQuery } from '../../../features/roleAPI';
 import { useGetAllUsersQuery } from '../../../features/userAPI';
 import { useGetAllPoliciesQuery, useGetAllCustomManagedPolicesQuery } from '../../../features/policiesAPI';
 // import { useGetSubGroupsQuery } from '../../../features/groupsAPI';
+import { Text } from '../../../components/reusable/StyledComponent';
+import IAMUserResourceCard from './IAMUserResourceCard';
+import IAMRolesCard from './IAMRolesCard';
+import { ResponsiveContainer } from 'recharts';
+import IAMLineChart from './IAMLineChart';
+import IAMPolicyGroupCard from './IAMPolicyGroupCard';
 
 
 export interface ResourceNotifierInterface {
@@ -21,46 +27,40 @@ const IAMResources = () => {
     const {data: total_roles} = useGetAllRolesQuery()
     // const {data: subgroup} = useGetSubGroupsQuery()
 
-
-    const resources: ResourceNotifierInterface[] = [
-        { label: "Users", available_number: users?.length || 0},
-        { label: "Groups", available_number:  group?.length || 0 },
-        { label: "Roles",  available_number: total_roles?.length || 0 },
-        // { label: "SubGroups", available_number: subgroup?.length || 0 },
-        { label: "Policies", available_number: policies?.length || 0 }
-    ]
-
+    const available_user = users?.length || 0;
+    const total_role = total_roles?.length || 0;
 
   return (
-    <div className='flex flex-col gap-2 shadow-sm pb-5 px-2'>
-        <div className='mt-10 px-10 flex flex-col '>
-            <div className='flex justify-between items-center border-b-[2px] pb-3'>
-                <div className='flex flex-col'>
-                    <h1 className='font-Rubik font-[600] text-[18px]'>IAM Resources</h1>
-                    <p className='font-Poppins text-[13px] text-[#333] text-opacity-50'>Available IAM Resource</p>
-                </div>
-                <button className='bg-green-600 py-2 px-5 rounded-[4px] text-white cursor-pointer bg-opacity-85'>
-                    <Tooltip content={`Refresh`}>
-                        <FiRefreshCcw  size={20}/>
-                    </Tooltip>
-                </button>
+    <div className='border rounded-md py-2 px-2 flex flex-col space-y-3 w-full bg-white'>
+        <div className={`flex justify-between items-center`}>
+            <div className='px-3 py-2'>
+                <Text className='font-Poppins font-semibold text-text-primary text-opacity-50 pb-1'>IAM Resources</Text>
             </div>
-        
         </div>
+        <div className='flex flex-col space-y-1'>
+            <div className={`flex space-x-3`}>
+                <div className='flex-1'>
+                    <IAMUserResourceCard totalUser={available_user} />
+                </div>
+                <div className='flex-1'>
+                    <IAMRolesCard totalRoles={total_role} />
+                </div>
+            </div>
+            <div className={`flex`}>
+                <IAMPolicyGroupCard />
+                <div className='flex-grow'>
+                    <IAMLineChart />
+                </div>
+              
 
-        <div className='px-10 flex justify-between space-x-5 pt-6 divide-x-[2px]'>
-            {
-                resources?.map((resource, index) => (
-                    <div key={index} className='pl-5 flex flex-col gap-2'>
-                        <h2 className='font-Rubik text-[#333] text-opacity-50 text-[25px]'>{resource.label}</h2>
-                        <h1 className='font-Poppins text-[45px] hover:underline text-green-600'>{resource.available_number}</h1>
-                       
-                    </div>
-                ))
-            }
+            </div>
         </div>
+      
     </div>
   )
 }
 
 export default IAMResources
+
+
+

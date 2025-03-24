@@ -53,12 +53,12 @@ export const LoginErrorMessageModal = ({loginErrorMessage, loginFailed, setLogin
                         </FlexBox>
                    </ModalBody>
                    <ModalFooter className='flex justify-end items-center space-x-3 py-3 pr-5 cursor-pointer bg-[#f5f5f5] rounded-b-[10px]'>
-                        {
+                        {/* {
                             !isActive && (
                                 <button className='btn-sm ring-1 px-10 bg-text-primary text-white' onClick={() => setLoginFailed(prevState => !prevState)}>Send Request for account activation</button>
 
                             )
-                        }
+                        } */}
 
                         <button className='btn-sm ring-1 px-10' onClick={() => setLoginFailed(prevState => !prevState)}>Ok</button>
 

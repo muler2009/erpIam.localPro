@@ -14,7 +14,7 @@ class CreatePolicyRequestHandler(generics.GenericAPIView, mixins.CreateModelMixi
             data = request.data
             serializer = self.serializer_class(data=data)
             
-            # Validate the serializer
+            # Validate the serializer 
             if not serializer.is_valid():
                 # Raise a custom exception if validation fails
                 raise CustomExceptionForError(message=serializer.errors, error_type="Data Missed", status_code=400)

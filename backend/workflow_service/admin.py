@@ -2,10 +2,10 @@ from django.contrib import admin
 from workflow_service.models import *
 
 # Register your models here.
-
+admin.site.register(TemplateModel)
 admin.site.register(ApprovalEntryCriteriaModel)
 admin.site.register(ApprovalProcessModel)
-admin.site.register(ApprovalStepModel)
+admin.site.register(ApprovalStageModel)
 admin.site.register(ApprovalStepApprovers)
 admin.site.register(ApprovalTemplateModel)
 

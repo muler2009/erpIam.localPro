@@ -58,7 +58,7 @@ const CreateGroup = ({handleIsOpenCloseMenu, title}: GroupModalPropsInterface) =
 
   return (
    <ModalWrapper>
-    <ModalContainer className={`w-[60%] mx-auto bg-[#fff] flex flex-col relative top-[5%] shadow-2xl border rounded-t-[5px]`}>
+    <ModalContainer className={`w-[40%] mx-auto bg-[#fff] flex flex-col relative top-[5%] shadow-2xl border rounded-t-[5px]`}>
         <ModalHeader className='flex justify-between items-center px-5 py-3 border-b-[1px]'>
             <Text className='font-Rubik text-black font-semibold text-[15px] text-opacity-50 text-center px-5'>{title}</Text>
             <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-gray-400 hover:text-white" onClick={handleIsOpenCloseMenu}>
@@ -80,13 +80,13 @@ const CreateGroup = ({handleIsOpenCloseMenu, title}: GroupModalPropsInterface) =
                         }}
                     />
                 </FlexBox>
-                <FlexBox className='flex-grow pr-10'>
+                <FlexBox className='flex-grow'>
                     {/* {display[page]} */}
                     {displayComponent[page].component}
                 </FlexBox>
             </FlexInnerContainer>
         </ModalBody>
-        <ModalFooter className='px-4 py-4 flex justify-end space-x-3 border-t'>
+        <ModalFooter className='pl-4 py-4 flex justify-end space-x-3 border-t'>
             <div className="flex justify-end space-x-5 pr-5 ">
                 <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] text-[#333] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
                     <div className='flex justify-start items-center'>

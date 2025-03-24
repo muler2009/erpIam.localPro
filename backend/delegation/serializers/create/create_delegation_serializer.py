@@ -37,7 +37,7 @@ class CreateDelegationSerializer(serializers.ModelSerializer):
         start_date = data.get("delegation_start_date")
         end_date = data.get("delegation_end_date")
         if start_date and end_date and start_date > end_date:
-            raise serializers.ValidationError("Delegation start date must be before the end date.")
+            raise serializers.ValidationError("Delegation start date must be before the end date.") 
 
         # Check if user already has an active delegation
         if DelegationModel.objects.filter(delegator=self.context['request'].user, is_delegation_active=True).exists():

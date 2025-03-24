@@ -1,27 +1,15 @@
-from rest_framework import views, status, permissions
+from rest_framework import views, status, permissions, generics, mixins
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound, AuthenticationFailed
 from iam.groups.models import PosixGroupUserModel
 from iam.groups.serializers.get_group_serializer import GetGroupSerializer
+from iam.groups.access_policies.get_group_policy import GetGroupAccessPolicy
+       
 
-
-# class GetGroupsRequestHandler(views.APIView):
-#     def get(self, request: Request):
-#         try:
-#             groups = PosixGroupUserModel.objects.all()
-#             if not groups:
-#                 raise NotFound(detail="No Group Found")
-#             groups_serilizer = GetGroupSerializer(groups, many=True)
-#             return Response(groups_serilizer.data, status=status.HTTP_200_OK)
-#         except NotFound as exc:
-#             return Response({
-#                 "Error": exc.detail
-#             }, status=status.HTTP_404_NOT_FOUND)
-        
-
-class GetGroupsRequestHandler(views.APIView):
-    permission_classes = [permissions.AllowAny]  # Ensure the user is authenticated
+class GetGroupsRequestHandler(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = [GetGroupAccessPolicy] # Ensure the user is authenticated
+    
 
     def get(self, request):
         user = request.user

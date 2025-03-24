@@ -96,25 +96,31 @@
     /* Admin styling*/
     
     .user {@apply border-[1px] p-[1px] border-[#333] border-opacity-20 h-full} 
-    .user > .table > thead { @apply  border-b-[1px] bg-black}
-    .user > .table > thead > tr > th { @apply border-none py-4 px-5 font-Poppins font-semibold tracking-wide leading-[1.2] text-[#0b2239] text-opacity-70 bg-gray-50 text-[13px]}
-    .user > .table > thead > tr > th:first-child {@apply w-[40px] whitespace-nowrap}
-    .user > .table > tbody > tr > td { @apply py-1 text-[#333] text-opacity-80 text-[13px] px-5}
-    .user > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
-    .user > .table > tbody  { @apply border-b-[1px] px-5}
-    .user > .table > tbody  { @apply border-b-[1px] px-5}
-    .user > .table > tbody > tr > td:first-child {@apply border-r pr-4 py-2}
+    .user, .user-dasboard  > .table > thead { @apply  border-b-[1px]}
+    .user, .user-dasboard  > .table > thead > tr > th { @apply border-none py-4 px-5 font-Poppins font-semibold tracking-wide leading-[1.2] text-[#0b2239] text-opacity-70 bg-gray-50 text-[13px]}
+    .user-dasboard > .table > thead > tr > th { @apply border-none py-3 px-5 font-Poppins font-semibold tracking-wide leading-[1.2] text-[#0b2239] text-opacity-70 bg-gray-50 text-[13px]}
+    
+    .user > .table > tbody > tr:hover{ @apply  hover:bg-gray-500 hover:text-white}
+
+    .user, .user-dasboard > .table > thead > tr > th:first-child {@apply w-[40px] whitespace-nowrap}
+    .user, .user-dasboard > .table > tbody > tr > td { @apply py-2 text-[#333] text-opacity-80 text-[13px] px-5}
+    .user-dasboard > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
+    .user, .user-dasboard > .table > tbody  { @apply border-b-[1px] px-5}
+    .user, .user-dasboard > .table > tbody > tr > td:first-child {@apply border-r pr-4 py-2}
     th .menu { @apply invisible; }
     th:hover .menu { @apply visible; }
 
 
     /* .user > .table > thead > tr > th:last-child { @apply w-[3%]} */
 
-    .role > .table > thead { @apply  border-b-[1px] bg-opacity-40}
+    .role > .table > thead { @apply  border-b-[1px] bg-opacity-70 bg-gray-50}
     .role > .table > thead > tr > th { @apply border-none py-3 font-Poppins leading-[1.2] text-[#0b2239] text-[12.5px] font-semibold text-opacity-70}
     .role > .table > tbody > tr > td { @apply py-3 text-[#333] text-[13px] px-4}
-    .role > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
- 
+    .role > .table > tbody > tr:hover  {@apply hover:bg-blue-900}
+    .role > .table > tbody > tr:hover td { @apply text-white }
+
+    .role .table > tbody > tr > td:first-child { @apply w-[0%]}
+    
     .role .table-striped > tbody > tr:nth-of-type(odd), 
     .role > .table-striped > tbody > tr:nth-of-type(even) { @apply bg-white }
 

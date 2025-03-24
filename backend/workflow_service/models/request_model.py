@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 from iam.models import UserAccountsModel
-from .approval_step_model import ApprovalStepModel
+from .steps_model import ApprovalStageModel
 from .workflow_state_model import WorkflowStateModel
 from dmsmodule.document_repository.models.document_version_control import DocumentVersionModel
 from.approval_process import ApprovalProcessModel
@@ -12,7 +12,7 @@ class ApprovalRequestModel(models.Model):
     request_sent_at = models.DateTimeField(auto_now_add=True)
     request_updated_at = models.DateTimeField(auto_now=True)
     file_for_approval = models.ForeignKey(DocumentVersionModel, on_delete=models.CASCADE, blank=True)
-    current_stage = models.ForeignKey(ApprovalStepModel, on_delete=models.SET_NULL, null=True, blank=True)
+    current_stage = models.ForeignKey(ApprovalStageModel, on_delete=models.SET_NULL, null=True, blank=True)
     
 
     # help_text="The current status of the request."

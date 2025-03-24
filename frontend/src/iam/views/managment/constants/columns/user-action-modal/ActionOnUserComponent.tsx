@@ -9,7 +9,7 @@ import * as IoIcons from "react-icons/io";
 import { UserActionMenuItemsProps } from "../../../../../models/user.model";
 import useCommonUtils from "../../../../../../hooks/useCommonUtils";
 import UserActionModalTemplateComponent from "../../../user/views/user-modals/UserActionModalTemplateComponent";
-
+import * as CgIcons from "react-icons/cg";
 
 
 export const userActionButtons: UserActionMenuItemsProps[] = [
@@ -17,6 +17,11 @@ export const userActionButtons: UserActionMenuItemsProps[] = [
     label: "Rename",
     abbrevation: "rename",
     icon: <CiIcons.CiEdit size={17} />
+  },
+  {
+    label: "Detail",
+    abbrevation: "detail",
+    icon:  <CgIcons.CgDetailsMore size={17} />
   },
   {
     label: "Delete",
@@ -28,6 +33,7 @@ export const userActionButtons: UserActionMenuItemsProps[] = [
 const ActionOnUserComponent = ({rowData} : {rowData: UserAPIResponse}) => {
     const {isOpen, handleIsOpenCloseMenu} = useCommonUtils()
     return(
+      <>
         <FlexBox className={`flex justify-end items-center pr-20 invisible group-hover:visible`}>
           {
             userActionButtons.map((userAction, index) => (
@@ -41,6 +47,7 @@ const ActionOnUserComponent = ({rowData} : {rowData: UserAPIResponse}) => {
               </BottomTooltip>
           ))}
              
+        </FlexBox>
           {
             Object.keys(isOpen).map(abbrevation => 
               isOpen[abbrevation] && (
@@ -55,7 +62,8 @@ const ActionOnUserComponent = ({rowData} : {rowData: UserAPIResponse}) => {
               )
             )
           }
-        </FlexBox>
+      
+      </>
 
     )
 }

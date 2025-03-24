@@ -24,12 +24,12 @@ return (
         ) : (
             // Check if the data was successfully fetched and policies are available
             isSuccess && userData?.length > 0 ? (
-                <Div className='policy'>
-                    <UserTable 
-                        data={userData || []}
-                        columns={userColumns}
-                    />
-                </Div>
+                <UserTable 
+                    data={userData || []}
+                    columns={userColumns}
+                    showSearch={true}
+                    tableStyle={`policy`}
+                />  
             ) : (
                 // Show a message when there are no policies available
                 isSuccess && <p>No policies available</p>

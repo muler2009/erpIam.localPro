@@ -56,7 +56,8 @@ INSTALLED_APPS = [
     'workflow_manager',  
     'workflow_service',
     'notification',
-    'rest_access_policy'
+    'rest_access_policy',
+    'taf'
 ]
 
 MIDDLEWARE = [
@@ -225,7 +226,8 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.AllowAny',
+        'rest_access_policy.AccessPolicy'
     ], 
     'EXCEPTION_HANDLER': 'utils.custom_exception_handler.custom_exception_handler'
 }

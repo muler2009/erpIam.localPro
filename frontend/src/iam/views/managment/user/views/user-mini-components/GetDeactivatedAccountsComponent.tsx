@@ -7,9 +7,9 @@ import PolicyTable from '../../../../../components/Table/PolicyTable'
 
 const GetDeactivatedAccountsComponent = () => {
     const { data: deactivatedAccount, error, isSuccess } = useGetDeactivatedAccountQuery()
-    const {userColumns} = useUserColumn()
+    const {userDashboardColumn} = useUserColumn()
     return (
-        <FlexBox className='mx-4 mt-2 h-full flex flex-col justify-center'>   
+        <FlexBox className='mt-2 h-full flex flex-col justify-center'>   
             {
                  // Check if there is an error and handle it
                 error ? (
@@ -25,12 +25,12 @@ const GetDeactivatedAccountsComponent = () => {
                 ) : (
                     // Check if the data was successfully fetched and policies are available
                     isSuccess && deactivatedAccount?.length > 0 ? (
-                        <Div className='policy'>
-                            <PolicyTable 
-                                data={deactivatedAccount || []}
-                                columns={userColumns}
-                            />
-                        </Div>
+                        <UserTable 
+                            data={deactivatedAccount || []}
+                            columns={userDashboardColumn}
+                            showSearch={true}
+                            tableStyle={`user-dasboard`}
+                        />
                     ) : (
                         // Show a message when there are no policies available
                         isSuccess && <p>Empty</p>

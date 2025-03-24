@@ -33,8 +33,9 @@ const DatePickerComponent =  ({ className, selected, onChange }: DataComponentIn
     };
     
     return (
-        <DatePicker className=" text-black font-Poppins text-[10px] focus:outline-none placeholder-transparent border-gray-600 border-gray-30 text-sm "
+        <DatePicker inline className=" text-black font-Poppins text-[10px] focus:outline-none placeholder-transparent border-gray-600 border-gray-30 text-sm "
             renderCustomHeader={({
+            
               date,
               changeYear,
               changeMonth,

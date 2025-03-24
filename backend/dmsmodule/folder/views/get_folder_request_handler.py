@@ -9,7 +9,6 @@ from ..access_policies import StaffOnlyAccessPolicy, FolderViewAccessPolicy
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
 from utils.custom_exception_handler import CustomExceptionForError
-from iam.permissions import PolicyPermission
 
 # class GetFolderRequestHandler(mixins.ListModelMixin, generics.GenericAPIView):
 #     permission_classes = [FolderViewAccessPolicy]
@@ -53,7 +52,7 @@ from iam.permissions import PolicyPermission
 
 
 class GetFolderRequestHandler(mixins.ListModelMixin, generics.GenericAPIView):
-    permission_classes = [FolderViewAccessPolicy]
+    permission_classes = FolderViewAccessPolicy
     serializer_class = GetFolderSerializer
     queryset = FolderModel.objects.all()  # Base queryset
 

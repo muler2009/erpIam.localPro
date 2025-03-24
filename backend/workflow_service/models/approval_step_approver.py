@@ -1,5 +1,4 @@
 from django.db import models
-# from .approval_step_model import ApprovalStepModel
 from iam.models import UserAccountsModel
 from iam.role.models.models import IamRoleModel
 
@@ -20,7 +19,7 @@ class ApprovalStepApprovers(models.Model):
         UNANIMOUS = "Unanimous", "Unanimous",
         FIRST_RESPONSE = "FirstResponse", "FirstResponse"
 
-    stage = models.ForeignKey("ApprovalStepModel", on_delete=models.CASCADE, related_name="approvers", help_text="Approval stage to which these approvers are assigned.")
+    stage = models.ForeignKey("ApprovalStageModel", on_delete=models.CASCADE, related_name="approvers", help_text="Approval stage to which these approvers are assigned.")
     approver = models.ForeignKey(UserAccountsModel, on_delete=models.CASCADE, related_name="assigned_stages", help_text="User assigned as an approver for this stage.")
     approver_roles = models.ManyToManyField(
         IamRoleModel, 

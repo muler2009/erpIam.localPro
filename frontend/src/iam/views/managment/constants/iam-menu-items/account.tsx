@@ -5,6 +5,8 @@ import * as IoIcons from "react-icons/io";
 import * as GrIcons from "react-icons/gr";
 import * as MdIcons from "react-icons/md";
 import * as CiIcons from 'react-icons/ci'
+import * as FaIcons from "react-icons/fa6";
+import { RiPassExpiredFill } from "react-icons/ri";
 import GetAlLUserListComponent from "../../user/views/GetAllUserListComponent";
 import { data } from "../../../../constants/columns";
 import { UserActionMenuItemsProps, UserDashboardProps } from "../../../../models/user.model";
@@ -16,17 +18,20 @@ export const userTabLink: UserTabNavigationDef[] = [
       label: "All",
       tabContent: <GetAlLUserListComponent />,
       totalValues: data.length,
-      total: true
+      total: true,
+      icon: <FaIcons.FaUsers />
     },
     { 
       tabContent: <GetDeactivatedAccountsComponent />,
-      label: "Deactivated account",
-      total: true
+      label: "Deactivated",
+      total: true,
+      icon: <FaIcons.FaUsersSlash />
     },  
     { 
         label: "Expired account",
         tabContent: <h1>Expired acccount</h1>,
-        total: true
+        total: true,
+        icon: <RiPassExpiredFill />
     }  
 ] 
 

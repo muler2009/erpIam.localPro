@@ -1,17 +1,23 @@
-from rest_framework import views, status
+from rest_framework import views, status, generics, mixins
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.core.exceptions import EmptyResultSet
 from iam.models import UserAccountsModel
 from iam.users.serializers.get_user_account_serializer import GetUserAccountSerializer
+from iam.users.user_managment_policy.admin import IsAuthenticatedAdminUser
 
-class GetUserRequestAccountHandler(views.APIView):
+class GetUserRequestAccountHandler(generics.GenericAPIView, mixins.ListModelMixin):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedAdminUser]
+    serializer_class = GetUserAccountSerializer
+
     def get(self, request: Request):
         try:
             users = UserAccountsModel.objects.all()
             if not users:
                 raise EmptyResultSet
-            user_serializered = GetUserAccountSerializer(users, many=True)
+            user_serializered = self.serializer_class(users, many=True)
             return Response(user_serializered.data, status=status.HTTP_200_OK)
         except EmptyResultSet as exc:
             return Response({

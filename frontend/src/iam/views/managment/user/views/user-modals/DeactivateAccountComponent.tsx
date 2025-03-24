@@ -15,11 +15,8 @@ const DeactivateAccountComponent = ({onRequestClose, title, isOpen, link_identif
   return (
         <ModalContainer className={`w-[40%] mx-auto bg-gradient-to-t from-gray-300 to-white flex flex-col relative top-[15%] shadow-2xl rounded-t-md`} >
             <ModalHeader className='flex justify-between border-b-[1px]'>
-                <h1 className='font-Poppins text-black text-[13px] text-opacity-50 text-center px-5 py-2'>
-                    {`Deactivating Accounts`}
-                </h1>
+                <h1 className='font-Poppins text-black text-[13px] text-opacity-50 text-center px-5 py-2'>{`Deactivating Accounts`}</h1>
                 <div className="w-[50px] h-5 border flex justify-center items-center cursor-pointer text-white bg-red-600 hover:bgr-red-700 rounded-tr-md " onClick={onRequestClose}>
-                  
                     <Vsc.VscClose size={15} />
                 </div>
             </ModalHeader>
