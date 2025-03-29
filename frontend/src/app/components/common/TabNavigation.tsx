@@ -5,8 +5,8 @@ import { TabComponentPropsInterface } from '../../models/common-models';
 interface TabNavigationInterfce {
     tabs: TabComponentPropsInterface[]
     className: string;
-    activeTab: string;
-    custom?:string;
+    activeTab: string;  // style for active tab
+    custom?:string;  // style fto underline the bottom or other 
     showSearchInput?: boolean;
 }
 
@@ -20,11 +20,11 @@ const TabNavigation = ({tabs, className, activeTab, custom, showSearchInput}: Ta
     <>
       <div className='relative w-full font-Poppins text-[14px] mt-[2px] h-full'>
         <div className={`flex justify-between items-center bg-opacity-50 ${custom}`}>
-          <div className='flex justify-start space-x-2 flex-grow py-2 divide-x-[1px]'>
+          <div className='flex justify-center space-x-3 px-2 pt-3 pb-2 divide-x'>
             {
               tabs?.map((tab, index) => (
-                <div key={index} onClick={() => changeTabIndex(index)}  className={`px-2 ${activeTabIndex === index ? activeTab : className}`}>
-                  <div className={`flex justify-start items-center space-x-1 whitespace-nowrap`}>
+                <div key={index} onClick={() => changeTabIndex(index)}  className={`px-[10px] ${activeTabIndex === index ? activeTab : className}`}>
+                  <div className={`flex justify-center items-center whitespace-nowrap`}>
                       <h1 className='text-[13px] flex items-center'>
                       <span className='text-[15px] pr-2'>{tab.icon}</span>
                       {tab.label}

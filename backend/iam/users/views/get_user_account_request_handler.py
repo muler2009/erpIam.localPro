@@ -5,7 +5,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.core.exceptions import EmptyResultSet
 from iam.models import UserAccountsModel
 from iam.users.serializers.get_user_account_serializer import GetUserAccountSerializer
-from iam.users.user_managment_policy.admin import IsAuthenticatedAdminUser
+from iam.access_policy.authorization_policy import IsAuthenticatedAdminUser
 
 class GetUserRequestAccountHandler(generics.GenericAPIView, mixins.ListModelMixin):
     authentication_classes = [JWTAuthentication]

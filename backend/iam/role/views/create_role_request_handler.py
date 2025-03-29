@@ -6,10 +6,15 @@ from iam.role.serializers.create_role_serializers import CreateIamRoleModelSeria
 from utils.custom_exception_handler import AlreadyExistAPIException
 from iam.models import UserAccountsModel
 from utils.custom_exception_handler import CustomExceptionForError
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from iam.access_policy.authorization_policy import IsAuthenticatedAdminUser
+
 
 class CreateRoleModelInstanceRequestHandler(generics.GenericAPIView):
     queryset = IamRoleModel.objects.all()
     serializer_class = CreateIamRoleModelSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedAdminUser]
 
     def post(self, request: Request, **kwargs):
         try:

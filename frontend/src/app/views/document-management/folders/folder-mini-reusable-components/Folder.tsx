@@ -18,7 +18,6 @@ interface FolderProps {
 
 const Folder = ({ folder_data, handleItemClick, openStates, toggleItem, handleBackClick, handleForwardClick }: FolderProps) => {
 
-  console.log(folder_data)
   return (
     <FlexBox className='pt-2'>
       <FlexBoxInner className='flex flex-col relative mx-5'>        

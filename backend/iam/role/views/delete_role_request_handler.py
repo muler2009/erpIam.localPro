@@ -1,11 +1,14 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from iam.role.models.models import IamRoleModel
 from django.shortcuts import get_object_or_404
 from utils.custom_exception_handler import CustomExceptionForError
-
+from iam.access_policy.authorization_policy import IsAuthenticatedAdminUser
 
 class DeleteIamModelInstanceRequestHandler(generics.GenericAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedAdminUser]
     lookup_field = "role_id"
     
     def get_object(self):

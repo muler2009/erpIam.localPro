@@ -3,9 +3,11 @@ from rest_framework.response import Response
 from utils.custom_exception_handler import CustomExceptionForError
 from iam.models import UserAccountsModel
 from ...serializers.deactivation_serialzier import AccountDeacticationSerializer
+from ....access_policy.authorization_policy import IsAuthenticatedAdminUser
 
 
 class AccountDeactivationRequestHandler(generics.GenericAPIView):
+    permission_classes = [IsAuthenticatedAdminUser]
     lookup_field = "user_account_id"
 
     def get_object(self):
@@ -14,7 +16,6 @@ class AccountDeactivationRequestHandler(generics.GenericAPIView):
         return instance
         
     def post(self, request, *args, **kwargs):
-
         try: 
             user = self.get_object()
             if not user:

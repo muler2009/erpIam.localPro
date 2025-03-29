@@ -38,6 +38,10 @@ class UserAccountsModel(AbstractBaseUser):
         app_label = 'iam'
         verbose_name = "User Account"
         db_table = "User"
+
+    @property
+    def id(self):
+        return self.user_account_id
        
     def __str__(self):
         return f"{self.username}"

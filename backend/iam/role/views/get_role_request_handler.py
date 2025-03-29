@@ -1,14 +1,17 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from iam.access_policy.authorization_policy import IsAuthenticatedAdminUser
 from iam.role.models import IamRoleModel
 from iam.role.serializers.get_role_serializers import GetIamRoleModelSerializer
 from utils.custom_exception_handler import CustomExceptionForError
 
 
-
 class GetIamRoleInstanceRequestHandler(generics.GenericAPIView):
     queryset = IamRoleModel.objects.all()
-    serializer_class =GetIamRoleModelSerializer
+    serializer_class = GetIamRoleModelSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedAdminUser]
 
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
@@ -26,8 +29,8 @@ class GetIamRoleInstanceRequestHandler(generics.GenericAPIView):
 
         except CustomExceptionForError as exception:
             return Response({
-                "ERROR_MESSAGE": f"{exception.message}",
-                "ERROR_TYPE": f"{exception.error_type}"
+                "message": f"{exception.message}",
+                "error_type": f"{exception.error_type}"
             }, status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(role_serializer.data, status=status.HTTP_200_OK)

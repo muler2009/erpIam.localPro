@@ -82,7 +82,7 @@ export const sidebarItems: SideBar[] = [
         ] 
     },
     { 
-        path: "audit_logs", 
+         
         label: "Audit Logs", 
         icon: <FaIcons.FaUserCog />,
         iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,

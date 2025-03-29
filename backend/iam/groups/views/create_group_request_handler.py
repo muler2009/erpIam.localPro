@@ -1,16 +1,21 @@
-from rest_framework import views, status
+from rest_framework import status, generics, mixins
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from utils.custom_exception_handler import CustomExceptionForError
 from iam.groups.models import PosixGroupUserModel
 from iam.models import UserAccountsModel
 from iam.groups.serializers.create_group_serializer import CreateGroupSerializer
+from iam.access_policy.authorization_policy import IsAuthenticatedAdminUser
 
+class CreateGroupRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):  
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedAdminUser]
+    serializer_class = CreateGroupSerializer
 
-class CreateGroupRequestHandler(views.APIView):        
     def post(self, request: Request):              
         try:   
-            create_group_serializer = CreateGroupSerializer(data=request.data)
+            create_group_serializer = self.serializer_class(data=request.data)
             create_group_serializer.is_valid(raise_exception=True)  
 
             if PosixGroupUserModel.objects.filter(group_name=request.data.get('group_name')).exists():

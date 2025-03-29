@@ -1,51 +1,18 @@
-from rest_framework import serializers, status, views, generics, mixins
-from rest_framework.response import Response
-from iam.users.serializers.create_user_account_serializer import CreateLDAPUserSerializer
-from utils.custom_exception_handler import CustomSerializerValidationError
 from django.contrib.auth.hashers import make_password
+from rest_framework import status, views, generics, mixins
+from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from utils.custom_exception_handler import CustomSerializerValidationError
+from iam.users.serializers.create_user_account_serializer import CreateLDAPUserSerializer
 from iam.models import UserAccountsModel
-
-# class CreateUserAccountRequestHandler(views.APIView):
-#     def post(self, request):
-#         password = request.data.get('password')
-#         print(f"Password from request: {password}")
-        
-#         user_serializer = CreateLDAPUserSerializer(data=request.data) 
-#         try:        
-#             # password = user_serializer.validated_data.pop('password')
-#             # password = user_serializer.validated_data.get('password')
-#             # user_serializer.validated_data.pop('password')
-#             user_serializer.is_valid(raise_exception=True)  
-#             group = user_serializer.validated_data.pop('group')
-#             user_serializer.validated_data['group']= group
-#             user = user_serializer.save()
-#             user.set_password(password)
-#             user.save(update_fields=['password'])
-#             # user_serializer.create(user_serializer.validated_data)  
-#             # if password:
-#             #     user.set_password(password)
-#             #     user.save()
-                                                        
-#         except CustomSerializerValidationError as error:
-#             errors_container = {}
-#             for message_key, message in error.detail.items():
-#                 errors_container[message_key] = str(message[0])
-#             return Response({'error': errors_container}, status=status.HTTP_400_BAD_REQUEST)
-               
-#         except ConnectionError as e:
-#             return Response({f"{type(e).__name__}": str(e)})
-    
-#         else:                               
-#             return Response({
-#                 'status_code': status.HTTP_201_CREATED,
-#                 'statusText': "User Created Successfully",
-#             }, status=status.HTTP_201_CREATED)  
+from iam.access_policy.authorization_policy import IsAuthenticatedAdminUser
 
 class CreateUserAccountRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedAdminUser]
     queryset = UserAccountsModel.objects.all()
     serializer_class = CreateLDAPUserSerializer
-
-
+    
     def post(self, request): 
         user_serializer = self.serializer_class(data=request.data)
         try:

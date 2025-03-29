@@ -5,3 +5,4 @@ export interface NavigationMenuProps {
     miniWindow?: boolean;
     notify?: any;
 }
+

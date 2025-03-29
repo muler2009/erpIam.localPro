@@ -4,6 +4,9 @@ from rest_framework import serializers
 from iam.models import UserAccountsModel
 from django_auth_ldap.backend import LDAPBackend
 from utils.custom_exception_handler import AuthenticationFailedException
+from easyaudit.models import LoginEvent
+from django.utils.timezone import now
+from ..audit.views.util_classes.login_event_audit import LoginEventAuditLog
 
 
 class UserTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -38,6 +41,19 @@ class LoginUserSerializer(serializers.ModelSerializer):
         ldap_backend = LDAPBackend()
         user = ldap_backend.authenticate(request, username=username, password=password)  
 
+        login_type = 1 if user else 0
+        if user:
+            user_id = getattr(user, "user_account_id", None)
+            is_super_user = getattr(user, "is_superuser", None)
+        else:
+            # Fetch the user by username to get the user_id even if authentication fails
+           
+            user_obj = UserAccountsModel.objects.filter(username=username).first()
+            user_id = user_obj.user_account_id if user_obj else None
+            is_super_user = user_obj.is_superuser if user_obj else False
+
+        LoginEventAuditLog().login_event_audit(request, login_type, user_id, username, is_super_user)
+
         if(username is None or password is None):
             raise AuthenticationFailedException(message="Username or password is empty!", error_type="Authentication Error", status_code=403) 
         
@@ -62,5 +78,8 @@ class LoginUserSerializer(serializers.ModelSerializer):
             "refresh": user_token.get("refresh"),
             "is_active": user.is_active,
         }
+
+
+   
 
 

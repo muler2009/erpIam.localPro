@@ -93,20 +93,31 @@
     /* .table-striped > tbody > tr:nth-of-type(odd) { @apply bg-[#eee] }
     .table-striped > tbody > tr:nth-of-type(even) { @apply bg-white } */
    
-    /* Admin styling*/
+    /* ==================================== Admin styling* =========================================================/
     
+    /* user management styling */
+
     .user {@apply border-[1px] p-[1px] border-[#333] border-opacity-20 h-full} 
-    .user, .user-dasboard  > .table > thead { @apply  border-b-[1px]}
+    .user, .user-dasboard > .table > thead { @apply  border-b-[1px]}
     .user, .user-dasboard  > .table > thead > tr > th { @apply border-none py-4 px-5 font-Poppins font-semibold tracking-wide leading-[1.2] text-[#0b2239] text-opacity-70 bg-gray-50 text-[13px]}
     .user-dasboard > .table > thead > tr > th { @apply border-none py-3 px-5 font-Poppins font-semibold tracking-wide leading-[1.2] text-[#0b2239] text-opacity-70 bg-gray-50 text-[13px]}
-    
     .user > .table > tbody > tr:hover{ @apply  hover:bg-gray-500 hover:text-white}
 
-    .user, .user-dasboard > .table > thead > tr > th:first-child {@apply w-[40px] whitespace-nowrap}
-    .user, .user-dasboard > .table > tbody > tr > td { @apply py-2 text-[#333] text-opacity-80 text-[13px] px-5}
+    .user, .user-dasboard > .table > thead > tr > th:first-child {@apply w-[30px] whitespace-nowrap}
+    .user, .user-dasboard > .table > tbody > tr > td { @apply py-3 text-[#333] text-opacity-80 text-[13px] px-5}
     .user-dasboard > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
     .user, .user-dasboard > .table > tbody  { @apply border-b-[1px] px-5}
-    .user, .user-dasboard > .table > tbody > tr > td:first-child {@apply border-r pr-4 py-2}
+    .user, .user-dasboard > .table > tbody > tr > td:first-child {@apply w-[30px] border-r pr-4 py-2}
+
+
+    .audit > .table > thead { @apply  border-b-[1px]}
+    .audit > .table > thead > tr > th:first-child {@apply w-[30px] border-r pr-4 py-2}
+    .audit > .table > thead > tr > th { @apply border-none py-3 px-5 font-Poppins tracking-wide leading-[1.2] text-[#0b2239] text-opacity-70 bg-gray-50 text-[13px]}
+    .audit > .table > tbody > tr > td { @apply py-2 text-[#333] text-opacity-80 text-[13px] px-5}
+    .audit > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
+    .audit > .table > tbody  { @apply border-b-[1px] px-5}
+
+
     th .menu { @apply invisible; }
     th:hover .menu { @apply visible; }
 

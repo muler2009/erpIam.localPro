@@ -3,11 +3,14 @@ from rest_framework.response import Response
 from utils.custom_exception_handler import CustomExceptionForError
 from iam.models import UserAccountsModel
 from ...serializers.get_user_account_serializer import GetUserAccountSerializer
+from ....access_policy.authorization_policy import IsAuthenticatedAdminUser
+
 
 
 class GetDeactivatedAccountOnlyRequestHandler(generics.GenericAPIView):
     queryset = UserAccountsModel.objects.all()
     serializer_class = GetUserAccountSerializer
+    permission_classes = [IsAuthenticatedAdminUser]
 
     
     def get_queryset(self):

@@ -5,12 +5,11 @@ from rest_framework.response import Response
 from dmsmodule.folder.models.models import FolderModel
 from dmsmodule.folder.serializers.create_folder_serializer import CreateFolderSerializer
 from utils.custom_exception_handler import CustomExceptionForError, AlreadyExistAPIException
-from ..access_policies import FolderViewAccessPolicy
-
+from ..folder_authorization_policy.folder_view_policies import FolderCreateAccessPolicy
 
 class CreateFolderRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [FolderViewAccessPolicy]
+    permission_classes = [FolderCreateAccessPolicy]
     serializer_class = CreateFolderSerializer
 
     def post(self, request:Request):

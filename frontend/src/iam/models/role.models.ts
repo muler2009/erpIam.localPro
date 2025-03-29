@@ -6,6 +6,7 @@ export interface CommonMenuItemsProps {
     tabContent?: JSX.Element;
     total?: boolean;
     link_identifier?: string;
+    path?: string;
 }
 
 export interface RoleModalPropsInterface {

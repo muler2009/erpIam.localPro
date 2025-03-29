@@ -2,15 +2,16 @@ from rest_framework import permissions, status, views, serializers, generics, mi
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django_auth_ldap.backend import LDAPBackend
-from rest_framework_simplejwt.tokens import RefreshToken
+from django.utils.timezone import now
 from utils.custom_exception_handler import AuthenticationFailedException
 from iam.users.serializers.user_tokenObtainPair_serializer import UserTokenObtainPairSerializer, LoginUserSerializer
 import ldap
 from rest_framework.request import Request
-from ...common_access_policy.authenticated_policy import AllowAnyUsers, IsAuthenticatedUserOnly
+from iam.access_policy.authorization_policy import AllowAnyUsersToLoginAccessPolicy, IsAuthenticatedUserOnly
+from easyaudit.models import LoginEvent
 
 class AuthenticationRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
-    permission_classes = [AllowAnyUsers]  
+    permission_classes = [AllowAnyUsersToLoginAccessPolicy]  
     serializer_class = LoginUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
@@ -18,8 +19,8 @@ class AuthenticationRequestHandler(generics.GenericAPIView, mixins.CreateModelMi
         # user_serializer.is_valid(raise_exception=True)
         try: 
             if not user_serializer.is_valid(raise_exception=True):
-                raise AuthenticationFailedException(message="User with credentials not Found!", error_type="Authentication Error")
-            
+                raise AuthenticationFailedException(message=user_serializer.errors, error_type="Authentication Error")
+
             return Response(user_serializer.data, status=status.HTTP_200_OK)
         except AuthenticationFailedException as exc:
             AUTH_REPLY = {
@@ -33,18 +34,7 @@ class AuthenticationRequestHandler(generics.GenericAPIView, mixins.CreateModelMi
     
           
 
-class UserLogoutRequestHandler(views.APIView):
-    def post(self, request):
-        refreshToken = request.data.get('refreshToken')
-        if refreshToken:
-            try:
-                token = RefreshToken(refreshToken)
-                token.blacklist()
-                return Response({'message': "Logout Successfully!"}, status=status.HTTP_200_OK)
-            except Exception as exception:
-               return Response({'error': str(exception)}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-               return Response({'error': 'Refresh token not provided.'}, status=status.HTTP_400_BAD_REQUEST)
+
         
 
 

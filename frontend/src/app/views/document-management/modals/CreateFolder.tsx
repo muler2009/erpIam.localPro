@@ -22,14 +22,13 @@ const CreateFolder = ({handleIsOpenCloseMenu, isOpen, abbreviation, title}: Moda
       const response = await createFolder(folderAttributes).unwrap()
       if(response?.status_code === 201){
         handleIsOpenCloseMenu()
-      }else{
-        console.log(response)
       }
-    }catch(error: any){
+    }
+    catch(error: any)
+    {
       if(!error.data){
         console.log(error)
-        const { error_type, status_code, message } = error.data;
-        
+        const { error_type, status_code, message } = error.data; 
       }else if(error.data.status_code === 400 ){
         setErrorMessage({
           error_type: error.data?.error_type,
@@ -39,10 +38,8 @@ const CreateFolder = ({handleIsOpenCloseMenu, isOpen, abbreviation, title}: Moda
         setErrors(true);
         setTriggerMessageModal(prev => !prev);
       }
-    }
-    
+    }    
   }
-
 
 
   return (

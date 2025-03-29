@@ -13,6 +13,7 @@ export const API_TAGS = {
     POLICY: "Policy",
     DELEGATION: "Delegation",
     SETTING: "setting",
-    PREFERENCES: "Preferences"
+    PREFERENCES: "Preferences",
+    AUDIT: "Audit_log"
 
 } as const

@@ -11,6 +11,9 @@ import NewPolicyComponent from '../views/managment/policy/policy-mini-component/
 import NewPermissionCreationOnResourceComponent from '../views/managment/policy/policy-mini-component/NewPermissionCreationOnResourceComponent';
 import PolicyMain from '../views/managment/policy/policy-mini-component/PolicyMain';
 import NotificationSettingMain from '../views/managment/setting/main/NotificationSettingMain';
+import SystemAuditDashboard from '../views/sysaudit/main/SystemAuditDashboard';
+import UserActivitiesDashboard from '../views/sysaudit/main/UserActivitiesDashboard';
+import LoginStasticsChart from '../views/sysaudit/audit-components/LoginStasticsChart';
 
 interface Route {
     path: string;
@@ -29,6 +32,16 @@ const AdminRoutes = () => {
     { path: 'users',  element: <UserDashboard /> },
     { path: 'groups',  element: <GroupDashboard /> },
     { path: 'roles',  element: <RoleDashboard /> },
+    { path: '',  element: <SystemAuditDashboard />,
+      children: [
+        { path: 'audit_logs',  element: <LoginStasticsChart /> },
+        { path: 'user_activities',  element: <UserActivitiesDashboard /> },
+        { path: 'auth_logs',  element: <h1>Authentication Logs</h1> },
+
+      ]
+
+      },
+
     { 
       path: 'policies',  element: <PolicyDashboard />,
       children: [
