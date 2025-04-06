@@ -16,10 +16,8 @@ const MainPublicLayout = () => {
 
   return (
     <React.Fragment>
-      <header className='border-b shadow-sm font-Poppins sticky top-0 z-50'>
-        <MainScreenNavigation />
-      </header>
-      <main className={`h-[90vh] ${isLoginRoute ? "bg-watermark-logo bg-opacity-30" : "bg-white"}`}>
+
+      <main className={`h-[90vh] ${isLoginRoute ? "bg-gray-100" : "bg-gray-100"}`}>
         <Mainroutes />
       </main>
       <footer className='grid content-center bottom-0'>

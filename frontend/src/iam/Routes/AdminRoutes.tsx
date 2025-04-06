@@ -14,6 +14,7 @@ import NotificationSettingMain from '../views/managment/setting/main/Notificatio
 import SystemAuditDashboard from '../views/sysaudit/main/SystemAuditDashboard';
 import UserActivitiesDashboard from '../views/sysaudit/main/UserActivitiesDashboard';
 import LoginStasticsChart from '../views/sysaudit/audit-components/LoginStasticsChart';
+import AuthenticationLogs from '../views/sysaudit/main/AuthenticationLogs';
 
 interface Route {
     path: string;
@@ -36,7 +37,8 @@ const AdminRoutes = () => {
       children: [
         { path: 'audit_logs',  element: <LoginStasticsChart /> },
         { path: 'user_activities',  element: <UserActivitiesDashboard /> },
-        { path: 'auth_logs',  element: <h1>Authentication Logs</h1> },
+        { path: 'auth_logs',  element: <AuthenticationLogs /> },
+        { path: 'auth_logss',  element: <h1>Authentication Logs</h1> },
 
       ]
 

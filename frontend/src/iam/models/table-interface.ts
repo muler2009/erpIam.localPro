@@ -2,8 +2,7 @@ import { ColumnDef, FilterFn, Row } from "@tanstack/react-table";
 
 export interface BaseRecord {
     datetime?: string | Date; // Make it optional if not all records have this property
-
-  
+    attempt_time?: string | Date;  
   }
 
 export interface SharedTableProps<T> extends BaseRecord{

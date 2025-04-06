@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { useRoutes } from 'react-router-dom';
 import MainScreeen, { Home } from '../public/public-mini-component/MainPublicLayout';
-import Login from '../public/login/Login';
+import Login from '../public/login/main/Login';
 import UserRegistration from '../public/registerationn/UserRegistration';
 
 interface Route {
@@ -16,8 +16,8 @@ interface RouteWithChildren {
 
 const Mainroutes = () => {
   const routes: (Route | RouteWithChildren)[] = [
-    { path: '/',  element: <Home /> },
-    { path: 'login',  element: <Login /> }, 
+    // { path: '/',  element: <Home /> },
+    { path: '/',  element: <Login /> }, 
     { path: 'register',  element: <UserRegistration /> }, 
   ]
 

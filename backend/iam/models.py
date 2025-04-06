@@ -31,7 +31,9 @@ class UserAccountsModel(AbstractBaseUser):
     USERNAME_FIELD = 'username'  # user identification field
     REQUIRED_FIELDS = ['email', 'first_name', 'last_name']  # required field
 
-    _plain_password = None  # Temporary attribute to store plain password used in the ldap
+    _plain_password = None  # Temporary attribute to store plain password used in the 
+    
+    groups = None
 
     class Meta:
         ordering = ['username']

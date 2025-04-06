@@ -1,6 +1,6 @@
 import { API_TAGS } from "../../config/config";
 import { erpAPISlice } from "../api/apiSlice";
-import { LoginEventAuditLogAPIInterface } from "../models/sys_audit_interface";
+import { AccessFailureLogsAPIInterface, LoginEventAuditLogAPIInterface } from "../models/sys_audit_interface";
 
 
 const auditLogsAPI = erpAPISlice.injectEndpoints({
@@ -12,6 +12,20 @@ const auditLogsAPI = erpAPISlice.injectEndpoints({
             }),
             providesTags: [API_TAGS.AUDIT]
         }), 
+        getAccessFailureLogs: builder.query<AccessFailureLogsAPIInterface[], void>({
+            query: () => ({
+                url: `iam/failed-logs/`,
+                method: `GET`
+            }),
+            providesTags: [API_TAGS.AUDIT]
+        }), 
+        getAccessSuccessLogs: builder.query<AccessFailureLogsAPIInterface[], void>({
+            query: () => ({
+                url: `iam/successful-logs/`,
+                method: `GET`
+            }),
+            providesTags: [API_TAGS.AUDIT]
+        }), 
         getLoginChartStastics: builder.query<any, void>({
             query: () => ({
                 url: `iam/account/audit_login_stastics/`,
@@ -19,10 +33,14 @@ const auditLogsAPI = erpAPISlice.injectEndpoints({
             }),
             providesTags: [API_TAGS.AUDIT]
         }),
+        
+
     })
 })
 
 export const {
     useGetLoginAuditLogsQuery,
-    useGetLoginChartStasticsQuery
+    useGetLoginChartStasticsQuery,
+    useGetAccessSuccessLogsQuery,
+    useGetAccessFailureLogsQuery
 } = auditLogsAPI

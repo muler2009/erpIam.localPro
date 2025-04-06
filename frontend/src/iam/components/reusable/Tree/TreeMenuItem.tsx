@@ -17,10 +17,15 @@ import { SideMenuListItemProps, DisplayChildrensInterface } from "./tree-menu-in
 import TreeMenuList from "./TreeMenuList";
 
 
-const TreeMenuItem = ({ listItem, controller }: SideMenuListItemProps) => {
+const TreeMenuItem = ({ listItem, controller, key }: SideMenuListItemProps) => {
   // a state for handling open and closing
   const loggedInUser = useSelector(username)
   const [displayChildrens, setDisplayCurrentChildren] = useState<DisplayChildrensInterface>({});
+  const [activeTabIndex, setActiveTabIndex] = useState<number>(0); 
+
+    const changeTabIndex = (key: number): void => {
+        setActiveTabIndex(key)
+      }
 
   // Toggle handler
   const handleToggleChildren = useCallback(
@@ -39,8 +44,8 @@ const TreeMenuItem = ({ listItem, controller }: SideMenuListItemProps) => {
             {
               listItem.path
               ? ( 
-                  <Link to={listItem.path} className={`py-2 cursor-pointer font-Poppins text-sm  `} onClick={() => handleToggleChildren(listItem.label)}>
-                    <div className="px-4 flex items-center justify-start space-x-3 py-2 hover:bg-gray-500">
+                  <Link to={listItem.path} className={`py-2 cursor-pointer font-Poppins text-sm `} onClick={() => handleToggleChildren(listItem.label)}>
+                    <div className={`px-4 flex items-center justify-start space-x-3 py-2 hover:bg-gray-500 ${activeTabIndex === key && 'bg-white'}`}>
 
                         {
                           listItem.label === 'Dashboard' ? 

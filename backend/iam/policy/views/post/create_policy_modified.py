@@ -3,10 +3,12 @@ from rest_framework.response import Response
 from utils.custom_exception_handler import CustomExceptionForError
 from ...models.policy_model import OromiaLandPolicy
 from ...serializers.create.create_policy_modified_serializer import PolicySerializer
+from iam.access_policy.authorization_policy import IsAuthenticatedAdminUser
 
 class CreatePolicyRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
     queryset = OromiaLandPolicy.objects.all()
     serializer_class = PolicySerializer
+    permission_classes = [IsAuthenticatedAdminUser]
 
     def post(self, request, *args, **kwargs):
         try:

@@ -16,6 +16,7 @@ click-repl==0.3.0
 cron-descriptor==1.4.3
 Django==5.1.4
 django-auth-ldap==4.8.0
+django-axes==7.0.2
 django-celery-beat==2.6.0
 django-codemirror2==0.2
 django-cors-headers==4.3.1

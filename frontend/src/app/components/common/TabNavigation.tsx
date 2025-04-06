@@ -20,15 +20,18 @@ const TabNavigation = ({tabs, className, activeTab, custom, showSearchInput}: Ta
     <>
       <div className='relative w-full font-Poppins text-[14px] mt-[2px] h-full'>
         <div className={`flex justify-between items-center bg-opacity-50 ${custom}`}>
-          <div className='flex justify-center space-x-3 px-2 pt-3 pb-2 divide-x'>
+          <div className='flex justify-center px-2 pt-3 pb-2'>
             {
               tabs?.map((tab, index) => (
-                <div key={index} onClick={() => changeTabIndex(index)}  className={`px-[10px] ${activeTabIndex === index ? activeTab : className}`}>
-                  <div className={`flex justify-center items-center whitespace-nowrap`}>
-                      <h1 className='text-[13px] flex items-center'>
-                      <span className='text-[15px] pr-2'>{tab.icon}</span>
-                      {tab.label}
-                    </h1>
+                <div key={index} onClick={() => changeTabIndex(index)} >
+                  <div  className={`px-3 border-r ${tabs.length - 1 === index ? 'border-none' : 'border-r'}`}>
+                    <div className={`flex justify-center items-center whitespace-nowrap ${activeTabIndex === index ? activeTab : className}`}>
+                        <h1 className='text-[13px] flex items-center'>
+                        <span className='text-[15px] pr-2'>{tab.icon}</span>
+                        {tab.label}
+                      </h1>
+                    </div>
+
                   </div>
                 </div>
               ))

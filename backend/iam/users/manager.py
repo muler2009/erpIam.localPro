@@ -5,14 +5,15 @@ import ldap
 from utils.connection import LDAPConnection
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from config.settings import auth_server
 from utils.set_default_password import set_default_password
 
 # UserAccountsModel = get_user_model()
 class UserAccountsManager(BaseUserManager):
     def create_user_in_ldap(self, username, first_name, last_name, email, password):
-        ldap_uri = settings.AUTH_LDAP_SERVER_URI
-        ldap_bind_dn = settings.AUTH_LDAP_BIND_DN
-        ldap_bind_password = settings.AUTH_LDAP_BIND_PASSWORD
+        ldap_uri = auth_server.AUTH_LDAP_SERVER_URI
+        ldap_bind_dn = auth_server.AUTH_LDAP_BIND_DN
+        ldap_bind_password = auth_server.AUTH_LDAP_BIND_PASSWORD
 
         user_dn = f'cn={username},ou=admin,dc=erpIam,dc=local'
         user_attrs = [

@@ -24,8 +24,6 @@ class LoginEventAuditLogStastics(generics.GenericAPIView, mixins.ListModelMixin)
         login_statics_dict = {
             item["datetime__date"]: item["login_count"] for item in login_stat
         }
-
-        
         
         statstics_data = [
             {

@@ -19,7 +19,7 @@ class AllowAnyUsersToLoginAccessPolicy(AccessPolicy):
     statements = [
         {
             "principal": ["anonymous"],
-            "action": ["<method:post>"],  # Allow all actions if authenticated
+            "action": ["<method:post>", "<method:get>"],  # Allow all actions if authenticated
             "effect": "allow",
         },
     ]

@@ -21,7 +21,7 @@ class IamRoleModel(models.Model):
     role_created_at = models.DateTimeField(auto_now=True)
     role_modified_date = models.DateTimeField(auto_now_add=True)
 
-    policies = models.ManyToManyField(OromiaLandPolicy, null=True, blank=True, related_name='roles')
+    policies = models.ManyToManyField(OromiaLandPolicy, related_name='roles')
     # role_expired_date = models.DateTimeField(auto_now_add=True)
     # role_owner = models.CharField(max_length=100)
 

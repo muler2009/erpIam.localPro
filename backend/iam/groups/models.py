@@ -9,7 +9,7 @@ class PosixGroupUserModel(models.Model):
     group_posix_Id = models.IntegerField(null=True, blank=True)
     group_abbreviation = models.CharField(max_length=50)
     group_description = models.CharField(max_length=255, null=True, blank=True)
-    members = models.ManyToManyField('iam.UserAccountsModel', blank=True, null=True, related_name='useraccount_groups')
+    members = models.ManyToManyField('iam.UserAccountsModel', related_name='useraccount_groups')
     
     class Meta:
         ordering = ["group_name"]  # Ordering the group

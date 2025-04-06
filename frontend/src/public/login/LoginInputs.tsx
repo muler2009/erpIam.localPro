@@ -7,94 +7,101 @@ import { LoginErrorMessageModal } from '../../iam/components/errors/LoginError'
 import { ErrorResponseInterface } from '../../iam/models/error.model'
 import { Div, FlexBox, FlexBoxInner, Text } from '../../components/common/StyledComponent'
 import LoginInstruction from './LoginInstruction'
-import logo_2 from '../../assets/images/logo_2.png'
+import system from '../../assets/images/system.png'
+import { Link } from 'react-router-dom'
+import AccountLocked from '../../iam/components/errors/AccountLocked'
 
 
 const LoginInputs = () => {
-  const { loginData, handleInputLoginChanges, onLoginButtonClicked, isLoggingIn, setIsLoggingIn, loginErrorMessage, loginFailed, setLoginFailed} = useLogin()
+  const { 
+    loginData, 
+    loginFailed, 
+    isLocked,
+    loginErrorMessage, 
+    activateLoginBtn,
+    setIsLocked,
+    handleInputLoginChanges,
+    onLoginButtonClicked, 
+    setLoginFailed, 
+  } = useLogin()
  
   return (
-    <FlexBox className={`h-full py-5 ${isLoggingIn && 'login-animate'}`}>
-      <FlexBoxInner className='flex space-x-[2px] h-full'>
-        {/* <LoginInstruction /> */}
-        <FlexBoxInner className='flex flex-col items-center w-[80%] mx-auto border pt-16 bg-white bg-opacity-65 rounded-md'>
-          <FlexBoxInner className='flex flex-col justify-center items-center'>
-            <Div className='font-IBMPlexSans font-semibold text-primary-green flex space-x-3 justify-start items px-10'>
-                <img src={logo_2} className='w-[7rem] h-[7rem] object-cover' alt='Oromia land administration' />
-                <Div className='pt-2 whitespace-nowrap'>
-                    <Text className='font-Poppins text-[25px] font-semibold text-[#5e2f05] text-opacity-80'>Biiroo Lafa Oromiyaa
-                      <span className='font-Poppins font-semibold block -pt-2 text-[17px] text-primary-green text-opacity-70'>Oromia Land Bureau</span>
-                       <span className='font-Poppins font-semibold block -pt-2 text-[15px] text-text-primary text-opacity-50'>
-                        Electronic Document Management system (e-DMS)
-                       </span>
-                    </Text>
-                </Div>
+    <FlexBox className={`py-5 w-[30%] h-[70vh] my-[2px] mx-auto bg-white shadow-md border`}>  
+      <div className='border-b flex justify-center pb-5'>
+        <img src={system} className={``} />
+      </div>
+      <div className={`px-10 flex flex-col space-y-5 justify-center py-5`}>
+        <Text className='text-[25px] font-Poppins text-button-primary font-semibold text-center '>
+          Welcome To e-ISDMS <span className={`block text-[12px] font-normal text-[#333] text-opacity-70`}>Use credential provided by the system admin to log into the system</span>
+        </Text>
+          <div className="relative font-Poppins">
+            <label className='relative cursor-pointer py-2 flex flex-row items-center'>
+                <input 
+                  id='username'
+                  type='text' 
+                  name='username'
+                  placeholder='username'
+                  className='w-full pl-6 pr-10 pt-4 text-black input-md rounded-md border-opacity-50 focus:bg-white placeholder-gray-300 placeholder-opacity-0 transition duration-200' 
+                  value={loginData.username}
+                  onChange={handleInputLoginChanges}
+                />
+                <FaUserAlt color="gray" className="absolute right-2 mr-3 "/>
+                <span className='text-black text-[15px] bg-white text-opacity-80 absolute left-5 top-5 px-1 transition duration-200 input-text border-none'>Username</span>
+            </label>  
+          </div>
+          {/* Password Field */}
+          <div className="relative font-Poppins">
+            <label className='relative cursor-pointer py-2 flex flex-row items-center'>
+              <input 
+                id='password'
+                type='password' 
+                name={`password`}
+                placeholder={`password`}
+                className={`w-full pl-6 pr-10 pt-4 text-black input-md border-opacity-50 focus:outline-none focus:border-green-600 focus:bg-white placeholder-gray-300 placeholder-opacity-0 transition duration-200 focus:border-inherit`}    
+                value={loginData.password}
+                onChange={handleInputLoginChanges} 
+              />
+              <FaLock color="gray" className={`absolute right-2 mr-3`} />
+              <span className={`text-black text-[15px] bg-white text-opacity-80 absolute left-5 top-5 px-1 transition duration-200 input-password border-none`}>Password</span>
+            </label>  
+          </div>
+          <div className={`flex flex-col space-y-1 items-start`}>
+            <Text className={`text-[13px] text-text-primary font-Poppins float-right`}>Forgot your password</Text>
+            <Text className={`block font-Poppins text-[11px]`}>
+              Click here to <span className='text-blue-600 hover:underline cursor-pointer'>change password</span>
+            </Text>
+          </div>
+          <button  
+            className={`btn-md py-2 font-IBMPlexSans font-semibold bg-button-primary text-white rounded-[4px] disabled:bg-gray-50 disabled:text-[#333] disabled:text-opacity-50`} 
+            disabled={!activateLoginBtn}
+            onClick={onLoginButtonClicked}
+          >Login</button>           
+      </div>
 
-              </Div>
-                <hr className="my-5 h-[1px] border-t-0 bg-gray-100 w-full" />
-          </FlexBoxInner>
-          
-        
-            <div className={`px-10 flex flex-col justify-center gap-4 w-[80%] mx-auto`}>
-              <Text className='text-[30px] font-Poppins text-[#5e2f05] font-semibold text-center text-opacity-65'> Login to System</Text>
-                <div className="relative font-Poppins">
-                  <label className='relative cursor-pointer py-2 flex flex-row items-center'>
-                      <input 
-                        id='username'
-                        type='text' 
-                        name='username'
-                        placeholder='username'
-                        className='px-6 pt-4 text-black input-md border-opacity-50 focus:outline-none focus:border-green-600 focus:bg-white placeholder-gray-300 placeholder-opacity-0 transition duration-200 focus:border-inherit'  
-                        value={loginData.username}
-                        onChange={handleInputLoginChanges}
-                      />
-                      <FaUserAlt color="gray" className="absolute right-2 mr-3 "/>
-                      <span className='text-black text-[15px] bg-white text-opacity-80 absolute left-5 top-5 px-1 transition duration-200 input-text'>Username</span>
-                  </label>  
-                </div>
-                {/* Password Field */}
-                <div className="relative font-Poppins">
-                  <label className='relative cursor-pointer py-2 flex flex-row items-center'>
-                      <input 
-                        id='password'
-                        type='password' 
-                        name='password'
-                        placeholder='password'
-                        className='px-6 pt-4 text-black input-md border-opacity-50 focus:outline-none focus:border-green-600 focus:bg-white placeholder-gray-300 placeholder-opacity-0 transition duration-200 focus:border-inherit'    
-                        value={loginData.password}
-                        onChange={handleInputLoginChanges} 
-                      />
-                      <FaLock color="gray" className="absolute right-2 mr-3"/>
-                      <span className='text-black text-[15px] bg-white text-opacity-80 absolute left-5 top-5 px-1 transition duration-200 input-password'>Password</span>
-                  </label>  
-                </div>
-               
-                <div className='flex flex-col items-end'>
-                  <Text className='text-[14px] text-text-primary font-Poppins float-right'>Forgot your password</Text>
-                    <span className='block font-Poppins text-[11px]'>click <a href='#' className='text-blue-600 hover:underline cursor-pointer'>forgot password</a> to send request to the system administrator</span>
-                </div>
-              
-                  <button className='btn-md w-[50%] bg-gray-300 font-Poppins rounded-sm px-10 hover:bg-[#00bdff] hover:text-white hover:ring-2 hover:ring-white hover:rounded-sm' 
-                      onClick={onLoginButtonClicked}> Login </button> 
-                    
-                
-            </div>
-        
-        </FlexBoxInner>
-      </FlexBoxInner>
-        <LoginErrorMessageModal 
-          loginErrorMessage={loginErrorMessage}
-          loginFailed={loginFailed} 
-          setLoginFailed={setLoginFailed} 
-        />
+      <div className={`py-2 font-Poppins text-[#333] rounded-[4px] text-[12px] flex justify-center items-center pb-5 text-opacity-50`}>Create System Account
+        <Link to="register" className={`block font-Poppins pl-2 hover:text-button-primary font-semibold text-[14px] text-[#333]  text-opacity-100`}>Register</Link>
+      </div>
+     
+      <LoginErrorMessageModal 
+        loginErrorMessage={loginErrorMessage}
+        loginFailed={loginFailed} 
+        setLoginFailed={setLoginFailed} 
+      />
 
+      <AccountLocked 
+        isLocked={isLocked}
+        setIsLocked={setIsLocked}
+        loginErrorMessage={loginErrorMessage}
+      />
     </FlexBox>
   )
 }
-      
-         
-    
-
 
 export default LoginInputs
 
+
+{/* <ChangePasswordComponent 
+  open={open}
+  handleIsOpenCloseMenuModal = {handleIsOpenCloseMenuModal}
+  title={`Change Password`}
+/> */}

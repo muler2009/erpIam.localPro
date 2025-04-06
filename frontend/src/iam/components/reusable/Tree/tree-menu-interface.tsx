@@ -14,6 +14,7 @@ export interface TreeMenuItemInterface {
 export interface SideMenuListItemProps {
     listItem: TreeMenuItemInterface;
     controller?: boolean | undefined;
+    key: number;
   }
   
 export interface DisplayChildrensInterface {

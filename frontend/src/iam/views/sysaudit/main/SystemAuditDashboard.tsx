@@ -10,7 +10,7 @@ const SystemAuditDashboard = () => {
        <HorizontalMenu 
           menuItems={audit_logs_menu} 
           className={`text-[#333] text-opacity-80`} 
-          active='bg-blue-300 rounded-t-[5px] duration-700 transition ease-in-out'
+          active='bg-[#eef6ff] border border-gray-500 rounded-[5px] duration-700 transition ease-in-out '
         />
        <Outlet />
     </div>

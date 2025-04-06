@@ -10,8 +10,8 @@ const UserActivitiesDashboard = () => {
             tabs={audit_tab_menu}
             showSearchInput={false}
             className='cursor-pointer text-[#333] text-opacity-80'
-            custom='border-b'
-            activeTab='font-semibold text-opacity-100 border-b-[2px] border-b-green-500 pb-2'
+            custom='border-b '
+            activeTab={`font-semibold text-opacity-100 border-b-[2px] border-b-button-primary pb-2 border-r-none`}
         />
         </div>
     </div>

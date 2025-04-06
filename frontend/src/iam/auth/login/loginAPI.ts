@@ -26,6 +26,13 @@ const loginAPI = erpAPISlice.injectEndpoints({
                 method: `GET`,
             }),
         }),
+        lockedCoolOffTime: builder.query<{locked: boolean, remaining_time: number}, void>({
+            query: () => ({
+                url: `iam/account/locked_time/`,
+                method: "GET",
+            }),  
+            providesTags: [API_TAGS.USER]
+        }),
 
     })
 })
@@ -34,5 +41,6 @@ const loginAPI = erpAPISlice.injectEndpoints({
 export const {
     useGetLoggedUserQuery,
     useUserLoginMutation,
-    useGetUserGroupQuery
+    useGetUserGroupQuery,
+    useLockedCoolOffTimeQuery,
 } = loginAPI

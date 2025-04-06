@@ -20,10 +20,6 @@ interface LoginFailedModalInterface {
 
 export const LoginErrorMessageModal = ({loginErrorMessage, loginFailed, setLoginFailed}: LoginFailedModalInterface ) => {
    
-    const {isActive} = useLogin()
-
-    console.log(isActive)
-  
     return (
         loginFailed ? (
             <ModalWrapper>

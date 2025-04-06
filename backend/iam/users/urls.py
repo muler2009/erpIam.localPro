@@ -9,11 +9,13 @@ from iam.users.views.logout_request_handler import LogoutRequestHandler
 from iam.users.views.get_user_group_request_handler import GetUserGroupRequestHandler
 from iam.users.views.post.user_registration_req_handler import RegisterViewRequestHandler
 from iam.users.views.get.search_user_request_handler import SearchUserRequestHandler
-from iam.users.views.post.deactivate_account import AccountDeactivationRequestHandler
 from iam.users.views.get.get_deactivated_account_req_handler import GetDeactivatedAccountOnlyRequestHandler
 from iam.users.views.get.last_login_time_request_handler import LastLoginTimeView
 from iam.users.audit.views.get.get_login_ebvent_request_handler import LoginEventAuditLogRequestHandler
 from iam.users.audit.views.get.login_stastics_request_handler import LoginEventAuditLogStastics
+from iam.users.views.get.get_cool_off_time_req_handler import AxesConfigCoolOffTime
+from iam.users.views.post.deactivate_account import AccountDeactivationRequestHandler
+
 
 urlpatterns = [
     path('login/', AuthenticationRequestHandler.as_view()),
@@ -43,11 +45,11 @@ urlpatterns = [
     path('search_user/' , SearchUserRequestHandler.as_view(), name="search-user"), 
 
     # AUDIT_LOGS URL PATH
-    
-    # path("", include('audit.urls')),
-
     path("audit_login_event/", LoginEventAuditLogRequestHandler.as_view()),
-    path("audit_login_stastics/", LoginEventAuditLogStastics.as_view(), name='audit_login_stastics')
+    path("audit_login_stastics/", LoginEventAuditLogStastics.as_view(), name='audit_login_stastics'),
+
+    # AXES for protection bruteforce
+    path("locked_time/", AxesConfigCoolOffTime.as_view(), name="cool_off_time" )
 
 
 

@@ -6,7 +6,6 @@ import * as FaIcons from "react-icons/fa";
 
 const loginAuditLogsHelper = createColumnHelper<LoginEventAuditLogInterface>()
 
-
 const useLoginAuditColumn = () => {
 
     const loginEventColumn = useMemo(
@@ -84,13 +83,7 @@ const useLoginAuditColumn = () => {
                         </div>
                     )
                 }
-            })
-
-            
-
-          
-
-          
+            })          
         ], []
     )
 

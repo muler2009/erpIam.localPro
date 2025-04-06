@@ -1,7 +1,7 @@
 import React from 'react'
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom'
 import { Layout } from '../layout/Layout'
-import Login from '../public/login/Login'
+import Login from '../public/login/main/Login'
 import Dashboard from '../iam/layout/Dashboard'
 import RequireAuth from '../components/auth/RequiredAuth'
 import DMSDashboard from '../app/layout/DMSDashboard'

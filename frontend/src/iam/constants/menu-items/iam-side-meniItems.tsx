@@ -24,7 +24,7 @@ export const iamSidebarItems = [
         children: [
             {
                 path: 'users',
-                label: 'Users',
+                label: 'Identity management',
                 icon: <PiIcons.PiUsersFill />
             },
             {

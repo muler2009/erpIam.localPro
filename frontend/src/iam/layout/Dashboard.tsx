@@ -8,7 +8,7 @@ import menus from '../constants/data'
 import SidebarMenu from '../components/reusable/SidebarMenu'
 import { ThemeContextProvider } from '../../context/ThemeContext'
 import { ThemeContext } from '../../context/ThemeContext'
-import { iamSidebarItems } from '../components/reusable/Tree/iam-side-meniItems'
+import { iamSidebarItems } from '../constants/menu-items/iam-side-meniItems'
 import MainTree from '../components/reusable/Tree/MainTree'
 
 

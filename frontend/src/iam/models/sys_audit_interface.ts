@@ -13,3 +13,46 @@ export interface LoginEventAuditLogAPIInterface extends LoginEventAuditLogInterf
     message: string;
     error_type: string;
 }
+
+export interface UserLogInfo {
+    user_id: string; // UUID
+    username: string;
+    email: string;
+    is_superuser: boolean;
+}
+
+export interface EventInterface {
+    type: "login_failure" | "login_success" | string;
+    status: "failed" | "success" | string;
+    reason?: string; // e.g., "wrong_password", "account_locked", etc.
+  }
+
+export interface RiskInterface {
+    device_fingerprint?: string;
+    is_new_device?: boolean;
+    login_risk_score?: number;
+    login_anomaly_detected?: boolean;
+    was_challenge_triggered?: boolean;
+  }
+
+export interface AccessFailureLogsInterface {
+    user_agent: string
+    attempt_time: string;
+    ip_address: string;
+    username: string;
+    failure_count: number;
+    http_accept: string;
+    locked_out: boolean;
+    logout_time?: string | Date;
+    session_hash?: string;
+    user_info: UserLogInfo;
+    event: EventInterface;
+    risk: RiskInterface;    
+}
+
+export interface AccessFailureLogsAPIInterface extends AccessFailureLogsInterface {
+    status_code?: number;
+    message?: string;
+    error_type?: string;
+}
+

@@ -3,11 +3,14 @@ from rest_framework.response import Response
 from utils.custom_exception_handler import CustomExceptionForError
 from ...models.policy_model import OromiaLandPolicy
 from ...serializers.get.get_oromia_land_policy_serializer import GetOLBPolicySerailzier
+from iam.access_policy.authorization_policy import IsAuthenticatedAdminUser
 
 
 class GetModelLevelPolicyRequestHandler(generics.GenericAPIView, mixins.ListModelMixin):
     queryset = OromiaLandPolicy.objects.all()
     serializer_class = GetOLBPolicySerailzier
+    permission_classes = [IsAuthenticatedAdminUser]
+
 
     def get_queryset(self):
         data = super().get_queryset()

@@ -7,28 +7,34 @@ from utils.custom_exception_handler import AuthenticationFailedException
 from iam.users.serializers.user_tokenObtainPair_serializer import UserTokenObtainPairSerializer, LoginUserSerializer
 import ldap
 from rest_framework.request import Request
+from iam.models import UserAccountsModel
 from iam.access_policy.authorization_policy import AllowAnyUsersToLoginAccessPolicy, IsAuthenticatedUserOnly
-from easyaudit.models import LoginEvent
+from ..helpers.failure_reason import failure_reason
 
 class AuthenticationRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
     permission_classes = [AllowAnyUsersToLoginAccessPolicy]  
     serializer_class = LoginUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
+        
         user_serializer = self.serializer_class(data=request.data, context={'request': request})
-        # user_serializer.is_valid(raise_exception=True)
         try: 
-            if not user_serializer.is_valid(raise_exception=True):
-                raise AuthenticationFailedException(message=user_serializer.errors, error_type="Authentication Error")
-
+            if not user_serializer.is_valid():
+                raise AuthenticationFailedException(message=user_serializer.errors)
             return Response(user_serializer.data, status=status.HTTP_200_OK)
         except AuthenticationFailedException as exc:
+            failure_reason(request=request)
+
             AUTH_REPLY = {
                 'error_type': exc.error_type,
                 'message': exc.message,
                 'status_code': exc.status_code 
             }
-            return Response(AUTH_REPLY, status=status.HTTP_400_BAD_REQUEST)
+            return Response(AUTH_REPLY, status=getattr(exc, "status_code", status.HTTP_403_FORBIDDEN))
+
+    
+  
+
         
         
     

@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'easyaudit',
+    'axes',
+    'django_extensions',
    
 
     
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'iam.groups',
     'iam.role',
     'iam.policy',
+    'iam.auditing',
     'delegation',
     'iam.ldap_integration.apps.LdapIntegrationConfig',
     'dmsmodule',
@@ -61,7 +64,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'utils.ConnectionMiddleware.LDAPConnectionMiddleware',  
+    'axes.middleware.AxesMiddleware',
+    # 'utils.ConnectionMiddleware.LDAPConnectionMiddleware',  
 ]
 
 
@@ -156,10 +160,14 @@ MEDIA_URL = '/media/'  # it’s the URL that should be used to serve media.
 
 AUTH_USER_MODEL = 'iam.UserAccountsModel'
 
+
 AUTHENTICATION_BACKENDS = [
-    'django_auth_ldap.backend.LDAPBackend',
-    'django.contrib.auth.backends.ModelBackend',   
+    'axes.backends.AxesStandaloneBackend',
+    'utils.system_auth_backend.LDAPWithAxesBackend',
+    # 'django_auth_ldap.backend.LDAPBackend',
+    # 'django.contrib.auth.backends.ModelBackend',   
 ]
+
 
 # Django REST_FRAMEWORK Configuration 
 REST_FRAMEWORK = {
@@ -186,9 +194,12 @@ SIMPLE_JWT = {
     'USER_ID_CLAIM': 'username',
 }
 
+
+
 from config.settings.cors import *
 from config.settings.celery import *
-from config.settings.ldap import *
+from config.settings.axes import *
+from config.settings.auth_server import *
 
 
 

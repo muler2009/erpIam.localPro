@@ -23,8 +23,11 @@ const useLogin = () => {
   const [loginError, setLoginError] = useState<boolean>(false);
   const [loginFailed, setLoginFailed] = useState<boolean>(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isLocked, setIsLocked] = useState<boolean>(false)
 
   const [isActive, setIsActive] = useState<boolean>(false)
+
+  const activateLoginBtn = [...Object.values(loginData)].every(Boolean)
 
   const handleInputLoginChanges = (event: ChangeEvent<HTMLInputElement>) => {
       event.preventDefault()
@@ -84,7 +87,17 @@ const useLogin = () => {
           });
           setLoginError(true);
           setLoginFailed(prev => !prev);
-        }else {
+        }else if (error.status === 423) {
+          setLoginErrorMessage({
+            error_type: error.data?.error_type,
+            message: error.data?.message,
+            status_code: error.status_code
+          
+          });
+          setLoginError(true);
+          setIsLocked(prev => !prev);
+        }
+        else {
           setLoginErrorMessage({
             error_type: error.response?.data?.error_type || "Unknown Error",
             message: error.response?.data?.message || "An error occurred. Please try again.",
@@ -110,7 +123,10 @@ const useLogin = () => {
     loginFailed,
     setLoginFailed,
     isActive, 
-    setIsActive
+    setIsActive,
+    activateLoginBtn,
+    isLocked,
+    setIsLocked
   }
 }
 
