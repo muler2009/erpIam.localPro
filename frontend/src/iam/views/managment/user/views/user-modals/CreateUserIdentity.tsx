@@ -62,7 +62,7 @@ const CreateUserIdentity = ({openCreateIdentity, isOpen, title} : ModalProps) =>
   return isOpen ? (
         <AssignGroupToIdentityContextProvider>
             <ModalWrapper>
-                <ModalContainer className={`w-[60%] mx-auto bg-[#fff] flex flex-col relative top-[6%] shadow-2xl rounded-t-md`} >
+                <ModalContainer className={`w-[60%] mx-auto bg-[#fff] flex flex-col relative top-[6%] shadow-2xl rounded-t-md animate-fade-in-up`} >
                     <ModalHeader className='flex justify-between items-center px-5 py-3 border-b-[1px]'>
                         <h1 className='font-Rubik text-black font-semibold text-[15px] text-opacity-50 text-center px-5'>
                             {title}

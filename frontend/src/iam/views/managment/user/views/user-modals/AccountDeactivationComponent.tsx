@@ -27,7 +27,7 @@ const AccountDeactivationComponent = ({title, handleIsOpenCloseMenuModal, open}:
   return (
     open ? (
         <ModalWrapper>
-            <ModalContainer className={`w-[60%] mx-auto bg-[#fff] flex flex-col relative top-[6%] shadow-2xl rounded-t-md `} >
+            <ModalContainer className={`w-[60%] mx-auto bg-[#fff] flex flex-col relative top-[6%] shadow-2xl rounded-t-md animate-fade-in-up `} >
                 <ModalHeader className='flex justify-between items-center px-5 py-3 border-b-[1px]'>
                     <h1 className='font-Rubik text-black font-semibold text-[15px] text-opacity-50 text-center px-5'>{title}</h1>
                     <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-gray-400 hover:text-white" 

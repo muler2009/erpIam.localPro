@@ -8,7 +8,8 @@ export interface ModalComponentPropsInterface {
 
 export interface TabComponentPropsInterface {
     icon?: React.ReactElement;
-    tabContent: React.ReactElement;
+    // tabContent: React.ReactElement;
+    tabContent: React.ReactElement | ((viewType: 'list' | 'table') => React.ReactNode);
     label: string;
     totalValues?: number;
     total?: boolean;

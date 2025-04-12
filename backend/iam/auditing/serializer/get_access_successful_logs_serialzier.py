@@ -2,6 +2,7 @@ from rest_framework import serializers
 from ..models.custom_access_log_failure import AccessFailureLogModel
 from axes.models import AccessLog
 from iam.users.serializers.get_user_account_serializer import GetUserAccountSerializer
+from iam.models import UserAccountsModel
 
 class AccessSuccessfulLogsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,7 +10,15 @@ class AccessSuccessfulLogsSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class AccessFailureLogsSerializer(serializers.ModelSerializer):
-    # user_info = GetUserAccountSerializer()
+    full_user_name = serializers.SerializerMethodField()
+    
+    def get_full_user_name(self, obj):
+        try:
+            user = UserAccountsModel.objects.get(username=obj.username)
+            return f"{user.first_name} {user.last_name}"
+        except UserAccountsModel.DoesNotExist:
+            return None
+
     class Meta:
         model = AccessFailureLogModel
         fields = [
@@ -22,5 +31,6 @@ class AccessFailureLogsSerializer(serializers.ModelSerializer):
             'failure_reason',
             'user_info',
             'event',
-            'risk'
+            'risk',
+            'full_user_name'
         ]

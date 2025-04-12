@@ -6,6 +6,11 @@ import * as GrIcons from "react-icons/gr";
 import * as BsIcons from "react-icons/bs";
 import AccessFailedLogInformation from "../../../sysaudit/audit-components/AccessFailedLogInformation";
 import AccessSuccessfulnformation from "../../../sysaudit/audit-components/AccessSuccessfulnformation";
+import * as FaIcons from "react-icons/fa6";
+import * as BiIcons from "react-icons/bi";
+import * as AiIcons from "react-icons/ai";
+import AccessFailedLogsUI from "../../../sysaudit/audit-components/AccessFailedLogsUI";
+import FailedLogDisplayTypeComponent from "../../../sysaudit/audit-components/FailedLogDisplayTypeComponent";
 
 export const audit_logs_menu: CommonMenuItemsProps[] = [
     {
@@ -70,25 +75,19 @@ export const audit_tab_menu: TabComponentPropsInterface[] = [
 
 export const auth_logs: TabComponentPropsInterface[] = [
     {
-        label: "Successful Logs",
+        label: "Successful",
         icon: <RiIcons.RiAddLine />,
         tabContent: <AccessSuccessfulnformation />
     },
     {
-        label: "Failed Logs",
-        icon: <RiIcons.RiAddLine />,
-        tabContent: <AccessFailedLogInformation />
+        label: "Failed",
+        icon: <AiIcons.AiOutlineStop />,
+        tabContent: (viewType: 'list' | 'table') => <FailedLogDisplayTypeComponent viewType={viewType} />
     },
     {
-        label: "Locked Account",
-        icon: <RiIcons.RiAddLine />,
+        label: "Locked",
+        icon: <FaIcons.FaUserLock />,
         tabContent: <h1>CRUDEvent</h1>
-
-    },
-    {
-        label: "Other LogsEvent",
-        icon: <RiIcons.RiAddLine />,
-        tabContent: <h1>Ohther Login Event</h1>
 
     },
    

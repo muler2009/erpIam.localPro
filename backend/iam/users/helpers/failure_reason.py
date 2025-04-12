@@ -39,7 +39,6 @@ def failure_reason(request: Request) -> None:
         user_obj = UserAccountsModel.objects.filter(username=username).first()
         if user_obj:
             user_data = serialize_user(user_obj)
-            print(user_data)
             is_super_user = user_obj.is_superuser
 
             if not user_obj.is_active:

@@ -55,37 +55,19 @@ def access_failure_log_record(request, user_obj, is_super_user, failure_reason):
 
     if request and not is_super_user:
         failure_log = AccessFailureLogModel.objects.filter(
-            username=user_data,
+            username=username,
             ip_address=client_ip
         ).order_by("-attempt_time").first()
 
-        if user_data:
-            if failure_log and failure_log.attempt_time.date() == today:
-                # Just update the existing one
-                failure_log.failure_count += 1
-                failure_log.failure_reason = failure_reason
-                failure_log.user_info = user_info
-                failure_log.event = event
-                failure_log.risk = risk
-                failure_log.attempt_time = now()
-                failure_log.save()
-            else:
-                # No recent log or from different day
-                AccessFailureLogModel.objects.create(
-                    username=user_info["username"],
-                    ip_address=client_ip,
-                    failure_count=1,
-                    attempt_time=now(),
-                    failure_reason=failure_reason,
-                    user_info=user_info,
-                    event=event,
-                    risk=risk,
-                    user_agent=request.META.get("HTTP_USER_AGENT", ""),
-                    http_accept=request.META.get("HTTP_ACCEPT", ""),
-                    path_info=request.path,
-                )
-        else: 
-            # if the user not found record the username only
+        if failure_log and failure_log.attempt_time.date() == today:
+            failure_log.failure_count += 1
+            failure_log.failure_reason = failure_reason
+            failure_log.user_info = user_info
+            failure_log.event = event
+            failure_log.risk = risk
+            failure_log.attempt_time = now()
+            failure_log.save()
+        else:
             AccessFailureLogModel.objects.create(
                 username=username,
                 ip_address=client_ip,
@@ -99,3 +81,5 @@ def access_failure_log_record(request, user_obj, is_super_user, failure_reason):
                 http_accept=request.META.get("HTTP_ACCEPT", ""),
                 path_info=request.path,
             )
+
+       

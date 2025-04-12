@@ -15,6 +15,9 @@ const PolicyTabNavigationComponent = ({tabs, className, description, title, comp
     const changeTabIndex = (index: number): void => {
         setActiveTabIndex(index)
       }
+  const currentTab = tabs[activeTabIndex];
+  const [viewType, setViewType] = useState<'list' | 'table'>('list');
+
   
     return ( 
       <>
@@ -38,7 +41,12 @@ const PolicyTabNavigationComponent = ({tabs, className, description, title, comp
             </Div>                  
           </FlexBoxInner>
           <FlexBoxInner className="my-2 bg-white">
-            {tabs[activeTabIndex].tabContent}
+              <div className="my-2 bg-inherit h-full">
+                        {typeof currentTab.tabContent === 'function'
+                          ? currentTab.tabContent(viewType)
+                          : React.cloneElement(currentTab.tabContent, { viewType })}
+                      </div>
+            {/* {tabs[activeTabIndex].tabContent} */}
           </FlexBoxInner>     
         </FlexBox>
       </>      

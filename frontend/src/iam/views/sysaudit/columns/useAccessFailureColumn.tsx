@@ -3,7 +3,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { AccessFailureLogsInterface } from "../../../models/sys_audit_interface";
 import { format } from "date-fns";
 import * as FaIcons from "react-icons/fa";
-import FailureLogsDetailComponent from "../col-modals/FailureLogsDetailComponent";
+import FailureLogsDetailComponent from "../auditl-modals/FailureLogsDetailComponent";
 
 const accessFailureHelper = createColumnHelper<AccessFailureLogsInterface>()
 

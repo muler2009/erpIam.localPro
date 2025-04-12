@@ -31,8 +31,8 @@ def run():
             # add other custom fields from your model if needed
         }
     
-    user_obj = UserAccountsModel.objects.filter(username="sysadmin").first()
+    user_obj = UserAccountsModel.objects.get(username="sysadmin")
     serialize_user(user=user_obj)
     
-    print(user_obj)
+    print(user_obj.first_name)
     

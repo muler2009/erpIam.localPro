@@ -1,6 +1,7 @@
 import { API_TAGS } from "../../config/config";
 import { erpAPISlice } from "../api/apiSlice";
-import { AccessFailureLogsAPIInterface, LoginEventAuditLogAPIInterface } from "../models/sys_audit_interface";
+import { GroupAPIResponse } from "../models/group.model";
+import { AccessFailureLogsAPIInterface, GroupedFailedAccessLog, LoginEventAuditLogAPIInterface } from "../models/sys_audit_interface";
 
 
 const auditLogsAPI = erpAPISlice.injectEndpoints({
@@ -33,6 +34,14 @@ const auditLogsAPI = erpAPISlice.injectEndpoints({
             }),
             providesTags: [API_TAGS.AUDIT]
         }),
+
+        getAccessBasedOnGroup: builder.query<GroupedFailedAccessLog[], void>({ 
+            query: () => ({
+                url: `iam/category-logs/`,
+                method: `GET`
+            }),
+            providesTags: [API_TAGS.AUDIT]
+        }), 
         
 
     })
@@ -42,5 +51,6 @@ export const {
     useGetLoginAuditLogsQuery,
     useGetLoginChartStasticsQuery,
     useGetAccessSuccessLogsQuery,
-    useGetAccessFailureLogsQuery
+    useGetAccessFailureLogsQuery,
+    useGetAccessBasedOnGroupQuery
 } = auditLogsAPI

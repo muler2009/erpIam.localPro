@@ -17,20 +17,20 @@ const Dashboard = () => {
   const theme = useContext(ThemeContext)
   return (
     <ThemeContextProvider>
-      <div className='bg-[#fff]'>
-        <div className='flex flex-1 h-screen z-10'>
+      <div className='bg-[#fff] flex flex-col"'>
+        <div className='flex flex-1 sticky top-0 h-screen overflow-y-auto shadow-lg bg-white z-20'>
             {/* <Sidebar /> */}
             <MainTree  menu={iamSidebarItems}/>
             {/* <SidebarMenu /> */}
             {/* <TreeView menu={menus} /> */}
-            <div className='w-full flex flex-col'>
+            <div className='w-full flex flex-col overflow-y-auto'>
                 <Header />
                 <Outlet />
                 <AdminRoutes />
             </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </ThemeContextProvider>
     
   )

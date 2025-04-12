@@ -1,3 +1,4 @@
+import { ModalComponentPropsInterface } from "./common-models";
 
 export interface LoginEventAuditLogInterface {
     login_type: number;
@@ -41,6 +42,7 @@ export interface AccessFailureLogsInterface {
     ip_address: string;
     username: string;
     failure_count: number;
+    failure_reason: string;
     http_accept: string;
     locked_out: boolean;
     logout_time?: string | Date;
@@ -48,7 +50,9 @@ export interface AccessFailureLogsInterface {
     user_info: UserLogInfo;
     event: EventInterface;
     risk: RiskInterface;    
+    full_user_name: string;
 }
+
 
 export interface AccessFailureLogsAPIInterface extends AccessFailureLogsInterface {
     status_code?: number;
@@ -56,3 +60,11 @@ export interface AccessFailureLogsAPIInterface extends AccessFailureLogsInterfac
     error_type?: string;
 }
 
+export interface GroupedFailedAccessLog {
+    date: string; 
+    logs: AccessFailureLogsInterface[];
+}
+
+export interface FailedDetailComponentModalInterfacce extends ModalComponentPropsInterface {
+    data: AccessFailureLogsAPIInterface
+}
