@@ -15,7 +15,7 @@ const LoginStasticsChart = () => {
 
 
   return (
-    <div className='w-1/2'>
+    <div className='w-1/2 py-5'>
     
       <ResponsiveContainer width="100%" height={200}>
       <LineChart data={chartData}>

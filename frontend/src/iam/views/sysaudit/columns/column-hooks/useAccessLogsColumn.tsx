@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
-import { AccessFailureLogsAPIInterface, LoginEventAuditLogInterface } from "../../../models/sys_audit_interface";
+import { LoginEventAuditLogInterface, AccessFailureLogsAPIResponse, AccessFailureLogsInterface } from "../../../../models/sys_audit_interface";
 import { format } from "date-fns";
 
-const accessLogsHelper = createColumnHelper<AccessFailureLogsAPIInterface>()
+const accessLogsHelper = createColumnHelper<AccessFailureLogsInterface>()
 
 const useAccessLogsColumn = () => {
    const accessSuccessLogsColumn = useMemo(
@@ -49,24 +49,24 @@ const useAccessLogsColumn = () => {
               
               accessLogsHelper.accessor(row => `${row.attempt_time}`, {
                   id: "attempt_time",
-                  header: () => <p>Logged-in Date</p>,
+                  header: () => <p>Date</p>,
                   cell: (row) => {
                       const login_date = row.getValue()
                       return(
                           <div className={``}>
-                              {format(login_date, 'EEEE, dd MM yyy, HH:MM:ss aaaa')}
+                              {format(login_date, 'EEEE, dd MM yyy')}
                           </div>
                       )
                   }
               }),
               accessLogsHelper.accessor(row => `${row.attempt_time}`, {
                 id: "attempt_time",
-                header: () => <p>Logged-in Time</p>,
+                header: () => <p>Logged in Time</p>,
                 cell: (row) => {
                     const login_date = row.getValue()
                     return(
                         <div className={``}>
-                            {format(login_date, 'HH:MM:ss aaaa')}
+                            {format(login_date, 'hh:mm a')}
                         </div>
                     )
                 }

@@ -1,7 +1,7 @@
 import { API_TAGS } from "../../config/config";
 import { erpAPISlice } from "../api/apiSlice";
 import { GroupAPIResponse } from "../models/group.model";
-import { AccessFailureLogsAPIInterface, GroupedFailedAccessLog, LoginEventAuditLogAPIInterface } from "../models/sys_audit_interface";
+import { AccessFailureLogsInterface, GroupedFailedAccessLog, LoginEventAuditLogAPIInterface, AccessFailureLogsAPIResponse, APIResponseInterface } from "../models/sys_audit_interface";
 
 
 const auditLogsAPI = erpAPISlice.injectEndpoints({
@@ -13,14 +13,14 @@ const auditLogsAPI = erpAPISlice.injectEndpoints({
             }),
             providesTags: [API_TAGS.AUDIT]
         }), 
-        getAccessFailureLogs: builder.query<AccessFailureLogsAPIInterface[], void>({
+        getAccessFailureLogs: builder.query<AccessFailureLogsAPIResponse, void>({
             query: () => ({
                 url: `iam/failed-logs/`,
                 method: `GET`
             }),
             providesTags: [API_TAGS.AUDIT]
         }), 
-        getAccessSuccessLogs: builder.query<AccessFailureLogsAPIInterface[], void>({
+        getAccessSuccessLogs: builder.query<AccessFailureLogsAPIResponse, void>({
             query: () => ({
                 url: `iam/successful-logs/`,
                 method: `GET`
@@ -43,6 +43,21 @@ const auditLogsAPI = erpAPISlice.injectEndpoints({
             providesTags: [API_TAGS.AUDIT]
         }), 
         
+        getLockedAccount: builder.query<AccessFailureLogsAPIResponse, void>({ 
+            query: () => ({
+                url: `iam/locked-accounts/`,
+                method: `GET`
+            }),
+            providesTags: [API_TAGS.AUDIT]
+        }), 
+        unLockAccaountManually: builder.mutation<APIResponseInterface, {username: string}>({
+            query: ({username}) => ({
+                url: `iam/unlocked-account/`,
+                method: `POST`,
+                body: {username: username}
+            }),
+            invalidatesTags: [API_TAGS.AUDIT]
+        }),
 
     })
 })
@@ -52,5 +67,7 @@ export const {
     useGetLoginChartStasticsQuery,
     useGetAccessSuccessLogsQuery,
     useGetAccessFailureLogsQuery,
-    useGetAccessBasedOnGroupQuery
+    useGetAccessBasedOnGroupQuery,
+    useGetLockedAccountQuery, 
+    useUnLockAccaountManuallyMutation
 } = auditLogsAPI

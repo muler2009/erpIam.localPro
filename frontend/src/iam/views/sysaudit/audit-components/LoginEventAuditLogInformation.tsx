@@ -1,7 +1,7 @@
 import React from 'react'
 import UserTable from '../../../components/Table/UserTable'
 import { useGetLoginAuditLogsQuery } from '../../../features/auditLogsAPI'
-import useLoginAuditColumn from '../columns/useLoginAuditColumn'
+import useLoginAuditColumn from '../columns/column-hooks/useLoginAuditColumn'
 import TableComponent from '../../../components/Table/TableComponent'
 
 
@@ -26,7 +26,7 @@ const LoginEventAuditLogInformation = () => {
                         <TableComponent 
                             data={audit_login_event || []}
                             columns={loginEventColumn}
-                            tableStyle={`audit`} 
+                            tableStyle={``} 
                         /> 
                     ) : (
                         // Show a message when there are no policies available

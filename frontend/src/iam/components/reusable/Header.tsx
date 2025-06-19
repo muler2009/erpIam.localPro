@@ -11,8 +11,9 @@ import { username } from '../../api/auth'
 import { headerAvatorMenus, headerIconsMenus } from '../../constants/menu-items/header-items'
 import BottomTooltip from '../../../components/common/BottomTooltip'
 import userphoto from '../../../assets/images/user-picture.png'
-import { findLabelByPath } from '../../helpers/findLabel'
+import { findLabelByPath, findBreadcrumbs } from '../../helpers/findLabel'
 import { sidebarItems } from '../../views/managment/constants/iam-menu-items/sidebar'
+import { iamSidebarItems } from '../../constants/menu-items/iam-side-meniItems'
 
 
 
@@ -27,15 +28,52 @@ const Header = () => {
     const currentPath = location.pathname.split('/').pop(); // Get the last part of the path (e.g., "request" or "requested-sent")
 
     // Memoize the label for performance
-    const currentLabel = useMemo(() => findLabelByPath(sidebarItems, currentPath || ''), [currentPath]);
+    // const currentLabel = useMemo(
+    //     () => findLabelByPath(iamSidebarItems, currentPath || ''),
+    //     [currentPath]
+    //   );
 
+    
+      const { pathname } = useLocation();
+      const pathParts = location.pathname.split('/').filter(Boolean);
+
+      const breadcrumbs = useMemo(() => {
+        const result = findBreadcrumbs(iamSidebarItems, pathParts);
+        return result || [{ label: "Dashboard", path: "/iam" }];
+      }, [pathParts]);
+
+
+    
+
+
+    //   const labelHierarchy = useMemo(() => {
+    //     const result = findLabelHierarchy(iamSidebarItems, currentPath);
+    //     return result || [{ label: "Dashboard", path: "/iam" }]; // Default fallback
+    //   }, [currentPath, iamSidebarItems]);
+    
+      console.log('Rendering with:', breadcrumbs); // Add this
+    
 
 
   return (
     <header className='bg-gray-100 border-b border-[#333] border-opacity-20 sticky top-0 text-[#333] z-50 '>
         <nav className='flex justify-between items-center text-[#000] py-2'>
             <div className=''>
-                <h1 className='font-Poppins text-sm pl-5'>{currentLabel ? currentLabel : "Dashboard"}</h1>
+            <h1 className='font-Poppins text-sm pl-5 text-[#333] text-opacity-60'>
+      {breadcrumbs.map((crumb: any, index: any) => (
+        <React.Fragment key={`${crumb.path}-${index}`}>
+          {index > 0 && <span className="mx-2"> &gt; </span>}
+          {index === breadcrumbs.length - 1 ? (
+            <span>{crumb.label}</span>
+          ) : (
+            <Link to={crumb.path} className="hover:text-opacity-100 hover:underline">
+              {crumb.label}
+            </Link>
+          )}
+        </React.Fragment>
+      ))}
+      </h1>
+                        {/* <h1 className='font-Poppins text-sm pl-5 text-[#333] text-opacity-60'>{currentLabel ? currentLabel : "Dashboard"}</h1> */}
             </div>
             <FlexBox className='flex space-x-4 bg-inherit '>
                 <div className='flex items-center justify-center pl-4 text-[20px] text-[#333] text-opacity-75 cursor-pointer'>
@@ -51,8 +89,6 @@ const Header = () => {
                         })
                     }
                 </div>
-
-
                 <div className='flex gap-0 cursor-pointer pr-6' onClick={() => setDrop(prev => !prev)}>
                     <div className={`text-[#333] flex space-x-1`}>
                         <Text className='font-Poppins text-[13px] leading-4 flex items-center space-x-6'>

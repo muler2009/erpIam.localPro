@@ -17,12 +17,30 @@ class AccessSuccessfulLogsRequestHandler(BaseAccessLogsHandler):
     serializer_class = AccessSuccessfulLogsSerializer
     queryset = AccessLog.objects.all()
 
+    def get_empty_response(self):
+        return Response({
+            "message": "Empty.",
+            "error_type": "NO_DATA",
+            "status_code": 204,
+            "detail": "OOps! No Data available"
+        }, status=status.HTTP_200_OK)
+
+
 
 class AccessFailureLogsRequestHandler(BaseAccessLogsHandler):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticatedAdminUser]
     serializer_class = AccessFailureLogsSerializer
     queryset = AccessFailureLogModel.objects.all()
+
+    def get_empty_response(self):
+        return Response({
+            "message": "Empty.",
+            "error_type": "NO_DATA",
+            "status_code": 204,
+            "detail": "OOps! No Data available"
+        }, status=status.HTTP_200_OK)
+
 
 
 class CategorizedAccessLogView(BaseAccessLogsHandler):

@@ -1,7 +1,7 @@
 from iam.models import UserAccountsModel
-from iam.role.models.models import IamRoleModel
-from axes.models import AccessFailureLog
-from django.db.models import Count
+from axes.handlers.proxy import AxesProxyHandler
+from requests import request
+from iam.auditing.models.session_tracking_model import SessionTrackerModel
 
 def run():
    
@@ -16,23 +16,11 @@ def run():
     # value = AccessFailureLog.objects.aggregate(Count('locked_out'))
     # print(u)
 
+    # test = AxesProxyHandler.is_locked(request, credentials={'username': "sysadmin"})
 
-    def serialize_user(user: UserAccountsModel) -> dict:
-        if not user:
-            return {}
+    u = UserAccountsModel.objects.get(username="recordofficer")
+    s= SessionTrackerModel.objects.filter(user=u).values("session_id", "status", "end_time")
+    
 
-        return {
-            # "user_id": str(user.user_account_id),
-            "username": user.username,
-            "email": user.email,
-            "is_active": user.is_active,
-            "is_superuser": user.is_superuser,
-            # "roles": list(user.groups.values_list("role_name", flat=True)),
-            # add other custom fields from your model if needed
-        }
-    
-    user_obj = UserAccountsModel.objects.get(username="sysadmin")
-    serialize_user(user=user_obj)
-    
-    print(user_obj.first_name)
+    print(s)
     

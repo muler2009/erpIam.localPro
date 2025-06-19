@@ -38,6 +38,8 @@ const TableComponent = <T extends BaseRecord>({data, columns, showSearch, showEn
         ]);
       };
 
+
+
   const sharedTableInstance = useReactTable({
     data,
     columns,

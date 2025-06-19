@@ -12,6 +12,7 @@ export interface AuthResponse {
     group: string;
     is_active: boolean;
     full_name: string;
+    session_id: string;
 }
 
 export interface LoginRequiredData {

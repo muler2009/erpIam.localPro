@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
-import { LoginEventAuditLogInterface } from "../../../models/sys_audit_interface";
+import { LoginEventAuditLogInterface } from "../../../../models/sys_audit_interface";
 import { format } from "date-fns";
 import * as FaIcons from "react-icons/fa";
 

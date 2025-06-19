@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { useUserLogoutMutation } from './logoutAPI'
+import { LogoutArgs, useUserLogoutMutation } from './logoutAPI'
 import { clearAuthData, access, refresh, isAuthenticated } from '../../api/auth'
 
 const useLogout = () => {
@@ -11,11 +11,14 @@ const useLogout = () => {
   const [ userLogout ] = useUserLogoutMutation();
   const navigate = useNavigate()
   const [error, setError] = useState<string | null>("");
+  
+  const [logoutData, setLogoutData] = useState<LogoutArgs>({
+    refreshToken: localStorage.getItem("refresh") ?? "",
+  });
 
   const onUserLogoutClicked = async() => {
     try{
-        await userLogout({refresh})
-
+        await userLogout(logoutData)
         dispatch(clearAuthData({
           access,
           refresh,
@@ -25,8 +28,6 @@ const useLogout = () => {
         navigate('/')
     }catch(error){
       console.log("error occired")
-        // console.log(error.message)
-        // setError(error.message);
     }
   }
 

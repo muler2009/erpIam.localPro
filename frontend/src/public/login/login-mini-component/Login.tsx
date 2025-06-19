@@ -1,5 +1,5 @@
 import React from 'react'
-import LoginInputs from '../LoginInputs'
+import LoginInputs from './LoginInputs'
 
 
 const Login = () => {

@@ -15,7 +15,7 @@ const HorizontalMenu = ({menuItems, className, active} : HorizontalMenuInterface
         setActiveTabIndex(index)
     }
   return (
-    <div className='flex justify-start py-3 shadow-sm ml-2'>
+    <div className='flex justify-start py-3 shadow-sm pl-2 sticky top-[57px] z-40 bg-white'>
             {
               menuItems?.map((menu, index) => (
                 <Link key={index} to={menu.path || ''} onClick={() => changeTabIndex(index)}  className={`px-1 ${activeTabIndex === index ? active : className}`}>

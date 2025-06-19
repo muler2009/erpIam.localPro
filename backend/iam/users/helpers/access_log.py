@@ -4,11 +4,16 @@ from django.utils.timezone import now
 from config.settings import axes
 from django.db.models import F
 from iam.models import UserAccountsModel
+from user_agents import parse
 
 """
     a method for storing access log when user successfully authenticated
 """
 def access_log_up_on_successful_login(request, user, is_super_user):
+    user_agent_string = request.META.get("HTTP_USER_AGENT")
+    user_agent = parse(user_agent_string)
+    device_os = user_agent.os.family
+
     if request and not is_super_user:
 
         AccessLog.objects.update_or_create(
@@ -16,7 +21,7 @@ def access_log_up_on_successful_login(request, user, is_super_user):
             ip_address =  request.META.get("REMOTE_ADDR"),
             path_info=request.path,
             logout_time = now(),
-            user_agent = request.META.get("HTTP_USER_AGENT", ""),
+            user_agent = device_os,
             http_accept = request.META.get("HTTP_ACCEPT", "")
         )
         

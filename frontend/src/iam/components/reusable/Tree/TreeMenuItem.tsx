@@ -15,6 +15,7 @@ import { username } from "../../../api/auth";
 import { TreeMenuItemInterface } from "./tree-menu-interface";
 import { SideMenuListItemProps, DisplayChildrensInterface } from "./tree-menu-interface";
 import TreeMenuList from "./TreeMenuList";
+import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 
 
 const TreeMenuItem = ({ listItem, controller, key }: SideMenuListItemProps) => {
@@ -39,70 +40,56 @@ const TreeMenuItem = ({ listItem, controller, key }: SideMenuListItemProps) => {
   );
 
   return (
-   
-      <FlexBoxInner className={`${controller && 'pl-5'}`}>
-            {
-              listItem.path
-              ? ( 
-                  <Link to={listItem.path} className={`py-2 cursor-pointer font-Poppins text-sm `} onClick={() => handleToggleChildren(listItem.label)}>
-                    <div className={`px-4 flex items-center justify-start space-x-3 py-2 hover:bg-gray-500 ${activeTabIndex === key && 'bg-white'}`}>
-
-                        {
-                          listItem.label === 'Dashboard' ? 
-                            (
-                                <div className={`${!controller ? 'text-[15px]' : 'text-[15px]'}`}>
-                                  <AiFillDashboard  className={`text-white ${!controller ? 'text-[15px]' : 'text-[15px]'}`}/>
-
-                                </div>
-                            ) : ( 
-
-                              listItem && listItem.children && listItem.children.length ? (
-                                    <div className={``}>
-                                      {
-                                          displayChildrens[listItem.label] 
-                                            ? (
-                                                <>
-                                                  {
-                                                    listItem.icon ? (<>{listItem.icon}</>) : <GiIcons.GiOpenFolder size={17} className="text-white" />
-
-                                                  }
-                                                </>
-                                              )
-                                            : (
-                                                <>
-                                                {
-                                                  listItem.icon ? (<>{listItem.icon}</>) : <PiIcons.PiFolderSimplePlusFill size={17} className="text-white" />
-
-                                                }
-                                              </>
-                                            )
-                                            
-                                        }
-                                    </div>
-                                ): (
-                                  <>{
-                                    listItem.icon ? (<div className={`${!controller ? 'text-[20px] block' : 'text-[15px]'}`}>{listItem.icon}</div>) : <VscSymbolFile />
-                                  }</> 
-                                )                         
-                            )
-                        }
-                        <div className={`flex text-[12px] duration-500 font-Poppins font-normal ${!controller && 'opacity-0 translate-x-28 overflow-hidden'}`}>
-                          {listItem.label}
-                        </div>
-                    </div>
-                    
-                  </Link>
-              ) : (
-                <P className="text-[12px] hover:bg-gray-50">{listItem.label}</P>
-              )}
-
-            {
-              listItem.children && listItem.children.length > 0 && displayChildrens[listItem.label] && (
-                <TreeMenuList list={listItem.children} controller={controller || true}/>
-              )
-            }
-      </FlexBoxInner>      
+    <div className={`${controller && 'pl-5'}`}>
+      {
+        listItem.path ? (
+          <Link to={listItem.path} className="py-2 cursor-pointer font-Poppins text-sm" onClick={() => handleToggleChildren(listItem.label)} >
+            <div className={`px-4 flex items-center justify-between py-2 ${controller && 'hover:bg-button-hover hover:text-black w-full'}`}>
+              <div className="flex items-center space-x-3 text-[#fff]">
+                {
+                  listItem.label === 'Dashboard' ? ( <AiFillDashboard /> ) : listItem.children?.length 
+                  ? (
+                      displayChildrens[listItem.label] ? (
+                        listItem.icon ? <div className="">{listItem.icon} </div> 
+                        : <GiIcons.GiOpenFolder className=" text-opacity-70 text-[20px] " />
+                      ) : (
+                        listItem.icon ? listItem.icon : <PiIcons.PiFolderSimplePlusFill size={17} className=" text-opacity-70 " />
+                      )
+                    ) : (
+                      listItem.icon ? (
+                        <div className={` text-opacity-70 ${!controller ? 'text-[20px]' : 'text-[15px]'}`}>{listItem.icon}</div>
+                      ) : <VscSymbolFile />
+                    )
+                }
+                <div className={`text-[12px] font-Poppins font-normal text-[#fff] duration-500 ${!controller && 'opacity-0 translate-x-28 overflow-hidden'}`}>
+                  {listItem.label}
+                </div>
+              </div>
     
+              {
+                listItem && listItem.children && listItem.children.length  && (
+                  <div className="text-[#fff] ">
+                    {
+                      displayChildrens[listItem.label]
+                        ? <FiChevronDown size={14} />
+                        : <FiChevronRight size={14} />
+                    }
+                  </div>
+                )
+              }
+            </div>
+          </Link>
+        ) : (
+          <P className="text-[12px] hover:bg-gray-50 text-black">{listItem.label}</P>
+        )
+      }
+  
+      {
+          listItem.children && listItem.children.length > 0 && displayChildrens[listItem.label]  && (
+          <TreeMenuList list={listItem.children} controller={controller || true} />
+        )
+      }
+    </div>  
   );
 };
 

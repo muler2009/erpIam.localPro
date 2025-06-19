@@ -1,15 +1,13 @@
 import React, {useState} from 'react'
-import { Input, Button } from '../../components/common'
 import { FaUserAlt, FaLock } from 'react-icons/fa'
-import useLogin from '../../iam/auth/login/useLogin'
+import useLogin from '../../../iam/auth/login/useLogin'
 import erp from '../../assets/images/erp.png'
-import { LoginErrorMessageModal } from '../../iam/components/errors/LoginError'
-import { ErrorResponseInterface } from '../../iam/models/error.model'
-import { Div, FlexBox, FlexBoxInner, Text } from '../../components/common/StyledComponent'
-import LoginInstruction from './LoginInstruction'
-import system from '../../assets/images/system.png'
+import { LoginErrorMessageModal } from '../../../iam/components/errors/LoginError'
+import { ErrorResponseInterface } from '../../../iam/models/error.model'
+import { Div, FlexBox, FlexBoxInner, Text } from '../../../components/common/StyledComponent'
+import system from '../../../assets/images/system.png'
 import { Link } from 'react-router-dom'
-import AccountLocked from '../../iam/components/errors/AccountLocked'
+import AccountLocked from '../../../iam/components/errors/AccountLocked'
 
 
 const LoginInputs = () => {

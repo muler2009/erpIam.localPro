@@ -1,15 +1,15 @@
 import { ReactElement } from "react";
 import { erpAPISlice } from "../../api/apiSlice";
 
-interface LogoutArgs {
-    refresh: unknown;
+export interface LogoutArgs {
+    refreshToken: string | null;   
 }
 
 const logoutAPI = erpAPISlice.injectEndpoints({
     endpoints: (builder) => ({
         userLogout: builder.mutation<any, LogoutArgs>({
             query: (logoutData) => ({
-                url: `account/logout/`,
+                url: `iam/account/logout/`,
                 method: "POST",
                 body: logoutData
             })

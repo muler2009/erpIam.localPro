@@ -23,7 +23,7 @@ const Dashboard = () => {
             <MainTree  menu={iamSidebarItems}/>
             {/* <SidebarMenu /> */}
             {/* <TreeView menu={menus} /> */}
-            <div className='w-full flex flex-col overflow-y-auto'>
+            <div className='w-full flex flex-col overflow-y-auto overflow-x-hidden'>
                 <Header />
                 <Outlet />
                 <AdminRoutes />

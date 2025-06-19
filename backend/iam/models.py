@@ -64,16 +64,27 @@ class UserAccountsModel(AbstractBaseUser):
     def get_full_account_name(self):
         return f"{self.first_name} {self.last_name}"
     
-    def get_tokens_for_user(self):
+    
+    def get_tokens_for_user(self, session_id=None):
+        # Generate session_id if not provided (only once during login)
+        if not session_id:
+            session_id = str(uuid.uuid4())[:16]
+        
         refresh = RefreshToken.for_user(self)
-         # Get the user's role =>  roles is the related_name attribute of rrelated
         roles = self.roles.values_list('role_name', flat=True)
-        # Add roles to the access token payload
+        
+        # Add claims to both tokens
         refresh['roles'] = list(roles)
-
+        refresh['session_id'] = session_id
+        
+        access_token = refresh.access_token
+        access_token['roles'] = list(roles)
+        access_token['session_id'] = session_id
+        
         return {
             'refresh': str(refresh),
-            'access': str(refresh.access_token)
+            'access': str(access_token),
+            'session_id': session_id  # Explicitly return it
         }
     
     def save(self, *args, **kwargs):

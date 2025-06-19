@@ -3,7 +3,6 @@ from datetime import timedelta
 from config.env import BASE_DIR, env
 
 
-
 # Take environment variables from .env file
 env.read_env(os.path.join(BASE_DIR, '.env'))
 
@@ -26,6 +25,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'rest_framework.authtoken',
     'easyaudit',
     'axes',
@@ -53,7 +53,6 @@ INSTALLED_APPS = [
 ]
 
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -65,7 +64,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'axes.middleware.AxesMiddleware',
-    # 'utils.ConnectionMiddleware.LDAPConnectionMiddleware',  
+    # 'utils.ConnectionMiddleware.LDAPConnectionMiddleware',
+    'iam.middleware.log_user_activity_middleware.SessionActivityMiddleware'
+    
 ]
 
 
@@ -152,6 +153,7 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.ScryptPasswordHasher",
 ]
 
+
 # Media related configuration
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')   # the path on the disk where the media (such as uploaded files) will be stored.
 MEDIA_URL = '/media/'  # it’s the URL that should be used to serve media.
@@ -188,8 +190,8 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": False,
-    "TOKEN_OBTAIN_SERIALIZER": "account.serializers.authSerializer.UserTokenObtainPairSerializer",
-    # 'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    # "TOKEN_OBTAIN_SERIALIZER": "account.serializers.authSerializer.UserTokenObtainPairSerializer",
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'USER_ID_FIELD': 'username',
     'USER_ID_CLAIM': 'username',
 }

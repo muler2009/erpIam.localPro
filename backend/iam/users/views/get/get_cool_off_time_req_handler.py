@@ -9,12 +9,6 @@ from django.utils.timezone import timedelta, now
 
 class AxesConfigCoolOffTime(generics.GenericAPIView):
     permission_classes = [AllowAnyUsersToLoginAccessPolicy]
-
-    # def get(self, request):
-    #     cooloff_time = getattr(axes, "AXES_COOLOFF_TIME", None)
-    #     return Response({
-    #         "cooloff_time": cooloff_time
-    #     })
     
     def get(self, request):
         client_ip = self.get_client_ip(request)

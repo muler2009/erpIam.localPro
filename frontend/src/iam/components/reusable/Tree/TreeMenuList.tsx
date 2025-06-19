@@ -12,7 +12,7 @@ interface SideMenuListProps {
 
 const TreeMenuList = ({ list = [], controller }: SideMenuListProps) => {
   return (
-    <FlexBox className={`flex flex-col duration-500 font-Poppins font-normal text-[13px] text-white`}>
+    <FlexBox className={`flex flex-col duration-500 font-Poppins font-normal text-[13px] `}>
       {list.length > 0
         ? list.map((listItem, index) => (
             <TreeMenuItem key={index} listItem={listItem} controller={controller} />

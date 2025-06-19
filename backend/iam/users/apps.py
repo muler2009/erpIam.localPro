@@ -9,4 +9,4 @@ class UsersConfig(AppConfig):
 
     def ready(self):
         import iam.ldap_integration.signals.user_signals
-        import iam.users.signals.user_locked_out_signal
+        import iam.users.signals.user_locked_out_signal_handler

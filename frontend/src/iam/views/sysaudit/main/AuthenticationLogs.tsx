@@ -5,18 +5,19 @@ import FailedLogDisplayTypeComponent from '../audit-components/FailedLogDisplayT
 
 const AuthenticationLogs = () => {
   return (
-    <div className={`w-full `}>
-       <div className='flex justify-end items-center py-2 pr-5'>
+   
+      //  <div className='flex justify-end items-center py-2 pr-5'>
         <TabNavigation 
             tabs={auth_logs}
             showSearchInput={false}
             className='cursor-pointer text-[#333] text-opacity-80'
-            custom='border-b'
+            custom='border-b sticky top-[57px]'
             activeTab={`border-b-2 border-blue-600 font-semibold`}
             viewDisplay={true}
+            viewExportDownload={true}
         />
-        </div>
-    </div>
+        // </div>
+   
   )
 }
 

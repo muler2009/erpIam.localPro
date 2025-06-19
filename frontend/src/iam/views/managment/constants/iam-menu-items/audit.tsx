@@ -11,6 +11,8 @@ import * as BiIcons from "react-icons/bi";
 import * as AiIcons from "react-icons/ai";
 import AccessFailedLogsUI from "../../../sysaudit/audit-components/AccessFailedLogsUI";
 import FailedLogDisplayTypeComponent from "../../../sysaudit/audit-components/FailedLogDisplayTypeComponent";
+import LockedAccount from "../../../sysaudit/audit-components/LockedAccount";
+import * as Io5Icons from "react-icons/io5";
 
 export const audit_logs_menu: CommonMenuItemsProps[] = [
     {
@@ -76,7 +78,7 @@ export const audit_tab_menu: TabComponentPropsInterface[] = [
 export const auth_logs: TabComponentPropsInterface[] = [
     {
         label: "Successful",
-        icon: <RiIcons.RiAddLine />,
+        icon: <Io5Icons.IoCheckmarkDoneSharp />,
         tabContent: <AccessSuccessfulnformation />
     },
     {
@@ -85,9 +87,9 @@ export const auth_logs: TabComponentPropsInterface[] = [
         tabContent: (viewType: 'list' | 'table') => <FailedLogDisplayTypeComponent viewType={viewType} />
     },
     {
-        label: "Locked",
+        label: "Locked account",
         icon: <FaIcons.FaUserLock />,
-        tabContent: <h1>CRUDEvent</h1>
+        tabContent: <LockedAccount />
 
     },
    

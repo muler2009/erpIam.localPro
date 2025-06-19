@@ -24,6 +24,16 @@ class AllowAnyUsersToLoginAccessPolicy(AccessPolicy):
         },
     ]
 
+class IsAuthenticatedAccessPolicy(AccessPolicy):
+    message="You Must login first"
+    statements = [
+        {
+            "principal": ["authenticated"],
+            "action": ["<method:post>"],  # Allow all actions if authenticated
+            "effect": "allow",
+        },
+    ]
+
 
 class IsAuthenticatedAdminUser(AccessPolicy):
     message = "Sorry!, You should have an admin privilged to access the resource!"

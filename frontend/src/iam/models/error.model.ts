@@ -9,3 +9,9 @@ export interface LoginFailedModalInterface {
   loginFailed: boolean;
   setLoginFailed: React.Dispatch<React.SetStateAction<boolean>>
 }
+
+export interface ErrorNotifierModalInterface {
+  triggerMessageModal: boolean;
+  errorMessage: ErrorResponseInterface | null;
+  setTriggerMessageModal: React.Dispatch<React.SetStateAction<boolean>>
+}

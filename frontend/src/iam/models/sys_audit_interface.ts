@@ -51,10 +51,12 @@ export interface AccessFailureLogsInterface {
     event: EventInterface;
     risk: RiskInterface;    
     full_user_name: string;
+    remaining_seconds: number;
+    unlock_time: string;
+    failures_since_start: number;
 }
 
-
-export interface AccessFailureLogsAPIInterface extends AccessFailureLogsInterface {
+export interface APIResponseInterface extends AccessFailureLogsInterface {
     status_code?: number;
     message?: string;
     error_type?: string;
@@ -65,6 +67,11 @@ export interface GroupedFailedAccessLog {
     logs: AccessFailureLogsInterface[];
 }
 
+// This is the combined union type
+export type AccessFailureLogsAPIResponse =
+  | AccessFailureLogsInterface[] // success
+  | APIResponseInterface; // no data / error
+
 export interface FailedDetailComponentModalInterfacce extends ModalComponentPropsInterface {
-    data: AccessFailureLogsAPIInterface
+    data: AccessFailureLogsInterface
 }

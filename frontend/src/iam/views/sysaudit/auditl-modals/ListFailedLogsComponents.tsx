@@ -1,9 +1,9 @@
 import React from 'react'
 import { FailedLogsDetailComponentInterface } from './FailedLogsDetailComponent'
-import { AccessFailureLogsAPIInterface } from '../../../models/sys_audit_interface'
+import { AccessFailureLogsInterface } from '../../../models/sys_audit_interface'
 
 interface FailedLogsDataInterface {
-    data: AccessFailureLogsAPIInterface
+    data: AccessFailureLogsInterface
 }
 
 export const RequestAndDeviceContext = ({data}: FailedLogsDataInterface) => {

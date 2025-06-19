@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-
 /* defining the base css here  */
 
 ::-webkit-scrollbar {
@@ -110,12 +107,19 @@
     .user, .user-dasboard > .table > tbody > tr > td:first-child {@apply w-[30px] border-r pr-4 py-2}
 
 
-    .audit > .table > thead { @apply  border-b-[1px]}
+    .audit > .table > thead { @apply  border-b-[1px] border-black}
     .audit > .table > thead > tr > th:first-child {@apply w-[30px] border-r pr-4 py-2}
     .audit > .table > thead > tr > th { @apply border-none py-3 px-5 font-Poppins tracking-wide leading-[1.2] text-[#0b2239] text-opacity-70 bg-gray-50 text-[13px]}
     .audit > .table > tbody > tr > td { @apply py-2 text-[#333] text-opacity-80 text-[13px] px-5}
     .audit > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
     .audit > .table > tbody  { @apply border-b-[1px] px-5}
+
+    .locked > .table > thead { @apply  border-b-[1px] border-black}
+    .locked > .table > thead > tr > th:first-child {@apply w-[30px] border-r pr-4 py-2}
+    .locked > .table > thead > tr > th { @apply border-none py-3 px-5 font-MonaSans font-[500] tracking-wide leading-[1.2] text-[#0b2239] text-opacity-100 bg-gray-100 text-[13px]}
+    .locked > .table > tbody > tr > td { @apply py-2 text-[#333] text-opacity-80 text-[13px] px-5}
+    .locked > .table > tbody > tr:hover {@apply hover:bg-gray-50 }
+    .locked > .table > tbody > tr { @apply border-b-[1px] px-5 border-black}
 
 
     th .menu { @apply invisible; }

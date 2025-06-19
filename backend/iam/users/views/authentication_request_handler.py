@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django_auth_ldap.backend import LDAPBackend
 from django.utils.timezone import now
 from utils.custom_exception_handler import AuthenticationFailedException
-from iam.users.serializers.user_tokenObtainPair_serializer import UserTokenObtainPairSerializer, LoginUserSerializer
+from iam.users.serializers.user_tokenObtainPair_serializer import LoginUserSerializer
 import ldap
 from rest_framework.request import Request
 from iam.models import UserAccountsModel
@@ -26,8 +26,8 @@ class AuthenticationRequestHandler(generics.GenericAPIView, mixins.CreateModelMi
             failure_reason(request=request)
 
             AUTH_REPLY = {
-                'error_type': exc.error_type,
                 'message': exc.message,
+                'error_type': exc.error_type,
                 'status_code': exc.status_code 
             }
             return Response(AUTH_REPLY, status=getattr(exc, "status_code", status.HTTP_403_FORBIDDEN))

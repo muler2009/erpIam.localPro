@@ -20,7 +20,7 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setAuthData: (state, action) => {
-            const {access, refresh, group, username, full_name } = action.payload
+            const {access, refresh, group, username, full_name, session_id } = action.payload
             state.token = access;
             state.refresh = refresh;
             state.isAuthenticated = true;
@@ -30,6 +30,7 @@ export const authSlice = createSlice({
             localStorage.setItem("full_name", full_name)
             localStorage.setItem("refresh", refresh)
             localStorage.setItem("isAuthenticated", JSON.stringify(true))      
+            localStorage.setItem("session_id", session_id)
         },
         clearAuthData: (state, action) => {
             state.isAuthenticated = false
@@ -57,6 +58,7 @@ export const csrfToken = (state: RootState) => state.auth.csrftoken
 export const group = (state: RootState) => state.auth.group
 export const username = (state: RootState) => state.auth.username
 export const fullName = (state: RootState) => state.auth.full_name
+
 
 
 

@@ -2,7 +2,7 @@ import {ChangeEvent, useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { LoginRequiredData } from '../../models/login.model'
-import { setAuthData, clearAuthData, setGroup, access, refresh, group } from '../../api/auth'
+import { setAuthData, clearAuthData, setGroup, access, refresh, group} from '../../api/auth'
 import { useUserLoginMutation } from './loginAPI'
 import useUtils from './useUtils'
 import { ErrorResponseInterface } from '../../models/error.model'
@@ -45,11 +45,11 @@ const useLogin = () => {
       setIsLoggingIn(true); // Start the animation
       const response = await userLogin(loginData).unwrap()
       // destructure the access and refresh token
-      const { access, refresh, username, group, is_active, full_name } = response
+      const { access, refresh, username, group, is_active, full_name, session_id } = response
       setIsActive(is_active)
       // Clear existing auth data before setting new data
-      dispatch(clearAuthData({ isAuthenticated: false, access, refresh, username, group}));
-      dispatch(setAuthData({isAuthenticated: true, access, refresh, username, group, full_name }));
+      dispatch(clearAuthData({ isAuthenticated: false, access, refresh, username, group, session_id}));
+      dispatch(setAuthData({isAuthenticated: true, access, refresh, username, group, full_name, session_id }));
       const userRoutePath = routeToDashboard(group) 
       navigate(userRoutePath)
 

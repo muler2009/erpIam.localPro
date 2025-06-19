@@ -1,9 +1,8 @@
 import { useMemo } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
-import { AccessFailureLogsInterface } from "../../../models/sys_audit_interface";
+import { AccessFailureLogsInterface } from "../../../../models/sys_audit_interface";
 import { format } from "date-fns";
-import * as FaIcons from "react-icons/fa";
-import FailureLogsDetailComponent from "../auditl-modals/FailureLogsDetailComponent";
+import FailureLogsDetailComponent from "../action/FailureLogsDetailComponent";
 
 const accessFailureHelper = createColumnHelper<AccessFailureLogsInterface>()
 

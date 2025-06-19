@@ -11,6 +11,7 @@ import * as MdIcons from "react-icons/md";
 import { TbReportSearch } from "react-icons/tb";
 import * as GrIcons from "react-icons/gr";
 
+
 export const iamSidebarItems = [
     { 
         path: "/iam", 
@@ -19,36 +20,59 @@ export const iamSidebarItems = [
     },
     { 
         path: '.',
-        label: "Access management", 
-        // icon: <MdIcons.MdOutlineManageAccounts size={20} />,
+        label: "Identitiy & Access management", 
+        icon: <MdIcons.MdOutlineManageAccounts size={20} />,
         children: [
             {
                 path: 'users',
-                label: 'Identity management',
+                label: 'User Management',
                 icon: <PiIcons.PiUsersFill />
             },
             {
                 path: 'roles',
-                label: 'Roles',
+                label: 'Role Management',
                 icon: <FaIcons.FaUserCog /> 
             }, 
             {
                 path: 'groups',
-                label: 'Groups',
+                label: 'Group Management',
                 icon: <TiIcons.TiGroup />
             },
               
             {
                 path: 'policies',
-                label: 'Policies ',
+                label: 'Policy Management ',
                 icon: <MdIcons.MdPolicy />
             },
         ] 
     },
     { 
-        path: "audit_logs", 
+        path: 'audit_logs', 
         label: "Audit Logs", 
         icon: <AiIcons.AiOutlineAudit />, 
+        children: [
+            {
+                path: 'auth_log',
+                label: 'Authentication Logs',
+                icon: <TiIcons.TiGroup />
+            },
+            {
+                path: 'session_tracking',
+                label: 'Session Management Logs',
+                icon: <PiIcons.PiUsersFill />
+            },
+            {
+                path: 'activity_log',
+                label: 'Activity Logs',
+                icon: <FaIcons.FaUserCog /> 
+            }, 
+              
+            {
+                path: 'compliance',
+                label: 'Compliance Reports',
+                icon: <MdIcons.MdPolicy />
+            },
+        ] 
     },
     { 
         path: "reports", 
