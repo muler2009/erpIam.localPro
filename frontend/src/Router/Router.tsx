@@ -21,9 +21,6 @@ const Router = () => {
                     <Route path="client/*" element={<ERPMainDashboard />} />
                     <Route path="inventory/" element={<h1>Inventrory</h1>} />
                     <Route path="crm/" element={<h1>CRM</h1>} />
-
-
-
                 </Route>
             </Route>
         )
