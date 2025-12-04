@@ -36,7 +36,11 @@ const CreateNewTemplateModalComponent = ({title, open, handleIsOpenCloseMenuModa
                         {title}
                     </h1>
                     <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-gray-400 hover:text-white" onClick={handleIsOpenCloseMenuModal}>
-                        <Vsc.VscClose size={15} />
+                        {
+                            Vsc.VscClose({
+                                size: 18
+                            })
+                        }
                     </div>
                 </ModalHeader>
                 <ModalBody className='bg-white relative h-[55vh]'>
@@ -81,7 +85,7 @@ const CreateNewTemplateModalComponent = ({title, open, handleIsOpenCloseMenuModa
                                     <option value={`sms`}>SMS Notification</option>
                                 </select>   
                                 <span className='flex justify-center items-center absolute top-0 border right-0 text-gray-500 bg-gray-50 h-full w-[30px] pointer-events-none '>
-                                    <AiIcons.AiOutlineCaretDown  />
+                                    {AiIcons.AiOutlineCaretDown({})}
                                 </span>
                             </Div>
                         </FlexBoxInner>
@@ -100,11 +104,11 @@ const CreateNewTemplateModalComponent = ({title, open, handleIsOpenCloseMenuModa
                 </ModalBody>
                 <ModalFooter className='border-t py-4 flex space-x-3 justify-end pr-5 cursor-pointer'>
                     <Div className='border text-[13px] px-2 py-2 border-button-primary rounded-[3px] flex items-center hover:bg-red-500 hover:text-white hover:border-red-500' onClick={handleIsOpenCloseMenuModal}>
-                        <IoCloseSharp size={18} />
+                        {IoCloseSharp({size: 18})}
                         <span className='pl-[4px]'>Cancel</span>
                     </Div>
                     <button className='border text-[13px] px-2 py-2 bg-button-primary border-button-primary hover:bg-button-hover rounded-[3px] flex items-center text-white disabled:bg-gray-100 disabled:text-[#333] disabled:border-none disabled:cursor-default' disabled={!canSave} onClick={onTemplateSave}>
-                        <Vsc.VscSaveAs size={18}  />
+                        {Vsc.VscSaveAs({size: 18})}
                         <span className='pl-[4px]'>Save template</span>
                     </button>
 

@@ -6,27 +6,27 @@ import { FaUserCheck } from "react-icons/fa6";
 export const erpModule = [
     {
         label: "Inventory Management",
-        icon: "",
+        // icon: "",
         path: ""
     },
     {
         label: "Inventory Management",
-        icon: "",
+        // icon: "",
         path: ""
     },
     {
         label: "Human Resource Management",
-        icon: "",
+        // icon: "",
         path: ""
     },
     {
         label: "Finance & Accounting",
-        icon: "",
+        // icon: "",
         path: ""
     },
     {
         label: "Customer Relations",
-        icon: "",
+        // icon: "",
         path: ""
     },
     {
@@ -36,7 +36,7 @@ export const erpModule = [
     },
     {
         label: "Sales Pipeline",
-        icon: "",
+        // icon: "",
         path: ""
     }
 ]
@@ -46,7 +46,7 @@ export const modules = [
         id: "inventory",
         title: "Inventory Control",
         description: "Stock management & warehousing",
-        icon: <FaMobileAlt />,
+        icon: <>{FaMobileAlt({})}</>,
         gradient: "from-purple-500 to-purple-600",
         stats: { value: "2,847", label: "Items in Stock", trend: "-2%" },
         path: "/inventory",
@@ -55,7 +55,7 @@ export const modules = [
       id: "crm",
       title: "Customer Relations",
       description: "Manage leads, customers & sales pipeline",
-      icon: <FaUser />,
+      icon: <>{FaUser({})}</>,
       gradient: "from-blue-500 to-blue-600",
       stats: { value: "1,234", label: "Active Customers", trend: "+12%" },
       path: "/crm",
@@ -65,7 +65,7 @@ export const modules = [
       id: "hrm",
       title: "Human Resources",
       description: "Employee management & payroll",
-      icon: <FaUserCheck />,
+      icon: <>{FaUserCheck({})}</>,
       gradient: "from-emerald-500 to-emerald-600",
       stats: { value: "156", label: "Employees", trend: "+3%" },
       path: "/hrm",
@@ -75,7 +75,7 @@ export const modules = [
       id: "finance",
       title: "Finance & Accounting",
       description: "Financial management & reporting",
-      icon: <FaAmericanSignLanguageInterpreting />,
+      icon: <>{FaAmericanSignLanguageInterpreting({})}</>,
       gradient: "from-amber-500 to-amber-600",
       stats: { value: "$125.4K", label: "Monthly Revenue", trend: "+18%" },
       path: "/finance",
@@ -93,7 +93,7 @@ export const modules = [
       id: "procurement",
       title: "Procurement",
       description: "Purchase orders & vendor relations",
-      icon: <AiOutlineShoppingCart />,
+      icon: <>{AiOutlineShoppingCart({})}</>,
       gradient: "from-indigo-500 to-indigo-600",
       stats: { value: "45", label: "Suppliers", trend: "+5%" },
       path: "/procurement",

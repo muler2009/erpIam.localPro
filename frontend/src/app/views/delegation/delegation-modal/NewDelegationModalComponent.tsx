@@ -88,7 +88,7 @@ const NewDelegationModalComponent = ({open, handleIsOpenCloseMenuModal, title}: 
                 <ModalHeader className='flex justify-between items-center px-2 py-[10px] font-Poppins rounded-t-md border-b'>
                     <Text className='font-Poppins text-left px-5 text-[14px] flex-grow text-[#333]'>{title}</Text>
                     <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-red-400 hover:text-white text-[#333]" onClick={handleIsOpenCloseMenuModal} > 
-                        <VscIcons.VscClose size={15} />
+                        { VscIcons.VscClose({size: 15}) }
                     </div>
                 </ModalHeader>
                 <ModalBody className='flex flex-col h-[350px] mx-[1px]'>  
@@ -98,7 +98,8 @@ const NewDelegationModalComponent = ({open, handleIsOpenCloseMenuModal, title}: 
                   <div className="flex justify-end space-x-5 pr-5 ">
                     <button className={`btn-sm text-[12px] px-3 py-1 border-[2px] border-text-primary rounded-[3px] transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
                         <div className='flex justify-start items-center'>
-                            <GrIcons.GrFormPrevious  size={15}/>
+                          { GrIcons.GrFormPrevious({size: 15}) }
+                            
                             <p className='font-Poppins text-[13px]'>Prev</p>
                         </div>
                     </button>
@@ -106,7 +107,8 @@ const NewDelegationModalComponent = ({open, handleIsOpenCloseMenuModal, title}: 
                     <button  className={`btn-sm text-[12px] px-3 py-1 border-[2px] border-text-primary rounded-[3px] transition duration-500 ease-in-out ${nextHide}`} onClick={handleNext} disabled={disableNext}>
                         <div className='flex justify-start items-center '>
                             <p className='font-Poppins text-[13px]'>Next</p>
-                            <GrIcons.GrFormNext size={15} />
+                            { GrIcons.GrFormNext({size: 15}) }
+                          
                         </div>
                     </button>
 

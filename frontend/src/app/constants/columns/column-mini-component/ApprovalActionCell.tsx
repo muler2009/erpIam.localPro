@@ -20,7 +20,9 @@ const ApprovalActionCell = ({requestData, approvalStatus}: ApprovalActionCellInt
     <>
         <FlexBox className='flex space-x-3'>
             <Div onClick={handleIsOpenCloseMenuModal}>
-                <MdPreview size={20}/>
+                {
+                    MdPreview({size: 20})
+                }
             </Div>
         </FlexBox>
 

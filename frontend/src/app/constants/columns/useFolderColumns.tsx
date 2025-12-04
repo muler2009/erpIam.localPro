@@ -41,7 +41,7 @@ const useFolderColumns = () => {
                         }
                     </div>
                 </div>  
-            ) : <div className='text-[25px] text-gray-600'><AiFillFolder /></div>,
+            ) : <div className='text-[25px] text-gray-600'>{AiFillFolder({})}</div>,
             size: DISPLAY_COLUMN_SIZE,
         }),
         

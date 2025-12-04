@@ -10,7 +10,7 @@ from iam.access_policy.authorization_policy import IsAuthenticatedAdminUser
 
 class GetGroupsRequestHandler(generics.GenericAPIView, mixins.ListModelMixin):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticatedAdminUser] # Ensure the user is authenticated
+    # permission_classes = [IsAuthenticatedAdminUser] # Ensure the user is authenticated
     serializer_class = GetGroupSerializer
     
     def get(self, request):

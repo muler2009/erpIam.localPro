@@ -27,7 +27,7 @@ const GroupTopNavigation = () => {
   return (
     <div className='flex justify-between items-center pt-4 pb-3 px-4 bg-gradient-to-b mx-1 from-white to-gray-100'> 
         <div className='flex space-x-2 items-start'>
-            <MdGroups size={25} className='text-primary-green' />
+            {MdGroups({size : 25, className:'text-primary-green'}) }
             <Text className='font-Poppins font-semibold text-2xl'>
               IAMs | <span className='text-[14px] font-normal text-primary-green'>Group Setup</span>
                 <p className='text-[13px] text-[#333] text-opacity-50 font-normal -mt-2'>Setup a major group where later you can add users in it</p>
@@ -38,7 +38,7 @@ const GroupTopNavigation = () => {
                 <div className='relative z-20 cursor-pointer'>
                     <div className={`px-2 py-1.5 bg-text-primary text-white rounded-[3px] border ${dropdown ? 'bg-opacity-70 text-[#333] transition duration-500 ease-in-out rounded-[2px]': 'text-gray-500'}`}  onClick={() => setDropItems(prevState => !prevState)}>
                         <Text className={`text-[12px] font-Poppins flex items-center px-2 py-1`}>
-                           Group actions <span className='pl-5'> {dropdown ? <RxIcons.RxCaretUp />: <RxIcons.RxCaretDown /> } </span>
+                           Group actions <span className='pl-5'> {dropdown ? <>{RxIcons.RxCaretUp({})}</>: <>{RxIcons.RxCaretDown({})}</> } </span>
                         </Text>
                     </div>
                     {

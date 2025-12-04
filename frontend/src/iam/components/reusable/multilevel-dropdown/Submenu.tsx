@@ -18,7 +18,7 @@ const Submenu = ({ subMenu, parentIndexPath, openMenus, toggleSubMenu }: Sidemen
                     <FlexBoxInner key={currentPath} className="pl-3 ">
                       <Div className="cursor-pointer flex items-center space-x-1" onClick={() => toggleSubMenu(currentPath)} >
                         <span className="text-[13px]">
-                            {isOpen ? <IoIcons.IoCaretDown /> : <IoIcons.IoCaretForwardSharp />}
+                            {isOpen ? <>{IoIcons.IoCaretDown({})}</> : <>{IoIcons.IoCaretForwardSharp({})}</>}
                         </span>
                          <Text className='text-[13px] text-[#5e2f05]'>{subItem.label}</Text> {/* Display the submenu item's label */}
                       </Div>

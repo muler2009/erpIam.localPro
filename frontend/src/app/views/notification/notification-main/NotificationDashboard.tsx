@@ -16,12 +16,19 @@ const NotificationDashboard = () => {
     <FlexBox className='bg-[#f9f9f9] h-full mx-1 rounded-t-[5px]'>
       <FlexBoxInner className='flex justify-between items-center py-4 bg-[#eeeeee] px-5 rounded-t-[5px]'>
         <Text className='text-black font-semibold font-Poppins flex'>
-          <BsBellFill size={20}/>
+          {
+            BsBellFill({
+              size: 20
+            })
+
+          }
             <Text className='pl-3'>Notification Message
               <span className='pl-3 font-Poppins text-[12px] text-button-primary font-semibold'>{notificationData.length} Notification</span>
             </Text>
         </Text>
-        <TbDots />
+        {
+          TbDots({})
+        }
       </FlexBoxInner>
       <TabNavigation 
         tabs={notification_item}

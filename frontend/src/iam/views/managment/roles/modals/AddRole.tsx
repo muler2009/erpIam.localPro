@@ -62,7 +62,11 @@ const AddRole = ({onRequestClose, title, isOpen, link_identifier}: RoleModalProp
           <ModalHeader className='flex justify-between items-center px-5 py-3 border-b'>
               <h1 className='font-Poppins text-black font-semibold text-[15px] text-opacity-50 text-center px-5'>{title}</h1>
               <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-gray-400 hover:text-white" onClick={onRequestClose}>
-                  <Vsc.VscClose size={15} />
+                  {
+                    Vsc.VscClose({
+                      size: 15
+                    })
+                  }
               </div>
           </ModalHeader>
           <ModalBody className='h-[50vh] flex space-x-1 pt-4 pr-10 overflow-y-scroll'>
@@ -91,7 +95,11 @@ const AddRole = ({onRequestClose, title, isOpen, link_identifier}: RoleModalProp
             <div className="flex justify-end space-x-5 pr-5 ">
               <button className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] text-[#333] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
                   <div className='flex justify-start items-center'>
-                      <GrIcons.GrFormPrevious  size={15}/>
+                      {
+                        GrIcons.GrFormPrevious({
+                          size: 15
+                        })
+                      }
                       <p className='font-Poppins text-[13px]'>Prev</p>
                   </div>
               </button>
@@ -99,7 +107,12 @@ const AddRole = ({onRequestClose, title, isOpen, link_identifier}: RoleModalProp
               <button  className={`btn-sm text-[12px] px-3 py-1 border rounded-[3px] hover:bg-green-600 hover:text-white transition duration-500 ease-in-out ${nextHide}`} onClick={handleNext} disabled={disableNext}>
                   <div className='flex justify-start items-center '>
                       <p className='font-Poppins text-[13px]'>Next</p>
-                      <GrIcons.GrFormNext size={15} />
+                       {
+                          GrIcons.GrFormNext({
+                            size: 15
+                          })
+                        }
+                     
                   </div>
               </button>
 

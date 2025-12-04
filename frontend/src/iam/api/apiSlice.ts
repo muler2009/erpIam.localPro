@@ -9,6 +9,11 @@ interface ArgsProps {
   body?: unknown;
 }
 
+interface RefreshResponse {
+  access: string;
+  refresh?: string;
+}
+
 // creating a type for tag defined
 type TagType = typeof API_TAGS[keyof typeof API_TAGS]
 const tagTypes: TagType[] = Object.values(API_TAGS);
@@ -43,8 +48,9 @@ const baseQueryForReauthentication: BaseQueryFn<string | FetchArgs , any, FetchB
           extraOptions
         );
         if (refreshResult?.data) {
+           const refreshData = refreshResult.data as RefreshResponse;
           // store the new token
-          api.dispatch(setAuthData({ ...refreshResult.data, access, username }));
+          api.dispatch(setAuthData({ ...refreshData, access, username }));
           // retry the original query with new access token
           resultFromBaseQuery = await baseQuery(args, api, extraOptions);
         } else {

@@ -22,7 +22,7 @@ const useGroupColumn = () => {
                 row.getCanExpand() ? (
                     <div className='flex justify-center items-center cursor-pointer'>
                         <div className={``} onClick={row.getToggleExpandedHandler()}>
-                            {row.getIsExpanded() ? <IoIcons.IoMdArrowDropup size={18} /> : <IoIcons.IoMdArrowDropdown size={18}  /> }
+                            {row.getIsExpanded() ? <>{IoIcons.IoMdArrowDropup({size: 18})}</> : <>{IoIcons.IoMdArrowDropdown({size: 18})}</> }
                         </div>
                     </div>  
                 ) : null,

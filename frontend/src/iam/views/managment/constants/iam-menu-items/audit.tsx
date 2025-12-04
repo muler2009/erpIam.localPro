@@ -17,34 +17,32 @@ import * as Io5Icons from "react-icons/io5";
 export const audit_logs_menu: CommonMenuItemsProps[] = [
     {
         label: "Overview",
-        icon: <GrIcons.GrOverview />,
+        icon: <>{GrIcons.GrOverview({})}</>,
         path: "audit_logs"
         
     },
     {
         label: "Authentication Logs",
-        icon: <RiIcons.RiAddLine />, 
+        icon: <>{RiIcons.RiAddLine({})}</>, 
         path: 'auth_logs'
     },
     {
         label: "User Activity Logs",
-        icon: <BsIcons.BsActivity />,
+        icon: <>{BsIcons.BsActivity({})}</>,
         path: 'user_activities'
     },
     {
         label: "Authorization Logs",
-        icon: <RiIcons.RiAddLine />,
+        icon: <>{RiIcons.RiAddLine({})}</>,
         
     },
     {
         label: "Privilaged Access Logs",
-        icon: <RiIcons.RiAddLine />,
-        
+        icon: <>{RiIcons.RiAddLine({})}</>,        
     },
     {
         label: "System-Level",
-        icon: <RiIcons.RiAddLine />,
-        
+        icon: <>{RiIcons.RiAddLine({})}</>,        
     },
 ]
 
@@ -52,23 +50,23 @@ export const audit_logs_menu: CommonMenuItemsProps[] = [
 export const audit_tab_menu: TabComponentPropsInterface[] = [
     {
         label: "LoginEvent",
-        icon: <RiIcons.RiAddLine />,
+        icon: <>{RiIcons.RiAddLine({})}</>,
         tabContent: <LoginEventAuditLogInformation />
     },
     {
         label: "RequestEvent",
-        icon: <RiIcons.RiAddLine />,
+        icon: <>{RiIcons.RiAddLine({})}</>,
         tabContent: <h1>Login RequestEvent</h1>
     },
     {
         label: "CRUDEvent",
-        icon: <RiIcons.RiAddLine />,
+        icon: <>{RiIcons.RiAddLine({})}</>,
         tabContent: <h1>CRUDEvent</h1>
 
     },
     {
         label: "Other LogsEvent",
-        icon: <RiIcons.RiAddLine />,
+        icon: <>{RiIcons.RiAddLine({})}</>,
         tabContent: <h1>Ohther Login Event</h1>
 
     },
@@ -78,17 +76,17 @@ export const audit_tab_menu: TabComponentPropsInterface[] = [
 export const auth_logs: TabComponentPropsInterface[] = [
     {
         label: "Successful",
-        icon: <Io5Icons.IoCheckmarkDoneSharp />,
+        icon: <>{Io5Icons.IoCheckmarkDoneSharp({})}</>,
         tabContent: <AccessSuccessfulnformation />
     },
     {
         label: "Failed",
-        icon: <AiIcons.AiOutlineStop />,
+        icon: <>{AiIcons.AiOutlineStop({})}</>,
         tabContent: (viewType: 'list' | 'table') => <FailedLogDisplayTypeComponent viewType={viewType} />
     },
     {
         label: "Locked account",
-        icon: <FaIcons.FaUserLock />,
+        icon: <>{FaIcons.FaUserLock({})}</>,
         tabContent: <LockedAccount />
 
     },

@@ -16,7 +16,9 @@ const Counter = ({setIsOpen, isOpen} : ModalProps) => {
                     </h1>
                     <div className="w-8 h-8 flex justify-center items-center cursor-pointer rounded-full hover:bg-red-400 hover:text-white" 
                     onClick={() => setIsOpen(prevState => !prevState)}>
-                        <Vsc.VscClose size={17} />
+                        {
+                            Vsc.VscClose({size: 15})
+                        }
                     </div>
                 </div>
                 <div className=''>

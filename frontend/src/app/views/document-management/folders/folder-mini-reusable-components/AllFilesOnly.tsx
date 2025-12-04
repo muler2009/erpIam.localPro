@@ -36,7 +36,6 @@ const AllFilesOnly = () => {
     return (
         <FlexBox className="flex flex-col h-full relative bg-white mx-1 font-Poppins">
           <FlexBoxInner className='bg-gray-50'>
-            
               <FlexBoxInner className='mx-5 py-3'>
                   <Text className='font-semibold text-primary-green text-opacity-95 text-[23px]'>File Library</Text>
                   <p className='text-[11px] text-[#333] text-opacity-65'>Document and any attachment the you made with yoou user account </p>
@@ -45,16 +44,16 @@ const AllFilesOnly = () => {
               <FlexBox className='flex justify-start items-center shadow-sm py-2 pl-5 pr-10 bg-white'>
                 <Link className='cursor-pointer px-4 z-10' to="../">
                     <BottomTooltip content='Back to Home'>
-                        <IoIcons.IoHome />
+                        {IoIcons.IoHome({})}
                     </BottomTooltip> 
                 </Link>
 
                 {/* filter drop down in the file */}
                 <Div className='relative px-2'>
                     <Text className={`text-sm flex px-2 py-[6px] items-center cursor-pointer text-[12px] hover:bg-button-hover border-[2px] border-button-hover rounded-[4px] ${dropdown && 'bg-button-hover text-white'}`} onClick={handledropdownMenu} >
-                        <span><BiSort /></span>Sort Files
+                        <span>{BiSort({})}</span>Sort Files
                         <span className='pl-3'>
-                            { dropdown ? <RxIcons.RxCaretUp/> : <RxIcons.RxCaretDown /> }
+                            { dropdown ? <>{RxIcons.RxCaretUp({})}</> : <>{RxIcons.RxCaretDown({})}</> }
                         </span>
                     </Text>
                     
@@ -77,7 +76,9 @@ const AllFilesOnly = () => {
                 </Div>
                 <Div className='cursor-pointer px-2' onClick={handleIsOpenCloseMenuModal}>
                     <Text className='text-[12px] px-3 rounded-[4px] py-[7px] flex items-center hover:bg-button-hover border-[2px] border-button-hover bg-button-primary text-white'>
-                        <TfiIcons.TfiUpload size={18} className='pr-[5px]' />
+                        {
+                            TfiIcons.TfiUpload({size: 18, className: 'pr-[5px]' })
+                        }
                         Upload File
                     </Text>      
 

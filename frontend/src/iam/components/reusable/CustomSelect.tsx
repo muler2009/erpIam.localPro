@@ -28,7 +28,7 @@ const CustomSelect = ({label, icon, options=[], name, onChange, value}: CustomSe
                 
                 </select>   
                 <span className='flex justify-center items-center absolute top-0 border right-0 text-gray-500 bg-gray-50 h-full w-[30px] pointer-events-none '>
-                    <AiIcons.AiOutlineCaretDown  />
+                    {AiIcons.AiOutlineCaretDown({})}
                 </span>
         </FlexBoxInner>
     </FlexBox>

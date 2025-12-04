@@ -49,7 +49,12 @@ const DocumentUploadModal = ({open, handleIsOpenCloseMenuModal, title, fileInFol
                   </Text>
 
                   <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-red-400 hover:text-white" onClick={handleIsOpenCloseMenuModal} > 
-                      <VscIcons.VscClose size={15} />
+                      {
+
+                        VscIcons.VscClose({
+                          size: 20
+                        })
+                      }
                   </div>
               </ModalHeader>
               <ModalBody className='p-5'>
@@ -91,7 +96,12 @@ const DocumentUploadModal = ({open, handleIsOpenCloseMenuModal, title, fileInFol
                                   fileUpload ? (
                                     fileExtension === 'pdf' && (
                                         <FlexBoxInner className="flex justify-start space-x-3 ">
-                                          <BsFileEarmarkPdf size={40} />
+                                          {
+                                            BsFileEarmarkPdf({
+                                              size: 40
+                                            })
+                                          }
+                                          
                                           <Div className='flex flex-col gap-1 items-start'>
                                             <P className="text-blue-600 text-sm font-medium">{fileUpload.name}</P>
                                             <small className="text-xs text-gray-500">File size: {fileSize?.toFixed(2)} KB</small>
@@ -99,7 +109,11 @@ const DocumentUploadModal = ({open, handleIsOpenCloseMenuModal, title, fileInFol
                                         </FlexBoxInner>
                                     )): (
                                       <div className="flex flex-col items-center justify-center">
-                                        <AiIcons.AiOutlineCloudUpload size={50} />
+                                        {
+                                          AiIcons.AiOutlineCloudUpload({
+                                            size: 50
+                                          })
+                                        }
                                         <p className="mt-2 text-[12px]">Upload a document with valid format</p>
                                         <small id="validFileFormats">pdf, docx, xlsx, Max 5MB</small>
                                       </div>

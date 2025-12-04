@@ -1,0 +1,17 @@
+{
+    // Use the Python interpreter from your virtual environment
+    "python.pythonPath": "/home/firewall/Documents/project/erpIam.localPro/backend/.venv/bin/python",
+
+    // Automatically activate virtual environment in the integrated terminal
+    "python.terminal.activateEnvironment": true,
+
+    // Linting and formatting (optional, recommended)
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.formatting.provider": "black",
+
+    // Django support
+    "python.envFile": "${workspaceFolder}/.env", // your environment variables file
+    
+}

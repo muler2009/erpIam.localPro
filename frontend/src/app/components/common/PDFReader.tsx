@@ -40,31 +40,79 @@ const PdfReader = ({pdfURL, openPdfs, setOpenPdfs, title}: PdfReaderInterface) =
                 <ModalContainer className={`w-[60%] h-[95vh] bg-black bg-opacity-80 mx-auto flex flex-col relative top-0 shadow-2xl overflow-scroll`}>
                     <ModalHeader className='flex justify-start items-center px-5 border-b-[1px] bg-[#333] sticky top-0 z-10'>
                         <FlexInnerContainer className='text-[#fff]'>
-                            <MdIcons.MdMenu size={18} />
+                            {
+                                MdIcons.MdMenu({
+                                    size: 25,
+                                    className: "cursor-pointer"
+                                })
+                            }
+                      
                         </FlexInnerContainer>
                         <FlexInnerContainer className='flex-grow'>
                             <FlexBox className='flex justify-center space-x-2 items-center text-[#fff] text-[13px] divide-x-[1px] divide-[#fff] divide-opacity-50'>
                                 <FlexInnerContainer className='flex space-x-2 items-center'>
                                     <button className='disabled:bg-gray' disabled={pageNumber <= 1} onClick={() => setPageNumber(prevPageNumber => prevPageNumber - 1)} >
-                                        <Io5Icons.IoChevronBack size={15}  />
+                                         {
+                                            Io5Icons.IoChevronBack({
+                                                size: 25,
+                                                className: "cursor-pointer"
+                                            })
+                                        }
                                     </button>
                                     <p>{pageNumber || (numPages ? 1 : '')} - {numPages || ''}</p>
                                     <button className='disabled:bg-gray'  disabled={numPages === undefined || pageNumber >= numPages}  onClick={() => setPageNumber(prevPageNumber => prevPageNumber + 1)} >
-                                        <Io5Icons.IoChevronForward  size={15}  />
+                                        {
+                                            Io5Icons.IoChevronForward({
+                                                size: 25,
+                                                className: "cursor-pointer"
+                                            })
+                                        }
                                     </button>
                                 </FlexInnerContainer>
                                 <FlexBoxInner className='pl-2 flex items-center space-x-3'>
-                                    <button onClick={() => setZoom(prevScale => prevScale - 0.25)}><GoIcons.GoZoomOut size={15} /></button>
+                                    <button onClick={() => setZoom(prevScale => prevScale - 0.25)}>
+                                        {
+                                            GoIcons.GoZoomOut({
+                                                size: 25,
+                                                className: "cursor-pointer"
+                                            })
+                                        }
+                                    </button>
                                     <h1 className='border border-[#fff] border-opacity-50 px-2'>{zoom * 100} <span>%</span></h1>
-                                    <button onClick={() => setZoom(prevScale => prevScale + 0.25)}><GoIcons.GoZoomIn size={15} /></button>
+                                    <button onClick={() => setZoom(prevScale => prevScale + 0.25)}>
+                                        {
+                                            GoIcons.GoZoomIn({
+                                                size: 25,
+                                                className: "cursor-pointer"
+                                            })
+                                        }
+                                        
+                                    </button>
                                 </FlexBoxInner>
                             </FlexBox>
                         </FlexInnerContainer>
 
                         <div className='flex space-x-5 text-[#fff] cursor-pointer'>
-                            <IoIcons.IoMdDownload size={16} />
-                            <IoIcons.IoIosPrint size={16} />
-                            <Vsc.VscClose size={16} onClick={() => setOpenPdfs(prevState => !prevState)} />
+                            {
+                                IoIcons.IoMdDownload({
+                                    size: 16,
+                                    className: "cursor-pointer"
+                                })
+                            }
+                            {
+                                IoIcons.IoIosPrint({
+                                    size: 16,
+                                    className: "cursor-pointer"
+                                })
+                            }
+                             {
+                                Vsc.VscClose({
+                                    size: 16,
+                                    className: "cursor-pointer",
+                                    onClick:() => setOpenPdfs(prevState => !prevState)
+                                })
+                            }
+                            
                         </div>
                     </ModalHeader>
                     <ModalBody className='py-2 flex justify-center items-center'>

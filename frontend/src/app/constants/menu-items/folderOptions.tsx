@@ -16,27 +16,27 @@ import AlllUploadedFiles  from '../../views/document-management/folders/file-upl
 export const folderOptions = [
     {
         label: "Open",
-        icon: <PiIcons.PiAcorn />,
+        icon: <>{PiIcons.PiAcorn({})}</>,
         abbreviation: "open_folder"
     },
     {
         label: "Create Folder",
-        icon: <VscIcon.VscNewFolder />,
+        icon: <>{VscIcon.VscNewFolder({})}</>,
         abbreviation: "create_new_folder"
     },
     {
         label: "Copy",
-        icon: <PiIcons.PiCopy />,
+        icon: <>{PiIcons.PiCopy({})}</>,
         abbreviation: "create_folder"
     },
     {
         label: "Paste",
-        icon: <FaRegPaste />,
+        icon: <>{FaRegPaste({})}</>,
         abbreviation: "create_folder"
     },
     {
         label: "Rename",
-        icon: <MdDriveFileRenameOutline />,
+        icon: <>{MdDriveFileRenameOutline({})}</>,
         abbreviation: "create_folder"
     }
 ]
@@ -45,37 +45,37 @@ export const folderOptions = [
 export const folder_modal_top_menu = [
     {
         label: "New Folder",
-        icon: <VscIcon.VscNewFolder />,
+        icon: <>{VscIcon.VscNewFolder({})}</>,
         identifier: "create_new_folder"
     },
     {
         label: "Copy",
-        icon: <VscIcon.VscCopy />,
+        icon: <>{VscIcon.VscCopy({})}</>,
         identifier: "create_new_folder"
     },
     {
         label: "Cut",
-        icon: <LiIcons.LiaCutSolid />,
+        icon: <>{LiIcons.LiaCutSolid({})}</>,
         identifier: "cut"
     },
     {
         label: "Paste",
-        icon: <LiIcons.LiaPasteSolid />,
+        icon: <>{LiIcons.LiaPasteSolid({})}</>,
         identifier: "paste"
     },
     {
         label: "Rename",
-        icon: <MdDriveFileRenameOutline />,
+        icon: <>{MdDriveFileRenameOutline({})}</>,
         identifier: "create_folder"
     },
     {
         label: "Delete",
-        icon: <LiIcons.LiaTrashAltSolid />,
+        icon: <>{LiIcons.LiaTrashAltSolid({})}</>,
         identifier: "delete"
     },
     {
         label: "Download",
-        icon: <IoIcons.IoMdDownload />,
+        icon: <>{IoIcons.IoMdDownload({})}</>,
         identifier: "save"
     }
 ]

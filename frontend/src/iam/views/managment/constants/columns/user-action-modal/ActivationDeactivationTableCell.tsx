@@ -16,12 +16,24 @@ const ActivationDeactivationTableCell = ({rowData}: {rowData: UserAPIResponse} )
           {
             rowData?.is_active ? (
               <div className={`flex space-x-2`}>
-                <FaIcons.FaUserCheck size={18} className={`text-green-500`} />
+                {
+                  FaIcons.FaUserCheck({
+                    size: 18,
+                    className: `text-green-500`
+                  })
+                }
+                
                 <span className={`text-[#333] text-opacity-65 hover:underline hover:text-green-500`}>active</span>
               </div>
             ):(
               <div className={`flex space-x-2`}>
-                <FaIcons.FaUserLock size={18} className={`text-red-500`} />
+                {
+                  FaIcons.FaUserLock({
+                    size: 18,
+                    className: `text-red-800`
+                  })
+                }
+                
                 <span className={`text-[#333] text-opacity-65 hover:underline hover:text-red-500`}>deactivated</span>
               </div>
             )

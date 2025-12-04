@@ -10,7 +10,11 @@ const DownloadRoleAssignment = ({onRequestClose, title, isOpen, link_identifier}
         <ModalHeader className='flex justify-between items-center px-5 py-3'>
             <h1 className='font-Rubik text-black font-semibold text-[15px] text-opacity-50 text-center px-5'>{title}</h1>
             <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-gray-400 hover:text-white" onClick={onRequestClose}>
-                <Vsc.VscClose size={15} />
+                {
+                    Vsc.VscClose({
+                        size: 20
+                    })
+                }
             </div>
         </ModalHeader>
         <ModalBody>

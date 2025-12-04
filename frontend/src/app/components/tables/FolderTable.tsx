@@ -133,7 +133,9 @@ const FolderTable = ({data, columns}: FolderTableProps) => {
                                                                                 <FlexBox key={index} className="flex justify-between items-center bg-white py-2 left-10">
                                                                                     <FlexBoxInner className="flex items-center justify-between w-2/3">
                                                                                         <aside className="pr-4 flex items-center">
-                                                                                            <FaFilePdf />
+                                                                                            {
+                                                                                                FaFilePdf({})
+                                                                                            }
                                                                                             <span className="pl-4">
                                                                                                 {file.document_name}
                                                                                             </span>
@@ -144,7 +146,10 @@ const FolderTable = ({data, columns}: FolderTableProps) => {
                                                                                         <Text> {date}</Text>
                                                                                     </FlexBoxInner>
                                                                                     <FlexBoxInner className="pr-20 flex space-x-1 items-center" onClick={() => alert(`clicked ${file.file_url}`)}>
-                                                                                        <AiFillEye /><span className="">View</span>
+                                                                                        {
+                                                                                            AiFillEye({})
+                                                                                        }
+                                                                                        <span className="">View</span>
                                                                                     </FlexBoxInner>
                                                                                 </FlexBox>
 
@@ -186,15 +191,26 @@ const FilterText = () => {
           <FlexBoxInner className='flex space-x-2 items-center'>
             <FlexBoxInner className='flex space-x-2 '>
                <div className='btn-sm px-2 hover:bg-gray-50 rounded-none flex items-center justify-center text-[12px]'>
-                  <span className='pr-1'><BsFileEarmark size={20} /></span>Files
+                  <span className='pr-1'>
+                    {
+                        BsFileEarmark({size: 20}) 
+                    }
+                </span>Files
                 </div>
                 <div className='btn-sm pr-3 hover:bg-gray-50 rounded-none  flex items-center justify-center text-[12px]'>
-                  <span className='pr-1'><GiOpenFolder size={20} /></span>Folders
+                  <span className='pr-1'>
+                     {
+                        GiOpenFolder({size: 20}) 
+                    }
+                    
+                </span>Folders
                 </div>
             </FlexBoxInner>
           </FlexBoxInner>
           <FlexBoxInner className='pl-3'>
-            <TfiLayoutGrid2Alt size={18} />
+            {
+                TfiLayoutGrid2Alt({})
+            }
           </FlexBoxInner>
         </FlexBoxInner>
       

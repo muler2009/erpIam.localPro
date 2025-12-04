@@ -1,6 +1,6 @@
 from config.env import env
-import ldap
-from django_auth_ldap.config import LDAPSearch, LDAPSearchUnion, LDAPGroupQuery, PosixGroupType
+import ldap # type: ignore
+from django_auth_ldap.config import LDAPSearch, LDAPSearchUnion, LDAPGroupQuery, PosixGroupType # type: ignore
 
 # app use LDAP for authenticating users by default
 AUTH_LDAP_SERVER_URI = env('LDAP_URI')

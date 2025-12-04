@@ -12,7 +12,7 @@ const UnlockComponentAction = ({rowData}: {rowData: AccessFailureLogsInterface})
   return (
      <>
        <div className='flex justify-center items-center py-[2px] w-[100px] text-white bg-button-primary px-2 rounded-[3px]' onClick={handleIsOpenCloseMenuModal}>
-            <GiIcons.GiUnlocking size={15}/>
+            {GiIcons.GiUnlocking({size: 15})}
             <span className='pl-1'>Unlock</span> 
         </div>
  

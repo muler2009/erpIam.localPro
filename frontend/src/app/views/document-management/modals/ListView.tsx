@@ -71,7 +71,11 @@ const FolderListView = ({folder_data} : FolderGridViewInterface) => {
                   return(
                   <FlexBox className='flex justify-between items-center border-gray-100' key={subfolder.folder_identifier} onClick={() => handleItemClick(subfolder)}>
                       <FlexBoxInner className='flex justify-start items-center space-x-2'>
-                        <AiFillFolder size={30} />
+                        {
+                          AiFillFolder({
+                            size: 30
+                          })
+                        }
                         <Text className=''>{subfolder.folder_name}</Text>
                       </FlexBoxInner>
                       <FlexBoxInner className='flex justify-start items-center space-x-2'>
@@ -106,7 +110,12 @@ const FolderListView = ({folder_data} : FolderGridViewInterface) => {
                 return(
                   <FlexBox className='flex justify-between items-center border-gray-100 ' key={index} >
                     <FlexBoxInner className='flex justify-start items-center space-x-2' onDoubleClick={() => toggleItem(index)}>
-                      <FaFilePdf size={30} color='#de2429'/>
+                      {
+                        FaFilePdf({
+                          size: 30, 
+                          color: '#de2429'
+                        })
+                      }
                       <Text className=''>{uploaded.uploaded_document_name}</Text>
                     </FlexBoxInner>
                     <FlexBoxInner className='flex justify-start items-center'>

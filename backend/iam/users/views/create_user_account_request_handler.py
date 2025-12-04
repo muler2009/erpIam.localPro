@@ -8,8 +8,8 @@ from iam.models import UserAccountsModel
 from iam.access_policy.authorization_policy import IsAuthenticatedAdminUser
 
 class CreateUserAccountRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticatedAdminUser]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticatedAdminUser]
     queryset = UserAccountsModel.objects.all()
     serializer_class = CreateLDAPUserSerializer
     

@@ -5,8 +5,9 @@ import * as BiIcons from "react-icons/bi";
 import { shared } from '../../../constants/menu-items/shared';
 import useUtils from '../../../hooks/useUtils';
 import { BsListColumns } from "react-icons/bs";
-import { SiWindows11 } from "react-icons/si";
+// import { SiWindows11 } from "react-icons/si";
 import Tooltip from '../../../../iam/components/reusable/Tooltip';
+import { FaIcons } from 'react-icons/fa';
 
 
 const SharedNavigation = () => {
@@ -23,12 +24,24 @@ const SharedNavigation = () => {
             <FlexBox className='flex cursor-pointer pr-5 p-[10px]'>
                 <FlexBoxInner className={`w-10 h-10 flex justify-center items-center hover:rounded-full hover:bg-gray-200`}>
                     <Tooltip content={`List View`}>
-                        <BsListColumns size={18} color={`#333`}  />
+                        {
+                            BsListColumns({
+                                size: 18,
+                                color: '#333'
+                            })
+                        }
+                        
                     </Tooltip>
                 </FlexBoxInner>
                 <FlexBoxInner className={`w-10 h-10 flex justify-center items-center hover:rounded-full hover:bg-gray-200`}>
                     <Tooltip content={`Grid View`}>
-                        <SiWindows11 size={18} color={`#1ea1d7`} />
+                        {
+                            FaIcons({
+                                size: 18,
+                                color: '#1ea1d7'
+                            })
+                        }
+                       
                     </Tooltip>
                 </FlexBoxInner>
             </FlexBox>

@@ -60,7 +60,7 @@ const useLoginAuditColumn = () => {
                             {
                                 loginStatus === 1 ? (
                                     <div className="flex items-center bg-green-500 text-white px-2">
-                                        <span className="pr-1"><FaIcons.FaCheck  size={11}/></span>Successfully 
+                                        <span className="pr-1">{FaIcons.FaCheck({size: 11})}</span>Successfully 
                                     </div>
                                 ) : (
                                     <div className="text-red-500">

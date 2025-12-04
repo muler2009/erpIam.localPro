@@ -43,8 +43,7 @@ const AccountActivateDeactivateInformation = ({userData, handleIsOpenCloseMenuMo
                                 user.is_active ? (
                                     <Text className='text-green-600'>active</Text>
                                 ) : (
-                                    <RiUserForbidFill size={18} />
-
+                                    RiUserForbidFill({})
                                 )
                             }
                         </Text>

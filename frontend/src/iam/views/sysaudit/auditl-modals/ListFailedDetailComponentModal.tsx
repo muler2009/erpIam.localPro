@@ -23,7 +23,11 @@ const ListFailedDetailComponentModal = ({open, handleIsOpenCloseMenuModal, title
             <ModalHeader className='flex justify-between items-center px-2 py-[10px] font-Poppins rounded-t-md border-b bg-gray-50 text-[#333]'>
               <p className='font-Poppins text-left px-5 text-[14px] flex-grow '>{title}</p>
               <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-md hover:bg-gray-100 hover:text-red-600 text-[#333]" onClick={handleIsOpenCloseMenuModal} > 
-                <VscIcons.VscClose size={15} />
+                {
+                  VscIcons.VscClose({
+                      size: 15
+                  })
+                }
               </div>
             </ModalHeader>
             <ModalBody className='bg-[#4e4e4e] flex flex-col space-y-2 h-[40vh]'>

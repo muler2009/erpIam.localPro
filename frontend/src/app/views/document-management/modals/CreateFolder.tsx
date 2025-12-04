@@ -52,7 +52,11 @@ const CreateFolder = ({handleIsOpenCloseMenu, isOpen, abbreviation, title}: Moda
                   </Text>
 
                   <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-red-400 hover:text-white" onClick={handleIsOpenCloseMenu} > 
-                      <VscIcons.VscClose size={15} />
+                      {
+                        VscIcons.VscClose({
+                          size: 15
+                        })
+                      }
                   </div>
               </ModalHeader>
               <ModalBody className='p-5'>

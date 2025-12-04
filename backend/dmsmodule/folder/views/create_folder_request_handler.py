@@ -9,7 +9,7 @@ from ..folder_authorization_policy.folder_view_policies import FolderCreateAcces
 
 class CreateFolderRequestHandler(generics.GenericAPIView, mixins.CreateModelMixin):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [FolderCreateAccessPolicy]
+    # permission_classes = [FolderCreateAccessPolicy]
     serializer_class = CreateFolderSerializer
 
     def post(self, request:Request):

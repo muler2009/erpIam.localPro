@@ -69,7 +69,7 @@ export const app_level_access = [
   {
     label: "Access Level",
     path: ".",
-    icon: <FaIcons.FaGoogleDrive />,
+    icon: <>{FaIcons.FaGoogleDrive({})}</>,
     children: [
       {
         label: "View",
@@ -92,7 +92,7 @@ export const app_level_access = [
   {
     label: "Resource Level",
     path: ".",
-    icon: <FaIcons.FaGoogleDrive />,
+    icon: <>{FaIcons.FaGoogleDrive({})}</>,
   }
 ];
 
@@ -101,7 +101,7 @@ export const model_level_access = [
   {
     label: "Access Level",
     path: ".",
-    icon: <FaIcons.FaGoogleDrive />,
+    icon: <>{FaIcons.FaGoogleDrive({})}</>,
     children: [
       {
         label: "View",
@@ -124,6 +124,6 @@ export const model_level_access = [
   {
     label: "Resource Level",
     path: ".",
-    icon: <FaIcons.FaGoogleDrive />,
+    icon: <>{FaIcons.FaGoogleDrive({})}</>,
   }
 ];

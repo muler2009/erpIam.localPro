@@ -32,15 +32,17 @@ const FolderTableHeader = ({folderColRow}: FolderHeaderInterface) => {
 
                     <div className='relative'>
                         {isGroupSorted && <div className='flex px-1'>
-                            {isGroupSorted === "desc" && <LuIcons.LuArrowUpWideNarrow size={20} /> }
-                            {isGroupSorted === "asc" && <LuIcons.LuArrowDownWideNarrow size={20} />}
+                            {isGroupSorted === "desc" && (LuIcons.LuArrowUpWideNarrow({size:20})) }
+                            {isGroupSorted === "asc" &&  (LuIcons.LuArrowDownWideNarrow({size:20})) }
 
                         </div>}
                     </div>
                 </>
 
                 <div className='menu pl-2' onClick={() => setOpen(prev => !prev)}>
-              <MiIcons.MdOutlineKeyboardArrowDown />
+                {
+                  MiIcons.MdOutlineKeyboardArrowDown({})
+                }
                 <div className='relative w-[10%] top-1'>
                   {
                     open && (

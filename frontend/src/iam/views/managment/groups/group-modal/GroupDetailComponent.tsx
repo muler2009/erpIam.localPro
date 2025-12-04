@@ -95,7 +95,9 @@ const GroupDetailComponent = () => {
                 <FlexBox className={`flex justify-between items-center space-x-3 pt-2`}>
                     <Tooltip content={`Select user`}>
                         <button onClick={handleStoreToMembersClick} className={`flex items-center border px-2 btn-sm`}>
-                            <IoIcons.IoAdd size={20} />
+                            {
+                                IoIcons.IoAdd({size: 20})
+                            }
                             <span className='pl-1'>
                                 <Text className='text-[12px]'>Add Users to Group</Text>
                             </span>
@@ -103,7 +105,7 @@ const GroupDetailComponent = () => {
                     </Tooltip>
                     <Tooltip content={`Undo the user`}>
                         <button onClick={handleBackButtonClick} className={`flex items-center border px-2 btn-sm`}>
-                            <BiIcons.BiUndo size={20}/>
+                            {BiIcons.BiUndo({size: 20})}
                             <span className='pl-1'>
                                 <Text className='text-[12px]'>Undo</Text>
                             </span>

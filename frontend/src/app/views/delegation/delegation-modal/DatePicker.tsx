@@ -25,7 +25,12 @@ const DatePickerw = () => {
             
               {/* onChange={(date) => handleDateInputChange(date, 'employee_birth_date') }                    */}
             <div className='absolute left-2 top-2'>
-              <BsIcons.BsFillCalendarCheckFill size={20} className=' text-black text-opacity-40'/>
+              {
+                  BsIcons.BsFillCalendarCheckFill({
+                    size: 20,
+                    className: 'text-black text-opacity-40'
+                  }) 
+              }
             </div>
         </div>
         <small className='text-[#8a8080] text-[12px] -mt-1 '>Required: Birthdate</small>

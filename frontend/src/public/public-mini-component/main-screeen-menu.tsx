@@ -10,8 +10,8 @@ interface MainScreenMenuPropsInterface {
 }
 
 export const main_screen_menu: MainScreenMenuPropsInterface[] = [
-    { label: '', path: '/', icon: <HiIcons.HiHome size={20} />},
-    { label: 'Login', path: 'login', icon: <RiLoginCircleFill size={20} />},
+    { label: '', path: '/', icon: <>{HiIcons.HiHome({size: 20})}</>},
+    { label: 'Login', path: 'login', icon: <>{RiLoginCircleFill({size: 20})}</>},
     { label: 'Register', path: 'register'},
     { label: 'Help', path: 'help'},
 

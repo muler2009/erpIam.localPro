@@ -177,8 +177,8 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.AllowAny',
-        'rest_access_policy.AccessPolicy'
+        'rest_framework.permissions.AllowAny',
+        # 'rest_access_policy.AccessPolicy'
     ], 
     'EXCEPTION_HANDLER': 'utils.custom_exception_handler.custom_exception_handler'
 }

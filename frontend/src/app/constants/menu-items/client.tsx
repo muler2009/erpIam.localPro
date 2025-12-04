@@ -10,17 +10,17 @@ import * as BsIcons from "react-icons/bs";
 export const metaDataMenu: NavigationMenuProps[] = [
     {
         label: "Edit",
-        icon: <AiIcons.AiOutlineEdit  />,
+        icon: <>{AiIcons.AiOutlineEdit({})}</>,
         miniWindow: false,
     },
     {
         label: "Share",
-        icon: <MdIcons.MdShare />,
+        icon: <>{MdIcons.MdShare({})}</>,
         miniWindow: false,
     },
     {
         label: "Upload",
-        icon: <MdIcons.MdUploadFile />,
+        icon: <>{MdIcons.MdUploadFile({})}</>,
         miniWindow: false,
        
     },
@@ -28,19 +28,19 @@ export const metaDataMenu: NavigationMenuProps[] = [
 export const clientMenu: NavigationMenuProps[] = [
     {
         label: "Dashboard",
-        icon: <AiIcons.AiOutlineDashboard />,
+        icon: <>{AiIcons.AiOutlineDashboard({})}</>,
         miniWindow: false,
     },
     {
         label: "Approved Request",
-        icon: <MdIcons.MdPendingActions />,
+        icon: <>{MdIcons.MdPendingActions({})}</>,
         path: "_approved",
         miniWindow: false,
         notify: null,
     },
     {
         label: "Pending Request",
-        icon: <MdIcons.MdPendingActions />,
+        icon: <>{MdIcons.MdPendingActions({})}</>,
         path: "_pending",
         miniWindow: false,
         notify: null,
@@ -48,19 +48,19 @@ export const clientMenu: NavigationMenuProps[] = [
     },
     {
         label: "Track Approval",
-        icon: <MdIcons.MdOutlineLocationOn />,
+        icon: <>{MdIcons.MdOutlineLocationOn({})}</>,
         path: "track-approvals",
         miniWindow: false,
     },
     {
         label: "Drive",
-        icon: <Fa6Icons.FaGoogleDrive />,
+        icon: <>{Fa6Icons.FaGoogleDrive({})}</>,
         path: "drive",
         miniWindow: false,
     },
     {
         label: "Notification",
-        icon: <IoIcons.IoIosNotificationsOutline />,
+        icon: <>{IoIcons.IoIosNotificationsOutline({})}</>,
         path: "notification",
         miniWindow: false,
     }

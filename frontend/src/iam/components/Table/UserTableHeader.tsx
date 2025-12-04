@@ -36,15 +36,17 @@ const UserTableHeader = ({headerColElement, index}: TableHeaderProps) => {
               isSorted 
               &&
               <div className='px-2'>
-                {isSorted === "desc" && <LuIcons.LuArrowUpWideNarrow /> }
-                {isSorted === "asc" && <LuIcons.LuArrowDownWideNarrow />}
+                {isSorted === "desc" && (LuIcons.LuArrowUpWideNarrow({size: 20}))}
+                {isSorted === "asc" && (LuIcons.LuArrowDownWideNarrow({size: 20}))} 
               </div>
             }
           
 
           <div className=''>
             <div className='menu pl-2' onClick={handleMenuClick}>
-              <MiIcons.MdOutlineKeyboardArrowDown />
+                 <>
+                    {MiIcons.MdOutlineKeyboardArrowDown({})}
+                  </>
                 <div className='relative w-[10%] top-1'>
                   {
                     open && (

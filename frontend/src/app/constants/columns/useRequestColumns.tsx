@@ -90,7 +90,7 @@ const useRequestColumns = () => {
             }),
             requestColumnHandler.display({
                 id: "status",
-                header: () => <span className="flex justify-end pr-10"><BiIcons.BiDotsVerticalRounded /></span>,
+                header: () => <span className="flex justify-end pr-10">{BiIcons.BiDotsVerticalRounded({})}</span>,
                 cell: ({row}) => {
                     const rowMetaData = row.original
                     return(
@@ -113,7 +113,10 @@ export const Metadata = ({rowMetaData}: {rowMetaData: RequestDataInterface}) => 
         <>
             <FlexBox className='' onClick={handleIsOpenCloseMenuModal}>
                 <BottomTooltip content='See details'>
-                    <IoIcons.IoIosEye size={20} />
+                
+                    {
+                        IoIcons.IoIosEye({size: 20}) 
+                    }
                 </BottomTooltip>
             </FlexBox>
             <DocumentMetaData

@@ -18,14 +18,14 @@ const PaginationController = ({ table }: TableInstanceProps) => {
             <button 
               className={`px-2 ${table.getCanPreviousPage() === true && 'btn-sm rounded-none bg-green-900 text-white cursor-pointer'}`} 
               onClick={() => table.firstPage()}  disabled={!table.getCanPreviousPage()}>
-                <MdIcons.MdKeyboardDoubleArrowLeft />
+                {MdIcons.MdKeyboardDoubleArrowLeft({})}
             </button>
 
             <button 
               className={`px-2  ${table.getCanPreviousPage() === true && 'btn-sm rounded-none bg-green-900 text-white cursor-pointer'}`} 
               onClick={() => table.previousPage()}  disabled={!table.getCanPreviousPage()}
             >
-                <IoIcons.IoIosArrowBack />
+                {IoIcons.IoIosArrowBack({})}
             </button>
           </div>
           <div  className="flex items-center gap-1 text-[13px]">
@@ -36,12 +36,12 @@ const PaginationController = ({ table }: TableInstanceProps) => {
           <div className='flex items-center gap-1'>
             <button className={`px-2  ${table.getCanNextPage() === true && 'btn-sm rounded-none bg-green-900 text-white cursor-pointer'}`} 
                 onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-                <IoIcons.IoIosArrowForward />
+                {IoIcons.IoIosArrowForward({})}
             </button>
 
             <button className={`px-2  ${table.getCanNextPage() === true && 'btn-sm rounded-none bg-green-900 text-white cursor-pointer'}`} 
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}  disabled={!table.getCanNextPage()}>
-                <MdIcons.MdKeyboardDoubleArrowRight />
+                {MdIcons.MdKeyboardDoubleArrowRight({})}
             </button>
           </div>
       </div>

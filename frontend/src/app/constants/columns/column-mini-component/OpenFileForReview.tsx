@@ -14,7 +14,11 @@ const OpenFileForReview = ({rowData}: {rowData: IntermediateAPIResponse }) => {
             <FlexBox className="flex justify-start items-center pr-20">
                 <BottomTooltip content={`Share`}>
                     <FlexBox className='flex items-center space-x-2'>
-                        { rowData.request?.file_name && <span><GrAttachment size={15} className='text-[#333] text-opacity-65'/></span> }
+                        { rowData.request?.file_name && 
+                            <span>
+                                {GrAttachment({size: 15, className:'text-[#333] text-opacity-65' })}
+                            </span> 
+                        }
                         <Text className='text-blue-500 hover:underline text-nowrap' onClick={() => setOpenPdfs(prev => !prev)}>{rowData.request?.file_name}</Text>
                     </FlexBox>
                 </BottomTooltip>
@@ -34,7 +38,12 @@ export const ReadFileForReview = ({rowData}: {rowData: RequestDataInterface }) =
             <FlexBox className="flex justify-start items-center pr-20">
                 <BottomTooltip content={`Share`}>
                     <FlexBox className='flex items-center space-x-2'>
-                        { rowData.file_name && <span><GrAttachment size={15} className='text-[#333] text-opacity-65'/></span> }
+                        { rowData.file_name && <span>
+                            {
+                                GrAttachment({size: 15, className:'text-[#333] text-opacity-65' })
+                            }
+                           
+                            </span> }
                         <Text className='text-blue-500 hover:underline' onClick={() => setOpenPdfs(prev => !prev)}>{rowData.file_name}</Text>
                     </FlexBox>
                 </BottomTooltip>

@@ -16,17 +16,17 @@ export const userActionButtons: UserActionMenuItemsProps[] = [
  {
     label: "Rename",
     abbrevation: "rename",
-    icon: <CiIcons.CiEdit size={17} />
+    icon: <>{CiIcons.CiEdit({size: 17})}</>
   },
   {
     label: "Detail",
     abbrevation: "detail",
-    icon:  <CgIcons.CgDetailsMore size={17} />
+    icon:  <>{CgIcons.CgDetailsMore({size: 17})}</>
   },
   {
     label: "Delete",
     abbrevation: "delete",
-    icon:  <CiIcons.CiTrash size={17} />
+    icon:  <>{CiIcons.CiTrash({size: 17})}</>
   },
 ]
 

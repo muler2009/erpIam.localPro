@@ -12,7 +12,7 @@ const StatusChanger = () => {
                 <option>Active</option>
             </select>
             <span className='flex justify-center items-center absolute top-0 right-0 text-gray-500 bg-green-50 h-full w-[20px] pointer-events-none cursor-pointer'>
-                <AiIcons.AiOutlineCaretDown  />
+                {AiIcons.AiOutlineCaretDown({})}
             </span>
             
 

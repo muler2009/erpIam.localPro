@@ -53,9 +53,8 @@ const IdentityRegistrationForm = () => {
         <Text className='font-Rubik text-[#333] text-opacity-50 text-[15px] py-2 px-4'>Authentication Information</Text> 
         <FlexInnerContainer className='flex flex-col gap-2'>
           <Text className='flex items-center text-[#333] text-opacity-80 text-sm'>
-            <span className='pr-2'><CiIcons.CiUser /></span>Username
+            <span className='pr-2'>{CiIcons.CiUser({})}</span>Username
           </Text>
-    
           <FlexBox className='flex gap-4 px-6'>
             <FlexBoxInner className='flex flex-col'>
               <label className='flex items-center justify-start space-x-2 cursor-pointer'>
@@ -104,7 +103,7 @@ const IdentityRegistrationForm = () => {
 
         <FlexInnerContainer className='flex flex-col gap-4'>
           <Text className='flex items-center text-[#333] text-opacity-80 text-sm'>
-            <span className='pr-2'><CiIcons.CiLock /></span>Password
+            <span className='pr-2'>{CiIcons.CiLock({})}</span>Password
           </Text>
           <FlexBox className='flex px-4'>
             <div className='flex flex-col pl-2'>
@@ -154,7 +153,7 @@ const IdentityRegistrationForm = () => {
         <InputWithDesc 
             id= 'password_input'
             label='Email'
-            icon={<BiIcons.BiSolidEnvelope />}
+            icon={<>{BiIcons.BiSolidEnvelope({})}</>}
             type='email'
             placeholder='userid@domain.com'
             className='input-md font-Poppins text-[13px] disabled:bg-black w-1/2'

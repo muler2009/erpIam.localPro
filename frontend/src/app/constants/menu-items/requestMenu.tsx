@@ -14,12 +14,12 @@ import { useGetRequestsRecivedForApprovalQuery } from '../../services/requestAPI
 export const requestMenu: NavigationMenuProps[] = [
     {
         label: "Create request",
-        icon: <FaIcons.FaPlus />,
+        // icon: <FaIcons.FaPlus />,
         miniWindow: true,
     },
     {
         label: "Create Doc",
-        icon: <FaIcons.FaPlus />,
+        // icon: <FaIcons.FaPlus />,
         path: "test_request",
         miniWindow: false,
     }

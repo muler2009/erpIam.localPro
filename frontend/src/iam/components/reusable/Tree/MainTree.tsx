@@ -25,7 +25,7 @@ const MainTree = ({menu = []}: SideMenuInterface) => {
                 <div className={`pb-[3px] ${!controller ? 'hidden': 'flex' }`}>
                     <div className='px-5 flex items-center flex-grow py-2 space-x-4 '>  
                         <div className={`w-12 h-12 flex justify-center items-center text-[#fff]`}>
-                            <FaUserCircle size={50} />
+                            {FaUserCircle({size: 50})}
                         </div>
                         <h6 className={`flex text-white text-opacity-80`}>
                             <p className='font-MonaSans'>
@@ -39,11 +39,25 @@ const MainTree = ({menu = []}: SideMenuInterface) => {
                         !controller
                         ? (
                             <div className='shadow-md '>
-                                <MdIcons.MdMenu size={25} onClick={handleOpenCloseSideBar}/>
+                                <>
+                                    {
+                                        MdIcons.MdMenu({
+                                            size: 25,
+                                            onClick: handleOpenCloseSideBar
+                                        })
+                                    }
+                                </>
                             </div>
                         ) : (
                             <div className='shadow-sm '>
-                                <MdIcons.MdMenu size={25} onClick={handleOpenCloseSideBar}/>
+                                 <>
+                                    {
+                                        MdIcons.MdMenu({
+                                            size: 25,
+                                            onClick: handleOpenCloseSideBar
+                                        })
+                                    }
+                                </>
                             </div>
                         ) 
                     }

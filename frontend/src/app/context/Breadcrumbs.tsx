@@ -67,10 +67,24 @@ export const TestComponent = ({viewMode, setViewMode}: TestInterface) => {
     <FlexBoxInner className='flex justify-between items-center space-x-3 pr-2'>  
       <div className='flex items-center justify-center space-x-1 cursor-pointer pr-5'>
         <Tooltip content={`Show Grid View`}>
-          <TfiLayoutGrid2Alt size={15} onClick={() => setViewMode("grid")} className={`${viewMode === 'grid' ? "text-[#26cc86] transition duration-500 ease-in-out" : "tetxt-[#333]"}`} />
+          {
+            TfiLayoutGrid2Alt({
+              size: 25, 
+              onClick: () => setViewMode("grid"),
+              className: `${viewMode === 'grid' ? "text-[#26cc86] transition duration-500 ease-in-out" : "tetxt-[#333]"}`
+            })
+          }
+
         </Tooltip>
         <Tooltip content={`List View`}>
-          <MdOutlineFormatListBulleted size={20} className={`${viewMode === 'list' ? "text-[#26cc86] transition duration-500 ease-in-out" : "tetxt-[#333]"}`} onClick={() => setViewMode("list")} />
+           {
+            MdOutlineFormatListBulleted({
+              size: 25, 
+              onClick: () => setViewMode("list"),
+              className: `${viewMode === 'list' ? "text-[#26cc86] transition duration-500 ease-in-out" : "tetxt-[#333]"}`
+            })
+          }
+
         </Tooltip>
       </div>
     </FlexBoxInner>

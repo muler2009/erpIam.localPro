@@ -8,18 +8,18 @@ import * as FaIcons from "react-icons/fa";
 export const library: LibraryInterface[] = [
     {
         label: "Folder",
-        icon: <PiFolderSimplePlusFill size={20} />,
-        iconClose: <MdIcons.MdOutlineArrowDropDown size={20} />,
-        iconOpen: <MdIcons.MdOutlineArrowDropUp size={20} />,
+        // icon: <PiFolderSimplePlusFill size={20} />,
+        // iconClose: <MdIcons.MdOutlineArrowDropDown size={20} />,
+        // iconOpen: <MdIcons.MdOutlineArrowDropUp size={20} />,
         childern: [
             {
                 label: "Create Folder",
-                icon: <PiFolderSimplePlusFill />,
+                icon: <>{PiFolderSimplePlusFill({})}</>,
                 abbreviation: "create_folder"
             },
             {
                 label: "Add File",
-                icon: <PiFolderSimplePlusFill />,
+                icon: <>{PiFolderSimplePlusFill({})}</>,
                 abbreviation: "update_folder"
             }
         ]
@@ -27,23 +27,23 @@ export const library: LibraryInterface[] = [
     },
     {
         label: "Upload",
-        icon: <MdIcons.MdUpload size={15} />,
-        iconClose: <MdIcons.MdOutlineArrowDropDown size={20} />,
-        iconOpen: <MdIcons.MdOutlineArrowDropUp size={20} />,
+        // icon: <MdIcons.MdUpload size={15} />,
+        // iconClose: <MdIcons.MdOutlineArrowDropDown size={20} />,
+        // iconOpen: <MdIcons.MdOutlineArrowDropUp size={20} />,
         childern: [
             {
                 label: "Upload Folder",
-                icon: <RiIcons.RiFolderUploadFill />,
+                icon: <>{RiIcons.RiFolderUploadFill({})}</>,
                 abbreviation: "upload_folder"
             },
             {
                 label: "New Word Document",
-                icon: <FaIcons.FaFileWord />,
+                icon: <>{FaIcons.FaFileWord({})}</>,
                 abbreviation: "open_word_doc"
             },
             {
                 label: "New Excel Spreedsheet",
-                icon: <FaIcons.FaFileExcel />,
+                icon: <>{FaIcons.FaFileExcel({})}</>,
                 abbreviation: "excel_doc"
             }
         ]

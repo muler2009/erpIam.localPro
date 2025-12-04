@@ -47,18 +47,18 @@ const TreeMenuItem = ({ listItem, controller, key }: SideMenuListItemProps) => {
             <div className={`px-4 flex items-center justify-between py-2 ${controller && 'hover:bg-button-hover hover:text-black w-full'}`}>
               <div className="flex items-center space-x-3 text-[#fff]">
                 {
-                  listItem.label === 'Dashboard' ? ( <AiFillDashboard /> ) : listItem.children?.length 
+                  listItem.label === 'Dashboard' ? (AiFillDashboard({})) : listItem.children?.length 
                   ? (
                       displayChildrens[listItem.label] ? (
                         listItem.icon ? <div className="">{listItem.icon} </div> 
-                        : <GiIcons.GiOpenFolder className=" text-opacity-70 text-[20px] " />
+                        : (GiIcons.GiOpenFolder({className: "text-opacity-70 text-[20px]"}))
                       ) : (
-                        listItem.icon ? listItem.icon : <PiIcons.PiFolderSimplePlusFill size={17} className=" text-opacity-70 " />
+                        listItem.icon ? listItem.icon : (PiIcons.PiFolderSimplePlusFill({className: "text-opacity-70 text-[20px]"}))
                       )
                     ) : (
                       listItem.icon ? (
                         <div className={` text-opacity-70 ${!controller ? 'text-[20px]' : 'text-[15px]'}`}>{listItem.icon}</div>
-                      ) : <VscSymbolFile />
+                      ) : (VscSymbolFile({}))
                     )
                 }
                 <div className={`text-[12px] font-Poppins font-normal text-[#fff] duration-500 ${!controller && 'opacity-0 translate-x-28 overflow-hidden'}`}>
@@ -71,8 +71,8 @@ const TreeMenuItem = ({ listItem, controller, key }: SideMenuListItemProps) => {
                   <div className="text-[#fff] ">
                     {
                       displayChildrens[listItem.label]
-                        ? <FiChevronDown size={14} />
-                        : <FiChevronRight size={14} />
+                        ? (FiChevronDown({size: 14}))
+                        : (FiChevronRight({size: 14})) 
                     }
                   </div>
                 )

@@ -37,36 +37,36 @@ const useSharedColumns = () => {
                 header: () => <span>Shared Date</span>,
                 cell: props => props.row.original.shared_date
             }),
-            sharedColumnHelper.display({
-                id: "actions",
-                header: () => <span className="flex justify-end pr-10"><BiIcons.BiDotsVerticalRounded /></span>,
-                cell: ({row }) => {
-                    return(
-                        <FlexBox className="flex justify-end items-center pr-20 invisible group-hover:visible">
-                            <BottomTooltip content={`Share`}>
-                                <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.name} Shared Clicked`)}>
-                                    <Fa6Icons.FaSlideshare size={15} />
-                                </FlexBoxInner>
-                            </BottomTooltip>
-                            <BottomTooltip content={`Rename`}>
-                                <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.name} Edit Clicked`)}>
-                                    <CiIcons.CiEdit size={17} />
-                                </FlexBoxInner>
-                            </BottomTooltip>
-                            <BottomTooltip content={`Delete`}>
-                                <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.name} Delete Clicked`)}>
-                                    <CiIcons.CiTrash size={17} />
-                                </FlexBoxInner>
-                            </BottomTooltip>
-                            <BottomTooltip content={`Download`}>
-                                <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.name} Download Clicked`)}>
-                                    <LiaDownloadSolid size={17} />
-                                </FlexBoxInner>
-                            </BottomTooltip>
-                      </FlexBox>
-                    )
-                }
-            }),
+            // sharedColumnHelper.display({
+            //     id: "actions",
+            //     header: () => <span className="flex justify-end pr-10"><BiIcons.BiDotsVerticalRounded /></span>,
+            //     cell: ({row }) => {
+            //         return(
+            //             <FlexBox className="flex justify-end items-center pr-20 invisible group-hover:visible">
+            //                 <BottomTooltip content={`Share`}>
+            //                     <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.name} Shared Clicked`)}>
+            //                         <Fa6Icons.FaSlideshare size={15} />
+            //                     </FlexBoxInner>
+            //                 </BottomTooltip>
+            //                 <BottomTooltip content={`Rename`}>
+            //                     <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.name} Edit Clicked`)}>
+            //                         <CiIcons.CiEdit size={17} />
+            //                     </FlexBoxInner>
+            //                 </BottomTooltip>
+            //                 <BottomTooltip content={`Delete`}>
+            //                     <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.name} Delete Clicked`)}>
+            //                         <CiIcons.CiTrash size={17} />
+            //                     </FlexBoxInner>
+            //                 </BottomTooltip>
+            //                 <BottomTooltip content={`Download`}>
+            //                     <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.name} Download Clicked`)}>
+            //                         <LiaDownloadSolid size={17} />
+            //                     </FlexBoxInner>
+            //                 </BottomTooltip>
+            //           </FlexBox>
+            //         )
+            //     }
+            // }),
         ],
         []
     )

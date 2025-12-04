@@ -58,7 +58,9 @@ const usePolicyColumn = () => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r border-l px-2">
                         <Text className='font-normal'>Policy name</Text>
-                        <AiOutlineCaretDown size={10} />
+                        {
+                            AiOutlineCaretDown({})
+                        }
                     </FlexBox>
                 )
             },
@@ -88,8 +90,7 @@ const usePolicyColumn = () => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r pr-2">
                         <Text className='font-normal'>Type</Text>
-                        <AiOutlineCaretDown size={10} />
-
+                            {AiOutlineCaretDown({size: 10})}
                     </FlexBox>
                 )
             },
@@ -108,8 +109,7 @@ const usePolicyColumn = () => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r pr-2">
                         <Text className='font-normal'>level</Text>
-                        <AiOutlineCaretDown size={10} />
-
+                        {AiOutlineCaretDown({size: 10})}
                     </FlexBox>
                 )
             },
@@ -132,7 +132,7 @@ const usePolicyColumn = () => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r pr-2">
                         <Text className='font-normal'>Description</Text>
-                        <AiOutlineCaretDown size={10}/>
+                        {AiOutlineCaretDown({size: 10})}
 
                     </FlexBox>
                 )
@@ -148,18 +148,26 @@ const usePolicyColumn = () => {
 
         policyColumnHelper.display({
             id: "actions",
-            header: () => <span className="flex justify-end pr-10"><BiIcons.BiDotsVerticalRounded /></span>,
+            header: () => <span className="flex justify-end pr-10"><>{BiIcons.BiDotsVerticalRounded({})}</></span>,
             cell: ({row }) => {
                 return(
                     <FlexBox className="flex justify-end items-center pr-20 invisible group-hover:visible">
                         <BottomTooltip content={`Rename`}>
                             <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.policy_name} Edit Clicked`)}>
-                                <CiIcons.CiEdit size={17} />
+                                {
+                                    CiIcons.CiEdit({
+                                        size: 17
+                                    })
+                                }
                             </FlexBoxInner>
                         </BottomTooltip>
                         <BottomTooltip content={`Delete`}>
                             <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.policy_action_name} Delete Clicked`)}>
-                                <CiIcons.CiTrash size={17} />
+                                {
+                                    CiIcons.CiTrash({
+                                        size: 17
+                                    })
+                                }
                             </FlexBoxInner>
                         </BottomTooltip>
                     </FlexBox>

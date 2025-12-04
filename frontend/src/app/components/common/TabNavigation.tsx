@@ -67,13 +67,23 @@ const TabNavigation = ({tabs, className, activeTab, custom, showSearchInput, vie
                         viewType === 'list' ? (
                           <BottomTooltip content='Table View'>
                             <span className={`text-[12px] flex justify-start items-center`}>
-                              <FaIcons.FaTable size={18}/>
+                              {
+                                FaIcons.FaTable({
+                                  size: 18
+                                }) 
+                              }
+                              
                             </span>
                           </BottomTooltip>
                         ):(
                           <BottomTooltip content='List View'>
                             <span className={`flex justify-start items-center text-[12px]`}>
-                              <FaIcons.FaListAlt size={18} />
+                              {
+                                FaIcons.FaListAlt({
+                                  size: 18
+                                }) 
+                              }
+                             
                             </span>
                           </BottomTooltip>
                         )
@@ -87,7 +97,11 @@ const TabNavigation = ({tabs, className, activeTab, custom, showSearchInput, vie
               {
                 viewExportDownload && (
                   <div className={`flex space-x-1 items-center  py-2 px-4 bg-button-primary text-white rounded-sm`}>
-                    <MdIcons.MdCloudDownload />
+                    {
+                      MdIcons.MdCloudDownload({
+                        size: 20
+                      })
+                    }
                     <p className={`text-[12px]`}>Download PDF</p>
                   </div>
                 )

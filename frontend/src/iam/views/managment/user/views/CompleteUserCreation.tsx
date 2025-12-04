@@ -6,8 +6,12 @@ const CompleteUserCreation = () => {
     <div className='flex flex-col px-16 pt-5'>
         <div className='border border-green-500 bg-green-50 pt-5 pb-6 rounded-[5px] px-5 flex space-x-4'>
             <div className='flex'>
-
-            <BsCheckCircleFill size={20} />
+            {
+              BsCheckCircleFill({
+                size: 20
+              })
+            }
+            
             </div>
           
           <div className='flex flex-col gap-4'>

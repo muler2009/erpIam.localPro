@@ -38,7 +38,7 @@ const useDelegationColumn = (data: any) => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r border-l px-2">
                         <Text className='font-normal'>Delegetee</Text>
-                        <AiOutlineCaretDown size={10} />
+                            {AiOutlineCaretDown({size: 20})}
                     </FlexBox>
                 )
             },
@@ -70,7 +70,7 @@ const useDelegationColumn = (data: any) => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r pr-2">
                         <Text className='font-normal'>Delegation End-date</Text>
-                        <AiOutlineCaretDown size={10} />
+                        {AiOutlineCaretDown({size: 10})}
                     </FlexBox>
                 )
             },
@@ -90,7 +90,8 @@ const useDelegationColumn = (data: any) => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r pr-2">
                         <Text className='font-normal'>Status</Text>
-                        <AiOutlineCaretDown size={10} />
+                        {AiOutlineCaretDown({size: 10})}
+                        
 
                     </FlexBox>
                 )

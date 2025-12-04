@@ -27,7 +27,13 @@ const CreateSubFolder = ({ handleOptionsAction, title, folder_data, abbreviation
                 </FlexBoxInner>
                 <FlexBoxInner className='pb-5'>
                     <FlexBoxInner className="flex justify-between items-center cursor-pointer border rounded-t hover:bg-[#bf503c] hover:text-white"> 
-                        <div className='flex px-5 py-[2px]' onClick={handleOptionsAction}><Vsc.VscClose size={15} /></div>
+                        <div className='flex px-5 py-[2px]' onClick={handleOptionsAction}>
+                              {
+                                Vsc.VscClose({
+                                    size: 15
+                                })
+                                }
+                        </div>
                     </FlexBoxInner>
                 </FlexBoxInner>
             </FlexBox>

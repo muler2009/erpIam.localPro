@@ -19,7 +19,7 @@ const Accordion = ({ accordionItems }: AccordionProps) => {
               <div key={item.id}>
                 <div className={`px-5 py-2 flex justify-start items-center border-t border-b cursor-pointer ${item.id % 2 === 1 ? "bg-gray-100": "bg-inherit"} `} onClick={() => accordionToggleHandler(item.id)} >
                     {
-                      isActive(item.id) ? <BiCaretDown /> : <BiCaretRight />
+                      isActive(item.id) ? <>{BiCaretDown({})}</> : <>{BiCaretRight({})}</>
                     }
                     <h6 className="pl-2">{item.title}</h6>
                 </div>

@@ -51,7 +51,7 @@ const SelectResourceForPolicyCreation = () => {
                                 
                                 </select>   
                                 <span className='flex justify-center items-center absolute top-0 border right-0 text-gray-500 bg-gray-50 h-full w-[30px] pointer-events-none '>
-                                    <AiIcons.AiOutlineCaretDown  />
+                                    {AiIcons.AiOutlineCaretDown({})}
                                 </span>
                             </FlexBoxInner>
                         </Div> 
@@ -94,7 +94,9 @@ const SelectResourceForPolicyCreation = () => {
                                                     className='py-1 hover:bg-gray-50 px-4 flex items-center text-[12px]'
                                                     onClick={() => handleModelClick(model.model_name)} 
                                                 >
-                                                    <BsTable className='text-[#333] text-opacity-50' />
+                                                    {
+                                                        BsTable({className: 'text-[#333] text-opacity-50'}) 
+                                                    }
                                                     <span className='pl-2'>{model.display_name}</span>
                                                 </Link>
                                             ))

@@ -26,7 +26,7 @@ const FolderTableActions = ({ row }: FolderTableActionsProps) => {
                     <P className='flex items-center justify-start px-2 bg-[#ccc] bg-opacity-30 text-[12px] py-1' >
                         Options
                         <span className="">
-                            { openFolderId[row.original.folder_name] ? <RxCaretLeft /> : <RxCaretRight />}
+                            { openFolderId[row.original.folder_name] ? <>{RxCaretLeft({})}</> : <>{RxCaretRight({})}</>}
                         </span>
                     </P>
     

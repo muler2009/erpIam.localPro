@@ -23,17 +23,27 @@ const ConfirmDelete = ({confirm, deleteInstance, setConfirm, onDeleteConfirmed}:
             <ModalHeader className='py-[10px] px-5 flex justify-between items-center cursor-pointer bg-[#e6e6e6] rounded-t-[4px] border-b border-gray-400 border-opacity-50'>
                     <Text className=' text-[15px] font-Rubik flex justify-center items-center'>
                         <span className='mr-2'>
-                            <GiConfirmed size={25}/> 
+                            {GiConfirmed({size: 25})} 
                         </span>
                      Confirmation
                     </Text>
-                    <VscIcons.VscClose size={20}  onClick={() => setConfirm(prevState => !prevState)} />
+                    <>
+                        {
+                            VscIcons.VscClose({
+                                size: 20,
+                                onClick: () => setConfirm(prevState => !prevState)
+                            }) 
+                        }
+                    </>
+                    
                     
             </ModalHeader>
             <ModalBody className='px-5 py-5 bg-[#f5f5f5] h-full'>
                     <FlexBox className='px-3 pt-5 pb-1 flex space-x-3'>
                         <FlexBoxInner>
-                           <BsFillQuestionCircleFill  size={35} />
+                           {
+                            BsFillQuestionCircleFill({size: 35})  
+                           }
                         </FlexBoxInner>
                         <FlexBoxInner className='flex flex-col items-start justify-center'>
                             <Text className='text-[14px]'>Do you want to remove the request?</Text>

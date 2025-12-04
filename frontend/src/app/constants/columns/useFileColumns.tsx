@@ -55,7 +55,12 @@ const useFileColumns = () => {
                 cell: ({row}) => {
                     return(
                         <FlexBox className="flex space-x-2">
-                             <BsFiletypePdf size={40} color='green' />
+                             {
+                                BsFiletypePdf({
+                                    size:40,
+                                    color: 'green'
+                                })
+                             }
                              <FlexBoxInner className="flex flex-col items-start justify-center">
                                 <Text className="font-semibold"> {row.original.document_name}</Text>
                                 <P className="text-[10px] text-[#333] text-opacity-50">12kb</P>
@@ -123,7 +128,9 @@ const ReadFile = ({rowData}: {rowData: FileUploadColumnInterface}) => {
         <FlexBox className="flex justify-end items-center pr-20 invisible group-hover:visible">
             <BottomTooltip content={`Share`}>
                 <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => setOpenPdfs(prev => !prev)}>
-                    <MdOutlinePreview size={15} />
+                    {
+                        MdOutlinePreview({size: 15})
+                    }
                 </FlexBoxInner>
             </BottomTooltip>
         </FlexBox>

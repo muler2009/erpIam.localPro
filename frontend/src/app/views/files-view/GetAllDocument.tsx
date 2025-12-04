@@ -27,7 +27,14 @@ const GetAllDocument = () => {
                             <FlexBoxInner className='flex justify-between items-center py-[5px] pr-10'>
                                 <Div className='flex space-x-4 py-1 w-[30%]'>
                                     {/* File icon */}
-                                    <BsIcons.BsFiletypePdf size={30} color='red' />
+                                    {
+                                        BsIcons.BsFiletypePdf({
+                                            size:30,
+                                            color:'red'
+
+                                        })
+
+                                    }
                                     <FlexBoxInner className='flex flex-col'>
                                         <Text className='text-[#333] text-[12px] whitespace-pre-wrap text-nowrap text-center'>
                                             {document.document_name}
@@ -41,10 +48,10 @@ const GetAllDocument = () => {
                                     <Text className='font-IBMPlexSans text-[#333] text-opacity-75 text-[13px] group-hover:opacity-0'>PDF file</Text>
                                     <Text className='font-IBMPlexSans text-[#333] text-opacity-75 text-[13px] group-hover:opacity-0'>{format(created_at, 'EE dd yyyy')}</Text>
                                     <div className='flex space-x-3 absolute opacity-0 group-hover:opacity-100'  onClick={() => alert(`share ${document.document_name}`)}>
-                                        <BottomTooltip content='share'><AiIcons.AiOutlineShareAlt className='inline-block mr-1 text-gray-600' /></BottomTooltip>
+                                        {/* <BottomTooltip content='share'><AiIcons.AiOutlineShareAlt className='inline-block mr-1 text-gray-600' /></BottomTooltip>
                                         <BottomTooltip content='Archive'><FaIcons.FaFileArchive className='inline-block mr-1 text-gray-600' /></BottomTooltip>
                                         <BottomTooltip content='Download'><TfiIcons.TfiDownload className='inline-block mr-1 text-gray-600' /></BottomTooltip>
-                                        <BottomTooltip content='Delete'><IoIcons.IoTrashOutline className='inline-block mr-1 text-gray-600' /></BottomTooltip>
+                                        <BottomTooltip content='Delete'><IoIcons.IoTrashOutline className='inline-block mr-1 text-gray-600' /></BottomTooltip> */}
                                     </div>
                                   
                                 </Div>

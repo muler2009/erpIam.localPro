@@ -15,11 +15,20 @@ const NotificationPreference = () => {
         <FlexBoxInner className='flex space-x-3 items-center border-b pb-2 divide-x-[1px]'>
             <div className={`w-8 h-8 flex justify-center items-center rounded-full ${select ? 'bg-button-primary text-white border-[2px] border-button-primary': 'bg-gray-300 cursor-default'}`} 
                 onClick={() => setSelect(null)}>
-               <IoArrowBackSharp size={15} />
+                {
+                    IoArrowBackSharp({
+                        size:15
+                    })
+                }
             </div>
             <Div className={`px-3 py-1 rounded-[3px] ${select ? ' text-black cursor-pointer': 'cursor-pointer text-[#333] text-opacity-80'}`}>
                 <Text className='flex justify-end items-center text-[12px]' onClick={() => setSelect(true)}>
-                    <GrConfigure size={15} /> 
+                    {
+                        GrConfigure({
+                            size:15
+                        })
+                    }
+                    
                     <span className='pl-2'>Configure preference</span>
                 </Text>
             </Div>

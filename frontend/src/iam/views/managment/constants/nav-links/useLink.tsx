@@ -13,12 +13,12 @@ export interface TabItem {
 export const user_add: TabItem[] = [
     { 
         label: "Group",
-        icon: <MdIcons.MdGroups size={25} />,
+        icon: <>{MdIcons.MdGroups({size: 25})}</>,
         tabContent: <AssignUserToGroup />,
       },
       { 
         label: "Attach Policy",
-        icon: <MdIcons.MdPolicy size={25} />,
+        icon: <>{MdIcons.MdPolicy({size: 25})}</>,
         tabContent: <AssignPolicyToNewUser />,
       }  
 

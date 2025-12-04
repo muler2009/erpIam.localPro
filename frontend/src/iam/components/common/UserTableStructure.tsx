@@ -88,7 +88,16 @@ const UserTableStructure = ({columns, data}: TableProps) => {
                                   header.getContext()
                                 )}
                                 <span className='ml-2'>
-                                    {header.column.getCanSort() && <TbIcons.TbArrowsSort onClick={header.column.getToggleSortingHandler()}/>                                     }
+                                    {header.column.getCanSort() && 
+                                    <>
+                                      {
+                                        TbIcons.TbArrowsSort({
+                                          onClick: header.column.getToggleSortingHandler()                                 
+
+                                        })
+                                      }
+                                    </>
+                                  }
                                 </span>
 
                           </div>

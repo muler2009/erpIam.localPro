@@ -63,12 +63,12 @@ const SendRequestCell = ({ rowData, approvalStatus }: SendRequestCellProps) => {
                     <FlexBox className="flex pr-20 w-[120px]">
                         <BottomTooltip content={`Edit request`}>
                             <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${rowData.approval_status} Edit Clicked`)}>
-                                <CiIcons.CiEdit size={17} />
+                                {CiIcons.CiEdit({size: 17})}
                             </FlexBoxInner>
                         </BottomTooltip>
                         <BottomTooltip content={`Delete`}>
                             <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => onDeleteUnapprovedRequest({deleteInstance: rowData})}>
-                                <CiIcons.CiTrash size={17} />
+                                {CiIcons.CiTrash({size: 17})}
                             </FlexBoxInner>
                         </BottomTooltip>
                     </FlexBox>

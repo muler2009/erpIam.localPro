@@ -106,7 +106,11 @@ const NewPermissionCreationOnResourceComponent = () => {
             <FlexOuterContainer className='flex justify-between items-center px-4 border-b'>
               <FlexBox className='flex flex-col'>
                 <Div className='flex pt-4 relative'>
-                    <MdIcons.MdPolicy size={20} />
+                    <>
+                      {
+                        MdIcons.MdPolicy({size: 20})
+                      }
+                    </>
                     <Text className='text-[16px] font-semibold text-[#5e2f05] ml-2'>
                       {selectedResource}
                     </Text> 
@@ -116,7 +120,15 @@ const NewPermissionCreationOnResourceComponent = () => {
                 </Div>
                 <P className='text-[12px] font-Poppins ml-7 text-[#333] text-opacity-55'>Specify what actions can be performed on selected ressources</P>
               </FlexBox>
-              <FaIcons.FaTrashCan size={16}  onClick={() => window.location.reload()} className='cursor-pointer' />              
+              <>
+                {
+                  FaIcons.FaTrashCan({
+                    size: 16,
+                    onClick: () => window.location.reload(),
+                    className: 'cursor-pointer'
+                  })
+                }
+              </>             
             </FlexOuterContainer>
           )
         }
@@ -145,7 +157,13 @@ const NewPermissionCreationOnResourceComponent = () => {
           <FlexBoxInner className="flex justify-end ml-10 space-x-5 pr-5 border-t py-2">
             <button className={`btn-sm text-[12px] px-3 py-1 bg-green-800 text-white hover:bg-green-900 hover:text-white transition duration-500 ease-in-out ${prevHide}`} onClick={handlePrev} disabled={disablePrev}>
               <div className='flex justify-start items-center'>
-                   <GrIcons.GrFormPrevious  size={15}/>
+                   <>
+                    {
+                      GrIcons.GrFormPrevious({
+                        size: 15
+                      })
+                    }
+                   </>
                   <p className='font-Poppins text-[13px]'>Previous</p>
               </div>
             </button>
@@ -153,13 +171,21 @@ const NewPermissionCreationOnResourceComponent = () => {
             <button  className={`btn-sm text-[12px] px-3 py-1 bg-green-800 text-white hover:bg-green-900 hover:text-white transition duration-500 ease-in-out ${nextHide}`} onClick={handleNext} disabled={disableNext}>
               <div className='flex justify-start items-center'>
                   <p className='font-Poppins text-[13px]'>Next</p>
-                  <GrIcons.GrFormNext size={15} />
+                    {
+                      GrIcons.GrFormNext({
+                        size: 15
+                      })
+                    }
               </div>
             </button>
 
             <button className={`btn-sm text-[12px] px-3 py-1 bg-green-800 text-white hover:bg-green-900 hover:text-white transition duration-500 ease-in-out ${submitHide}`} onClick={onPolicyAddClicked}>
               <div className='flex justify-start items-center space-x-2'>
-                <GrIcons.GrAdd  size={12}/>
+                  {
+                    GrIcons.GrAdd({
+                      size: 15
+                    })
+                  }
                 <p className='font-Poppins text-[13px]'>Save policy</p>
               </div>
             </button>

@@ -43,7 +43,13 @@ const LoginInputs = () => {
                   value={loginData.username}
                   onChange={handleInputLoginChanges}
                 />
-                <FaUserAlt color="gray" className="absolute right-2 mr-3 "/>
+                 {
+                  FaUserAlt({
+                    color: "gray",
+                    className:`absolute right-2 mr-3`
+                  })
+                }
+                
                 <span className='text-black text-[15px] bg-white text-opacity-80 absolute left-5 top-5 px-1 transition duration-200 input-text border-none'>Username</span>
             </label>  
           </div>
@@ -59,7 +65,12 @@ const LoginInputs = () => {
                 value={loginData.password}
                 onChange={handleInputLoginChanges} 
               />
-              <FaLock color="gray" className={`absolute right-2 mr-3`} />
+                {
+                  FaLock({
+                    color: "gray",
+                    className:`absolute right-2 mr-3`
+                  })
+                }
               <span className={`text-black text-[15px] bg-white text-opacity-80 absolute left-5 top-5 px-1 transition duration-200 input-password border-none`}>Password</span>
             </label>  
           </div>

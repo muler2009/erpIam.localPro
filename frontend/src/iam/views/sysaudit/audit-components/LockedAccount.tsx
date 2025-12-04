@@ -46,9 +46,9 @@ const LockedAccount = () => {
               />
               <div className={`flex flex-col items-center justify-center py-5 h-[30vh] bg-gray-50`}>
                 <div className='flex items-center relative text-button-primary'>
-                  <IoLockClosedSharp size={120}/>
+                  {IoLockClosedSharp({size: 120})}
                   <span className='absolute top-[50%] left-[35%]'>
-                    <RiCloseCircleFill size={35} className='text-gray-100' />
+                    {RiCloseCircleFill({size:35, className:'text-gray-100'})}
                   </span>
                 </div>
                 <div className={`flex flex-col justify-center items-center py-2`}>
@@ -63,8 +63,6 @@ const LockedAccount = () => {
       </div>
     </div>
   );
-  
-  
 }
 
 export default LockedAccount

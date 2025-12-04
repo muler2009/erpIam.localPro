@@ -39,11 +39,24 @@ const handleOpenCloseSideBar = useCallback(() => {setController(prev => ! prev)}
                         !controller
                         ? (
                             <div className='shadow-md '>
-                                <MdIcons.MdMenu size={25} onClick={handleOpenCloseSideBar}/>
+                                {
+                                    MdIcons.MdMenu({
+                                        size:25,
+                                        onClick: handleOpenCloseSideBar
+
+                                    }) 
+                                }
+                                
                             </div>
                         ) : (
                             <div className='shadow-sm '>
-                                <MdIcons.MdMenu size={25} onClick={handleOpenCloseSideBar}/>
+                                  {
+                                    MdIcons.MdMenu({
+                                        size:25,
+                                        onClick: handleOpenCloseSideBar
+
+                                    }) 
+                                }
                             </div>
                         ) 
                     }

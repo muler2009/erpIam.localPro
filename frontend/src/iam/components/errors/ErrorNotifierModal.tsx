@@ -14,17 +14,28 @@ const ErrorNotifierModal = ({triggerMessageModal, errorMessage, setTriggerMessag
                         <Text className=' text-[15px] font-Poppins flex justify-center items-center'>
                             <span className='mr-2 text-red-700 font-bold'>
                             {/* <BiIcons.BiError size={25}/> */}
-                                <Text>ERROR</Text>
+                                <Text>ERROR</Text> 
                             </span>
                             {/* {loginErrorMessage?.error_type} */}
                         </Text>
-                        <VscIcons.VscClose size={20}  onClick={() => setTriggerMessageModal(prevState => !prevState)} />
-                        
+                        <>
+                            {
+                                VscIcons.VscClose({
+                                    size: 20,
+                                    onClick: () => setTriggerMessageModal(prevState => !prevState)                               
+                                })
+                            }                   
+                        </>                        
                    </ModalHeader>
                    <ModalBody className='px-5 py-2 bg-[#f5f5f5] h-full'>
                         <FlexBox className='px-3 pt-5 pb-1 flex space-x-3'>
                             <FlexBoxInner>
-                                 <MdError size={70} color='red'/> 
+                                {
+                                    MdError({
+                                        size: 70,
+                                        color:'red'
+                                    })
+                                } 
                             </FlexBoxInner>
                             <FlexBoxInner className='flex flex-col items-start justify-center'>
                                 <Text className='text-[18px] font-Poppins font-semibold pb-2 leading-5 text-red-700'>{errorMessage?.error_type}</Text>  

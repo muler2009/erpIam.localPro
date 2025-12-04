@@ -29,7 +29,7 @@ const useDeactivation = () => {
           
             userDeactivationHelepr.display({
                 id: "actions",
-                header: () => <span className="flex justify-end pr-10"><BiIcons.BiDotsVerticalRounded /></span>,
+                header: () => <span className="flex justify-end pr-10">{BiIcons.BiDotsVerticalRounded({})}</span>,
                 cell: ({row}) => {
                     const rowData: UserAPIResponse = row.original;
                     return(

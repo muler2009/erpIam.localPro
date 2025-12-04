@@ -8,22 +8,22 @@ import QuickAccessRole from "../../roles/mini-components/QuickAccessRole";
 export const roles: CommonMenuItemsProps[] = [
     {
         label: 'Add',
-        icon: <RiIcons.RiAddLine />,
+        icon: <>{RiIcons.RiAddLine({})}</>,
         link_identifier: 'add'
     },
     {
         label: 'Download role assignment',
-        icon: <LiaDownloadSolid/>,
+        icon: <>{LiaDownloadSolid({})}</>,
         link_identifier: 'download'
     },
     {
         label: 'Refresh',
-        icon: <IoIosRefresh />,
+        icon: <>{IoIosRefresh({})}</>,
         link_identifier: 'refresh'
     },
     {
         label: 'Remove',
-        icon: <RiIcons.RiCloseLargeFill />,
+        icon: <>{RiIcons.RiCloseLargeFill ({})}</>,
         link_identifier: 'remove'
     }
 ]

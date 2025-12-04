@@ -6,17 +6,17 @@ import { FaGear } from "react-icons/fa6";
 export const dashboard: ERPDashboardLinkInterface[] = [
     {
         label: "Dashboard",
-        icons: <FaHome />,
+        // icons: <FaHome />,
         path: ""
     },
     {
         label: "Activity",
-        icons: <FiActivity />,
+        // icons: <FiActivity />,
         path: ""
     },
     {
         label: "Setting",
-        icons: <FaGear />,
+        // icons: <FaGear />,
         path: ""
     },
     

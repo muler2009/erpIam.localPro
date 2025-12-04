@@ -50,7 +50,7 @@ const NotificationPreferenceSetUpComponent = ({setSelect}: {setSelect: React.Dis
                       }
                   </select>   
                   <span className='flex justify-center items-center absolute top-0 border right-0 text-gray-500 bg-gray-50 h-full w-[30px] pointer-events-none '>
-                      <AiIcons.AiOutlineCaretDown  />
+                      {AiIcons.AiOutlineCaretDown({})}
                   </span>
                 </div>
               </td>
@@ -64,7 +64,7 @@ const NotificationPreferenceSetUpComponent = ({setSelect}: {setSelect: React.Dis
                     <option value={`sms`}>SMS Notification</option>
                   </select>   
                   <span className='flex justify-center items-center absolute top-0 border right-0 text-gray-500 bg-gray-50 h-full w-[30px] pointer-events-none '>
-                    <AiIcons.AiOutlineCaretDown  />
+                    {AiIcons.AiOutlineCaretDown({})}
                   </span>
                 </div>
               </td>
@@ -78,10 +78,12 @@ const NotificationPreferenceSetUpComponent = ({setSelect}: {setSelect: React.Dis
               <td>
                 <div className='flex space-x-5 justify-start items-center ml-10'>
                   <button className='px-5 btn-sm text-[13px] flex items-center duration-300 disabled:bg-gray-100 bg-button-primary disabled:text-gray-100 text-white' disabled={!canSave} onClick={onSaveClicked}>
-                    <IoIosSave size={18} /><span className='pl-[6px]'>Save</span>
+                     {IoIosSave({size: 15})}
+                    <span className='pl-[6px]'>Save</span>
                   </button>
                   <button className='px-5 btn-sm text-[13px] flex items-center duration-300 disabled:bg-gray-100 bg-red-500 disabled:text-gray-100 text-white' disabled={!canSave} onClick={() => setSelect(null)}>
-                    <IoIosSave size={18} /><span className='pl-[6px]'>Cancel</span>
+                     {IoIosSave({size: 18})}
+                    <span className='pl-[6px]'>Cancel</span>
                   </button>
                 </div>
               </td>

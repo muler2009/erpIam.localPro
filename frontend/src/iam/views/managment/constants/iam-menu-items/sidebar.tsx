@@ -30,79 +30,79 @@ export const sidebarItems: SideBar[] = [
     { 
         path: "/iam", 
         label: "Dashboard", 
-        icon: <AiIcons.AiOutlineDashboard />,
-        iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
-        iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
+        // icon: <AiIcons.AiOutlineDashboard />,
+        // iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
+        // iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
     },
-    { 
-        path: '.',
-        label: "Access management", 
-        icon: <MdIcons.MdOutlineManageAccounts size={20} />,
-        iconOpened: <RxIcons.RxCaretUp size={20}/>,
-        iconClosed: <RxIcons.RxCaretDown size={20}/>,    
-        submenu: [
-            {
-                path: 'users',
-                label: 'Users',
-                icon: <FaIcons.FaRegUser />,
-                iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
-                iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
-            },
-            {
-                path: 'roles',
-                label: 'Roles',
-                icon: <VscIcon.VscOrganization />,
-                iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
-                iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
+    // { 
+    //     path: '.',
+    //     label: "Access management", 
+    //     icon: <MdIcons.MdOutlineManageAccounts size={20} />,
+    //     iconOpened: <RxIcons.RxCaretUp size={20}/>,
+    //     iconClosed: <RxIcons.RxCaretDown size={20}/>,    
+    //     submenu: [
+    //         {
+    //             path: 'users',
+    //             label: 'Users',
+    //             icon: <FaIcons.FaRegUser />,
+    //             iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
+    //             iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
+    //         },
+    //         {
+    //             path: 'roles',
+    //             label: 'Roles',
+    //             icon: <VscIcon.VscOrganization />,
+    //             iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
+    //             iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
                
-            }, 
-            {
-                path: 'groups',
-                label: 'Groups',
-                icon: <TiIcons.TiGroup />,
-                iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
-                iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
+    //         }, 
+    //         {
+    //             path: 'groups',
+    //             label: 'Groups',
+    //             icon: <TiIcons.TiGroup />,
+    //             iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
+    //             iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
                
-            },
+    //         },
               
-            {
-                path: 'perm_management',
-                label: 'Permission System',
-                icon: <VscIcon.VscOrganization />,
-                iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
-                iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
-            },
-            {
-                path: 'accountsetting',
-                label: 'Account Setting',
-                icon: <VscIcon.VscOrganization />,
-                iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
-                iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
-            },
-        ] 
-    },
-    { 
+    //         {
+    //             path: 'perm_management',
+    //             label: 'Permission System',
+    //             icon: <VscIcon.VscOrganization />,
+    //             iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
+    //             iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
+    //         },
+    //         {
+    //             path: 'accountsetting',
+    //             label: 'Account Setting',
+    //             icon: <VscIcon.VscOrganization />,
+    //             iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
+    //             iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
+    //         },
+    //     ] 
+    // },
+    // { 
          
-        label: "Audit Logs", 
-        icon: <FaIcons.FaUserCog />,
-        iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
-        iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
-    },
-    { 
-        path: "reports", 
-        label: "Report", 
-        icon: <FaIcons.FaUserCog />,
-        iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
-        iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
-    },
-    {
-        path: "config", 
-        label: 'System Configuration',
-        icon: <VscIcon.VscOrganization />,
-        iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
-        iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,  
+    //     label: "Audit Logs", 
+    //     icon: <FaIcons.FaUserCog />,
+    //     iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
+    //     iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
+    // },
+    // { 
+    //     path: "reports", 
+    //     label: "Report", 
+    //     icon: <FaIcons.FaUserCog />,
+    //     iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
+    //     iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,   
+    // },
+    // {
+    //     path: "config", 
+    //     label: 'System Configuration',
+    //     icon: <VscIcon.VscOrganization />,
+    //     iconClosed: <PiIcons.PiFolderSimplePlusLight size={20}/>,
+    //     iconOpened: <PiIcons.PiFolderSimpleMinusLight size={20}/>,  
        
 
-    },
+    // },
 ]
 

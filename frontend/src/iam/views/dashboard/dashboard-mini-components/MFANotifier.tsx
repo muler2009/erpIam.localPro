@@ -6,7 +6,13 @@ const MFANotifier = () => {
     <div className='flex justify-between py-5 bg-red-50 bg-opacity-50 shadow-sm'>
         <div className='flex space-x-5 justify-start items-start px-10 mt-5'>
             <div className='flex text-red-600'>
-                <IoIcons.IoWarning size={45} />
+                <>
+                   {
+                        IoIcons.IoWarning({
+                            size: 45
+                        })
+                   }
+                </>
             </div>
             <div className='flex-grow '>
                 <div className='flex flex-col'>

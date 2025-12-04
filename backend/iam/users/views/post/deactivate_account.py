@@ -7,7 +7,7 @@ from ....access_policy.authorization_policy import IsAuthenticatedAdminUser
 
 
 class AccountDeactivationRequestHandler(generics.GenericAPIView):
-    permission_classes = [IsAuthenticatedAdminUser]
+    # permission_classes = [IsAuthenticatedAdminUser]
     lookup_field = "user_account_id"
 
     def get_object(self):

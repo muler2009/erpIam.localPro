@@ -40,7 +40,7 @@ const NotificationList = ({notification, unreadCount}: NotificationItemProps) =>
         
           <FlexBoxInner className="invisible hover:visible group-hover:visible flex items-center">   
               <FlexBox className='w-10 h-10 rounded-full hover:bg-red-400 text-white flex items-center justify-center' onClick={() => alert(`${notification.notification_id}`)}>
-                <TfiTrash size={20} />
+                {TfiTrash({size: 20})}
               </FlexBox>       
           </FlexBoxInner>
       </FlexBox>

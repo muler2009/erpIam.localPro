@@ -13,7 +13,7 @@ const FailureLogsDetailComponent = ({rowData}: {rowData: AccessFailureLogsInterf
     <>
       <div className={`flex space-x-2 items-center justify-center w-8 h-8 rounded-full hover:bg-red-400 hover:text-white invisible group-hover:visible text-red-500`} onClick={handleIsOpenCloseMenuModal}>
         <BottomTooltip content='show log detail' >
-          <BiSolidUserDetail size={18} />
+          {BiSolidUserDetail({size: 18})}
         </BottomTooltip>
       </div>
 

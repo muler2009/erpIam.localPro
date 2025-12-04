@@ -58,7 +58,7 @@ const useRolePolicyAttachmentColumn = (showActions?: boolean) => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r border-l px-2">
                         <Text className='font-normal'>Policy name</Text>
-                        <AiOutlineCaretDown size={10} />
+                            {AiOutlineCaretDown({size: 10})}
                     </FlexBox>
                 )
             },
@@ -88,8 +88,7 @@ const useRolePolicyAttachmentColumn = (showActions?: boolean) => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r pr-2">
                         <Text className='font-normal'>Type</Text>
-                        <AiOutlineCaretDown size={10} />
-
+                            {AiOutlineCaretDown({size: 10})}
                     </FlexBox>
                 )
             },
@@ -108,8 +107,7 @@ const useRolePolicyAttachmentColumn = (showActions?: boolean) => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r pr-2">
                         <Text className='font-normal'>level</Text>
-                        <AiOutlineCaretDown size={10} />
-
+                            {AiOutlineCaretDown({size: 10})}
                     </FlexBox>
                 )
             },
@@ -132,8 +130,7 @@ const useRolePolicyAttachmentColumn = (showActions?: boolean) => {
                 return(
                     <FlexBox className="flex justify-between items-center border-r pr-2">
                         <Text className='font-normal'>Description</Text>
-                        <AiOutlineCaretDown size={10}/>
-
+                        {AiOutlineCaretDown({size: 10})}
                     </FlexBox>
                 )
             },

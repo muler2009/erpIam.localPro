@@ -19,7 +19,7 @@ const NotificationDetailComponent = ({handleBackClick, selectedNotification} : N
     <FlexBox className='bg-white h-full mx-1 pt-5'>
       <FlexBoxInner className='flex justify-between items-center border-b border-gray-50 px-3'>
         <Div onClick={handleBackClick} className="mb-4 px-2 cursor-pointer text-text-primary rounded-[3px] text-[12px] flex items-center space-x-1 font-Poppins border-[2px] border-text-primary py-[4px] hover:bg-button-primary hover:text-white hover:border-button-primary">
-            <IoArrowBackOutline />
+            {IoArrowBackOutline({})}
             <span>Back</span>
         </Div>
         <Div className='pr-10 flex'>
@@ -33,7 +33,7 @@ const NotificationDetailComponent = ({handleBackClick, selectedNotification} : N
       </FlexBoxInner>
       <FlexBoxInner className='pt-5 flex space-x-3 shadow-md h-[80%] px-4'>
         <Div className='flex justify-center items-center w-10 h-10 bg-gray-50 rounded-full'>
-          <BsInfoLg size={25} />
+          {BsInfoLg({size:25})}
         </Div>
         <Div className='flex flex-col gap-1'>
           <div className='flex flex-col'>

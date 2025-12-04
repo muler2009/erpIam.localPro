@@ -41,7 +41,10 @@ const CreateGroups = ({isOpen,title, handleIsOpenCloseMenu}: CreateGroupsProps) 
                         {title}
                     </h1>
                     <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-red-400 hover:text-white" onClick={handleIsOpenCloseMenu} > 
-                        <Vsc.VscClose size={15} />
+                       {
+                         Vsc.VscClose({size: 15})
+                       }
+                        
                     </div>
                 </ModalHeader>
                     <form className='' onSubmit={(e) => e.preventDefault()}>

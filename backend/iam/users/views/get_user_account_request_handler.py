@@ -8,8 +8,8 @@ from iam.users.serializers.get_user_account_serializer import GetUserAccountSeri
 from iam.access_policy.authorization_policy import IsAuthenticatedAdminUser
 
 class GetUserRequestAccountHandler(generics.GenericAPIView, mixins.ListModelMixin):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticatedAdminUser]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticatedAdminUser]
     serializer_class = GetUserAccountSerializer
 
     def get(self, request: Request):

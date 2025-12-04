@@ -10,7 +10,13 @@ const IAMRolesCard = ({totalRoles}: {totalRoles: number}) => {
          <div className={`flex justify-between items-center`}>
              <div className={`flex items-center space-x-2`}>
                  <div className={`w-10 h-12 bg-red-100 flex justify-center items-center text-opacity-50`}>
-                     <PiIcons.PiUsersFill size={25} opacity={0.65} />
+                     {
+                        PiIcons.PiUsersFill({
+                            size: 25, 
+                            opacity: 0.65
+
+                        }) 
+                     }
                  </div>
                  <div className={``}>
                      <Text className={`text-[15px] font-Poppins font-normal text-[#333] text-opacity-60`}>User role

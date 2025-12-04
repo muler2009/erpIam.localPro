@@ -45,7 +45,13 @@ const DatePickerComponent =  ({ className, selected, onChange }: DataComponentIn
               nextMonthButtonDisabled,
             }) => (
               <div className="flex justify-center items-center space-x-2 py-3 bg-transparent pr-3">
-                <Bs.BsFillArrowLeftCircleFill size={25} className="cursor-pointer" onClick={decreaseMonth} />
+                {
+                  Bs.BsFillArrowLeftCircleFill({
+                    size: 25,
+                    className: "cursor-pointer", 
+                    onClick: decreaseMonth
+                  })
+                }
                 <select value={getYear(date)} className="px-1 focus:border-none"  >
                  {/* onChange={({ target: { value } }) => changeYear(value)} */}
                   {
@@ -64,7 +70,14 @@ const DatePickerComponent =  ({ className, selected, onChange }: DataComponentIn
                     ))
                   }
                 </select>
-                <Bs.BsArrowRightCircleFill size={25} className="cursor-pointer" onClick={increaseMonth} />
+                  {
+                    Bs.BsArrowRightCircleFill({
+                      size: 25,
+                      className: "cursor-pointer", 
+                      onClick: increaseMonth
+                    })
+                  }
+                
                 
               </div>
             )}

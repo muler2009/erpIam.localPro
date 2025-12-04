@@ -40,7 +40,13 @@ const FolderList = ({ handleOptionsAction, title, folder_data, abbreviation}: Fo
             <Text className='font-Poppins text-[13px] flex justify-center px-5 text-[#333] text-opacity-60'>{title}</Text>
             <FlexBoxInner className='pb-5'>
               <FlexBoxInner className="flex justify-between items-center cursor-pointer border rounded-t hover:bg-[#bf503c] hover:text-white"> 
-                <div className='flex px-5 py-[2px]' onClick={handleOptionsAction}><Vsc.VscClose size={15} /></div>
+                <div className='flex px-5 py-[2px]' onClick={handleOptionsAction}>
+                   {
+                      Vsc.VscClose({
+                          size: 15
+                      })
+                      }
+                </div>
               </FlexBoxInner>
             </FlexBoxInner>
           </FlexBox>

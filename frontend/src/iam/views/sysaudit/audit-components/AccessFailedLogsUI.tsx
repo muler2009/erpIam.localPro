@@ -55,7 +55,7 @@ const AccessFailedLogsUI = () => {
             
             <div  key={index} className={`flex justify-between items-center py-4 px-5 rounded-md border-b ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`} onClick={() => accordionToggleHandler(failedLogs.date)}>
               <div className={`flex space-x-2 px-3`} key={failedLogs.date} >
-                { isActive(failedLogs.date) ?  <PiIcons.PiCaretCircleDownFill size={20} /> : <PiIcons.PiCaretCircleRightFill size={20} /> }
+                { isActive(failedLogs.date) ? (PiIcons.PiCaretCircleDownFill({size: 20})) : (PiIcons.PiCaretCircleRightFill({size: 20})) }
                 
                 <div className={`font-Poppins text-[12px]`}>
                   {checkDateWithToday}
@@ -114,7 +114,7 @@ const AccessFailedLogsUI = () => {
                           <div className={`flex justify-between items-center px-5 py-2 cursor-pointer`}>
                             <p className="text-[12px] text-green-700">Unresolved</p>
                             <button className="text-[12px] btn-sm px-3 bg-button-primary text-[#fff] flex justify-center items-center" onClick={() => handleOpenDetails(log)}>
-                              <BiIcons.BiSolidUserDetail size={20} />
+                              {BiIcons.BiSolidUserDetail({size: 20})}
                               <span className="pl-1">Details</span>
                             </button>
                           </div>
@@ -125,8 +125,6 @@ const AccessFailedLogsUI = () => {
                 )
               }
             </>
-            
-            
           );
         })
         }

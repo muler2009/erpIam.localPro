@@ -6,7 +6,7 @@ import { useGetFolderQuery } from '../../../services/folderAPISlice';
 
 interface DashboardCardProps {
   label: string;
-  icon:  React.ReactElement;
+  icon?:  React.ReactElement;
   text?: string;
   total?: number
 }
@@ -14,28 +14,23 @@ interface DashboardCardProps {
 const card_data: DashboardCardProps[] = [
   {
     label: "Folders",
-    icon: <FaFolder />,
+    icon: <>{FaFolder({})}</>,
     text: "Folder",
     total: 500
   },
   {
     label: "Files",
-    icon: <FaFile />,
+    icon: <>{FaFile({})}</>,
     text: "Files",
     total: 523
   },
   {
     label: "Shared Documents",
-    icon: <FaFolder />,
+    icon: <>{FaFolder({})}</>,
     text: "Folder",
     total: 635
   },
-  {
-    label: "Proposals",
-    icon: <FaFolder />,
-    text: "Folder",
-    total: 500
-  }
+ 
 ]
 
 

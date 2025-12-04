@@ -103,7 +103,7 @@ const useLockedColumn = () => {
                 cell: ({row}) => {
                     return(
                         <div className='flex justify-center items-center py-[2px] w-[100px] text-white bg-red-500 px-2 rounded-full'>
-                           <GiPadlock size={15}/>
+                           {GiPadlock({size: 15})}
                            <span className='pl-1'>locked</span> 
                         </div>
                        
@@ -121,10 +121,6 @@ const useLockedColumn = () => {
                 }
             }),
             
-           
-
-
-
         ], []
     )
 

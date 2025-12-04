@@ -17,49 +17,49 @@ export const sidear_link: MenuItemInterface[] = [
     {
       label: "Dashboard",
       path: ".",
-      icon: <Fa6Icons.FaRegFolder size={17} />
+      icon: <>{Fa6Icons.FaRegFolder({size: 15})}</> 
     },
     {
       label: "Documents",
       path: ".",
-      icon: <GrIcons.GrDocumentStore />,
+      icon: <>{GrIcons.GrDocumentStore({size: 15})}</>,
       children: [
         {
           label: "Drive",
           path: "library/files",
-          icon: <FaIcons.FaGoogleDrive />,
+          icon: <>{FaIcons.FaGoogleDrive({size: 15})}</>,
           children: [
             {
               label: "My Files",
               path: "library/files",
-              icon: <MdIcons.MdLibraryBooks size={15} />
+              icon: <>{MdIcons.MdLibraryBooks({size: 15})}</>
             },
             {
               label: "Shared",
               path: "library/shared",
-              icon: <MdIcons.MdOutlineFolderShared size={15} />
+              icon: <>{MdIcons.MdOutlineFolderShared({size: 15})}</>
             },
             {
               label: "Archived",
               path: 'library/archvied',
-              icon: <MdIcons.MdOutlineFolderZip size={15} />
+              icon: <>{MdIcons.MdOutlineFolderZip({size: 15})}</>
             },
             {
               label: "Trash",
               path: 'library/archvied',
-              icon: <IoIcons.IoTrashOutline size={15} />
+              icon: <>{IoIcons.IoTrashOutline({size: 15})}</>
             },
           ]  
         },
         {
           label: "User Data Manager",
           path: "library/main",
-          icon: <RiIcons.RiFolder4Fill size={15} />
+          icon: <>{RiIcons.RiFolder4Fill({size: 15})}</>
         },
         {
           label: "Deleted Files",
           path: "document/library/trash",
-          icon: <IoIcons.IoTrashOutline size={15} />
+          icon: <>{IoIcons.IoTrashOutline({size: 15})}</>
         },        
       ]
     },
@@ -67,18 +67,18 @@ export const sidear_link: MenuItemInterface[] = [
     {
       label: "Workflow",
       path: ".",
-      icon: <GoIcons.GoWorkflow />,
-      
+      icon: <>{GoIcons.GoWorkflow({size: 15})}</>,
       children: [
         {
           label: "Requests",
           path: "request",
-          icon: <BsIcons.BsCardChecklist />,
+          icon: <>{BsIcons.BsCardChecklist({size: 15})}</>
+
         },
         {
           label: "Delegation",
           path: "delegation",
-          icon: <AiIcons.AiOutlineUserSwitch size={16} />
+          icon: <>{AiIcons.AiOutlineUserSwitch({size: 15})}</>
         }
       ]
     } 
@@ -88,23 +88,24 @@ export const sidear_link: MenuItemInterface[] = [
     {
       label: "Notification",
       path: "notification",
-      icon: <BsIcons.BsBellFill size={17} />
-      
+      icon: <>{BsIcons.BsBellFill({size: 15})}</>      
     },
     {
       label: "Setting",
       path: "setting",
-      icon: <IoIcons.IoSettingsOutline size={17} />,
+      icon: <>{IoIcons.IoSettingsOutline({size: 15})}</>,
       children: [
         {
           label: "Profile Setting",
           path: "profile",
-          icon: <FaIcons.FaGoogleDrive />,
+          icon: <>{FaIcons.FaGoogleDrive({size: 15})}</>
+          
         },
         {
           label: "Preference",
           path: "preferences",
-          icon: <MdIcons.MdOutlineAssignmentInd size={16} />
+          icon: <>{MdIcons.MdOutlineAssignmentInd({size: 15})}</>
+          
         }
       ]
       

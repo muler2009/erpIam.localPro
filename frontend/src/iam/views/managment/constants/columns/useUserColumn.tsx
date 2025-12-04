@@ -110,7 +110,7 @@ const useUserColumn = () => {
             }),
             userColumn.display({
                 id: "actions",
-                header: () => <span className="flex justify-end pr-10"><BiIcons.BiDotsVerticalRounded />Actions</span>,
+                header: () => <span className="flex justify-end pr-10">{BiIcons.BiDotsVerticalRounded({})}Actions</span>,
                 cell: ({row}) => {
                     const rowData: UserAPIResponse = row.original;
                     return(
@@ -179,14 +179,14 @@ const useUserColumn = () => {
                                 isActive ? (
                                     <div className='flex space-x-1 items-center'>
                                         <span className='w-4 h-4 rounded-full  bg-green-500 text-white'>
-                                            <MdCheck />
+                                            {MdCheck({})}
                                         </span>
                                         <h1 className='text-green-900 text-opacity-55 text-[12px] font-IBMPlexSans'>Active</h1> 
                                     </div>
                                 ) : (
                                     <div className='flex space-x-1 items-center'>
                                         <span className='w-4 h-4 rounded-full  bg-red-500 text-white'>
-                                            <MdClose />
+                                            {MdClose({})}
                                         </span>
                                         <h1 className='text-green-900 text-opacity-55 text-[12px]'>Deactivated</h1> 
                                     </div>

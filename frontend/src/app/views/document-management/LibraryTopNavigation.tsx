@@ -4,7 +4,6 @@ import { library } from '../../constants/menu-items/library'
 import { ModalComponent } from './modals'
 import { FlexOuterContainer } from '../../../iam/components/reusable/StyledComponent'
 import { BsListColumns } from "react-icons/bs";
-import { SiWindows11 } from "react-icons/si";
 import { Link, useLocation } from 'react-router-dom'
 import { IoArrowBackCircle } from "react-icons/io5";
 import FileMenu from './folders/FileMenu'
@@ -19,8 +18,26 @@ export const LibraryTopNavigation = () => {
     // const isRootPath = location.pathname === '' || location.pathname === '/';W
     {
         location.pathname === '/dms/document/library/main' 
-        ? <IoArrowBackCircle size={25} className="text-gray-400 cursor-not-allowed text-[20px]" />
-        : ( <Link to=''><IoArrowBackCircle size={25} className="text-blue-500 hover:text-blue-700" /></Link>)
+        ? 
+            <>
+                {
+                    IoArrowBackCircle({
+                        size:25, 
+                        className:"text-gray-400 cursor-not-allowed text-[20px]"
+
+                    })
+                }
+            </>
+        : ( 
+            <Link to=''>
+                {
+                 IoArrowBackCircle({
+                     size: 25,
+                     className: "text-blue-500 hover:text-blue-700" 
+                 })
+                }
+                </Link>
+            )
     }
 
     useEffect(() => {

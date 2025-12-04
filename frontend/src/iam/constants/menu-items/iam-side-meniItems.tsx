@@ -16,79 +16,79 @@ export const iamSidebarItems = [
     { 
         path: "/iam", 
         label: "Dashboard", 
-        icon: <AiIcons.AiOutlineDashboard />, 
+        icon: <>{AiIcons.AiOutlineDashboard({})}</>, 
     },
     { 
         path: '.',
         label: "Identitiy & Access management", 
-        icon: <MdIcons.MdOutlineManageAccounts size={20} />,
+        icon: <>{MdIcons.MdOutlineManageAccounts({size: 20})}</>,
         children: [
             {
                 path: 'users',
                 label: 'User Management',
-                icon: <PiIcons.PiUsersFill />
+                icon: <>{PiIcons.PiUsersFill({})}</>
             },
             {
                 path: 'roles',
                 label: 'Role Management',
-                icon: <FaIcons.FaUserCog /> 
+                icon: <>{FaIcons.FaUserCog({})}</> 
             }, 
             {
                 path: 'groups',
                 label: 'Group Management',
-                icon: <TiIcons.TiGroup />
+                icon: <>{TiIcons.TiGroup({})}</>
             },
               
             {
                 path: 'policies',
                 label: 'Policy Management ',
-                icon: <MdIcons.MdPolicy />
+                icon: <>{MdIcons.MdPolicy({})}</>
             },
         ] 
     },
     { 
         path: 'audit_logs', 
         label: "Audit Logs", 
-        icon: <AiIcons.AiOutlineAudit />, 
+        icon: <>{AiIcons.AiOutlineAudit({})}</>, 
         children: [
             {
                 path: 'auth_log',
                 label: 'Authentication Logs',
-                icon: <TiIcons.TiGroup />
+                icon: <>{TiIcons.TiGroup({})}</>
             },
             {
                 path: 'session_tracking',
                 label: 'Session Management Logs',
-                icon: <PiIcons.PiUsersFill />
+                icon: <>{PiIcons.PiUsersFill({})}</>
             },
             {
                 path: 'activity_log',
                 label: 'Activity Logs',
-                icon: <FaIcons.FaUserCog /> 
+                icon: <>{FaIcons.FaUserCog({})}</> 
             }, 
               
             {
                 path: 'compliance',
                 label: 'Compliance Reports',
-                icon: <MdIcons.MdPolicy />
+                icon: <>{MdIcons.MdPolicy({})}</>
             },
         ] 
     },
     { 
         path: "reports", 
         label: "Report", 
-        icon: <BiIcons.BiSolidReport />,
+        icon: <>{BiIcons.BiSolidReport({})}</>,
         
     },
     {
         path: ".", 
         label: 'System Configuration',
-        icon: <GrIcons.GrConfigure />,
+        icon: <>{GrIcons.GrConfigure({})}</>,
         children: [
             { 
                 path: "notification-setting", 
                 label: "Notification Setting", 
-                icon: <BiIcons.BiBell />, 
+                icon: <>{BiIcons.BiBell({})}</>, 
             },
         ]
 

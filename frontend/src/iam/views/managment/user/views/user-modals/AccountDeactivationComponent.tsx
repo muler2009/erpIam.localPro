@@ -32,7 +32,11 @@ const AccountDeactivationComponent = ({title, handleIsOpenCloseMenuModal, open}:
                     <h1 className='font-Rubik text-black font-semibold text-[15px] text-opacity-50 text-center px-5'>{title}</h1>
                     <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-gray-400 hover:text-white" 
                     onClick={handleIsOpenCloseMenuModal}>
-                        <Vsc.VscClose size={15} />
+                        {
+                            Vsc.VscClose({
+                                size: 15
+                            })
+                        }
                     </div>
                 </ModalHeader>
                 <ModalBody className='bg-white text-black relative h-[50vh] m-1 overflow-y-scroll px-2'>

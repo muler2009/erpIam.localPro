@@ -19,7 +19,13 @@ const SidebarMenu = () => {
                 <div className={`py-2 ${!controller ? 'hidden': 'flex' }`}>
                     <div className='px-10 bg-inherit flex items-center flex-grow py-2 space-x-1 '>
                         <Link to="/erp"> 
-                            <AiIcons.AiFillAppstore size={25} color='#05d876' />
+                            {
+                                AiIcons.AiFillAppstore({
+                                    size: 25,
+                                    color: '#05d876' 
+
+                                })                                 
+                            }
                         </Link>
                         <Tooltip content={`Identity and Access Management`}>
                             <h1 className='font-Poppins text-gray-600 text-[25px] font-semibold'>
@@ -32,8 +38,8 @@ const SidebarMenu = () => {
                 <div className={` flex justify-center items-center ${!controller ? 'text-[25px] text-[#333]' : 'text-[#333] text-[18px] flex justify-center items-center' }`}>
                     {
                         !controller
-                        ? <AiIcons.AiOutlineBars onClick={handleOpenCloseSideBar}/>
-                        : <AiIcons.AiOutlineBars onClick={handleOpenCloseSideBar} />
+                        ? (AiIcons.AiOutlineBars({onClick: handleOpenCloseSideBar}))
+                        : (AiIcons.AiOutlineBars({onClick: handleOpenCloseSideBar}))
                     }
                 </div>
             </div>

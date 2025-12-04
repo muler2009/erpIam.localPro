@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { FlexBox, FlexBoxInner, Text } from '../../../../components/reusable/StyledComponent'
 import { FaFaceAngry } from 'react-icons/fa6'
-import { LuUsers2 } from "react-icons/lu";
+import { LuUsers } from "react-icons/lu";
 import { role_tab, roles } from '../../constants/iam-menu-items/roles';
 import RoleModal from '../modals/RoleModal';
 
@@ -20,7 +20,8 @@ const RoleNavigationHeader = () => {
   return (
     <FlexBox className='flex justify-between items-center pt-4 pb-3 px-4 bg-gradient-to-b mx-1 from-white to-gray-100'>
       <FlexBoxInner className='flex space-x-2 items-start'>
-        <LuUsers2 size={25} className='text-primary-green' />
+         { LuUsers({size: 25, className: 'text-primary-green'}) }
+       
         <Text className='font-Poppins font-semibold text-2xl'>
           IAMs | <span className='text-[14px] font-normal text-primary-green'>Role Management</span>
         </Text>

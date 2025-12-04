@@ -52,8 +52,21 @@ export const GridView = ({folder_data} : FolderGridViewInterface) => {
       {/* A section that display the folders recurrsively  */}
       <FlexBox className='flex justify-between items-center space-x-5 bg-[#f5f5f7] px-5 py-3'>
         <FlexBoxInner className='flex space-x-1'>
-          <Fa6Icons.FaCircleArrowLeft size={20} onClick={handleBackClick}  /> 
-          <Fa6Icons.FaCircleArrowRight size={20} onClick={handleForwardClick}/>
+          {
+            Fa6Icons.FaCircleArrowLeft({
+              size: 60,
+              onClick: handleBackClick
+            })
+          }
+
+          {
+            Fa6Icons.FaCircleArrowRight({
+              size: 60,
+              onClick: handleForwardClick
+            })
+          }
+           
+        
         </FlexBoxInner>
         <FlexBoxInner className='flex-grow'>
            {renderBreadcrumbs()}
@@ -61,10 +74,26 @@ export const GridView = ({folder_data} : FolderGridViewInterface) => {
         <FlexBoxInner className='flex justify-between items-center space-x-3 pr-2'>  
             <div className='flex items-center justify-center space-x-1 cursor-pointer pr-5'>
               <Tooltip content={`Show Grid View`}>
-                <TfiLayoutGrid2Alt size={15} onClick={() => setViewMode("grid")} className={`${viewMode === 'grid' ? "text-[#26cc86] transition duration-500 ease-in-out" : "tetxt-[#333]"}`} />
+                {
+                  TfiLayoutGrid2Alt({
+                    size: 15, 
+                    onClick: () => setViewMode("grid"), 
+                    className: `${viewMode === 'grid' ? "text-[#26cc86] transition duration-500 ease-in-out" : "tetxt-[#333]"}`
+
+                  })
+                  
+                }
               </Tooltip>
               <Tooltip content={`List View`}>
-                <MdOutlineFormatListBulleted size={20} className={`${viewMode === 'list' ? "text-[#26cc86] transition duration-500 ease-in-out" : "tetxt-[#333]"}`} onClick={() => setViewMode("list")} />
+                {
+                  MdOutlineFormatListBulleted({
+                    size: 20, 
+                    className: `${viewMode === 'list' ? "text-[#26cc86] transition duration-500 ease-in-out" : "tetxt-[#333]"}`,
+                    onClick: () => setViewMode("list")
+
+                  }) 
+
+                }
               </Tooltip>
             </div>
         </FlexBoxInner>
@@ -79,7 +108,11 @@ export const GridView = ({folder_data} : FolderGridViewInterface) => {
                   return(
                     <FlexBox className='w-13 h-13' key={subfolder.folder_identifier} onDoubleClick={() => handleItemClick(subfolder)} >
                       <FlexBoxInner className='flex flex-col justify-center items-center pb-5'>
-                          <AiFillFolder size={60} />
+                          {
+                            AiFillFolder({
+                              size: 60
+                            }) 
+                          }
                           <Text className='text-[#333] text-nowrap text-[12px]'>
                               {subfolder.folder_name}
                           </Text>
@@ -109,7 +142,12 @@ export const GridView = ({folder_data} : FolderGridViewInterface) => {
               return(
                 <FlexBox className='flex justify-between py-3 items-center border-gray-100 ' key={index} >
                   <FlexBoxInner className='flex flex-col gap-2 justify-start items-center w-13 h-13' onDoubleClick={() => toggleItem(index)}>
-                    <FaFilePdf size={50} color='#de2429'/>
+                    {
+                      FaFilePdf({
+                        size: 50,
+                        color:'#de2429'
+                      }) 
+                    }
                     <Text className=''>{uploaded.uploaded_document_name}</Text>
                   </FlexBoxInner>                  
                   {

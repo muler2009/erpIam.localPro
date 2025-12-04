@@ -109,7 +109,13 @@ const FolderContent = ({ folder_data, handleItemClick }: FolderProps) => {
                         >
                             <div className='flex justify-between items-center py-[5px] pr-10'>
                                 <div className='flex items-center space-x-4 cursor-pointer w-[20%]' onClick={() => toggleDocuments(item.folder_identifier)}>
-                                    <AiFillFolder size={50} color='#f8d775' />
+                                    {
+                                        AiFillFolder({
+                                            size: 50,
+                                            color: '#f8d775'
+                                        })
+                                        
+                                    }
                                     <span className='text-[#333] text-[12px] whitespace-pre-wrap text-nowrap text-center'>
                                         {item.folder_name}
                                     </span>

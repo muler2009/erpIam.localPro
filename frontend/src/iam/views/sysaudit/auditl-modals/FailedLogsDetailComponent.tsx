@@ -26,7 +26,11 @@ const FailedLogsDetailComponent = ({open, handleIsOpenCloseMenuModal, title, row
               <ModalHeader className='flex justify-between items-center px-2 py-[10px] font-Poppins border-b bg-gray-50 '>
                 <p className='font-IBMPlexSans text-left px-5 text-[14px] flex-grow text-[#333] font-semibold '>{title}</p>
                 <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-[5px] hover:bg-red-600 hover:text-white text-[#333]" onClick={handleIsOpenCloseMenuModal} > 
-                  <VscIcons.VscClose size={15} />
+                  {
+                    VscIcons.VscClose({
+                       size: 15
+                    })
+                  }
                 </div>
               </ModalHeader>
               <ModalBody className='bg-[#fff] flex flex-col space-y-2 h-[80vh]'>

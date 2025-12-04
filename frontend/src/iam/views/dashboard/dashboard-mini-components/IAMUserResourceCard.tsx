@@ -10,7 +10,13 @@ const IAMUserResourceCard = ({totalUser}: {totalUser: number}) => {
         <div className={`flex justify-between items-center`}>
             <div className={`flex items-center space-x-2`}>
                 <div className={`w-10 h-12 bg-red-100 flex justify-center items-center text-opacity-50`}>
-                    <PiIcons.PiUsersFill size={25} opacity={0.65} />
+                    {
+                        PiIcons.PiUsersFill({
+                            size: 25, 
+                            opacity: 0.65
+                        }) 
+                    }
+                    
                 </div>
                 <div className={``}>
                     <Text className={`text-[15px] font-Poppins font-normal text-[#333] text-opacity-60`}>Total Users
@@ -24,7 +30,15 @@ const IAMUserResourceCard = ({totalUser}: {totalUser: number}) => {
                 </div> */}
                 <div className={``}>
                     <Text className={`flex text-[11px] font-Poppins font-normal text-[#333] text-opacity-60 bg-green-100 px-4`}>
-                        <GrIcons.GrStatusGood size={20} opacity={0.5} className='pr-1' /> active users
+                        {
+                            GrIcons.GrStatusGood({
+                                size: 25, 
+                                opacity: 0.5,
+                                className: 'pr-1'
+
+                            }) 
+                        }
+                        active users
                     </Text>
                     <span className={`font-IBMPlexSans font-semibold text-[20px] text-green-500 pl-2 float-right`}>{totalUser}</span>
                 </div>

@@ -1,6 +1,6 @@
 
 export interface TabMenuInterface {
-    icon?: React.ReactElement;
+    icon?: React.ReactNode;
     tabContent: React.ReactElement;
     label: string;
     notification?: number;

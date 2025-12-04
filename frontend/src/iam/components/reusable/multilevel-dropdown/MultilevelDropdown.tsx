@@ -25,7 +25,7 @@ const MultilevelDropdown = ({ menu }: MultilevelDropdownInterfac) => {
                   return (
                       <FlexBoxInner key={index}>
                           <div className="cursor-pointer flex justify-start items-center" onClick={() => toggleSubMenu(`${index}`)} >  
-                            { isOpen ? <IoIoIcons.IoCaretDown/> : <IoIoIcons.IoCaretForwardSharp /> }
+                            { isOpen ? <>{IoIoIcons.IoCaretDown({})}</> : <>{IoIoIcons.IoCaretForwardSharp({})}</> }
                             <Text className='text-[14px] text-[#5e2f05] pl-[3px]'>
                                 {item.label} {/* Display the menu item's label */}
                             </Text> 

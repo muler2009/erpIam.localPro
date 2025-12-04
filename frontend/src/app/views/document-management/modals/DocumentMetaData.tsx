@@ -25,13 +25,24 @@ const DocumentMetaData = ({open, handleIsOpenCloseMenuModal, title, rowMetaData}
                         Metadata - {rowMetaData.title}
                     </Text>
                     <Div className='w-5 h-5 flex justify-center items-center hover:bg-red-500 rounded-full hover:text-white'>
-                        <VscIcons.VscClose size={20} onClick={handleIsOpenCloseMenuModal}  />
+                          {
+                            VscIcons.VscClose({
+                                size: 20,
+                                onClick: handleIsOpenCloseMenuModal
+                            })
+                            }
+                        
                     </Div>
                 </ModalHeader>
                 <ModalBody className='flex justify-start gap-5 pb-5'>
                     <FlexBox className='flex flex-col gap-3 py-5'>
                         <FlexBoxInner className='flex space-x-2 pl-10 py-5'>
-                            <BsIcons.BsFiletypePdf size={50} className='text-red-700'/>
+                            {
+                                BsIcons.BsFiletypePdf({
+                                    size: 50, 
+                                    className:'text-red-700'
+                                })
+                            }
                             <Div className='flex flex-col gap-[2px] justify-center'>
                                 <Text className='text-[20px] font-semibold font-IBMPlexSans'>{rowMetaData.title}</Text>
                                 <Text className='text-[12px] hover:text-blue-500 hover:underline'>{rowMetaData.file_name}</Text>   

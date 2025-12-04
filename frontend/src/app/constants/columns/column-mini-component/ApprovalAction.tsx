@@ -61,7 +61,13 @@ const ApprovalAction = ({
             <span className="mr-2">{/* <GiConfirmed size={25}/>  */}</span>
             Request Approval Plugin
           </Text>
-          <VscIcons.VscClose size={20} onClick={handleIsOpenCloseMenuModal} />
+          {
+            VscIcons.VscClose({
+              size: 20,
+              onClick: handleIsOpenCloseMenuModal
+            })
+          }
+          
         </ModalHeader>
 
         <ModalBody className={`bg-gray-50 flex space-x-1 p-[1px] h-[60vh]`}>
@@ -80,7 +86,9 @@ const ApprovalAction = ({
                   <span>
                     <Text className="text-red-400 pr-1" onClick={() => setOpenPdfs(false)}>
                       <BottomTooltip content="Close Pdf">
-                        <VscIcons.VscClose size={20} />
+                        {
+                          VscIcons.VscClose({size: 20})
+                        }
                       </BottomTooltip>
                     </Text>
                   </span>
@@ -90,9 +98,9 @@ const ApprovalAction = ({
                   className="cursor-pointer w-8 h-8 border-[1px] border-black rounded-full absolute flex justify-center items-center -right-8 bg-gray-200 text-black z-auto"
                 >
                   {approvalPolicy ? (
-                    <RxIcons.RxCaretLeft />
+                    RxIcons.RxCaretLeft({})
                   ) : (
-                    <RxIcons.RxCaretRight />
+                    RxIcons.RxCaretRight({})
                   )}
                 </div>
               </Div>

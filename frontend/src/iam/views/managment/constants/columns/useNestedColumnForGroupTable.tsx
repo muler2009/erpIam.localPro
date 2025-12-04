@@ -51,18 +51,18 @@ const useNestedColumnForGroupTable = () => {
             }),
             nestedUserColumn.display({
                 id: "actions",
-                header: () => <span className="flex justify-end pr-10"><BiIcons.BiDotsVerticalRounded /></span>,
+                header: () => <span className="flex justify-end pr-10">{BiIcons.BiDotsVerticalRounded({})}</span>,
                 cell: ({ row }) => {
                     return(
                         <FlexBox className="flex justify-end items-center pr-20 invisible group-hover:visible">
                             <BottomTooltip content={`Rename`}>
                                 <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.first_name} Edit Clicked`)}>
-                                    <CiIcons.CiEdit size={17} />
+                                    {CiIcons.CiEdit({size: 17})}
                                 </FlexBoxInner>
                             </BottomTooltip>
                             <BottomTooltip content={`Delete`}>
                                 <FlexBoxInner className="w-9 h-9 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => alert(`${row.original.first_name} Delete Clicked`)}>
-                                    <CiIcons.CiTrash size={17} />
+                                    {CiIcons.CiTrash({size: 17})}
                                 </FlexBoxInner>
                             </BottomTooltip>
                         </FlexBox>

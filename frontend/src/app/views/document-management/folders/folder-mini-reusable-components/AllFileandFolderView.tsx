@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react'
 import { FlexBox, FlexBoxInner, Text, P, Div } from '../../../../../components/common/StyledComponent'
 import Tooltip from '../../../../../iam/components/reusable/Tooltip'
 import * as BsIcons  from "react-icons/bs";
-import { SiWindows11 } from "react-icons/si";
+// import { SiWindows11 } from "react-icons/si";
 import Folder from './Folder'
 import * as Fa6Icons from 'react-icons/fa6' 
 import useFolderAndFileExplorerActions from '../../../../hooks/useFolderAndFileExplorerActions'
@@ -16,6 +16,7 @@ import { useGetDocumentQuery } from '../../../../services/fileAPISlice';
 import useFiles from '../../../../hooks/useFiles';
 import { HiMiniFolderPlus } from "react-icons/hi2";
 import { MdCloudUpload } from "react-icons/md";
+import { FaIcons } from 'react-icons/fa';
 
 
 const AllFileandFolderView = () => {
@@ -89,8 +90,20 @@ const AllFileandFolderView = () => {
                           
             <FlexBox className='flex gap-5 justify-between items-center mx-5 py-3'>
                 <FlexBoxInner className='flex space-x-1'>
-                    <Fa6Icons.FaCircleArrowLeft size={20} onClick={handleBackClick}  /> 
-                    <Fa6Icons.FaCircleArrowRight size={20} onClick={handleForwardClick}/>
+                    {
+                        Fa6Icons.FaCircleArrowLeft({
+                            size: 20,
+                            onClick: handleBackClick
+                        }) 
+                    }
+                    {
+                        Fa6Icons.FaCircleArrowRight({
+                            size: 20, 
+                            onClick: handleForwardClick
+                        })
+                    }
+                   
+                    
                 </FlexBoxInner>
                 <FlexBoxInner className='flex-grow'>
                     <input 
@@ -103,22 +116,23 @@ const AllFileandFolderView = () => {
                 <FlexBox className='flex space-x-1 cursor-pointer pr-5 p-[5px]'>
                     <FlexBoxInner className='flex justify-center items-center space-x-3 '>
                         <Text className='flex items-center text-[12px] border-[2px] border-text-primary hover:border-button-primary px-3 rounded-[3px] hover:bg-button-hover hover:text-white py-[6px]' onClick={openCreateFolderModal}>
-                            <HiMiniFolderPlus size={18} />
+                            {HiMiniFolderPlus({size: 18})}
                             <span className="pl-1">New Folder</span>
                         </Text>
                         <Text className='flex items-center text-[12px] border-[2px] border-button-primary px-3 rounded-[3px] bg-button-primary hover:bg-button-hover text-white py-[6px]' onClick={openUploadDocumentModal}>
-                            <MdCloudUpload size={18} />
+                            {MdCloudUpload({size: 18})}
                             <span className="pl-1">Upload Folder</span>
                         </Text>
                     </FlexBoxInner>
                     <FlexBoxInner className={`w-10 h-10 flex justify-center items-center hover:rounded-full hover:bg-gray-200`}>
                         <Tooltip content={`List View`}>
-                            <BsIcons.BsListColumns size={18} color={`#333`}  />
+                            {BsIcons.BsListColumns({size: 18, color: '#333'})}
+                            
                         </Tooltip>
                     </FlexBoxInner>
                     <FlexBoxInner className={`w-10 h-10 flex justify-center items-center hover:rounded-full hover:bg-gray-200`}>
                         <Tooltip content={`Grid View`}>
-                            <SiWindows11 size={18} color={`#1ea1d7`} />
+                            {FaIcons({size: 18, color: '#1ea1d7'})}
                         </Tooltip>
                     </FlexBoxInner>
                 </FlexBox>

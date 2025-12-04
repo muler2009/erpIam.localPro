@@ -35,7 +35,8 @@ const RevokeDelegationModal = ({title, handleIsOpenCloseMenu, link_identifier, r
         <ModalWrapper>
             <ModalContainer className={`w-[35%] mx-auto bg-gray-50 flex flex-col relative top-[30%] shadow-2xl rounded-[3px]`}>
                 <ModalBody className='bg-gray-50 flex space-x-3 pt-10 pb-5 px-5 border-t-[3px] border-blue-600'>
-                    <IoInformationCircleSharp size={50} />
+                    {IoInformationCircleSharp({size: 50})}
+                    
                     <FlexBox className='flex flex-col space-y-3'>
                         <Text className='font-Poppins text-[20px] font-semibold text-text-primary'>Revoking Delegation</Text>
                         <P>You are revoking  of <span className='font-semibold'>{rowData.delegatee_user}</span> delegation. Are you sure? </P>

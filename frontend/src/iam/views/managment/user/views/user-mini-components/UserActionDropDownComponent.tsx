@@ -19,7 +19,7 @@ const UserActionDropDownComponent = () => {
   
   return (
     <FlexBox className='bg-text-primary text-[12px] text-[#fff] flex items-center py-2 px-4 rounded-[3px] cursor-pointer relative' onClick={() => setDrops(prevState => !prevState)}>Actions 
-        <span className='ml-2'>{ !drop ? <MdIcons.MdOutlineArrowDropDown size={18} /> : <MdIcons.MdArrowDropUp size={18} /> }</span>
+        <span className='ml-2'>{ !drop ? (MdIcons.MdOutlineArrowDropDown({size: 18})) : (MdIcons.MdArrowDropUp({size: 18})) }</span>
         <FlexBoxInner onClick={() => setDrops(prevState => !prevState)}>
           {
             drop && (

@@ -38,7 +38,7 @@ export const columns = [
             return(
                 <div className='flex space-x-3'>
                     <button className='btn-sm bg-blue-500 text-white px-2' onClick={() => alert(`${value.branch_name}`)}>
-                        <AiOutlineTranslation />
+                        {AiOutlineTranslation({})}
                     </button>
                     <button className='btn-sm bg-blue-500'  onClick={() => alert(`${value.location}`)}>OK</button>
 

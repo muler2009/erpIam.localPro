@@ -87,7 +87,11 @@ const SendRequest = ({handleIsOpenCloseMenuModal, title, open}: SendRequestModal
                         </Text>
 
                         <div className="w-5 h-5 flex justify-center items-center cursor-pointer rounded-full hover:bg-red-400 hover:text-white" onClick={handleIsOpenCloseMenuModal} > 
-                            <VscIcons.VscClose size={15} />
+                            {
+                                VscIcons.VscClose({
+                                    size: 15
+                                })
+                            } 
                         </div>
                     </ModalHeader>
                     <ModalBody className='pl-5 py-3 pr-10'>

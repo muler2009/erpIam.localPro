@@ -99,7 +99,7 @@ const useRequestSendApproval = () => {
             }),
             requestSendColumnHelper.display({
                 id: "send",
-                header: () => <span className="flex justify-end pr-10"><BiIcons.BiDotsVerticalRounded /></span>,
+                header: () => <span className="flex justify-end pr-10">{BiIcons.BiDotsVerticalRounded({})}</span>,
                 cell: ({ row }) => {
                     const rowData = row.original;  // Extracting the row data
                     const approvalStatusForRow = approvalStatus[rowData.request_id];  
@@ -142,7 +142,9 @@ const ApprovalSelect: React.FC<ApprovalSelectProps> = ({ rowId, onApprovalChange
                 <option value="Approved">Approved</option>
             </select>   
             <span className='flex justify-center items-center absolute top-0 border right-0 text-gray-500 bg-gray-50 h-full w-[30px] pointer-events-none'>
-                <AiIcons.AiOutlineCaretDown />
+                {
+                    AiIcons.AiOutlineCaretDown({})
+                }
             </span>
         </FlexBox>
     );

@@ -60,7 +60,13 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
                   <Link to={listItem.path} className={`flex justify-between items-center  py-2 cursor-pointer font-Poppins text-sm px-3 hover:bg-gray-100  `} onClick={() => handleToggleChildren(listItem.label)}>
                     <FlexBoxInner className="flex space-x-3">
                         {
-                          listItem.label === 'Dashboard' ? ( <AiFillDashboard size={20} className="text-gray-600"/> ) : (
+                          listItem.label === 'Dashboard' 
+                          ? ( 
+                              AiFillDashboard({
+                                size: 20,
+                                className: "text-gray-600"
+                              })                            
+                           ) : (
 
                               listItem && listItem.children && listItem.children.length ? (
                                     <div className="flex justify-between">
@@ -69,7 +75,13 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
                                             ? (
                                                 <>
                                                   {
-                                                    listItem.icon ? (<>{listItem.icon}</>) : <GiIcons.GiOpenFolder size={17} className="text-gray-600" />
+                                                    listItem.icon ? (<>{listItem.icon}</>) : 
+                                                    (
+                                                        GiIcons.GiOpenFolder({
+                                                        size: 20,
+                                                        className: "text-gray-600"
+                                                      })  
+                                                    )
 
                                                   }
                                                 </>
@@ -77,7 +89,13 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
                                             : (
                                                 <>
                                                 {
-                                                  listItem.icon ? (<>{listItem.icon}</>) : <PiIcons.PiFolderSimplePlusFill size={17} className="text-gray-600" />
+                                                  listItem.icon ? (<>{listItem.icon}</>) :
+                                                  (
+                                                      PiIcons.PiFolderSimplePlusFill({
+                                                        size: 20,
+                                                        className: "text-gray-600"
+                                                      })  
+                                                  )
                                                 }
                                               </>
                                             )
@@ -87,7 +105,7 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
                                 ): (
                                   <div className="flex items-center">
                                     {
-                                      listItem.icon ? (<>{listItem.icon}</>) : <VscSymbolFile />
+                                      listItem.icon ? (<>{listItem.icon}</>) :<>{VscSymbolFile({})}</> 
                                     }
                                   </div> 
                                 )                         
@@ -103,7 +121,7 @@ const SideMenuItem = ({ listItem }: SideMenuListItemProps) => {
                         listItem && listItem.children && listItem.children.length ? (
                           <>
                             {
-                              displayChildrens[listItem.label] ? (<MdArrowDropUp />) : (<MdArrowDropDown />)
+                              displayChildrens[listItem.label] ? (MdArrowDropUp({})) : (MdArrowDropDown({}))
                             }
                           
                           </>

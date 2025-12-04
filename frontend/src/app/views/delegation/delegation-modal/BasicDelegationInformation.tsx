@@ -51,7 +51,9 @@ const BasicDelegationInformation = () => {
                     
                     </select>   
                     <span className='flex justify-center items-center absolute top-0 border right-0 text-gray-500 bg-gray-50 h-full w-[30px] pointer-events-none '>
-                        <AiIcons.AiOutlineCaretDown  />
+                        {
+                            AiIcons.AiOutlineCaretDown({})
+                        }
                     </span>
                 </FlexBoxInner>
             </Div> 
@@ -67,7 +69,12 @@ const BasicDelegationInformation = () => {
                         /> 
                         
                         <div className='absolute left-2 top-2'>
-                            <BsIcons.BsFillCalendarCheckFill size={20} className=' text-black text-opacity-40'/>
+                            {
+                                BsIcons.BsFillCalendarCheckFill({
+                                  size: 20,
+                                  className: 'text-black text-opacity-40'
+                                }) 
+                            }
                         </div>
                     </div>
                     <small className='text-[#8a8080] text-[12px] -mt-1 '>Required: Delegation starts date</small>
@@ -83,7 +90,12 @@ const BasicDelegationInformation = () => {
                         /> 
                         
                         <div className='absolute left-2 top-2'>
-                            <BsIcons.BsFillCalendarCheckFill size={20} className=' text-black text-opacity-40'/>
+                            {
+                                BsIcons.BsFillCalendarCheckFill({
+                                  size: 20,
+                                  className: 'text-black text-opacity-40'
+                                }) 
+                            }
                         </div>
                     </div>
                     <small className='text-[#8a8080] text-[12px] -mt-1 '>Required: Delegation expire date</small>

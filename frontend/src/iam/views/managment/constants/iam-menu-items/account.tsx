@@ -19,26 +19,26 @@ export const userTabLink: UserTabNavigationDef[] = [
       tabContent: <GetAlLUserListComponent />,
       totalValues: data.length,
       total: true,
-      icon: <FaIcons.FaUsers />
+      icon: <>{FaIcons.FaUsers({})}</>
     },
     { 
       tabContent: <GetDeactivatedAccountsComponent />,
       label: "Deactivated",
       total: true,
-      icon: <FaIcons.FaUsersSlash />
+      icon: <>{FaIcons.FaUsersSlash({})}</>
     },  
     { 
         label: "Expired account",
         tabContent: <h1>Expired acccount</h1>,
         total: true,
-        icon: <RiPassExpiredFill />
+        icon: <>{RiPassExpiredFill({})}</>
     }  
 ] 
 
 export const userManagemenu: UserDashboardProps[] = [
   {
     label: "Actions",
-    icon: <IoIcons.IoIosAdd size={18}/>,
+    icon: <>{IoIcons.IoIosAdd({size: 18})}</>,
    
     dropdownItems: [
       { label: "New identity"},
@@ -48,27 +48,26 @@ export const userManagemenu: UserDashboardProps[] = [
   },
   {
     label: "Notifications",
-    icon: <IoIcons.IoIosAdd size={18}/>,
-   
+    icon: <>{IoIcons.IoIosAdd({size: 18})}</>   
   },
 ];
 
 export const identityProps: UserDashboardProps[] = [
   {
     label: "User",
-    icon : <IoIcons.IoIosAdd size={18}/>,
+    icon: <>{IoIcons.IoIosAdd({size: 18})}</>,
     abbrevation: "SingleNewID",
    
   },
   {
     label: "Multiple User",
-    icon : <IoIcons.IoIosAdd size={18}/>,
+    icon: <>{IoIcons.IoIosAdd({size: 18})}</>,
     abbrevation: "MultiNewID",
    
   },
   {
     label: "Notifications",
-    icon: <IoIcons.IoIosAdd size={18}/>,
+    icon: <>{IoIcons.IoIosAdd({size: 18})}</>,
     abbrevation: "Not",
    
   },
@@ -78,31 +77,31 @@ export const userActionItems: UserActionMenuItemsProps[] = [
   {
     abbrevation: "deactivate",
     label: "Deactivate/Activate Account",
-    icon:  <MdIcons.MdOutlineAirplanemodeActive size={17} />
+    icon:  <>{MdIcons.MdOutlineAirplanemodeActive({size: 17})}</>
   },
   {
     label: "Rename",
     abbrevation: "rename",
-    icon: <CiIcons.CiEdit size={17} />
+    icon: <>{CiIcons.CiEdit({size: 17})}</>
   },
   {
     label: "Delete",
     abbrevation: "delete",
-    icon:  <CiIcons.CiTrash size={17} />
+    icon: <>{CiIcons.CiTrash({size: 17})}</>
   },
 ]
 
 export const userDropDown: UserDropDownDef[] = [
   {
     label: "New user",
-    icon: <IoIcons.IoIosAdd size={18}/>
+    icon: <>{IoIcons.IoIosAdd({size: 17})}</>
   },
   {
     label: "New Group",
-    icon: <IoIcons.IoIosAdd size={18}/>
+    icon: <>{IoIcons.IoIosAdd({size: 17})}</>
   },
   {
     label: "Action",
-    icon: <GrIcons.GrActions size={15}/>
+    icon: <>{GrIcons.GrActions({size: 17})}</>
   }
 ]
